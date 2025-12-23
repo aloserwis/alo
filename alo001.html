@@ -3,228 +3,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alo Serwis - Final Fixed Layout</title>
+    <title>Alo Serwis - 2px Offset Precision</title>
     <style>
         :root {
             --primary-orange: #f58220;
             --dark-bg: #000000;
         }
 
-        body {
+        html, body {
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            overflow: hidden;
             background-color: #1a1a1a;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        /* KHUNG CHỨA NGOÀI CÙNG */
+        .banner-wrapper {
+            width: 1920px;
+            height: 1080px;
+            background-color: #1a1a1a; /* Màu nền ngoài viền */
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            color: white;
+            flex-shrink: 0;
+            overflow: hidden;
         }
 
+        /* BANNER CHÍNH CÓ OFFSET 2PX */
         .banner {
-            width: 1000px;
-            height: 550px;
+            width: 1916px; /* 1920 - 4px (2px mỗi bên) */
+            height: 1076px; /* 1080 - 4px (2px mỗi bên) */
             background-color: var(--dark-bg);
             position: relative;
             overflow: hidden;
-            display: flex;
-            padding: 50px;
             box-sizing: border-box;
-            border: 1px solid rgba(245, 130, 32, 0.3);
+            font-family: 'Segoe UI', Roboto, sans-serif;
         }
 
+        /* Hiệu ứng viền sáng chạy đuổi */
         .banner::before {
-            content: "";
+            content: '';
             position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: conic-gradient(transparent, transparent, var(--primary-orange), transparent);
-            animation: rotateOuter 4s linear infinite;
-        }
-        
-        .banner-inner {
-            position: absolute;
-            inset: 2px;
-            background: var(--dark-bg);
+            inset: -15px;
+            background: conic-gradient(from 0deg, transparent 60%, var(--primary-orange) 85%, #fff 100%);
+            animation: rotateGlow 4s linear infinite;
             z-index: 1;
         }
 
-        /* Nhóm hình ảnh tổng thể */
-        .visual-group {
+        /* Lớp nền đen để giữ nội dung */
+        .banner::after {
+            content: '';
             position: absolute;
-            right: 0px;
-            top: 45%;
-            transform: translateY(-50%);
-            width: 500px;
-            height: 500px;
+            inset: 5px; /* Độ dày của viền sáng */
+            background: var(--dark-bg);
             z-index: 2;
         }
 
-        .glow-spinner {
+        /* PHẦN TRÊN: 85% - GIỮ NGUYÊN */
+        .top-section {
             position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            background: conic-gradient(from 0deg, transparent 50%, var(--primary-orange) 95%, #fff 100%);
-            animation: rotateOuter 2s linear infinite;
-            -webkit-mask: radial-gradient(circle, transparent 68%, black 70%);
-            mask: radial-gradient(circle, transparent 68%, black 70%);
-            filter: blur(4px) drop-shadow(0 0 15px var(--primary-orange));
-        }
-
-        .content {
-            flex: 1.2;
-            z-index: 3;
+            top: 0; left: 0;
+            width: 100%; height: 85%; 
+            padding: 30px 100px;
+            box-sizing: border-box;
+            z-index: 10;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            margin-top: -25px;
+            justify-content: space-between;
         }
 
-        .header-tag {
-            color: var(--primary-orange);
-            font-weight: 900;
-            text-transform: uppercase;
-            font-size: 33px;
-            margin-bottom: 5px;
-        }
-
-        h1 {
-            font-size: 54px;
-            margin: 0;
-            line-height: 1.05;
-            text-transform: uppercase;
-            font-weight: 900;
-        }
+        .header-tag { color: var(--primary-orange); font-weight: 900; text-transform: uppercase; font-size: 100px; margin: 0; letter-spacing: 2px; line-height: 1; }
+        .titles-group { margin-top: -20px; }
+        h1 { font-size: 85px; margin: 0 0 8px 0; line-height: 1; text-transform: uppercase; font-weight: 900; color: white; }
 
         .highlight-text {
-            color: var(--primary-orange);
-            font-size: 40px;
-            margin-top: 15px;
-            font-weight: 900;
-            line-height: 1.1;
+            font-size: 90px; font-weight: 900; line-height: 1.1;
             background: linear-gradient(to right, #f58220 0%, #fff 50%, #f58220 100%);
             background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             animation: shimmer 3s linear infinite;
         }
 
+        .iphone-row { display: flex; align-items: center; gap: 25px; }
+        .lay-ngay-badge {
+            background: var(--primary-orange); color: black; padding: 5px 25px;
+            font-weight: 900; font-size: 60px; border-radius: 12px;
+            box-shadow: 0 0 35px var(--primary-orange);
+            animation: shakePulse 1.2s infinite ease-in-out;
+            -webkit-text-fill-color: black; display: inline-block;
+        }
+
         .promo-tag {
-            background: white;
-            color: black;
-            padding: 10px 22px;
-            border-radius: 30px;
-            display: inline-flex;
-            align-items: center;
-            margin-top: 25px;
-            font-weight: 800;
-            width: fit-content;
+            background: white; color: black; padding: 12px 50px; 
+            border-radius: 100px; display: inline-flex;
+            align-items: center; font-weight: 900; width: fit-content; font-size: 50px;
+        }
+        .gift-icon { display: inline-block; margin-right: 25px; font-size: 60px; animation: zoomGiftExtra 1s ease-in-out infinite; }
+
+        .commitments-group { margin-bottom: 20px; display: flex; flex-direction: column; gap: 12px; }
+        .sub-text { font-size: 35px; font-weight: bold; color: white; letter-spacing: 4px; text-transform: uppercase; margin: 0; opacity: 0.95; }
+
+        .visual-group {
+            position: absolute; right: 50px; top: 50%; 
+            transform: translateY(-50%); width: 880px; height: 880px; z-index: 5;
         }
 
-        .gift-icon {
-            display: inline-block;
-            margin-right: 15px;
-            font-size: 20px;
-            animation: zoomGift 2s ease-in-out infinite;
+        .glow-spinner {
+            position: absolute; inset: 0; border-radius: 50%;
+            background: conic-gradient(from 0deg, transparent 50%, var(--primary-orange) 95%, #fff 100%);
+            animation: rotateGlow 2s linear infinite;
+            -webkit-mask: radial-gradient(circle, transparent 68%, black 70%);
+            filter: blur(10px) drop-shadow(0 0 40px var(--primary-orange));
         }
 
-        .quality-text {
-            font-size: 16px;
-            margin-top: 15px;
-            font-weight: bold;
-            color: white;
-            letter-spacing: 1px;
-            padding-left: 40px;
-        }
+        .phone-container { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 100%; display: flex; justify-content: center; align-items: center; }
+        .phone-img { width: 82%; filter: drop-shadow(0 0 70px rgba(245, 130, 32, 0.6)); transform: rotate(-5deg); }
 
-        .phone-container {
+        /* VẠCH CHIA 85/15 */
+        .info-separator {
             position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 3;
+            bottom: 15%; left: 5px; right: 5px;
+            height: 4px; background: #111;
+            z-index: 11; overflow: hidden;
+        }
+        .info-separator::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, var(--primary-orange), #fff, var(--primary-orange), transparent);
+            animation: lightSlide 3s linear infinite;
         }
 
-        .phone-img {
-            /* Đã giảm nhẹ kích thước để nằm gọn hơn */
-            width: 85%; 
-            filter: drop-shadow(0 0 30px rgba(245, 130, 32, 0.4));
-            transform: rotate(-5deg);
-        }
-
+        /* PHẦN THÔNG TIN 15% */
         .info-bar {
             position: absolute;
             bottom: 0; left: 0;
-            width: 100%; height: 115px;
-            background: rgba(5, 5, 5, 0.98);
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0 40px;
+            width: 100%; height: 15%; 
+            background: transparent;
+            display: grid;
+            grid-template-columns: 1fr 1fr 0.8fr;
+            align-items: center;
+            padding: 0 100px;
             box-sizing: border-box;
-            z-index: 4;
-            border-top: 2px solid var(--primary-orange);
-            overflow: hidden;
+            z-index: 12;
         }
 
-        .info-bar::before {
-            content: "";
-            position: absolute;
-            top: 0; left: -100%;
-            width: 40%; height: 3px;
-            background: linear-gradient(90deg, transparent, var(--primary-orange), #fff, var(--primary-orange), transparent);
-            animation: moveLightBar 4s linear infinite;
+        .info-column { display: flex; align-items: center; gap: 25px; }
+
+        .vertical-label {
+            writing-mode: vertical-rl; transform: rotate(180deg);
+            color: var(--primary-orange); font-weight: 900; font-size: 22px;
+            text-transform: uppercase; border-left: 2px solid var(--primary-orange);
+            padding: 4px 0; line-height: 1; white-space: nowrap;
         }
 
-        .info-item { font-size: 14px; max-width: 250px; line-height: 1.5; color: #ddd; }
-        .info-item b { 
-            display: block; color: var(--primary-orange); 
-            margin-bottom: 4px; text-transform: uppercase;
-            font-size: 16px; font-weight: 800;
-        }
+        .content-lines { display: flex; flex-direction: column; justify-content: center; gap: 2px; }
+        .content-lines p { margin: 0; color: #eee; font-size: 24px; font-weight: 500; white-space: nowrap; }
+        .hl-label { color: var(--primary-orange); font-weight: 700; }
 
-        @keyframes rotateOuter { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes moveLightBar { 0% { left: -100%; } 100% { left: 150%; } }
+        /* ANIMATIONS */
+        @keyframes rotateGlow { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes lightSlide { 0% { left: -100%; } 100% { left: 100%; } }
         @keyframes shimmer { to { background-position: 200% center; } }
-        @keyframes zoomGift {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-        }
+        @keyframes zoomGiftExtra { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.5); } }
+        @keyframes shakePulse { 0%, 100% { transform: scale(1) rotate(0deg); } 20% { transform: scale(1.1) rotate(-2deg); } 40% { transform: scale(1.1) rotate(2deg); } 60% { transform: scale(1.15) rotate(0deg); } }
     </style>
 </head>
 <body>
 
-    <div class="banner">
-        <div class="banner-inner"></div>
-        
-        <div class="content">
-            <div class="header-tag">ALO SERWIS</div>
-            <h1>SỬA CHỮA<br>ĐIỆN THOẠI</h1>
-            <div class="highlight-text">THAY MÀN HÌNH<br>LẤY NGAY</div>
+    <div class="banner-wrapper" id="rescaleWrapper">
+        <div class="banner">
+            <div class="info-separator"></div>
             
-            <div class="promo-tag">
-                <span class="gift-icon">🎁</span> TẶNG KÍNH CƯỜNG LỰC
+            <div class="top-section">
+                <div class="header-tag">ALO SERWIS</div>
+                <div class="titles-group">
+                    <h1>SỬA CHỮA ĐIỆN THOẠI</h1>
+                    <div class="highlight-text">
+                        <div>THAY MÀN HÌNH</div>
+                        <div class="iphone-row">
+                            IPHONE <span class="lay-ngay-badge">LẤY NGAY!</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="promo-tag">
+                    <span class="gift-icon">🎁</span> TẶNG KÍNH CƯỜNG LỰC
+                </div>
+                <div class="commitments-group">
+                    <p class="sub-text">★ CHẤT LƯỢNG TỐT NHẤT ★</p>
+                    <p class="sub-text">★ THỜI GIAN NHANH CHÓNG ★</p>
+                    <p class="sub-text">★ BẢO HÀNH LINH KIỆN 1 ĐỔI 1 ★</p>
+                </div>
+                <div class="visual-group">
+                    <div class="glow-spinner"></div>
+                    <div class="phone-container">
+                        <img src="https://i.postimg.cc/G2NvS0Q6/iphone-orange.png" alt="Sửa chữa điện thoại" class="phone-img">
+                    </div>
+                </div>
             </div>
-            
-            <p class="quality-text">CHẤT LƯỢNG TỐT NHẤT!</p>
-        </div>
 
-        <div class="visual-group">
-            <div class="glow-spinner"></div>
-            <div class="phone-container">
-                <img src="https://i.postimg.cc/G2NvS0Q6/iphone-orange.png" alt="Sửa chữa điện thoại" class="phone-img">
+            <div class="info-bar">
+                <div class="info-column">
+                    <div class="vertical-label">Cơ sở 1</div>
+                    <div class="content-lines">
+                        <p>Nadrzeczna 7C/A3 (ASG-A3)</p>
+                        <p>05-552 Wólka Kosowska</p>
+                        <p><span class="hl-label">Hotline:</span> 733 67 68 69</p>
+                    </div>
+                </div>
+                <div class="info-column">
+                    <div class="vertical-label">Cơ sở 2</div>
+                    <div class="content-lines">
+                        <p>Bakalarska 2/B214</p>
+                        <p>02-212 Warszawa</p>
+                        <p><span class="hl-label">Hotline:</span> 787 456 999</p>
+                    </div>
+                </div>
+                <div class="info-column">
+                    <div class="content-lines">
+                        <p><span class="hl-label">Website:</span> aloserwis.com</p>
+                        <p><span class="hl-label">Facebook:</span> facebook.com/dienthoaibalan</p>
+                        <p><span class="hl-label">Email:</span> alo@aloserwis.com</p>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="info-bar">
-            <div class="info-item"><b>Hotline 24/7</b>787 456 999</div>
-            <div class="info-item"><b>Cơ sở 1</b>Nadrzeczna 7C/A3 (ASG-A3)<br>05-552 Wólka Kosowska</div>
-            <div class="info-item"><b>Cơ sở 2</b>Bakalarska 2/B214<br>02-212 Warszawa</div>
-            <div class="info-item"><b>Website</b>aloserwis.com</div>
         </div>
     </div>
 
+    <script>
+        function rescale() {
+            const wrapper = document.getElementById('rescaleWrapper');
+            const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+            wrapper.style.transform = `scale(${scale})`;
+            wrapper.style.transformOrigin = 'center';
+        }
+        window.addEventListener('resize', rescale);
+        rescale();
+    </script>
 </body>
 </html>
