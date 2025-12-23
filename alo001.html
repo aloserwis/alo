@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ALO SERWIS - Chỉ đường Bakalarska</title>
+    <title>ALO SERWIS - Sửa chữa điện thoại</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -12,7 +12,6 @@
             --dark-bg: #000000;
         }
 
-        /* Reset & Toàn màn hình */
         html, body {
             margin: 0; padding: 0;
             width: 100%; height: 100%;
@@ -22,11 +21,10 @@
             display: flex; justify-content: center; align-items: center;
         }
 
-        /* --- KEYFRAMES ANIMATION --- */
+        /* --- ANIMATIONS --- */
         @keyframes zoomGift { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.5); } }
         @keyframes phoneWobble { 0%, 100% { transform: rotate(0deg); } 10%, 30%, 50%, 70%, 90% { transform: rotate(-15deg); } 20%, 40%, 60%, 80% { transform: rotate(15deg); } }
         @keyframes messBounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-20px); } 60% { transform: translateY(-10px); } }
-        @keyframes mapsRipple { 0% { box-shadow: 0 0 0 0 rgba(245, 130, 32, 0.4); } 70% { box-shadow: 0 0 0 30px rgba(245, 130, 32, 0); } 100% { box-shadow: 0 0 0 0 rgba(245, 130, 32, 0); } }
         @keyframes rotateGlow { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes lightSlide { 0% { left: -100%; } 100% { left: 100%; } }
         @keyframes shimmer { to { background-position: 200% center; } }
@@ -56,7 +54,7 @@
         .glow-spinner { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, transparent 50%, var(--primary-orange) 95%, #fff 100%); animation: rotateGlow 2s linear infinite; -webkit-mask: radial-gradient(circle, transparent 68%, black 70%); filter: blur(10px) drop-shadow(0 0 40px var(--primary-orange)); }
         .phone-img { transform: rotate(-5deg); filter: drop-shadow(0 0 70px rgba(245, 130, 32, 0.6)); position: relative; z-index: 6; }
 
-        /* VERSION NGANG (LANDSCAPE) */
+        /* VERSION NGANG */
         @media (min-aspect-ratio: 1/1) {
             #banner-v { display: none; }
             .banner-container { width: 1920px; height: 1080px; }
@@ -81,7 +79,7 @@
             .hl { color: var(--primary-orange); font-weight: 700; }
         }
 
-        /* VERSION DỌC (PORTRAIT) */
+        /* VERSION DỌC */
         @media (max-aspect-ratio: 1/1) {
             #banner-h { display: none; }
             .banner-container { width: 1080px; height: 1920px; }
@@ -95,24 +93,45 @@
             .visual-v { width: 880px; height: 880px; margin: 40px 0; }
             .phone-v { width: 82%; }
             .promo-v { background: white; padding: 20px 60px; border-radius: 100px; font-size: 52px; font-weight: 900; margin-top: 20px; transform: translateY(-20px); }
-            
-            /* Đã cập nhật giãn cách tại đây */
             .commit-v { margin-top: 10px; display: flex; flex-direction: column; gap: 45px; text-align: center; } 
-            
             .sub-v { color: white; font-size: 38px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
 
-            .nav-v { position: absolute; bottom: 60px; left: 60px; display: flex; flex-direction: column; gap: 45px; z-index: 100; }
+            /* Navigation Chế độ thu nhỏ */
+            .nav-v { position: absolute; bottom: 60px; left: 60px; display: flex; flex-direction: column; gap: 35px; z-index: 100; align-items: flex-start; }
             .nav-item { 
-                text-decoration: none; width: 160px; height: 160px; 
-                background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); 
-                border: 2px solid rgba(245, 130, 32, 0.4); border-radius: 50%; 
-                display: flex; justify-content: center; align-items: center; transition: all 0.3s ease; 
+                text-decoration: none; 
+                width: 150px; height: 150px; 
+                background: rgba(255, 255, 255, 0.1); 
+                backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
+                border: 3px solid rgba(245, 130, 32, 0.5); 
+                border-radius: 75px; 
+                display: flex; justify-content: center; align-items: center; 
+                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                overflow: hidden;
+                white-space: nowrap;
             }
-            .nav-item i { font-size: 80px; color: var(--primary-orange); filter: drop-shadow(0 0 15px var(--primary-orange)); }
+
+            /* Trạng thái Active - Bung Label */
+            .nav-item.active { 
+                width: fit-content; 
+                padding: 0 50px; 
+                background: rgba(245, 130, 32, 0.2);
+                border-color: var(--primary-orange);
+            }
+
+            .nav-item i { font-size: 70px; color: var(--primary-orange); min-width: 80px; text-align: center; }
+            
+            .nav-label { 
+                color: white; font-size: 40px; font-weight: 900; 
+                margin-left: 0; opacity: 0; max-width: 0;
+                transition: all 0.3s ease;
+                text-transform: uppercase;
+            }
+            .nav-item.active .nav-label { 
+                opacity: 1; max-width: 600px; margin-left: 20px;
+            }
 
             .call-btn i { animation: phoneWobble 2s infinite ease-in-out; }
-            .mess-btn { animation: messBounce 2s infinite ease-in-out; }
-            .maps-btn { animation: mapsRipple 2s infinite; }
             .nav-item:active { transform: scale(0.9); }
         }
     </style>
@@ -145,14 +164,21 @@
                 </div>
 
                 <div class="nav-v">
-                    <a href="tel:733676869" class="nav-item call-btn">
+                    <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link">
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                        <span class="nav-label">Báo giá</span>
+                    </a>
+                    <a href="tel:733676869" class="nav-item dt-link">
                         <i class="fa-solid fa-phone"></i>
+                        <span class="nav-label">733 676 869</span>
                     </a>
-                    <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item mess-btn">
+                    <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link">
                         <i class="fa-brands fa-facebook-messenger"></i>
+                        <span class="nav-label">Messenger</span>
                     </a>
-                    <a href="https://www.google.com/maps/dir/?api=1&destination=Bakalarska+2/B214,+02-212+Warszawa" target="_blank" class="nav-item maps-btn">
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=Bakalarska+2,+02-212+Warszawa" target="_blank" class="nav-item dt-link">
                         <i class="fa-solid fa-location-dot"></i>
+                        <span class="nav-label">Google map</span>
                     </a>
                 </div>
             </div>
@@ -195,11 +221,36 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
     <script>
+        // Xử lý Chạm 1 hiện Label - Chạm 2 thực hiện Link
+        const links = document.querySelectorAll('.dt-link');
+        
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Nếu chưa có class active (chưa hiện nhãn)
+                if (!this.classList.contains('active')) {
+                    e.preventDefault(); // Chặn hành động mở link/gọi điện
+                    
+                    // Thu gọn các nhãn khác đang mở (nếu có)
+                    links.forEach(l => l.classList.remove('active'));
+                    
+                    // Mở nhãn của nút hiện tại
+                    this.classList.add('active');
+                }
+                // Nếu đã active rồi, trình duyệt sẽ tự thực hiện href (Lần chạm thứ 2)
+            });
+        });
+
+        // Đóng nhãn khi chạm ra ngoài vùng nút
+        document.addEventListener('touchstart', function(e) {
+            if (!e.target.closest('.dt-link')) {
+                links.forEach(l => l.classList.remove('active'));
+            }
+        });
+
         function rescale() {
             const wrapper = document.getElementById('rescaleWrapper');
             const isPortrait = window.innerHeight > window.innerWidth;
