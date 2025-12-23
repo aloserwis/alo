@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALO SERWIS - Final Adjusted</title>
+    <title>ALO SERWIS - Vertical Icons Bottom Left</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-orange: #f58220;
@@ -20,37 +21,40 @@
             display: flex; justify-content: center; align-items: center;
         }
 
-        /* --- ANIMATIONS CHUNG --- */
+        /* --- KEYFRAMES --- */
+        @keyframes phoneWobble {
+            0%, 100% { transform: rotate(0deg); }
+            10%, 30%, 50%, 70%, 90% { transform: rotate(-15deg); }
+            20%, 40%, 60%, 80% { transform: rotate(15deg); }
+        }
+        @keyframes messBounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+        @keyframes mapsRipple {
+            0% { box-shadow: 0 0 0 0 rgba(245, 130, 32, 0.4); }
+            70% { box-shadow: 0 0 0 30px rgba(245, 130, 32, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(245, 130, 32, 0); }
+        }
         @keyframes rotateGlow { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes lightSlide { 0% { left: -100%; } 100% { left: 100%; } }
         @keyframes shimmer { to { background-position: 200% center; } }
-        @keyframes zoomGift { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.4); } }
         @keyframes shakePulse { 0%, 100% { transform: scale(1) rotate(0deg); } 20% { transform: scale(1.05) rotate(-2deg); } 40% { transform: scale(1.05) rotate(2deg); } }
 
         /* --- CLASS TIỆN ÍCH --- */
         .shimmer-text {
             background: linear-gradient(to right, #f58220 0%, #fff 50%, #f58220 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             animation: shimmer 3s linear infinite;
         }
-        .gift-icon { display: inline-block; animation: zoomGift 1s ease-in-out infinite; }
         .lay-ngay-badge {
             background: var(--primary-orange); color: black; font-weight: 900;
             border-radius: 12px; box-shadow: 0 0 35px var(--primary-orange);
             animation: shakePulse 1.2s infinite ease-in-out; -webkit-text-fill-color: black;
         }
-
-        /* ĐƯỜNG KẺ NGANG CÓ EFFECT */
-        .line-effect {
-            width: 100%; height: 4px; background: #111; 
-            position: relative; overflow: hidden; margin: 15px 0;
-        }
-        .line-effect::after {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(90deg, transparent, var(--primary-orange), #fff, var(--primary-orange), transparent);
-            animation: lightSlide 2.5s linear infinite;
-        }
+        .line-effect { width: 100%; height: 4px; background: #111; position: relative; overflow: hidden; margin: 15px 0; }
+        .line-effect::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--primary-orange), #fff, var(--primary-orange), transparent); animation: lightSlide 2.5s linear infinite; }
 
         /* CONTAINER TỔNG */
         .banner-container { position: relative; flex-shrink: 0; overflow: hidden; }
@@ -58,7 +62,6 @@
         .banner-container::before { content: ''; position: absolute; inset: -150px; background: conic-gradient(from 0deg, transparent 65%, var(--primary-orange) 85%, #fff 100%); animation: rotateGlow 4s linear infinite; z-index: 1; }
         .banner-container::after { content: ''; position: absolute; inset: 6px; background: var(--dark-bg); z-index: 2; }
 
-        /* Vòng tròn điện thoại */
         .visual-group { position: relative; display: flex; justify-content: center; align-items: center; z-index: 5; }
         .glow-spinner { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, transparent 50%, var(--primary-orange) 95%, #fff 100%); animation: rotateGlow 2s linear infinite; -webkit-mask: radial-gradient(circle, transparent 68%, black 70%); filter: blur(10px) drop-shadow(0 0 40px var(--primary-orange)); }
         .phone-img { transform: rotate(-5deg); filter: drop-shadow(0 0 70px rgba(245, 130, 32, 0.6)); position: relative; z-index: 6; }
@@ -73,19 +76,14 @@
             .header-h { color: var(--primary-orange); font-size: 100px; font-weight: 900; margin-bottom: 5px; }
             .title-h { font-size: 80px; color: white; font-weight: 900; margin: 0; text-transform: uppercase; }
             .line-h { width: 55%; }
-            
             .shimmer-h { font-size: 90px; font-weight: 900; line-height: 1.1; }
             .row-h { display: flex; align-items: center; gap: 30px; }
             .lay-ngay-h { font-size: 60px; padding: 5px 30px; }
             .promo-h { background: white; color: black; padding: 12px 50px; border-radius: 100px; font-weight: 900; font-size: 45px; width: fit-content; margin: 30px 0; }
-            
-            /* GIÃN CÁCH 3 DÒNG ★ TĂNG THÊM 20PX (GAP: 40PX) */
             .commitments-h { display: flex; flex-direction: column; gap: 40px; }
             .sub-h { font-size: 32px; font-weight: bold; color: white; letter-spacing: 3px; text-transform: uppercase; margin: 0; opacity: 0.95; }
-
             .visual-h { position: absolute; right: 80px; top: 42%; transform: translateY(-50%); width: 820px; height: 820px; }
             .phone-h { width: 82%; }
-
             .footer-sep { position: absolute; bottom: 15%; left: 6px; right: 6px; height: 4px; background: #111; z-index: 11; overflow: hidden; }
             .footer-sep::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--primary-orange), #fff, var(--primary-orange), transparent); animation: lightSlide 3s linear infinite; }
             .footer-h { position: absolute; bottom: 0; left: 0; width: 100%; height: 15%; display: grid; grid-template-columns: 1fr 1fr 0.8fr; align-items: center; padding: 0 100px; box-sizing: border-box; z-index: 12; }
@@ -102,17 +100,38 @@
             #banner-h { display: none; }
             .banner-container { width: 1080px; height: 1920px; }
             .layout-v { position: absolute; inset: 0; z-index: 10; padding: 20px 0; display: flex; flex-direction: column; align-items: center; }
-            .header-v { color: var(--primary-orange); font-size: 115px; font-weight: 900; margin-bottom: 35px; }
-            .title-v { color: white; font-size: 78px; font-weight: 900; text-transform: uppercase; text-align: center; }
-            .line-v { width: 90%; }
+            .header-v { color: var(--primary-orange); font-size: 115px; font-weight: 900; margin-bottom: 15px; }
+            .title-v { color: white; font-size: 78px; font-weight: 900; text-transform: uppercase; text-align: center; transform: translateY(-20px); }
+            .line-v { width: 90%; transform: translateY(-20px); }
             .shimmer-v { font-size: 85px; font-weight: 900; text-align: center; }
             .row-v { display: flex; align-items: center; gap: 25px; margin-top: 10px; }
             .lay-ngay-v { font-size: 60px; padding: 10px 30px; }
             .visual-v { width: 880px; height: 880px; margin: 40px 0; }
             .phone-v { width: 82%; }
-            .promo-v { background: white; padding: 20px 60px; border-radius: 100px; font-size: 52px; font-weight: 900; margin-top: 40px; }
-            .commit-v { margin-top: 60px; display: flex; flex-direction: column; gap: 30px; text-align: center; }
+            .promo-v { background: white; padding: 20px 60px; border-radius: 100px; font-size: 52px; font-weight: 900; margin-top: 20px; transform: translateY(-20px); }
+            .commit-v { margin-top: 10px; display: flex; flex-direction: column; gap: 15px; text-align: center; } 
             .sub-v { color: white; font-size: 38px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+
+            /* NAV BAR DỌC: CHIỀU DỌC - TRÁI - DƯỚI */
+            .nav-v {
+                position: absolute; bottom: 40px; left: 40px; 
+                display: flex; flex-direction: column; /* Sắp xếp dọc */
+                gap: 40px; z-index: 100;
+            }
+            .nav-item {
+                text-decoration: none; width: 150px; height: 150px;
+                background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px); border: 2px solid rgba(245, 130, 32, 0.4);
+                border-radius: 50%; display: flex; justify-content: center; align-items: center;
+                transition: all 0.3s ease;
+            }
+            .nav-item i { font-size: 75px; color: var(--primary-orange); filter: drop-shadow(0 0 15px var(--primary-orange)); }
+
+            /* HIỆU ỨNG RIÊNG */
+            .call-btn i { animation: phoneWobble 2s infinite ease-in-out; }
+            .mess-btn { animation: messBounce 2s infinite ease-in-out; }
+            .maps-btn { animation: mapsRipple 2s infinite; }
+            .nav-item:active { transform: scale(0.9); }
         }
     </style>
 </head>
@@ -142,61 +161,55 @@
                     <div class="sub-v">★ THỜI GIAN NHANH CHÓNG ★</div>
                     <div class="sub-v">★ BẢO HÀNH LINH KIỆN 1 ĐỔI 1 ★</div>
                 </div>
+
+                <div class="nav-v">
+                    <a href="tel:733676869" class="nav-item call-btn">
+                        <i class="fa-solid fa-phone"></i>
+                    </a>
+                    <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item mess-btn">
+                        <i class="fa-brands fa-facebook-messenger"></i>
+                    </a>
+                    <a href="https://www.google.com/maps/dir//ALO+SERWIS+Bakalarska+2%2FB214+02-212+Warszawa" target="_blank" class="nav-item maps-btn">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </a>
+                </div>
             </div>
 
             <div id="banner-h">
                 <div class="top-h">
                     <div class="header-h">ALO SERWIS</div>
                     <div class="title-h">SỬA CHỮA ĐIỆN THOẠI</div>
-                    
                     <div class="line-effect line-h"></div>
-                    
                     <div class="shimmer-h shimmer-text">THAY MÀN HÌNH</div>
                     <div class="row-h">
                         <div class="shimmer-h shimmer-text">IPHONE</div>
                         <span class="lay-ngay-badge lay-ngay-h">LẤY NGAY!</span>
                     </div>
-
                     <div class="promo-h">
                         <span class="gift-icon">🎁</span> TẶNG KÍNH CƯỜNG LỰC
                     </div>
-
                     <div class="commitments-h">
                         <p class="sub-h">★ CHẤT LƯỢNG TỐT NHẤT ★</p>
                         <p class="sub-h">★ THỜI GIAN NHANH CHÓNG ★</p>
                         <p class="sub-h">★ BẢO HÀNH LINH KIỆN 1 ĐỔI 1 ★</p>
                     </div>
                 </div>
-                
                 <div class="visual-group visual-h">
                     <div class="glow-spinner"></div>
                     <img src="https://i.postimg.cc/G2NvS0Q6/iphone-orange.png" class="phone-img phone-h">
                 </div>
-
                 <div class="footer-sep"></div>
                 <div class="footer-h">
                     <div class="info-col">
                         <div class="v-label">Cơ sở 1</div>
-                        <div>
-                            <p class="content-p">Nadrzeczna 7C/A3 (ASG-A3)</p>
-                            <p class="content-p">05-552 Wólka Kosowska</p>
-                            <p class="content-p"><span class="hl">Hotline:</span> 733 67 68 69</p>
-                        </div>
+                        <div><p class="content-p">Nadrzeczna 7C/A3 (ASG-A3)</p><p class="content-p">05-552 Wólka Kosowska</p><p class="content-p"><span class="hl">Hotline:</span> 733 67 68 69</p></div>
                     </div>
                     <div class="info-col">
                         <div class="v-label">Cơ sở 2</div>
-                        <div>
-                            <p class="content-p">Bakalarska 2/B214</p>
-                            <p class="content-p">02-212 Warszawa</p>
-                            <p class="content-p"><span class="hl">Hotline:</span> 787 456 999</p>
-                        </div>
+                        <div><p class="content-p">Bakalarska 2/B214</p><p class="content-p">02-212 Warszawa</p><p class="content-p"><span class="hl">Hotline:</span> 787 456 999</p></div>
                     </div>
                     <div class="info-col">
-                        <div>
-                            <p class="content-p"><span class="hl">Website:</span> aloserwis.com</p>
-                            <p class="content-p"><span class="hl">Facebook:</span> fb.com/dienthoaibalan</p>
-                            <p class="content-p"><span class="hl">Email:</span> alo@aloserwis.com</p>
-                        </div>
+                        <div><p class="content-p"><span class="hl">Website:</span> aloserwis.com</p><p class="content-p"><span class="hl">Facebook:</span> fb.com/dienthoaibalan</p><p class="content-p"><span class="hl">Email:</span> alo@aloserwis.com</p></div>
                     </div>
                 </div>
             </div>
