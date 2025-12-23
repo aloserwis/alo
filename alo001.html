@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ALO SERWIS - Final Responsive Version</title>
+    <title>ALO SERWIS - Chỉ đường Bakalarska</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -22,7 +22,7 @@
             display: flex; justify-content: center; align-items: center;
         }
 
-        /* --- TẤT CẢ KEYFRAMES --- */
+        /* --- KEYFRAMES ANIMATION --- */
         @keyframes zoomGift { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.5); } }
         @keyframes phoneWobble { 0%, 100% { transform: rotate(0deg); } 10%, 30%, 50%, 70%, 90% { transform: rotate(-15deg); } 20%, 40%, 60%, 80% { transform: rotate(15deg); } }
         @keyframes messBounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-20px); } 60% { transform: translateY(-10px); } }
@@ -53,14 +53,12 @@
         .banner-container::before { content: ''; position: absolute; inset: -150px; background: conic-gradient(from 0deg, transparent 65%, var(--primary-orange) 85%, #fff 100%); animation: rotateGlow 4s linear infinite; z-index: 1; }
         .banner-container::after { content: ''; position: absolute; inset: 6px; background: var(--dark-bg); z-index: 2; }
 
-        /* Vòng tròn điện thoại */
+        /* Visual Elements */
         .visual-group { position: relative; display: flex; justify-content: center; align-items: center; z-index: 5; }
         .glow-spinner { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, transparent 50%, var(--primary-orange) 95%, #fff 100%); animation: rotateGlow 2s linear infinite; -webkit-mask: radial-gradient(circle, transparent 68%, black 70%); filter: blur(10px) drop-shadow(0 0 40px var(--primary-orange)); }
         .phone-img { transform: rotate(-5deg); filter: drop-shadow(0 0 70px rgba(245, 130, 32, 0.6)); position: relative; z-index: 6; }
 
-        /* =========================================
-           VERSION NGANG (LANDSCAPE)
-        ========================================= */
+        /* VERSION NGANG (LANDSCAPE) */
         @media (min-aspect-ratio: 1/1) {
             #banner-v { display: none; }
             .banner-container { width: 1920px; height: 1080px; }
@@ -85,31 +83,24 @@
             .hl { color: var(--primary-orange); font-weight: 700; }
         }
 
-        /* =========================================
-           VERSION DỌC (PORTRAIT)
-        ========================================= */
+        /* VERSION DỌC (PORTRAIT) */
         @media (max-aspect-ratio: 1/1) {
             #banner-h { display: none; }
             .banner-container { width: 1080px; height: 1920px; }
             .layout-v { position: absolute; inset: 0; z-index: 10; padding: 20px 0; display: flex; flex-direction: column; align-items: center; }
-            
             .header-v { color: var(--primary-orange); font-size: 115px; font-weight: 900; margin-bottom: 15px; }
             .title-v { color: white; font-size: 78px; font-weight: 900; text-transform: uppercase; text-align: center; transform: translateY(-20px); }
             .line-v { width: 90%; transform: translateY(-20px); }
-            
             .shimmer-v { font-size: 85px; font-weight: 900; text-align: center; }
             .row-v { display: flex; align-items: center; gap: 25px; margin-top: 10px; }
             .lay-ngay-v { font-size: 60px; padding: 10px 30px; }
-            
             .visual-v { width: 880px; height: 880px; margin: 40px 0; }
             .phone-v { width: 82%; }
-            
             .promo-v { background: white; padding: 20px 60px; border-radius: 100px; font-size: 52px; font-weight: 900; margin-top: 20px; transform: translateY(-20px); }
-            
             .commit-v { margin-top: 10px; display: flex; flex-direction: column; gap: 15px; text-align: center; } 
             .sub-v { color: white; font-size: 38px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
 
-            /* NAV DỌC BÊN TRÁI + DƯỚI */
+            /* Navigation Icons */
             .nav-v { position: absolute; bottom: 60px; left: 60px; display: flex; flex-direction: column; gap: 45px; z-index: 100; }
             .nav-item { 
                 text-decoration: none; width: 160px; height: 160px; 
@@ -119,7 +110,7 @@
             }
             .nav-item i { font-size: 80px; color: var(--primary-orange); filter: drop-shadow(0 0 15px var(--primary-orange)); }
 
-            /* HIỆU ỨNG TỪNG ICON */
+            /* Animation cho từng icon */
             .call-btn i { animation: phoneWobble 2s infinite ease-in-out; }
             .mess-btn { animation: messBounce 2s infinite ease-in-out; }
             .maps-btn { animation: mapsRipple 2s infinite; }
@@ -161,7 +152,7 @@
                     <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item mess-btn">
                         <i class="fa-brands fa-facebook-messenger"></i>
                     </a>
-                    <a href="https://maps.app.goo.gl/3A2XJ3E9vM5Q6P3v7" target="_blank" class="nav-item maps-btn">
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=Bakalarska+2/B214,+02-212+Warszawa" target="_blank" class="nav-item maps-btn">
                         <i class="fa-solid fa-location-dot"></i>
                     </a>
                 </div>
@@ -213,24 +204,16 @@
         function rescale() {
             const wrapper = document.getElementById('rescaleWrapper');
             const isPortrait = window.innerHeight > window.innerWidth;
-            
-            // Tỷ lệ thiết kế gốc
             const designW = isPortrait ? 1080 : 1920;
             const designH = isPortrait ? 1920 : 1080;
-            
-            // Tính toán tỷ lệ co giãn để fit hoàn toàn
             const scaleW = window.innerWidth / designW;
             const scaleH = window.innerHeight / designH;
             const scale = Math.min(scaleW, scaleH);
-            
-            // Áp dụng scale và giữ banner luôn ở trung tâm
             wrapper.style.width = designW + 'px';
             wrapper.style.height = designH + 'px';
             wrapper.style.transform = `scale(${scale})`;
             wrapper.style.transformOrigin = 'center center';
         }
-
-        // Tự động chạy khi load và khi thay đổi kích thước màn hình
         window.addEventListener('resize', rescale);
         window.addEventListener('load', rescale);
         rescale();
