@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ALO SERWIS</title>
+    <title>ALO SERWIS - Sửa chữa điện thoại</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -24,11 +24,13 @@
 
         /* --- ANIMATIONS --- */
         @keyframes zoomGift { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.5); } }
+        @keyframes phoneWobble { 0%, 100% { transform: rotate(0deg); } 10%, 30%, 50%, 70%, 90% { transform: rotate(-15deg); } 20%, 40%, 60%, 80% { transform: rotate(15deg); } }
         @keyframes rotateGlow { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes lightSlide { 0% { left: -100%; } 100% { left: 100%; } }
         @keyframes shimmer { to { background-position: 200% center; } }
         @keyframes shakePulse { 0%, 100% { transform: scale(1) rotate(0deg); } 20% { transform: scale(1.05) rotate(-2deg); } 40% { transform: scale(1.05) rotate(2deg); } }
 
+        /* --- CLASS TIỆN ÍCH --- */
         .shimmer-text { 
             background: linear-gradient(to right, #f58220 0%, #fff 50%, #f58220 100%); 
             background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
@@ -38,7 +40,7 @@
         .lay-ngay-badge { 
             background: var(--primary-orange); color: black; font-weight: 900; 
             border-radius: 12px; box-shadow: 0 0 35px var(--primary-orange); 
-            animation: shakePulse 1.2s infinite ease-in-out; 
+            animation: shakePulse 1.2s infinite ease-in-out; -webkit-text-fill-color: black; 
         }
         .line-effect { width: 100%; height: 4px; background: #111; position: relative; overflow: hidden; margin: 15px 0; }
         .line-effect::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--primary-orange), #fff, var(--primary-orange), transparent); animation: lightSlide 2.5s linear infinite; }
@@ -52,7 +54,32 @@
         .glow-spinner { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, transparent 50%, var(--primary-orange) 95%, #fff 100%); animation: rotateGlow 2s linear infinite; -webkit-mask: radial-gradient(circle, transparent 68%, black 70%); filter: blur(10px) drop-shadow(0 0 40px var(--primary-orange)); }
         .phone-img { transform: rotate(-5deg); filter: drop-shadow(0 0 70px rgba(245, 130, 32, 0.6)); position: relative; z-index: 6; }
 
-        /* VERSION DỌC (MOBILE) */
+        /* --- VERSION NGANG (DESKTOP) --- */
+        @media (min-aspect-ratio: 1/1) {
+            #banner-v { display: none; }
+            .banner-container { width: 1920px; height: 1080px; }
+            .top-h { position: absolute; top: 0; left: 0; width: 100%; height: 85%; padding: 40px 100px; box-sizing: border-box; z-index: 10; display: flex; flex-direction: column; }
+            .header-h { color: var(--primary-orange); font-size: 100px; font-weight: 900; margin-bottom: 5px; }
+            .title-h { font-size: 80px; color: white; font-weight: 900; margin: 0; text-transform: uppercase; }
+            .line-h { width: 55%; }
+            .shimmer-h { font-size: 90px; font-weight: 900; line-height: 1.1; }
+            .row-h { display: flex; align-items: center; gap: 30px; }
+            .lay-ngay-h { font-size: 60px; padding: 5px 30px; }
+            .promo-h { background: white; color: black; padding: 12px 50px; border-radius: 100px; font-weight: 900; font-size: 45px; width: fit-content; margin: 30px 0; }
+            .commitments-h { display: flex; flex-direction: column; gap: 40px; }
+            .sub-h { font-size: 32px; font-weight: bold; color: white; letter-spacing: 3px; text-transform: uppercase; margin: 0; opacity: 0.95; }
+            .visual-h { position: absolute; right: 80px; top: 42%; transform: translateY(-50%); width: 820px; height: 820px; }
+            .phone-h { width: 82%; }
+            .footer-sep { position: absolute; bottom: 15%; left: 6px; right: 6px; height: 4px; background: #111; z-index: 11; overflow: hidden; }
+            .footer-sep::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--primary-orange), #fff, var(--primary-orange), transparent); animation: lightSlide 3s linear infinite; }
+            .footer-h { position: absolute; bottom: 0; left: 0; width: 100%; height: 15%; display: grid; grid-template-columns: 1fr 1fr 0.8fr; align-items: center; padding: 0 100px; box-sizing: border-box; z-index: 12; }
+            .info-col { display: flex; align-items: center; gap: 20px; color: #fff; }
+            .v-label { writing-mode: vertical-rl; transform: rotate(180deg); color: var(--primary-orange); font-weight: 900; border-left: 2px solid var(--primary-orange); padding: 4px 0; font-size: 20px; }
+            .content-p { margin: 0; font-size: 23px; white-space: nowrap; }
+            .hl { color: var(--primary-orange); font-weight: 700; }
+        }
+
+        /* --- VERSION DỌC (MOBILE) --- */
         @media (max-aspect-ratio: 1/1) {
             #banner-h { display: none; }
             .banner-container { width: 1080px; height: 1920px; }
@@ -69,7 +96,6 @@
             .commit-v { margin-top: 10px; display: flex; flex-direction: column; gap: 45px; text-align: center; } 
             .sub-v { color: white; font-size: 38px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
 
-            /* Navigation */
             .nav-v { position: absolute; bottom: 40px; left: 40px; display: flex; flex-direction: column; gap: 25px; z-index: 100; align-items: flex-start; }
             .nav-item { 
                 text-decoration: none; 
@@ -83,34 +109,16 @@
                 overflow: hidden;
                 white-space: nowrap;
             }
-
-            .nav-item.active { 
-                width: fit-content; 
-                padding: 0 40px; 
-                background: rgba(245, 130, 32, 0.2);
-                border-color: var(--primary-orange);
-            }
-
+            .nav-item.active { width: fit-content; padding: 0 40px; background: rgba(245, 130, 32, 0.2); border-color: var(--primary-orange); }
             .nav-item i { font-size: 60px; color: var(--primary-orange); min-width: 70px; text-align: center; }
-            
-            .nav-label { 
-                color: white; font-size: 36px; font-weight: 900; 
-                margin-left: 0; opacity: 0; max-width: 0;
-                transition: all 0.3s ease;
-                text-transform: uppercase;
-            }
-            .nav-item.active .nav-label { 
-                opacity: 1; max-width: 600px; margin-left: 20px;
-            }
+            .nav-label { color: white; font-size: 36px; font-weight: 900; margin-left: 0; opacity: 0; max-width: 0; transition: all 0.3s ease; text-transform: uppercase; }
+            .nav-item.active .nav-label { opacity: 1; max-width: 600px; margin-left: 20px; }
 
-            /* Style riêng cho Khách sạn/Parking */
+            /* Style Travel */
             .travel-icon { border-color: var(--travel-blue); }
             .travel-icon i { color: var(--travel-blue); }
             .nav-item.travel-icon.active { background: rgba(0, 229, 255, 0.2); border-color: var(--travel-blue); }
         }
-
-        /* VERSION NGANG (Ẩn trong demo này) */
-        @media (min-aspect-ratio: 1/1) { #banner-v { display: none; } .banner-container { width: 1920px; height: 1080px; } }
     </style>
 </head>
 <body>
@@ -141,16 +149,14 @@
                 </div>
 
                 <div class="nav-v">
-                    <a href="https://www.google.com/maps/dir/?api=1&destination=TatryTop+Jurgów+SKI+Jurgów+353" target="_blank" class="nav-item dt-link travel-icon">
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=Jurgów+353,+34-532+Jurgów" target="_blank" class="nav-item dt-link travel-icon">
                         <i class="fa-solid fa-hotel"></i>
                         <span class="nav-label">Khách sạn</span>
                     </a>
-                    
-                    <a href="https://www.google.com/maps/dir/?api=1&destination=Parking+Środkowa+181+Białka+Tatrzańska" target="_blank" class="nav-item dt-link travel-icon">
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=Środkowa+181,+34-405+Białka+Tatrzańska" target="_blank" class="nav-item dt-link travel-icon">
                         <i class="fa-solid fa-square-parking"></i>
                         <span class="nav-label">Parking</span>
                     </a>
-
                     <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link">
                         <i class="fa-solid fa-file-invoice-dollar"></i>
                         <span class="nav-label">Báo giá</span>
@@ -163,10 +169,61 @@
                         <i class="fa-brands fa-facebook-messenger"></i>
                         <span class="nav-label">Messenger</span>
                     </a>
-                    <a href="https://www.google.com/maps/dir/?api=1&destination=Bakalarska+2+Warszawa" target="_blank" class="nav-item dt-link">
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=Bakalarska+2,+02-212+Warszawa" target="_blank" class="nav-item dt-link">
                         <i class="fa-solid fa-location-dot"></i>
                         <span class="nav-label">Google map</span>
                     </a>
+                </div>
+            </div>
+
+            <div id="banner-h">
+                <div class="top-h">
+                    <div class="header-h">ALO SERWIS</div>
+                    <div class="title-h">SỬA CHỮA ĐIỆN THOẠI</div>
+                    <div class="line-effect line-h"></div>
+                    <div class="shimmer-h shimmer-text">THAY MÀN HÌNH</div>
+                    <div class="row-h">
+                        <div class="shimmer-h shimmer-text">IPHONE</div>
+                        <span class="lay-ngay-badge lay-ngay-h">LẤY NGAY!</span>
+                    </div>
+                    <div class="promo-h">
+                        <span class="gift-icon">🎁</span> TẶNG KÍNH CƯỜNG LỰC
+                    </div>
+                    <div class="commitments-h">
+                        <p class="sub-h">★ CHẤT LƯỢNG TỐT NHẤT ★</p>
+                        <p class="sub-h">★ THỜI GIAN NHANH CHÓNG ★</p>
+                        <p class="sub-h">★ BẢO HÀNH LINH KIỆN 1 ĐỔI 1 ★</p>
+                    </div>
+                </div>
+                <div class="visual-group visual-h">
+                    <div class="glow-spinner"></div>
+                    <img src="https://i.postimg.cc/G2NvS0Q6/iphone-orange.png" class="phone-img phone-h">
+                </div>
+                <div class="footer-sep"></div>
+                <div class="footer-h">
+                    <div class="info-col">
+                        <div class="v-label">Cơ sở 1</div>
+                        <div>
+                            <p class="content-p">Nadrzeczna 7C/A3 (ASG-A3)</p>
+                            <p class="content-p">05-552 Wólka Kosowska</p>
+                            <p class="content-p"><span class="hl">Hotline:</span> 733 67 68 69</p>
+                        </div>
+                    </div>
+                    <div class="info-col">
+                        <div class="v-label">Cơ sở 2</div>
+                        <div>
+                            <p class="content-p">Bakalarska 2/B214</p>
+                            <p class="content-p">02-212 Warszawa</p>
+                            <p class="content-p"><span class="hl">Hotline:</span> 787 456 999</p>
+                        </div>
+                    </div>
+                    <div class="info-col">
+                        <div>
+                            <p class="content-p"><span class="hl">Website:</span> aloserwis.com</p>
+                            <p class="content-p"><span class="hl">Facebook:</span> fb.com/dienthoaibalan</p>
+                            <p class="content-p"><span class="hl">Email:</span> alo@aloserwis.com</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
