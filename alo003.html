@@ -27,12 +27,25 @@
             -webkit-user-select: none;
         }
 
-        /* --- FIREWORKS CANVAS --- */
+        /* --- PULL TO REFRESH INDICATOR --- */
+        #ptr-indicator {
+            position: fixed;
+            top: -70px; left: 50%; transform: translateX(-50%);
+            width: 60px; height: 60px;
+            background: var(--primary-red); border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            color: white; z-index: 9999;
+            box-shadow: 0 4px 15px rgba(230, 0, 0, 0.6);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        /* --- FIREWORKS CANVAS (Đưa về lớp nền) --- */
         #fw-canvas {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            z-index: 1; /* Nằm dưới banner content */
+            z-index: 1; /* Nằm dưới banner */
             pointer-events: none;
         }
 
@@ -53,10 +66,11 @@
             border: 2px solid rgba(230, 0, 0, 0.4);
             animation: borderGlow 4s infinite ease-in-out;
             z-index: 10;
-            background: transparent;
+            background: transparent; /* Quan trọng: để trong suốt thấy pháo hoa */
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        /* Làm nền hơi trong suốt để thấy pháo hoa phía sau */
-        .inner-content { position: absolute; inset: 0; background: rgba(0,0,0,0.6); overflow: hidden; z-index: 5; }
+        /* Làm nền banner mờ hơn để pháo hoa hiện rõ từ phía sau */
+        .inner-content { position: absolute; inset: 0; background: rgba(0,0,0,0.45); overflow: hidden; z-index: 5; }
 
         .dynamic-line { width: 90%; height: 4px; background: #111; position: relative; overflow: hidden; }
         .dynamic-line::after { 
@@ -91,7 +105,7 @@
         .slide-img { position: absolute; max-width: 90%; opacity: 0; display: none; }
         .slide-img.active { display: block; opacity: 1; animation: imageAppear 0.8s ease-out forwards; z-index: 6; }
 
-        /* --- MOBILE LAYOUT --- */
+        /* --- LAYOUTS --- (Giữ nguyên như yêu cầu trước của bạn) */
         @media (max-aspect-ratio: 1/1) {
             #banner-h { display: none; }
             .banner-container { width: 1080px; height: 1920px; }
@@ -107,13 +121,7 @@
             .nav-v { position: absolute; bottom: 80px; display: flex; flex-direction: column; gap: 35px; z-index: 100; }
             .nav-left { left: 40px; align-items: flex-start; }
             .nav-right { right: 40px; align-items: flex-end; }
-            .nav-item { 
-                text-decoration: none; width: 135px; height: 135px; 
-                background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); 
-                border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 70px; 
-                display: flex; justify-content: center; align-items: center; 
-                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow: hidden; 
-            }
+            .nav-item { text-decoration: none; width: 135px; height: 135px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 70px; display: flex; justify-content: center; align-items: center; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow: hidden; }
             .nav-item.active { width: fit-content; padding: 0 45px; background: rgba(255, 255, 255, 0.25); border-color: #fff; }
             .nav-item i { font-size: 65px; min-width: 80px; text-align: center; }
             .nav-label { color: white; font-size: 34px; font-weight: 900; opacity: 0; max-width: 0; transition: all 0.3s ease; white-space: nowrap; text-transform: uppercase; }
@@ -125,7 +133,6 @@
             .c-purple { color: var(--viber-purple); }
         }
 
-        /* --- DESKTOP LAYOUT --- */
         @media (min-aspect-ratio: 1/1) {
             #banner-v { display: none; }
             .banner-container { width: 1920px; height: 1080px; }
@@ -150,6 +157,8 @@
 </head>
 <body onclick="closeAllNav()">
 
+    <div id="ptr-indicator"><i class="fa-solid fa-arrows-rotate fa-2x"></i></div>
+    
     <canvas id="fw-canvas"></canvas>
 
     <div class="banner-container" id="rescaleWrapper">
@@ -229,7 +238,43 @@
     </div>
 
     <script>
-        // --- CHUYÊN NGHIỆP FIREWORKS SCRIPT ---
+        // --- PULL TO REFRESH LOGIC ---
+        let startY = 0; let isPulling = false; const threshold = 160;
+        const ptr = document.getElementById('ptr-indicator');
+        const wrap = document.getElementById('rescaleWrapper');
+        let currentGlobalScale = 1;
+
+        document.addEventListener('touchstart', e => {
+            if (window.scrollY === 0) { startY = e.touches[0].pageY; isPulling = true; wrap.style.transition = 'none'; }
+        }, {passive: false});
+
+        document.addEventListener('touchmove', e => {
+            if (!isPulling) return;
+            const diff = e.touches[0].pageY - startY;
+            if (diff > 0) {
+                e.preventDefault();
+                const move = Math.pow(diff, 0.85);
+                ptr.style.opacity = Math.min(diff / threshold, 1);
+                ptr.style.transform = `translateX(-50%) translateY(${Math.min(move, threshold + 20)}px) rotate(${diff * 2}deg)`;
+                wrap.style.transform = `scale(${currentGlobalScale}) translateY(${move / 5}px)`;
+            }
+        }, {passive: false});
+
+        document.addEventListener('touchend', e => {
+            if (!isPulling) return;
+            const diff = e.changedTouches[0].pageY - startY;
+            wrap.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            if (diff > threshold) {
+                ptr.style.transform = `translateX(-50%) translateY(${threshold}px) rotate(720deg)`;
+                setTimeout(() => location.reload(), 300);
+            } else {
+                ptr.style.opacity = '0'; ptr.style.transform = `translateX(-50%) translateY(-70px)`;
+                wrap.style.transform = `scale(${currentGlobalScale})`;
+            }
+            isPulling = false;
+        });
+
+        // --- FIREWORKS SCRIPT (DƯỚI NỀN - NỔ CHẬM - SÁNG) ---
         const canvas = document.getElementById('fw-canvas');
         const ctx = canvas.getContext('2d');
         let fwParticles = [];
@@ -243,21 +288,20 @@
 
         class Particle {
             constructor(x, y, color, velocityX, velocityY) {
-                this.x = x;
-                this.y = y;
-                this.color = color;
-                this.velocityX = velocityX;
-                this.velocityY = velocityY;
+                this.x = x; this.y = y; this.color = color;
+                this.velocityX = velocityX; this.velocityY = velocityY;
                 this.alpha = 1;
-                this.friction = 0.96;
-                this.gravity = 0.15;
+                this.friction = 0.985; // Cực kỳ mượt, nổ chậm
+                this.gravity = 0.07;   // Tia lửa rơi rất nhẹ
             }
             draw() {
                 ctx.save();
                 ctx.globalAlpha = this.alpha;
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                ctx.arc(this.x, this.y, 2.5, 0, Math.PI * 2);
                 ctx.fillStyle = this.color;
+                ctx.shadowBlur = 12; // Phát sáng nhẹ nhàng dưới nền
+                ctx.shadowColor = this.color;
                 ctx.fill();
                 ctx.restore();
             }
@@ -267,17 +311,17 @@
                 this.velocityY += this.gravity;
                 this.x += this.velocityX;
                 this.y += this.velocityY;
-                this.alpha -= 0.012;
+                this.alpha -= 0.007; // Lưu lại lâu hơn
             }
         }
 
         function createExplosion(x, y) {
-            const count = 60;
-            const colors = ['#ff0000', '#ffd700', '#ffffff', '#ff4500', '#ff8800'];
+            const count = 65;
+            const colors = ['#ff0000', '#ffd700', '#ffffff', '#ff4500', '#00e5ff', '#ff00ff'];
             const color = colors[Math.floor(Math.random() * colors.length)];
             const angleStep = (Math.PI * 2) / count;
             for (let i = 0; i < count; i++) {
-                const velocity = Math.random() * 8 + 2;
+                const velocity = Math.random() * 4 + 1; // Tốc độ khởi đầu êm ái
                 fwParticles.push(new Particle(
                     x, y, color,
                     Math.cos(angleStep * i) * velocity,
@@ -287,35 +331,27 @@
         }
 
         function animateFireworks() {
-            // Tạo hiệu ứng trail (đuôi) mờ dần bằng cách vẽ lớp đen mờ lên canvas mỗi frame
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.18)'; // Vết pháo tan biến chậm
             ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.globalCompositeOperation = 'lighter';
 
             fwParticles.forEach((p, index) => {
                 if (p.alpha > 0) {
-                    p.update();
-                    p.draw();
+                    p.update(); p.draw();
                 } else {
                     fwParticles.splice(index, 1);
                 }
             });
 
-            // Ngẫu nhiên tạo vụ nổ mới
-            if (Math.random() < 0.04) {
-                createExplosion(
-                    Math.random() * canvas.width,
-                    Math.random() * (canvas.height * 0.6) // Chỉ nổ ở 2/3 trên màn hình
-                );
+            if (Math.random() < 0.035) {
+                createExplosion(Math.random() * canvas.width, Math.random() * (canvas.height * 0.5));
             }
             requestAnimationFrame(animateFireworks);
         }
         animateFireworks();
 
-        // --- OLD LOGIC ---
-        document.addEventListener('touchmove', function (e) {
-            if (e.scale !== 1) { e.preventDefault(); }
-        }, { passive: false });
-
+        // --- COMMON LOGIC ---
         function handleNav(e, el) {
             e.stopPropagation();
             const links = document.querySelectorAll('.dt-link');
@@ -325,18 +361,15 @@
                 el.classList.add('active');
             }
         }
-
         function closeAllNav() {
             document.querySelectorAll('.dt-link').forEach(l => l.classList.remove('active'));
         }
-
         const words = ["LAPTOP", "MÁY TÍNH", "FAKTURA"];
         let wordIdx = 0;
         setInterval(() => {
             wordIdx = (wordIdx + 1) % words.length;
             document.querySelectorAll('.cycling-text').forEach(el => el.innerText = words[wordIdx]);
         }, 1200);
-
         function startImageSlider() {
             const sliders = document.querySelectorAll('.image-slider');
             sliders.forEach(slider => {
@@ -349,17 +382,15 @@
                 }, 4000);
             });
         }
-
         function rescale() {
             const isPortrait = window.innerHeight > window.innerWidth;
             const designW = isPortrait ? 1080 : 1920;
             const designH = isPortrait ? 1920 : 1080;
-            const scale = Math.min(window.innerWidth / designW, window.innerHeight / designH);
+            currentGlobalScale = Math.min(window.innerWidth / designW, window.innerHeight / designH);
             const wrapper = document.getElementById('rescaleWrapper');
             wrapper.style.width = designW + 'px'; wrapper.style.height = designH + 'px';
-            wrapper.style.transform = `scale(${scale})`;
+            wrapper.style.transform = `scale(${currentGlobalScale})`;
         }
-
         window.addEventListener('resize', rescale);
         window.addEventListener('load', () => { rescale(); startImageSlider(); });
     </script>
