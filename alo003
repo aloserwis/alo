@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>ALO SERWIS - Laptop & PC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary-red: #e60000;
+            --primary-orange: #ff8800;
+            --dark-bg: #000000;
+            --viber-purple: #7360f2;
+        }
+
+        html, body {
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            background-color: #000;
+            font-family: 'Montserrat', sans-serif;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden; touch-action: none; 
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes rotateGlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes shimmer { to { background-position: 200% center; } }
+        @keyframes shakePulse { 0%, 100% { transform: scale(1) rotate(0deg); } 20% { transform: scale(1.05) rotate(-1deg); } 40% { transform: scale(1.05) rotate(1deg); } }
+        @keyframes expandCenter { 0% { transform: scaleX(0); opacity: 0; } 50% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(0); opacity: 0; } }
+        @keyframes imageAppear {
+            0% { opacity: 0; transform: translateY(30px) scale(0.9); filter: blur(10px); }
+            100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        }
+        @keyframes borderGlow { 0%, 100% { box-shadow: inset 0 0 30px rgba(230,0,0,0.3), 0 0 20px rgba(230,0,0,0.2); } 50% { box-shadow: inset 0 0 50px rgba(230,0,0,0.5), 0 0 40px rgba(230,0,0,0.4); } }
+        @keyframes giftPulse { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px var(--primary-red)); } 50% { transform: scale(1.5) translateY(-10px); filter: drop-shadow(0 0 20px #fff); } }
+
+        .banner-container { 
+            position: relative; flex-shrink: 0; overflow: hidden; 
+            border: 2px solid rgba(230, 0, 0, 0.4);
+            animation: borderGlow 4s infinite ease-in-out;
+        }
+        .inner-content { position: absolute; inset: 0; background: var(--dark-bg); overflow: hidden; z-index: 5; }
+
+        .dynamic-line { width: 90%; height: 4px; background: #111; position: relative; overflow: hidden; }
+        .dynamic-line::after { 
+            content: ''; position: absolute; inset: 0; 
+            background: linear-gradient(90deg, transparent, var(--primary-red), #fff, var(--primary-red), transparent); 
+            animation: expandCenter 4s ease-in-out infinite; transform-origin: center;
+        }
+
+        .shimmer-text { 
+            background: linear-gradient(to right, var(--primary-red) 0%, #fff 50%, var(--primary-red) 100%); 
+            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            animation: shimmer 3s linear infinite; 
+        }
+
+        .dynamic-badge { 
+            background: var(--primary-red); color: white; font-weight: 900; border-radius: 15px; 
+            box-shadow: 0 0 50px rgba(230, 0, 0, 0.7); animation: shakePulse 1.2s infinite ease-in-out; 
+            text-align: center; position: relative; z-index: 120;
+        }
+
+        .gift-icon { display: inline-block; animation: giftPulse 1.5s ease-in-out infinite; margin-right: 15px; }
+
+        .glow-spinner { 
+            position: absolute; inset: 0; border-radius: 50%; 
+            background: conic-gradient(from 0deg, transparent 50%, var(--primary-red) 95%, #fff 100%); 
+            animation: rotateGlow 2.5s linear infinite; 
+            -webkit-mask: radial-gradient(circle, transparent 68%, black 70%); 
+            filter: blur(8px) drop-shadow(0 0 40px var(--primary-red)); z-index: 4; 
+        }
+
+        .image-slider { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
+        .slide-img { position: absolute; max-width: 90%; opacity: 0; display: none; }
+        .slide-img.active { display: block; opacity: 1; animation: imageAppear 0.8s ease-out forwards; z-index: 6; }
+
+        /* --- MOBILE LAYOUT --- */
+        @media (max-aspect-ratio: 1/1) {
+            #banner-h { display: none; }
+            .banner-container { width: 1080px; height: 1920px; }
+            .layout-v { position: absolute; inset: 0; z-index: 10; padding: 40px 0; display: flex; flex-direction: column; align-items: center; }
+            .header-v { color: var(--primary-red); font-size: 110px; font-weight: 900; }
+            .title-v { color: white; font-size: 80px; font-weight: 900; text-transform: uppercase; margin-bottom: 15px; }
+            .shimmer-v { font-size: 95px; font-weight: 900; margin: 20px 0; }
+            .dynamic-badge-v { font-size: 75px; padding: 20px 50px; min-width: 550px; }
+            
+            .visual-v { position: relative; width: 950px; height: 820px; margin: 20px 0; }
+            
+            .promo-v { background: white; padding: 18px 55px; border-radius: 100px; font-size: 48px; font-weight: 900; color: #000; display: flex; align-items: center; }
+            .commit-v { margin-top: 40px; display: flex; flex-direction: column; gap: 40px; text-align: center; } 
+            .sub-v { color: white; font-size: 38px; font-weight: 700; text-transform: uppercase; }
+
+            /* NAV STYLE LIKE BLUE EDITION */
+            .nav-v { position: absolute; bottom: 80px; display: flex; flex-direction: column; gap: 35px; z-index: 100; }
+            .nav-left { left: 40px; align-items: flex-start; }
+            .nav-right { right: 40px; align-items: flex-end; }
+
+            .nav-item { 
+                text-decoration: none; width: 135px; height: 135px; 
+                background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); 
+                border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 70px; 
+                display: flex; justify-content: center; align-items: center; 
+                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow: hidden; 
+            }
+            .nav-item.active { width: fit-content; padding: 0 45px; background: rgba(255, 255, 255, 0.25); border-color: #fff; }
+            .nav-item i { font-size: 65px; min-width: 80px; text-align: center; }
+            .nav-label { color: white; font-size: 34px; font-weight: 900; opacity: 0; max-width: 0; transition: all 0.3s ease; white-space: nowrap; text-transform: uppercase; }
+            .nav-item.active .nav-label { opacity: 1; max-width: 900px; margin-left: 20px; }
+            
+            .nav-right .nav-item.active { flex-direction: row-reverse; }
+            .nav-right .nav-item.active .nav-label { margin-left: 0; margin-right: 20px; }
+
+            .c-orange { color: var(--primary-orange); }
+            .c-red { color: var(--primary-red); }
+            .c-purple { color: var(--viber-purple); }
+        }
+
+        /* --- DESKTOP LAYOUT --- */
+        @media (min-aspect-ratio: 1/1) {
+            #banner-v { display: none; }
+            .banner-container { width: 1920px; height: 1080px; }
+            .layout-h { position: absolute; inset: 0; z-index: 10; padding: 40px 100px; display: flex; flex-direction: column; }
+            .header-h { color: var(--primary-red); font-size: 115px; font-weight: 900; margin: 0; }
+            .title-h { font-size: 75px; color: white; font-weight: 900; text-transform: uppercase; margin: 0; }
+            .shimmer-h { font-size: 80px; font-weight: 900; margin-top: 15px; }
+            .row-h { display: flex; align-items: center; margin-top: 25px; position: relative; z-index: 130; }
+            .dynamic-badge-h { font-size: 70px; padding: 15px 70px; min-width: 500px; margin-left: 60px; }
+            .promo-h { background: white; color: #000; padding: 15px 50px; border-radius: 100px; font-weight: 900; font-size: 42px; margin: 35px 0; width: fit-content; display: flex; align-items: center; }
+            .commitments-h { display: flex; flex-direction: column; gap: 8px; }
+            .sub-h { font-size: 32px; font-weight: 900; color: white; text-transform: uppercase; margin: 0; }
+            
+            .visual-h { position: absolute; right: 50px; top: 40%; transform: translateY(-50%); width: 850px; height: 850px; z-index: 5; }
+            .footer-line-wrapper { position: absolute; bottom: 15%; left: 0; width: 100%; display: flex; justify-content: center; z-index: 20; }
+            .footer-h { position: absolute; bottom: 0; left: 0; width: 100%; height: 15%; display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; padding: 0 50px; background: rgba(0,0,0,0.9); }
+            .info-col { display: flex; align-items: center; justify-content: center; color: #fff; gap: 20px; }
+            .vertical-hl { writing-mode: vertical-rl; transform: rotate(180deg); color: var(--primary-red); font-weight: 900; font-size: 26px; border-left: 3px solid var(--primary-red); padding-left: 12px; }
+            .col-text { font-size: 23px; line-height: 1.4; }
+            .hl-red { color: var(--primary-red); font-weight: 900; }
+        }
+    </style>
+</head>
+<body onclick="closeAllNav()">
+
+    <div class="banner-container" id="rescaleWrapper">
+        <div class="inner-content">
+            
+            <div id="banner-v" class="layout-v">
+                <div class="header-v">ALO SERWIS</div>
+                <div class="title-v">MUA BÁN & SỬA CHỮA</div>
+                <div class="dynamic-line" style="margin: 15px 0;"></div>
+                <div class="shimmer-v shimmer-text">PHẦN CỨNG & MỀM</div>
+                <div class="dynamic-badge dynamic-badge-v cycling-text">LAPTOP</div>
+                
+                <div class="visual-v">
+                    <div class="glow-spinner"></div>
+                    <div class="image-slider">
+                        <img src="https://i.postimg.cc/QtPG3dmL/macbook.png" class="slide-img active">
+                        <img src="https://i.postimg.cc/g23QnPyq/Chat-GPT-Image-6-sty-2026-19-20-23.png" class="slide-img">
+                    </div>
+                </div>
+                
+                <div class="promo-v"><span class="gift-icon">🎁</span> MIỄN PHÍ KIỂM TRA TƯ VẤN</div>
+                
+                <div class="commit-v">
+                    <div class="sub-v">★ GIÁ TỐT NHẤT BA LAN ★</div>
+                    <div class="sub-v">★ TẬN TÂM, UY TÍN, CHUYÊN NGHIỆP ★</div>
+                    <div class="sub-v">★ HOÀN TIỀN NẾU KHÔNG HÀI LÒNG ★</div>
+                </div>
+
+                <div class="nav-v nav-left">
+                    <a href="tel:733676869" class="nav-item dt-link c-orange" onclick="handleNav(event, this)"><i class="fa-solid fa-phone"></i><span class="nav-label">Bakalarska: 733 67 68 69</span></a>
+                    <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link c-orange" onclick="handleNav(event, this)"><i class="fa-brands fa-facebook-messenger"></i><span class="nav-label">Messenger: Alo Serwis</span></a>
+                    <a href="#" class="nav-item dt-link c-orange" onclick="handleNav(event, this)"><i class="fa-solid fa-location-dot"></i><span class="nav-label">Cơ sở 1: Bakalarska 2</span></a>
+                </div>
+                <div class="nav-v nav-right">
+                    <a href="tel:787456999" class="nav-item dt-link c-red" onclick="handleNav(event, this)"><i class="fa-solid fa-phone"></i><span class="nav-label">Wólka: 787 456 999</span></a>
+                    <a href="viber://chat?number=48787456999" class="nav-item dt-link c-purple" onclick="handleNav(event, this)"><i class="fa-brands fa-viber"></i><span class="nav-label">Viber: 787 456 999</span></a>
+                    <a href="#" class="nav-item dt-link c-red" onclick="handleNav(event, this)"><i class="fa-solid fa-location-dot"></i><span class="nav-label">Cơ sở 2: ASG - A3</span></a>
+                </div>
+            </div>
+
+            <div id="banner-h" class="layout-h">
+                <div class="header-h">ALO SERWIS</div>
+                <div class="title-h">MUA BÁN & SỬA CHỮA</div>
+                <div class="dynamic-line" style="width: 450px; margin: 15px 0;"></div>
+                <div class="shimmer-h shimmer-text">PHẦN CỨNG & MỀM</div>
+                <div class="row-h"><span class="dynamic-badge dynamic-badge-h cycling-text">LAPTOP</span></div>
+                <div class="promo-h"><span class="gift-icon">🎁</span> MIỄN PHÍ KIỂM TRA TƯ VẤN</div>
+                <div class="commitments-h">
+                    <p class="sub-h">★ GIÁ TỐT NHẤT BA LAN</p>
+                    <p class="sub-h">★ TẬN TÂM, UY TÍN VÀ CHUYÊN NGHIỆP</p>
+                    <p class="sub-h">★ HOÀN TIỀN 100% NẾU KHÔNG HÀI LÒNG</p>
+                </div>
+                <div class="visual-h">
+                    <div class="glow-spinner"></div>
+                    <div class="image-slider">
+                        <img src="https://i.postimg.cc/QtPG3dmL/macbook.png" class="slide-img active">
+                        <img src="https://i.postimg.cc/g23QnPyq/Chat-GPT-Image-6-sty-2026-19-20-23.png" class="slide-img">
+                    </div>
+                </div>
+                <div class="footer-line-wrapper">
+                    <div class="dynamic-line" style="width: 100%;"></div>
+                </div>
+                <div class="footer-h">
+                    <div class="info-col">
+                        <div class="vertical-hl">Cơ sở 1</div>
+                        <div class="col-text">Bakalarska 2 / B214<br>02-212 Warszawa<br><span class="hl-red">Hotline:</span> 733 676 869</div>
+                    </div>
+                    <div class="info-col">
+                        <div class="vertical-hl">Cơ sở 2</div>
+                        <div class="col-text">Nadrzeczna 7C / A3 (ASG)<br>05-552 Wólka Kosowska<br><span class="hl-red">Hotline:</span> 787 456 999</div>
+                    </div>
+                    <div class="info-col">
+                        <div class="col-text">
+                            <span class="hl-red">Website:</span> aloserwis.com<br>
+                            <span class="hl-red">Facebook:</span> fb.com/dienthoaibalan<br>
+                            <span class="hl-red">Email:</span> alo@aloserwis.com
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Effect logic from Blue Edition
+        function handleNav(e, el) {
+            e.stopPropagation();
+            const links = document.querySelectorAll('.dt-link');
+            if (!el.classList.contains('active')) {
+                e.preventDefault();
+                links.forEach(l => l.classList.remove('active'));
+                el.classList.add('active');
+            }
+        }
+
+        function closeAllNav() {
+            document.querySelectorAll('.dt-link').forEach(l => l.classList.remove('active'));
+        }
+
+        const words = ["LAPTOP", "MÁY TÍNH", "FAKTURA"];
+        let wordIdx = 0;
+        setInterval(() => {
+            wordIdx = (wordIdx + 1) % words.length;
+            document.querySelectorAll('.cycling-text').forEach(el => el.innerText = words[wordIdx]);
+        }, 1200);
+
+        function startImageSlider() {
+            const sliders = document.querySelectorAll('.image-slider');
+            sliders.forEach(slider => {
+                const imgs = slider.querySelectorAll('.slide-img');
+                let imgIdx = 0;
+                setInterval(() => {
+                    imgs[imgIdx].classList.remove('active');
+                    imgIdx = (imgIdx + 1) % imgs.length;
+                    imgs[imgIdx].classList.add('active');
+                }, 4000);
+            });
+        }
+
+        function rescale() {
+            const isPortrait = window.innerHeight > window.innerWidth;
+            const designW = isPortrait ? 1080 : 1920;
+            const designH = isPortrait ? 1920 : 1080;
+            const scale = Math.min(window.innerWidth / designW, window.innerHeight / designH);
+            const wrapper = document.getElementById('rescaleWrapper');
+            wrapper.style.width = designW + 'px'; wrapper.style.height = designH + 'px';
+            wrapper.style.transform = `scale(${scale})`;
+        }
+
+        window.addEventListener('resize', rescale);
+        window.addEventListener('load', () => { rescale(); startImageSlider(); });
+    </script>
+</body>
+</html>
