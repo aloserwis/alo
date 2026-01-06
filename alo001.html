@@ -20,10 +20,10 @@
             width: 100%; height: 100%;
             background-color: #000;
             font-family: 'Montserrat', sans-serif;
-            overscroll-behavior-y: none; 
-            overflow: hidden;
             display: flex; justify-content: center; align-items: center;
-            position: fixed;
+            overflow: hidden; /* Giữ khung banner cố định */
+            /* Cho phép kéo tải lại ở mức trình duyệt */
+            overscroll-behavior-y: auto; 
         }
 
         #snow-canvas {
@@ -32,6 +32,7 @@
             z-index: 25; pointer-events: none;
         }
 
+        /* --- ANIMATIONS --- */
         @keyframes zoomGift { 0%, 100% { transform: scale(1.1); } 50% { transform: scale(1.9) translateY(-8px); } }
         @keyframes rotateGlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes shimmer { to { background-position: 200% center; } }
@@ -44,34 +45,16 @@
             animation: shimmer 3s linear infinite; 
         }
 
-        .gift-icon { 
-            display: inline-block; font-size: 1.3em; animation: zoomGift 1.2s ease-in-out infinite; 
-            vertical-align: middle; margin-right: 15px; position: relative; z-index: 50; 
-        }
-
-        .lay-ngay-badge { 
-            background: var(--primary-orange); color: black; font-weight: 900; 
-            border-radius: 15px; box-shadow: 0 0 50px var(--primary-orange); 
-            animation: shakePulse 1.2s infinite ease-in-out; -webkit-text-fill-color: black; 
-        }
+        .gift-icon { display: inline-block; font-size: 1.3em; animation: zoomGift 1.2s ease-in-out infinite; vertical-align: middle; margin-right: 15px; position: relative; z-index: 50; }
+        .lay-ngay-badge { background: var(--primary-orange); color: black; font-weight: 900; border-radius: 15px; box-shadow: 0 0 50px var(--primary-orange); animation: shakePulse 1.2s infinite ease-in-out; -webkit-text-fill-color: black; }
 
         .banner-container { position: relative; flex-shrink: 0; overflow: hidden; }
         .inner-content { position: absolute; inset: 2px; background: var(--dark-bg); overflow: hidden; z-index: 5; }
         
-        .banner-container::before { 
-            content: ''; position: absolute; inset: -150px; 
-            background: conic-gradient(from 0deg, transparent 65%, var(--primary-orange) 85%, #fff 100%); 
-            animation: rotateGlow 4s linear infinite; z-index: 1; 
-        }
+        .banner-container::before { content: ''; position: absolute; inset: -150px; background: conic-gradient(from 0deg, transparent 65%, var(--primary-orange) 85%, #fff 100%); animation: rotateGlow 4s linear infinite; z-index: 1; }
         .banner-container::after { content: ''; position: absolute; inset: 6px; background: var(--dark-bg); z-index: 2; }
 
-        .glow-spinner { 
-            position: absolute; inset: 0; border-radius: 50%; 
-            background: conic-gradient(from 0deg, transparent 50%, var(--primary-orange) 95%, #fff 100%); 
-            animation: rotateGlow 2.5s linear infinite; 
-            -webkit-mask: radial-gradient(circle, transparent 68%, black 70%); 
-            filter: blur(10px) drop-shadow(0 0 40px var(--primary-orange)); 
-        }
+        .glow-spinner { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, transparent 50%, var(--primary-orange) 95%, #fff 100%); animation: rotateGlow 2.5s linear infinite; -webkit-mask: radial-gradient(circle, transparent 68%, black 70%); filter: blur(10px) drop-shadow(0 0 40px var(--primary-orange)); }
 
         /* --- MOBILE LAYOUT --- */
         @media (max-aspect-ratio: 1/1) {
@@ -90,11 +73,7 @@
             .visual-v { position: relative; width: 880px; height: 880px; margin: 40px 0; display: flex; justify-content: center; align-items: center; }
             .phone-v { width: 82%; transform: rotate(-5deg); filter: drop-shadow(0 0 70px rgba(245, 130, 32, 0.6)); z-index: 6; }
             
-            .promo-v { 
-                background: white; padding: 18px 55px; border-radius: 100px; 
-                font-size: 54px; font-weight: 900; margin-top: 20px; 
-                transform: translateY(-20px); overflow: visible; display: flex; align-items: center;
-            }
+            .promo-v { background: white; padding: 18px 55px; border-radius: 100px; font-size: 54px; font-weight: 900; margin-top: 20px; transform: translateY(-20px); overflow: visible; display: flex; align-items: center; }
             
             .commit-v { margin-top: 10px; display: flex; flex-direction: column; gap: 32px; text-align: center; } 
             .sub-v { color: white; font-size: 38px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
@@ -119,27 +98,16 @@
             .title-h { font-size: 75px; color: white; font-weight: 900; margin: 0; text-transform: uppercase; }
             .line-h-top { width: 45%; height: 4px; background: #111; position: relative; overflow: hidden; margin: 12px 0;}
             .line-h-top::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--primary-orange), #fff, var(--primary-orange), transparent); animation: expandCenter 4s ease-in-out infinite; transform-origin: center; }
-            
             .shimmer-h { font-size: 90px; font-weight: 900; line-height: 1.1; }
             .row-h { display: flex; align-items: center; gap: 30px; margin-top: 10px; }
             .lay-ngay-h { font-size: 65px; padding: 12px 45px; }
-            
-            .promo-h { 
-                background: white; color: black; padding: 12px 45px; 
-                border-radius: 100px; font-weight: 900; font-size: 42px; 
-                width: fit-content; margin: 25px 0; overflow: visible; 
-                display: flex; align-items: center;
-            }
-            
+            .promo-h { background: white; color: black; padding: 12px 45px; border-radius: 100px; font-weight: 900; font-size: 42px; width: fit-content; margin: 25px 0; overflow: visible; display: flex; align-items: center; }
             .commitments-h { display: flex; flex-direction: column; gap: 28px; margin-top: 25px; } 
             .sub-h { font-size: 34px; font-weight: 900; color: white; text-transform: uppercase; margin: 0; letter-spacing: 2px; }
-            
             .visual-h { position: absolute; right: 80px; top: 40%; transform: translateY(-50%); width: 850px; height: 850px; display: flex; justify-content: center; align-items: center;}
             .phone-h { width: 80%; transform: rotate(-5deg); filter: drop-shadow(0 0 70px rgba(245, 130, 32, 0.6)); z-index: 6; }
-
             .line-h-bottom { width: 100%; height: 4px; background: #111; position: absolute; bottom: 15%; left: 0; overflow: hidden; }
             .line-h-bottom::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--primary-orange), #fff, var(--primary-orange), transparent); animation: expandCenter 4s ease-in-out infinite; transform-origin: center; }
-
             .footer-h { position: absolute; bottom: 0; left: 0; width: 100%; height: 15%; display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; padding: 0 50px; box-sizing: border-box; background: rgba(0,0,0,0.85); }
             .info-col { display: flex; align-items: center; justify-content: center; color: #fff; gap: 20px; }
             .vertical-hl { writing-mode: vertical-rl; transform: rotate(180deg); color: var(--primary-orange); font-weight: 900; font-size: 26px; border-left: 3px solid var(--primary-orange); padding-left: 12px; white-space: nowrap; text-transform: uppercase; }
@@ -200,25 +168,20 @@
                     <div class="shimmer-h shimmer-text">IPHONE</div>
                     <span class="lay-ngay-badge lay-ngay-h">LẤY NGAY!</span>
                 </div>
-                
                 <div class="promo-h">
                     <span class="gift-icon">🎁</span>
                     <span>TẶNG KÍNH CƯỜNG LỰC</span>
                 </div>
-                
                 <div class="commitments-h">
                     <p class="sub-h">★ CHẤT LƯỢNG TỐT NHẤT</p>
                     <p class="sub-h">★ THỜI GIAN NHANH CHÓNG</p>
                     <p class="sub-h">★ BẢO HÀNH 1 ĐỔI 1</p>
                 </div>
-
                 <div class="visual-h">
                     <div class="glow-spinner"></div>
                     <img src="https://i.postimg.cc/vZdpL1xS/IMG-1345.png" class="phone-h">
                 </div>
-
                 <div class="line-h-bottom"></div>
-
                 <div class="footer-h">
                     <div class="info-col">
                         <div class="vertical-hl">Cơ sở 1</div>
@@ -238,12 +201,34 @@
     </div>
 
     <script>
+        // --- LOGIC: CHO PHÉP KÉO TẢI LẠI Ở GIỮA MÀN HÌNH ---
         let touchStartY = 0;
-        document.addEventListener('touchstart', function (e) { touchStartY = e.touches[0].pageY; }, { passive: false });
+        let touchStartX = 0;
+
+        document.addEventListener('touchstart', function (e) {
+            touchStartY = e.touches[0].pageY;
+            touchStartX = e.touches[0].pageX;
+        }, { passive: false });
+
         document.addEventListener('touchmove', function (e) {
             const touchY = e.touches[0].pageY;
-            if (document.documentElement.scrollTop === 0 && touchY > touchStartY) { e.preventDefault(); }
-        }, { passive: false });
+            const touchX = e.touches[0].pageX;
+            const screenWidth = window.innerWidth;
+
+            // Vùng 2 bên (20% mỗi bên) sẽ bị chặn để click nút không bị trượt
+            // Vùng giữa (60% màn hình) sẽ cho phép kéo tự nhiên
+            const isAtSides = (touchX < screenWidth * 0.2 || touchX > screenWidth * 0.8);
+
+            if (isAtSides) {
+                // Nếu đang ở 2 bên dải nút bấm, ta chặn kéo để tránh nhầm lẫn
+                if (touchY > touchStartY) {
+                    // e.preventDefault(); // Bạn có thể bỏ comment nếu muốn khóa chặt 2 bên dải nút
+                }
+            } else {
+                // Nếu đang ở giữa màn hình (Phần banner/điện thoại)
+                // KHÔNG gọi preventDefault() để trình duyệt thực hiện Pull-to-refresh mặc định
+            }
+        }, { passive: true }); // Để true để trình duyệt ưu tiên hành động kéo tải lại
 
         const canvas = document.getElementById('snow-canvas');
         const ctx = canvas.getContext('2d');
@@ -276,7 +261,6 @@
         const links = document.querySelectorAll('.dt-link');
         links.forEach(link => {
             link.addEventListener('click', function(e) {
-                // Cho phép mở ngay các ứng dụng bên ngoài
                 if (this.href.startsWith('tel:') || this.href.includes('viber') || this.href.includes('googleusercontent') || this.href.includes('m.me')) {
                     return; 
                 }
