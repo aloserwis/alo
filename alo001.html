@@ -15,16 +15,16 @@
             --map-red: #eb4034;
         }
 
+        /* --- CHỐNG KÉO LOAD LẠI TRANG --- */
         html, body {
             margin: 0; padding: 0;
             width: 100%; height: 100%;
             background-color: #000;
             font-family: 'Montserrat', sans-serif;
-            overflow: hidden;
+            overflow: hidden; /* Quan trọng */
             display: flex; justify-content: center; align-items: center;
-            /* CHỐNG LOAD LẠI TRANG KHI KÉO VUỐT TRÊN MOBILE */
-            overscroll-behavior-y: contain;
-            touch-action: none; /* Ngăn chặn các thao tác mặc định của trình duyệt */
+            overscroll-behavior: none; /* Ngăn chặn trình duyệt cuộn quá biên */
+            position: fixed; /* Khóa vị trí trên mobile */
         }
 
         #snow-canvas {
@@ -162,7 +162,9 @@
         }
     </style>
 </head>
-<body oncontextmenu="return false;"> <canvas id="snow-canvas"></canvas>
+<body>
+
+    <canvas id="snow-canvas"></canvas>
 
     <div class="banner-container" id="rescaleWrapper">
         <div class="inner-content">
@@ -249,9 +251,15 @@
     </div>
 
     <script>
-        // Ngăn chặn sự kiện kéo thả mặc định để tránh load lại trang
-        document.addEventListener('touchmove', function(e) {
-            e.preventDefault();
+        // --- GIẢI PHÁP CHỐNG LOAD LẠI TRANG KHI VUỐT ---
+        document.addEventListener('touchstart', function (e) {
+            // Lưu vị trí chạm ban đầu nếu cần
+        }, { passive: false });
+
+        document.addEventListener('touchmove', function (e) {
+            // Chặn hoàn toàn hành vi cuộn mặc định của trình duyệt
+            if (e.scale !== 1) { e.preventDefault(); } // Chặn pinch zoom nếu muốn
+            e.preventDefault(); 
         }, { passive: false });
 
         const canvas = document.getElementById('snow-canvas');
