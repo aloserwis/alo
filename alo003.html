@@ -14,7 +14,6 @@
             --viber-purple: #7360f2;
         }
 
-        /* CHỐNG PULL TO REFRESH TẠI ĐÂY */
         html, body {
             margin: 0; padding: 0;
             width: 100%; height: 100%;
@@ -22,10 +21,19 @@
             font-family: 'Montserrat', sans-serif;
             display: flex; justify-content: center; align-items: center;
             overflow: hidden; 
-            touch-action: none; /* Vô hiệu hóa các cử chỉ mặc định của trình duyệt */
-            overscroll-behavior-y: none; /* Chống kéo để tải lại trang */
-            user-select: none; /* Chống bôi đen văn bản khi thao tác */
+            touch-action: none;
+            overscroll-behavior-y: none;
+            user-select: none;
             -webkit-user-select: none;
+        }
+
+        /* --- FIREWORKS CANVAS --- */
+        #fw-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1; /* Nằm dưới banner content */
+            pointer-events: none;
         }
 
         /* --- ANIMATIONS --- */
@@ -44,8 +52,11 @@
             position: relative; flex-shrink: 0; overflow: hidden; 
             border: 2px solid rgba(230, 0, 0, 0.4);
             animation: borderGlow 4s infinite ease-in-out;
+            z-index: 10;
+            background: transparent;
         }
-        .inner-content { position: absolute; inset: 0; background: var(--dark-bg); overflow: hidden; z-index: 5; }
+        /* Làm nền hơi trong suốt để thấy pháo hoa phía sau */
+        .inner-content { position: absolute; inset: 0; background: rgba(0,0,0,0.6); overflow: hidden; z-index: 5; }
 
         .dynamic-line { width: 90%; height: 4px; background: #111; position: relative; overflow: hidden; }
         .dynamic-line::after { 
@@ -89,17 +100,13 @@
             .title-v { color: white; font-size: 80px; font-weight: 900; text-transform: uppercase; margin-bottom: 15px; }
             .shimmer-v { font-size: 95px; font-weight: 900; margin: 20px 0; }
             .dynamic-badge-v { font-size: 75px; padding: 20px 50px; min-width: 550px; }
-            
             .visual-v { position: relative; width: 950px; height: 820px; margin: 20px 0; }
-            
             .promo-v { background: white; padding: 18px 55px; border-radius: 100px; font-size: 48px; font-weight: 900; color: #000; display: flex; align-items: center; }
             .commit-v { margin-top: 40px; display: flex; flex-direction: column; gap: 40px; text-align: center; } 
             .sub-v { color: white; font-size: 38px; font-weight: 700; text-transform: uppercase; }
-
             .nav-v { position: absolute; bottom: 80px; display: flex; flex-direction: column; gap: 35px; z-index: 100; }
             .nav-left { left: 40px; align-items: flex-start; }
             .nav-right { right: 40px; align-items: flex-end; }
-
             .nav-item { 
                 text-decoration: none; width: 135px; height: 135px; 
                 background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); 
@@ -111,10 +118,8 @@
             .nav-item i { font-size: 65px; min-width: 80px; text-align: center; }
             .nav-label { color: white; font-size: 34px; font-weight: 900; opacity: 0; max-width: 0; transition: all 0.3s ease; white-space: nowrap; text-transform: uppercase; }
             .nav-item.active .nav-label { opacity: 1; max-width: 900px; margin-left: 20px; }
-            
             .nav-right .nav-item.active { flex-direction: row-reverse; }
             .nav-right .nav-item.active .nav-label { margin-left: 0; margin-right: 20px; }
-
             .c-orange { color: var(--primary-orange); }
             .c-red { color: var(--primary-red); }
             .c-purple { color: var(--viber-purple); }
@@ -133,7 +138,6 @@
             .promo-h { background: white; color: #000; padding: 15px 50px; border-radius: 100px; font-weight: 900; font-size: 42px; margin: 35px 0; width: fit-content; display: flex; align-items: center; }
             .commitments-h { display: flex; flex-direction: column; gap: 8px; }
             .sub-h { font-size: 32px; font-weight: 900; color: white; text-transform: uppercase; margin: 0; }
-            
             .visual-h { position: absolute; right: 50px; top: 40%; transform: translateY(-50%); width: 850px; height: 850px; z-index: 5; }
             .footer-line-wrapper { position: absolute; bottom: 15%; left: 0; width: 100%; display: flex; justify-content: center; z-index: 20; }
             .footer-h { position: absolute; bottom: 0; left: 0; width: 100%; height: 15%; display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; padding: 0 50px; background: rgba(0,0,0,0.9); }
@@ -146,16 +150,16 @@
 </head>
 <body onclick="closeAllNav()">
 
+    <canvas id="fw-canvas"></canvas>
+
     <div class="banner-container" id="rescaleWrapper">
         <div class="inner-content">
-            
             <div id="banner-v" class="layout-v">
                 <div class="header-v">ALO SERWIS</div>
                 <div class="title-v">MUA BÁN & SỬA CHỮA</div>
                 <div class="dynamic-line" style="margin: 15px 0;"></div>
                 <div class="shimmer-v shimmer-text">PHẦN CỨNG & MỀM</div>
                 <div class="dynamic-badge dynamic-badge-v cycling-text">LAPTOP</div>
-                
                 <div class="visual-v">
                     <div class="glow-spinner"></div>
                     <div class="image-slider">
@@ -163,15 +167,12 @@
                         <img src="https://i.postimg.cc/g23QnPyq/Chat-GPT-Image-6-sty-2026-19-20-23.png" class="slide-img">
                     </div>
                 </div>
-                
                 <div class="promo-v"><span class="gift-icon">🎁</span> MIỄN PHÍ KIỂM TRA TƯ VẤN</div>
-                
                 <div class="commit-v">
                     <div class="sub-v">★ GIÁ TỐT NHẤT BA LAN ★</div>
                     <div class="sub-v">★ TẬN TÂM, UY TÍN, CHUYÊN NGHIỆP ★</div>
                     <div class="sub-v">★ HOÀN TIỀN NẾU KHÔNG HÀI LÒNG ★</div>
                 </div>
-
                 <div class="nav-v nav-left">
                     <a href="tel:733676869" class="nav-item dt-link c-orange" onclick="handleNav(event, this)"><i class="fa-solid fa-phone"></i><span class="nav-label">Bakalarska: 733 67 68 69</span></a>
                     <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link c-orange" onclick="handleNav(event, this)"><i class="fa-brands fa-facebook-messenger"></i><span class="nav-label">Messenger: Alo Serwis</span></a>
@@ -228,7 +229,89 @@
     </div>
 
     <script>
-        // Chống kéo trang bằng JavaScript (An toàn bổ sung)
+        // --- CHUYÊN NGHIỆP FIREWORKS SCRIPT ---
+        const canvas = document.getElementById('fw-canvas');
+        const ctx = canvas.getContext('2d');
+        let fwParticles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y, color, velocityX, velocityY) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.velocityX = velocityX;
+                this.velocityY = velocityY;
+                this.alpha = 1;
+                this.friction = 0.96;
+                this.gravity = 0.15;
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+            update() {
+                this.velocityX *= this.friction;
+                this.velocityY *= this.friction;
+                this.velocityY += this.gravity;
+                this.x += this.velocityX;
+                this.y += this.velocityY;
+                this.alpha -= 0.012;
+            }
+        }
+
+        function createExplosion(x, y) {
+            const count = 60;
+            const colors = ['#ff0000', '#ffd700', '#ffffff', '#ff4500', '#ff8800'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const angleStep = (Math.PI * 2) / count;
+            for (let i = 0; i < count; i++) {
+                const velocity = Math.random() * 8 + 2;
+                fwParticles.push(new Particle(
+                    x, y, color,
+                    Math.cos(angleStep * i) * velocity,
+                    Math.sin(angleStep * i) * velocity
+                ));
+            }
+        }
+
+        function animateFireworks() {
+            // Tạo hiệu ứng trail (đuôi) mờ dần bằng cách vẽ lớp đen mờ lên canvas mỗi frame
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            fwParticles.forEach((p, index) => {
+                if (p.alpha > 0) {
+                    p.update();
+                    p.draw();
+                } else {
+                    fwParticles.splice(index, 1);
+                }
+            });
+
+            // Ngẫu nhiên tạo vụ nổ mới
+            if (Math.random() < 0.04) {
+                createExplosion(
+                    Math.random() * canvas.width,
+                    Math.random() * (canvas.height * 0.6) // Chỉ nổ ở 2/3 trên màn hình
+                );
+            }
+            requestAnimationFrame(animateFireworks);
+        }
+        animateFireworks();
+
+        // --- OLD LOGIC ---
         document.addEventListener('touchmove', function (e) {
             if (e.scale !== 1) { e.preventDefault(); }
         }, { passive: false });
