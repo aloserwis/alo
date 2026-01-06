@@ -15,16 +15,15 @@
             --map-red: #eb4034;
         }
 
-        /* --- CHỐNG KÉO LOAD LẠI TRANG --- */
         html, body {
             margin: 0; padding: 0;
             width: 100%; height: 100%;
             background-color: #000;
             font-family: 'Montserrat', sans-serif;
-            overflow: hidden; /* Quan trọng */
+            overscroll-behavior-y: none; 
+            overflow: hidden;
             display: flex; justify-content: center; align-items: center;
-            overscroll-behavior: none; /* Ngăn chặn trình duyệt cuộn quá biên */
-            position: fixed; /* Khóa vị trí trên mobile */
+            position: fixed;
         }
 
         #snow-canvas {
@@ -33,19 +32,11 @@
             z-index: 25; pointer-events: none;
         }
 
-        /* --- ANIMATIONS --- */
-        @keyframes zoomGift { 
-            0%, 100% { transform: scale(1.1); } 
-            50% { transform: scale(1.9) translateY(-8px); } 
-        }
+        @keyframes zoomGift { 0%, 100% { transform: scale(1.1); } 50% { transform: scale(1.9) translateY(-8px); } }
         @keyframes rotateGlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes shimmer { to { background-position: 200% center; } }
         @keyframes shakePulse { 0%, 100% { transform: scale(1) rotate(0deg); } 20% { transform: scale(1.1) rotate(-3deg); } 40% { transform: scale(1.1) rotate(3deg); } }
-        @keyframes expandCenter {
-            0% { transform: scaleX(0); opacity: 0; }
-            50% { transform: scaleX(1); opacity: 1; }
-            100% { transform: scaleX(0); opacity: 0; }
-        }
+        @keyframes expandCenter { 0% { transform: scaleX(0); opacity: 0; } 50% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(0); opacity: 0; } }
 
         .shimmer-text { 
             background: linear-gradient(to right, #f58220 0%, #fff 50%, #f58220 100%); 
@@ -54,13 +45,8 @@
         }
 
         .gift-icon { 
-            display: inline-block; 
-            font-size: 1.3em; 
-            animation: zoomGift 1.2s ease-in-out infinite; 
-            vertical-align: middle; 
-            margin-right: 15px;
-            position: relative;
-            z-index: 50; 
+            display: inline-block; font-size: 1.3em; animation: zoomGift 1.2s ease-in-out infinite; 
+            vertical-align: middle; margin-right: 15px; position: relative; z-index: 50; 
         }
 
         .lay-ngay-badge { 
@@ -118,8 +104,8 @@
             .nav-right { right: 40px; align-items: flex-end; }
             .nav-item { text-decoration: none; width: 130px; height: 130px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 65px; display: flex; justify-content: center; align-items: center; transition: all 0.4s; overflow: hidden; }
             .nav-item.active { width: fit-content; padding: 0 40px; background: rgba(255, 255, 255, 0.2); }
-            .nav-item i { font-size: 60px; min-width: 70px; text-align: center; }
-            .nav-label { color: white; font-size: 34px; font-weight: 900; opacity: 0; max-width: 0; transition: all 0.3s ease; }
+            .nav-item i { font-size: 60px; min-width: 70px; text-align: center; pointer-events: none; }
+            .nav-label { color: white; font-size: 34px; font-weight: 900; opacity: 0; max-width: 0; transition: all 0.3s ease; pointer-events: none; }
             .nav-item.active .nav-label { opacity: 1; max-width: 850px; margin-left: 20px; }
             .c-orange { color: var(--primary-orange); } .c-blue { color: var(--hotline-blue); } .c-purple { color: var(--viber-purple); } .c-red { color: var(--map-red); }
         }
@@ -195,12 +181,13 @@
                 <div class="nav-v nav-left">
                     <a href="tel:733676869" class="nav-item dt-link c-orange"><i class="fa-solid fa-phone"></i><span class="nav-label">BAKALARSKA: 733 67 68 69</span></a>
                     <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link c-orange"><i class="fa-brands fa-facebook-messenger"></i><span class="nav-label">Messenger</span></a>
-                    <a href="#" class="nav-item dt-link c-orange"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
+                    <a href="https://maps.app.goo.gl/zNUxFsg79Cb9y1SNA" target="_blank" class="nav-item dt-link c-orange"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
                 </div>
+
                 <div class="nav-v nav-right">
-                    <a href="tel:787456999" class="nav-item dt-link c-blue"><i class="fa-solid fa-phone-volume"></i><span class="nav-label">WÓLKA: 787 456 999</span></a>
+                    <a href="tel:787456999" class="nav-item dt-link c-blue"><i class="fa-solid fa-phone"></i><span class="nav-label">WÓLKA: 787 456 999</span></a>
                     <a href="#" class="nav-item dt-link c-purple"><i class="fa-brands fa-viber"></i><span class="nav-label">VIBER: 787 456 999</span></a>
-                    <a href="#" class="nav-item dt-link c-red"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
+                    <a href="https://maps.app.goo.gl/Ay5MhtteeFQSsx1e6" target="_blank" class="nav-item dt-link c-blue"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
                 </div>
             </div>
 
@@ -251,15 +238,11 @@
     </div>
 
     <script>
-        // --- GIẢI PHÁP CHỐNG LOAD LẠI TRANG KHI VUỐT ---
-        document.addEventListener('touchstart', function (e) {
-            // Lưu vị trí chạm ban đầu nếu cần
-        }, { passive: false });
-
+        let touchStartY = 0;
+        document.addEventListener('touchstart', function (e) { touchStartY = e.touches[0].pageY; }, { passive: false });
         document.addEventListener('touchmove', function (e) {
-            // Chặn hoàn toàn hành vi cuộn mặc định của trình duyệt
-            if (e.scale !== 1) { e.preventDefault(); } // Chặn pinch zoom nếu muốn
-            e.preventDefault(); 
+            const touchY = e.touches[0].pageY;
+            if (document.documentElement.scrollTop === 0 && touchY > touchStartY) { e.preventDefault(); }
         }, { passive: false });
 
         const canvas = document.getElementById('snow-canvas');
@@ -293,6 +276,10 @@
         const links = document.querySelectorAll('.dt-link');
         links.forEach(link => {
             link.addEventListener('click', function(e) {
+                // Cho phép mở ngay các ứng dụng bên ngoài
+                if (this.href.startsWith('tel:') || this.href.includes('viber') || this.href.includes('googleusercontent') || this.href.includes('m.me')) {
+                    return; 
+                }
                 if (!this.classList.contains('active')) {
                     e.preventDefault(); 
                     links.forEach(l => l.classList.remove('active'));
