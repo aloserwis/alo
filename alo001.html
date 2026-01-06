@@ -22,13 +22,13 @@
             font-family: 'Montserrat', sans-serif;
             display: flex; justify-content: center; align-items: center;
             overflow: hidden; 
-            touch-action: none; /* Chặn cuộn mặc định để xử lý Pull-to-refresh */
+            touch-action: none; 
         }
 
         /* --- BIỂU TƯỢNG PULL TO REFRESH --- */
         #ptr-indicator {
             position: fixed;
-            top: -60px; /* Ẩn phía trên */
+            top: -60px;
             left: 50%;
             transform: translateX(-50%);
             width: 50px; height: 50px;
@@ -46,22 +46,10 @@
             z-index: 25; pointer-events: none;
         }
 
-        /* --- BANNER CONTAINER --- */
-        .banner-container { 
-            position: relative; 
-            flex-shrink: 0; 
-            overflow: hidden;
-            /* Transition mượt mà khi thả tay ra */
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        }
-        .inner-content { position: absolute; inset: 2px; background: var(--dark-bg); overflow: hidden; z-index: 5; }
-        
-        .banner-container::before { content: ''; position: absolute; inset: -150px; background: conic-gradient(from 0deg, transparent 65%, var(--primary-orange) 85%, #fff 100%); animation: rotateGlow 4s linear infinite; z-index: 1; }
-        .banner-container::after { content: ''; position: absolute; inset: 6px; background: var(--dark-bg); z-index: 2; }
-
+        /* --- ANIMATIONS --- */
+        @keyframes zoomGift { 0%, 100% { transform: scale(1.1); } 50% { transform: scale(1.9) translateY(-8px); } }
         @keyframes rotateGlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes shimmer { to { background-position: 200% center; } }
-        @keyframes zoomGift { 0%, 100% { transform: scale(1.1); } 50% { transform: scale(1.9) translateY(-8px); } }
         @keyframes shakePulse { 0%, 100% { transform: scale(1) rotate(0deg); } 20% { transform: scale(1.1) rotate(-3deg); } 40% { transform: scale(1.1) rotate(3deg); } }
         @keyframes expandCenter { 0% { transform: scaleX(0); opacity: 0; } 50% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(0); opacity: 0; } }
 
@@ -73,6 +61,11 @@
 
         .gift-icon { display: inline-block; font-size: 1.3em; animation: zoomGift 1.2s ease-in-out infinite; vertical-align: middle; margin-right: 15px; position: relative; z-index: 50; }
         .lay-ngay-badge { background: var(--primary-orange); color: black; font-weight: 900; border-radius: 15px; box-shadow: 0 0 50px var(--primary-orange); animation: shakePulse 1.2s infinite ease-in-out; -webkit-text-fill-color: black; }
+
+        .banner-container { position: relative; flex-shrink: 0; overflow: hidden; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .inner-content { position: absolute; inset: 2px; background: var(--dark-bg); overflow: hidden; z-index: 5; }
+        .banner-container::before { content: ''; position: absolute; inset: -150px; background: conic-gradient(from 0deg, transparent 65%, var(--primary-orange) 85%, #fff 100%); animation: rotateGlow 4s linear infinite; z-index: 1; }
+        .banner-container::after { content: ''; position: absolute; inset: 6px; background: var(--dark-bg); z-index: 2; }
         .glow-spinner { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, transparent 50%, var(--primary-orange) 95%, #fff 100%); animation: rotateGlow 2.5s linear infinite; -webkit-mask: radial-gradient(circle, transparent 68%, black 70%); filter: blur(10px) drop-shadow(0 0 40px var(--primary-orange)); }
 
         /* --- MOBILE LAYOUT --- */
@@ -84,21 +77,39 @@
             .title-v { color: white; font-size: 78px; font-weight: 900; text-transform: uppercase; text-align: center; transform: translateY(-20px); }
             .line-v { width: 90%; height: 4px; background: #111; position: relative; overflow: hidden; margin: 15px 0; transform: translateY(-20px); }
             .line-v::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--primary-orange), #fff, var(--primary-orange), transparent); animation: expandCenter 4s ease-in-out infinite; transform-origin: center; }
+            
             .shimmer-v { font-size: 85px; font-weight: 900; text-align: center; }
             .row-v { display: flex; align-items: center; gap: 25px; margin-top: 10px; }
             .lay-ngay-v { font-size: 70px; padding: 15px 40px; }
+            
             .visual-v { position: relative; width: 880px; height: 880px; margin: 40px 0; display: flex; justify-content: center; align-items: center; }
             .phone-v { width: 82%; transform: rotate(-5deg); filter: drop-shadow(0 0 70px rgba(245, 130, 32, 0.6)); z-index: 6; }
+            
             .promo-v { background: white; padding: 18px 55px; border-radius: 100px; font-size: 54px; font-weight: 900; margin-top: 20px; transform: translateY(-20px); overflow: visible; display: flex; align-items: center; }
+            
             .commit-v { margin-top: 10px; display: flex; flex-direction: column; gap: 32px; text-align: center; } 
             .sub-v { color: white; font-size: 38px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+
             .nav-v { position: absolute; bottom: 80px; display: flex; flex-direction: column; gap: 35px; z-index: 100; }
             .nav-left { left: 40px; align-items: flex-start; }
             .nav-right { right: 40px; align-items: flex-end; }
-            .nav-item { text-decoration: none; width: 130px; height: 130px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 65px; display: flex; justify-content: center; align-items: center; transition: all 0.4s; overflow: hidden; }
+            
+            .nav-item { 
+                text-decoration: none; 
+                width: 130px; height: 130px; 
+                background: rgba(255, 255, 255, 0.1); 
+                backdrop-filter: blur(15px); 
+                border: 3px solid rgba(255, 255, 255, 0.3); 
+                border-radius: 65px; 
+                display: flex; justify-content: center; align-items: center; 
+                transition: all 0.4s; overflow: hidden; 
+            }
             .nav-item.active { width: fit-content; padding: 0 40px; background: rgba(255, 255, 255, 0.2); }
             .nav-item i { font-size: 60px; min-width: 70px; text-align: center; pointer-events: none; }
-            .nav-label { color: white; font-size: 34px; font-weight: 900; opacity: 0; max-width: 0; transition: all 0.3s ease; pointer-events: none; }
+            .nav-label { 
+                color: white; font-size: 34px; font-weight: 900; 
+                opacity: 0; max-width: 0; transition: all 0.3s ease; pointer-events: none; 
+            }
             .nav-item.active .nav-label { opacity: 1; max-width: 850px; margin-left: 20px; }
             .c-orange { color: var(--primary-orange); } .c-blue { color: var(--hotline-blue); } .c-purple { color: var(--viber-purple); } .c-red { color: var(--map-red); }
         }
@@ -140,6 +151,7 @@
 
     <div class="banner-container" id="rescaleWrapper">
         <div class="inner-content">
+            
             <div id="banner-v" class="layout-v">
                 <div class="header-v">ALO SERWIS</div>
                 <div class="title-v">SỬA CHỮA ĐIỆN THOẠI</div>
@@ -217,124 +229,108 @@
     </div>
 
     <script>
-        // --- 1. BIẾN TOÀN CỤC ---
+        // --- 1. XỬ LÝ SỰ KIỆN CLICK NÚT (FIX: HIỆN LABEL TRƯỚC) ---
+        const links = document.querySelectorAll('.dt-link');
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Nếu nút này CHƯA xòe ra
+                if (!this.classList.contains('active')) {
+                    e.preventDefault(); // CHẶN gọi điện/mở link ngay lập tức
+                    
+                    // Thu nhỏ tất cả các nút khác lại
+                    links.forEach(l => l.classList.remove('active'));
+                    
+                    // Xòe nút hiện tại ra để hiện label
+                    this.classList.add('active');
+                } else {
+                    // Nếu nút ĐÃ xòe rồi, cho phép thực hiện link (gọi điện, messenger...)
+                    return true;
+                }
+            });
+        });
+
+        // --- 2. PULL TO REFRESH ---
+        let startY = 0;
+        let isPulling = false;
+        const threshold = 150;
         const ptrIndicator = document.getElementById('ptr-indicator');
         const wrapper = document.getElementById('rescaleWrapper');
         let currentScale = 1;
 
-        // --- 2. LOGIC PULL TO REFRESH (Kéo để tải lại) ---
-        let startY = 0;
-        let isPulling = false;
-        const threshold = 150; // Khoảng cách kéo để kích hoạt (px)
-
-        // Bắt đầu chạm
         document.addEventListener('touchstart', function(e) {
-            // Chỉ kích hoạt khi đang ở đỉnh trang (scrollTop = 0)
             if (window.scrollY === 0) {
                 startY = e.touches[0].pageY;
                 isPulling = true;
-                // Tắt transition khi đang kéo để không bị trễ
                 wrapper.style.transition = 'none';
                 ptrIndicator.style.transition = 'none';
             }
         }, { passive: false });
 
-        // Đang kéo
         document.addEventListener('touchmove', function(e) {
             if (!isPulling) return;
-            
             const currentY = e.touches[0].pageY;
             const diff = currentY - startY;
 
-            // Chỉ xử lý khi kéo xuống
             if (diff > 0) {
-                e.preventDefault(); // Chặn hành vi cuộn mặc định
-                
-                // Công thức vật lý: Kéo càng sâu càng nặng (căn bậc 2)
-                const moveY = Math.pow(diff, 0.85); 
-                
-                // Hiển thị icon load
+                if(e.cancelable) e.preventDefault();
+                const moveY = Math.pow(diff, 0.85);
                 ptrIndicator.style.opacity = '1';
                 ptrIndicator.style.transform = `translateX(-50%) translateY(${Math.min(moveY, threshold + 20)}px) rotate(${diff * 2}deg)`;
-                
-                // Hiệu ứng Rubber-band (đẩy banner xuống một chút)
-                // QUAN TRỌNG: Phải giữ nguyên scale hiện tại
                 wrapper.style.transform = `scale(${currentScale}) translateY(${moveY / 5}px)`;
                 
-                // Đổi màu icon khi đủ lực
                 if (diff > threshold) {
                     ptrIndicator.style.background = '#fff';
                     ptrIndicator.style.color = 'var(--primary-orange)';
-                    ptrIndicator.style.boxShadow = '0 0 20px #fff';
                 } else {
                     ptrIndicator.style.background = 'var(--primary-orange)';
                     ptrIndicator.style.color = 'black';
-                    ptrIndicator.style.boxShadow = 'none';
                 }
             }
         }, { passive: false });
 
-        // Thả tay ra
         document.addEventListener('touchend', function(e) {
             if (!isPulling) return;
-            
             const endY = e.changedTouches[0].pageY;
             const diff = endY - startY;
 
-            // Bật lại transition để icon thu về mượt mà
             wrapper.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
             ptrIndicator.style.transition = 'all 0.4s ease';
 
             if (diff > threshold) {
-                // ĐÃ KÉO ĐỦ -> RELOAD
-                ptrIndicator.style.transform = `translateX(-50%) translateY(${threshold}px) rotate(1000deg)`; // Xoay tít
-                setTimeout(() => {
-                    location.reload();
-                }, 100);
+                ptrIndicator.style.transform = `translateX(-50%) translateY(${threshold}px) rotate(1000deg)`;
+                setTimeout(() => location.reload(), 100);
             } else {
-                // CHƯA ĐỦ -> TRẢ VỀ VỊ TRÍ CŨ
                 ptrIndicator.style.opacity = '0';
                 ptrIndicator.style.transform = 'translateX(-50%) translateY(0)';
-                // Trả về đúng scale ban đầu
                 wrapper.style.transform = `scale(${currentScale})`;
             }
             isPulling = false;
         });
 
-        // --- 3. LOGIC SCALE (Thu phóng vừa màn hình) ---
+        // --- 3. RESCALE & SNOW ---
         function rescale() {
             const isPortrait = window.innerHeight > window.innerWidth;
             const designW = isPortrait ? 1080 : 1920;
             const designH = isPortrait ? 1920 : 1080;
-            
-            // Tính toán tỷ lệ scale
             currentScale = Math.min(window.innerWidth / designW, window.innerHeight / designH);
-            
             wrapper.style.width = designW + 'px';
             wrapper.style.height = designH + 'px';
             wrapper.style.transform = `scale(${currentScale})`;
             wrapper.style.transformOrigin = 'center center';
         }
 
-        // --- 4. HIỆU ỨNG TUYẾT RƠI ---
         const canvas = document.getElementById('snow-canvas');
         const ctx = canvas.getContext('2d');
         let width, height, snowflakes = [];
 
         function initSnow() {
-            width = window.innerWidth; 
-            height = window.innerHeight;
-            canvas.width = width; 
-            canvas.height = height;
-            
+            width = window.innerWidth; height = window.innerHeight;
+            canvas.width = width; canvas.height = height;
             snowflakes = [];
             for(let i = 0; i < 60; i++) {
                 snowflakes.push({
-                    x: Math.random() * width,
-                    y: Math.random() * height,
-                    radius: Math.random() * 3 + 1,
-                    opacity: Math.random() * 0.5 + 0.2,
-                    speed: Math.random() * 1 + 0.5
+                    x: Math.random() * width, y: Math.random() * height,
+                    radius: Math.random() * 3 + 1, opacity: Math.random() * 0.5 + 0.2, speed: Math.random() * 1 + 0.5
                 });
             }
         }
@@ -342,54 +338,16 @@
         function drawSnow() {
             ctx.clearRect(0, 0, width, height);
             snowflakes.forEach(p => {
-                ctx.beginPath(); 
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`; 
-                ctx.fill();
-                
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`; ctx.fill();
                 p.y += p.speed;
-                // Nếu tuyết rơi xuống đáy thì đưa lên đỉnh
-                if (p.y > height) { 
-                    p.y = -10; 
-                    p.x = Math.random() * width; 
-                }
+                if (p.y > height) { p.y = -10; p.x = Math.random() * width; }
             });
             requestAnimationFrame(drawSnow);
         }
 
-        // --- 5. SỰ KIỆN NÚT BẤM (Hiệu ứng mở rộng) ---
-        const links = document.querySelectorAll('.dt-link');
-        links.forEach(link => {
-            link.addEventListener('click', function(e) {
-                // Nếu là link gọi điện/map/mess thì cho chạy bình thường
-                if (this.href.startsWith('tel:') || this.href.includes('viber') || this.href.includes('google') || this.href.includes('m.me')) {
-                    return; 
-                }
-                // Nếu là link thường -> Hiệu ứng mở rộng
-                if (!this.classList.contains('active')) {
-                    e.preventDefault(); 
-                    links.forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                }
-            });
-        });
-
-        // --- 6. KHỞI CHẠY ---
-        window.addEventListener('resize', () => { 
-            initSnow(); 
-            rescale(); 
-        });
-        
-        window.addEventListener('load', () => { 
-            initSnow(); 
-            drawSnow(); 
-            rescale(); 
-            // Fix lỗi chớp màn hình khi load xong
-            setTimeout(() => {
-                document.body.style.opacity = 1;
-            }, 100);
-        });
-
+        window.addEventListener('resize', () => { initSnow(); rescale(); });
+        window.addEventListener('load', () => { initSnow(); drawSnow(); rescale(); });
     </script>
 </body>
 </html>
