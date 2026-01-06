@@ -41,6 +41,7 @@
             100% { transform: scaleX(0); opacity: 0; }
         }
 
+        /* --- EFFECT LINE --- */
         .line-effect { width: 100%; height: 4px; background: #111; position: relative; overflow: hidden; margin: 15px 0; }
         .line-effect::after { 
             content: ''; position: absolute; inset: 0; 
@@ -80,13 +81,13 @@
         }
         .phone-img { transform: rotate(-5deg); filter: drop-shadow(0 0 70px rgba(245, 130, 32, 0.6)); position: relative; z-index: 6; }
 
-        /* --- MOBILE LAYOUT --- */
+        /* --- MOBILE LAYOUT (GIỮ NGUYÊN) --- */
         @media (max-aspect-ratio: 1/1) {
             #banner-h { display: none; }
             .banner-container { width: 1080px; height: 1920px; }
             .layout-v { position: absolute; inset: 0; z-index: 10; padding: 20px 0; display: flex; flex-direction: column; align-items: center; }
             .header-v { color: var(--primary-orange); font-size: 115px; font-weight: 900; margin-bottom: 15px; }
-            .title-v { color: white; font-size: 78px; font-weight: 900; text-transform: uppercase; text-align: center; transform: translateY(-20px); white-space: nowrap; }
+            .title-v { color: white; font-size: 78px; font-weight: 900; text-transform: uppercase; text-align: center; transform: translateY(-20px); }
             .line-v { width: 90%; transform: translateY(-20px); }
             .shimmer-v { font-size: 85px; font-weight: 900; text-align: center; }
             .row-v { display: flex; align-items: center; gap: 25px; margin-top: 10px; }
@@ -96,69 +97,72 @@
             .promo-v { background: white; padding: 20px 60px; border-radius: 100px; font-size: 52px; font-weight: 900; margin-top: 20px; transform: translateY(-20px); }
             .commit-v { margin-top: 10px; display: flex; flex-direction: column; gap: 45px; text-align: center; } 
             .sub-v { color: white; font-size: 38px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+
             .nav-v { position: absolute; bottom: 80px; display: flex; flex-direction: column; gap: 35px; z-index: 100; }
             .nav-left { left: 40px; align-items: flex-start; }
             .nav-right { right: 40px; align-items: flex-end; }
-            .nav-item { text-decoration: none; width: 130px; height: 130px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 65px; display: flex; justify-content: center; align-items: center; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow: hidden; white-space: nowrap; }
+            
+            .nav-item { 
+                text-decoration: none; width: 130px; height: 130px; 
+                background: rgba(255, 255, 255, 0.1); 
+                backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
+                border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 65px; 
+                display: flex; justify-content: center; align-items: center; 
+                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                overflow: hidden; white-space: nowrap;
+            }
             .nav-item.active { width: fit-content; padding: 0 40px; background: rgba(255, 255, 255, 0.2); border-color: currentColor; }
             .nav-item i { font-size: 60px; min-width: 70px; text-align: center; }
             .nav-label { color: white; font-size: 34px; font-weight: 900; margin-left: 0; opacity: 0; max-width: 0; transition: all 0.3s ease; }
             .nav-item.active .nav-label { opacity: 1; max-width: 850px; margin-left: 20px; }
+
             .c-orange { color: var(--primary-orange); }
             .c-blue { color: var(--hotline-blue); }
             .c-purple { color: var(--viber-purple); }
             .c-red { color: var(--map-red); }
         }
 
-        /* --- DESKTOP LAYOUT --- */
+        /* --- DESKTOP LAYOUT (ĐÃ CHỈNH SỬA) --- */
         @media (min-aspect-ratio: 1/1) {
             #banner-v { display: none; }
             .banner-container { width: 1920px; height: 1080px; }
             
-            .main-content-h {
-                position: absolute; top: 0; left: 0; width: 100%; height: 85%;
-                display: flex; align-items: center; 
-                padding: 0 80px; box-sizing: border-box; z-index: 10;
-            }
-
-            .left-side-h { flex: 1.2; display: flex; flex-direction: column; justify-content: center; }
-            .header-h { color: var(--primary-orange); font-size: 115px; font-weight: 900; margin: 0; }
-            .title-h { font-size: 72px; color: white; font-weight: 900; margin: 5px 0; text-transform: uppercase; white-space: nowrap; }
-            .line-h-top { width: 85%; margin: 15px 0; }
+            /* Tăng kích thước ALO SERWIS lên 115px (~5%) và giảm vùng chứa thông tin */
+            .layout-h { position: absolute; inset: 0; z-index: 10; padding: 40px 100px; display: flex; flex-direction: column; }
+            
+            .header-h { color: var(--primary-orange); font-size: 115px; font-weight: 900; margin-bottom: 5px; }
+            .title-h { font-size: 75px; color: white; font-weight: 900; margin: 0; text-transform: uppercase; }
+            
+            .line-h-top { width: 45%; margin: 12px 0; }
+            
             .shimmer-h { font-size: 90px; font-weight: 900; line-height: 1.1; }
             .row-h { display: flex; align-items: center; gap: 30px; margin-top: 10px; }
             .lay-ngay-h { font-size: 55px; padding: 10px 35px; }
-            .promo-h { background: white; color: black; padding: 15px 50px; border-radius: 100px; font-weight: 900; font-size: 45px; width: fit-content; margin: 30px 0; }
-            .commitments-h { display: flex; flex-direction: column; gap: 20px; } 
+            .promo-h { background: white; color: black; padding: 15px 50px; border-radius: 100px; font-weight: 900; font-size: 45px; width: fit-content; margin: 25px 0; }
+            
+            .commitments-h { display: flex; flex-direction: column; gap: 10px; } 
             .sub-h { font-size: 34px; font-weight: 900; color: white; text-transform: uppercase; margin: 0; letter-spacing: 2px; }
             
-            .visual-h { flex: 0.8; width: 850px; height: 850px; display: flex; justify-content: center; align-items: center; }
-            .phone-h { width: 85%; }
+            .visual-h { position: absolute; right: 80px; top: 40%; transform: translateY(-50%); width: 850px; height: 850px; }
+            .phone-h { width: 80%; }
 
+            /* Line ngăn cách đẩy xuống thấp hơn để thu hẹp footer */
             .line-h-bottom { width: 100%; position: absolute; bottom: 15%; left: 0; margin: 0; z-index: 15; }
 
+            /* Footer giảm chiều cao còn 15% */
             .footer-h { 
                 position: absolute; bottom: 0; left: 0; width: 100%; height: 15%; 
-                display: grid; grid-template-columns: repeat(3, 1fr); 
-                align-items: center; padding: 0 50px; box-sizing: border-box; 
+                display: grid; 
+                grid-template-columns: repeat(3, 1fr); 
+                align-items: center; 
+                padding: 0 50px; box-sizing: border-box; 
                 background: rgba(0,0,0,0.85); 
             }
-            .info-col { display: flex; align-items: center; justify-content: center; color: #fff; gap: 25px; }
-            
-            .vertical-hl { 
-                writing-mode: vertical-rl; 
-                transform: rotate(180deg);
-                color: var(--primary-orange); 
-                font-weight: 900; 
-                font-size: 26px; 
-                border-left: 3px solid var(--primary-orange);
-                padding-left: 12px;
-                white-space: nowrap;
-                text-transform: uppercase;
+            .info-col { 
+                color: #fff; font-size: 24px; line-height: 1.4; 
+                text-align: center; 
             }
-            
-            .col-text { font-size: 24px; line-height: 1.5; text-align: left; }
-            .hl-orange { color: var(--primary-orange); font-weight: 900; }
+            .hl { color: var(--primary-orange); font-weight: 900; }
         }
     </style>
 </head>
@@ -178,79 +182,67 @@
                     <div class="shimmer-v shimmer-text">IPHONE</div>
                     <span class="lay-ngay-badge lay-ngay-v">LẤY NGAY!</span>
                 </div>
+                
                 <div class="visual-group visual-v">
                     <div class="glow-spinner"></div>
                     <img src="https://i.postimg.cc/vZdpL1xS/IMG-1345.png" class="phone-img phone-v">
                 </div>
+                
                 <div class="promo-v"><span class="gift-icon">🎁</span> TẶNG KÍNH CƯỜNG LỰC</div>
+                
                 <div class="commit-v">
                     <div class="sub-v">★ CHẤT LƯỢNG TỐT NHẤT ★</div>
                     <div class="sub-v">★ THỜI GIAN NHANH CHÓNG ★</div>
                     <div class="sub-v">★ BẢO HÀNH 1 ĐỔI 1 ★</div>
                 </div>
+
                 <div class="nav-v nav-left">
-                    <a href="tel:787456999" class="nav-item dt-link c-blue"><i class="fa-solid fa-phone"></i><span class="nav-label">787 456 999</span></a>
+                    <a href="tel:733676869" class="nav-item dt-link c-orange"><i class="fa-solid fa-phone"></i><span class="nav-label">BAKALARSKA: 733 67 68 69</span></a>
                     <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link c-orange"><i class="fa-brands fa-facebook-messenger"></i><span class="nav-label">Messenger</span></a>
-                    <a href="#" class="nav-item dt-link c-red"><i class="fa-solid fa-location-dot"></i><span class="nav-label">Wólka Kosowska</span></a>
+                    <a href="https://maps.google.com" target="_blank" class="nav-item dt-link c-orange"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
                 </div>
+
                 <div class="nav-v nav-right">
-                    <a href="tel:733676869" class="nav-item dt-link c-orange"><i class="fa-solid fa-phone-volume"></i><span class="nav-label">733 67 68 69</span></a>
-                    <a href="#" class="nav-item dt-link c-purple"><i class="fa-brands fa-viber"></i><span class="nav-label">Viber</span></a>
-                    <a href="#" class="nav-item dt-link c-orange"><i class="fa-solid fa-location-dot"></i><span class="nav-label">Bakalarska</span></a>
+                    <a href="tel:787456999" class="nav-item dt-link c-blue"><i class="fa-solid fa-phone-volume"></i><span class="nav-label">WÓLKA: 787 456 999</span></a>
+                    <a href="viber://chat?number=%2B48787456999" class="nav-item dt-link c-purple"><i class="fa-brands fa-viber"></i><span class="nav-label">VIBER: 787 456 999</span></a>
+                    <a href="https://maps.google.com" target="_blank" class="nav-item dt-link c-red"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
                 </div>
             </div>
 
-            <div id="banner-h">
-                <div class="main-content-h">
-                    <div class="left-side-h">
-                        <div class="header-h">ALO SERWIS</div>
-                        <div class="title-h">SỬA CHỮA ĐIỆN THOẠI</div>
-                        <div class="line-effect line-h-top"></div>
-                        
-                        <div class="shimmer-h shimmer-text">THAY MÀN HÌNH</div>
-                        <div class="row-h">
-                            <div class="shimmer-h shimmer-text">IPHONE</div>
-                            <span class="lay-ngay-badge lay-ngay-h">LẤY NGAY!</span>
-                        </div>
-                        
-                        <div class="promo-h"><span class="gift-icon">🎁</span> TẶNG KÍNH CƯỜNG LỰC</div>
-                        
-                        <div class="commitments-h">
-                            <p class="sub-h">★ CHẤT LƯỢNG TỐT NHẤT</p>
-                            <p class="sub-h">★ THỜI GIAN NHANH CHÓNG</p>
-                            <p class="sub-h">★ BẢO HÀNH 1 ĐỔI 1</p>
-                        </div>
-                    </div>
+            <div id="banner-h" class="layout-h">
+                <div class="header-h">ALO SERWIS</div>
+                <div class="title-h">SỬA CHỮA ĐIỆN THOẠI</div>
+                
+                <div class="line-effect line-h-top"></div>
+                
+                <div class="shimmer-h shimmer-text">THAY MÀN HÌNH</div>
+                <div class="row-h">
+                    <div class="shimmer-h shimmer-text">IPHONE</div>
+                    <span class="lay-ngay-badge lay-ngay-h">LẤY NGAY!</span>
+                </div>
+                <div class="promo-h"><span class="gift-icon">🎁</span> TẶNG KÍNH CƯỜNG LỰC</div>
+                <div class="commitments-h">
+                    <p class="sub-h">★ CHẤT LƯỢNG TỐT NHẤT</p>
+                    <p class="sub-h">★ THỜI GIAN NHANH CHÓNG</p>
+                    <p class="sub-h">★ BẢO HÀNH 1 ĐỔI 1</p>
+                </div>
 
-                    <div class="visual-h">
-                        <div class="visual-group" style="width: 100%; height: 100%;">
-                            <div class="glow-spinner"></div>
-                            <img src="https://i.postimg.cc/vZdpL1xS/IMG-1345.png" class="phone-img phone-h">
-                        </div>
-                    </div>
+                <div class="visual-group visual-h">
+                    <div class="glow-spinner"></div>
+                    <img src="https://i.postimg.cc/vZdpL1xS/IMG-1345.png" class="phone-img phone-h">
                 </div>
 
                 <div class="line-effect line-h-bottom"></div>
 
                 <div class="footer-h">
                     <div class="info-col">
-                        <div class="vertical-hl">Cơ sở 1</div>
-                        <div class="col-text">
-                            Nadrzeczna 7C / A3 (ASG)<br>05-552 Wólka Kosowska<br><span class="hl-orange">Hotline:</span> 787 456 999
-                        </div>
+                        <span class="hl">CS1:</span> Bakalarska 2/B214<br>02-212 Warszawa<br><span class="hl">Hotline:</span> 733 676 869
                     </div>
                     <div class="info-col">
-                        <div class="vertical-hl">Cơ sở 2</div>
-                        <div class="col-text">
-                            Bakalarska 2 / B214<br>02-212 Warszawa<br><span class="hl-orange">Hotline:</span> 733 676 869
-                        </div>
+                        <span class="hl">CS2:</span> Nadrzeczna 7C/A3 (ASG)<br>05-552 Wólka Kosowska<br><span class="hl">Hotline:</span> 787 456 999
                     </div>
                     <div class="info-col">
-                        <div class="col-text">
-                            <span class="hl-orange">Website:</span> aloserwis.com<br>
-                            <span class="hl-orange">Facebook:</span> fb.com/dienthoaibalan<br>
-                            <span class="hl-orange">Email:</span> alo@aloserwis.com
-                        </div>
+                        <span class="hl">Web:</span> aloserwis.com<br><span class="hl">FB:</span> fb.com/dienthoaibalan<br><span class="hl">Email:</span> alo@aloserwis.com
                     </div>
                 </div>
             </div>
