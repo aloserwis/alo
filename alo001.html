@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>ALO SERWIS - Sửa chữa điện thoại</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -22,6 +22,9 @@
             font-family: 'Montserrat', sans-serif;
             overflow: hidden;
             display: flex; justify-content: center; align-items: center;
+            /* CHỐNG LOAD LẠI TRANG KHI KÉO VUỐT TRÊN MOBILE */
+            overscroll-behavior-y: contain;
+            touch-action: none; /* Ngăn chặn các thao tác mặc định của trình duyệt */
         }
 
         #snow-canvas {
@@ -107,7 +110,6 @@
                 transform: translateY(-20px); overflow: visible; display: flex; align-items: center;
             }
             
-            /* GIẢM GIÃN DÒNG MOBILE */
             .commit-v { margin-top: 10px; display: flex; flex-direction: column; gap: 32px; text-align: center; } 
             .sub-v { color: white; font-size: 38px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
 
@@ -143,7 +145,6 @@
                 display: flex; align-items: center;
             }
             
-            /* GIẢM GIÃN DÒNG DESKTOP */
             .commitments-h { display: flex; flex-direction: column; gap: 28px; margin-top: 25px; } 
             .sub-h { font-size: 34px; font-weight: 900; color: white; text-transform: uppercase; margin: 0; letter-spacing: 2px; }
             
@@ -161,9 +162,7 @@
         }
     </style>
 </head>
-<body>
-
-    <canvas id="snow-canvas"></canvas>
+<body oncontextmenu="return false;"> <canvas id="snow-canvas"></canvas>
 
     <div class="banner-container" id="rescaleWrapper">
         <div class="inner-content">
@@ -250,6 +249,11 @@
     </div>
 
     <script>
+        // Ngăn chặn sự kiện kéo thả mặc định để tránh load lại trang
+        document.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+
         const canvas = document.getElementById('snow-canvas');
         const ctx = canvas.getContext('2d');
         let width, height, snowflakes = [];
