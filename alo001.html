@@ -21,12 +21,25 @@
             display: flex; justify-content: center; align-items: center;
         }
 
+        /* --- CANVAS TUYẾT RƠI (Lớp phủ trên cùng) --- */
+        #snow-canvas {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 25; pointer-events: none;
+        }
+
         /* --- ANIMATIONS --- */
         @keyframes zoomGift { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.5); } }
-        @keyframes rotateGlow { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes lightSlide { 0% { left: -100%; } 100% { left: 100%; } }
+        @keyframes rotateGlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes shimmer { to { background-position: 200% center; } }
         @keyframes shakePulse { 0%, 100% { transform: scale(1) rotate(0deg); } 20% { transform: scale(1.05) rotate(-2deg); } 40% { transform: scale(1.05) rotate(2deg); } }
+        
+        /* Hiệu ứng đường kẻ giãn từ tâm */
+        @keyframes expandCenter {
+            0% { transform: scaleX(0); opacity: 0; }
+            50% { transform: scaleX(1); opacity: 1; }
+            100% { transform: scaleX(0); opacity: 0; }
+        }
 
         .shimmer-text { 
             background: linear-gradient(to right, #f58220 0%, #fff 50%, #f58220 100%); 
@@ -39,19 +52,37 @@
             border-radius: 12px; box-shadow: 0 0 35px var(--primary-orange); 
             animation: shakePulse 1.2s infinite ease-in-out; -webkit-text-fill-color: black; 
         }
+
         .line-effect { width: 100%; height: 4px; background: #111; position: relative; overflow: hidden; margin: 15px 0; }
-        .line-effect::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--primary-orange), #fff, var(--primary-orange), transparent); animation: lightSlide 2.5s linear infinite; }
+        .line-effect::after { 
+            content: ''; position: absolute; inset: 0; 
+            background: linear-gradient(90deg, transparent, var(--primary-orange), #fff, var(--primary-orange), transparent); 
+            animation: expandCenter 4s ease-in-out infinite;
+            transform-origin: center;
+        }
 
         .banner-container { position: relative; flex-shrink: 0; overflow: hidden; }
         .inner-content { position: absolute; inset: 2px; background: var(--dark-bg); overflow: hidden; }
-        .banner-container::before { content: ''; position: absolute; inset: -150px; background: conic-gradient(from 0deg, transparent 65%, var(--primary-orange) 85%, #fff 100%); animation: rotateGlow 4s linear infinite; z-index: 1; }
+        
+        .banner-container::before { 
+            content: ''; position: absolute; inset: -150px; 
+            background: conic-gradient(from 0deg, transparent 65%, var(--primary-orange) 85%, #fff 100%); 
+            animation: rotateGlow 4s linear infinite; z-index: 1; 
+        }
         .banner-container::after { content: ''; position: absolute; inset: 6px; background: var(--dark-bg); z-index: 2; }
 
         .visual-group { position: relative; display: flex; justify-content: center; align-items: center; z-index: 5; }
-        .glow-spinner { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, transparent 50%, var(--primary-orange) 95%, #fff 100%); animation: rotateGlow 2s linear infinite; -webkit-mask: radial-gradient(circle, transparent 68%, black 70%); filter: blur(10px) drop-shadow(0 0 40px var(--primary-orange)); }
+        .glow-spinner { 
+            position: absolute; inset: 0; border-radius: 50%; 
+            background: conic-gradient(from 0deg, transparent 50%, var(--primary-orange) 95%, #fff 100%); 
+            animation: rotateGlow 2.5s linear infinite; 
+            -webkit-mask: radial-gradient(circle, transparent 68%, black 70%); 
+            filter: blur(10px) drop-shadow(0 0 40px var(--primary-orange)); 
+            will-change: transform;
+        }
         .phone-img { transform: rotate(-5deg); filter: drop-shadow(0 0 70px rgba(245, 130, 32, 0.6)); position: relative; z-index: 6; }
 
-        /* --- VERSION NGANG (DESKTOP) --- */
+        /* --- RESPONSIVE DESKTOP --- */
         @media (min-aspect-ratio: 1/1) {
             #banner-v { display: none; }
             .banner-container { width: 1920px; height: 1080px; }
@@ -68,7 +99,7 @@
             .visual-h { position: absolute; right: 80px; top: 42%; transform: translateY(-50%); width: 820px; height: 820px; }
             .phone-h { width: 82%; }
             .footer-sep { position: absolute; bottom: 15%; left: 6px; right: 6px; height: 4px; background: #111; z-index: 11; overflow: hidden; }
-            .footer-sep::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--primary-orange), #fff, var(--primary-orange), transparent); animation: lightSlide 3s linear infinite; }
+            .footer-sep::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--primary-orange), #fff, var(--primary-orange), transparent); animation: expandCenter 4s ease-in-out infinite; transform-origin: center; }
             .footer-h { position: absolute; bottom: 0; left: 0; width: 100%; height: 15%; display: grid; grid-template-columns: 1fr 1fr 0.8fr; align-items: center; padding: 0 100px; box-sizing: border-box; z-index: 12; }
             .info-col { display: flex; align-items: center; gap: 20px; color: #fff; }
             .v-label { writing-mode: vertical-rl; transform: rotate(180deg); color: var(--primary-orange); font-weight: 900; border-left: 2px solid var(--primary-orange); padding: 4px 0; font-size: 20px; }
@@ -76,7 +107,7 @@
             .hl { color: var(--primary-orange); font-weight: 700; }
         }
 
-        /* --- VERSION DỌC (MOBILE) --- */
+        /* --- RESPONSIVE MOBILE --- */
         @media (max-aspect-ratio: 1/1) {
             #banner-h { display: none; }
             .banner-container { width: 1080px; height: 1920px; }
@@ -93,19 +124,15 @@
             .commit-v { margin-top: 10px; display: flex; flex-direction: column; gap: 45px; text-align: center; } 
             .sub-v { color: white; font-size: 38px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
 
-            /* Navigation Mobile (Chỉ còn 4 icon) */
             .nav-v { position: absolute; bottom: 80px; left: 40px; display: flex; flex-direction: column; gap: 35px; z-index: 100; align-items: flex-start; }
             .nav-item { 
-                text-decoration: none; 
-                width: 130px; height: 130px; 
+                text-decoration: none; width: 130px; height: 130px; 
                 background: rgba(255, 255, 255, 0.1); 
                 backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
-                border: 3px solid rgba(245, 130, 32, 0.5); 
-                border-radius: 65px; 
+                border: 3px solid rgba(245, 130, 32, 0.5); border-radius: 65px; 
                 display: flex; justify-content: center; align-items: center; 
                 transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-                overflow: hidden;
-                white-space: nowrap;
+                overflow: hidden; white-space: nowrap;
             }
             .nav-item.active { width: fit-content; padding: 0 40px; background: rgba(245, 130, 32, 0.2); border-color: var(--primary-orange); }
             .nav-item i { font-size: 60px; color: var(--primary-orange); min-width: 70px; text-align: center; }
@@ -115,6 +142,8 @@
     </style>
 </head>
 <body>
+
+    <canvas id="snow-canvas"></canvas>
 
     <div class="banner-container" id="rescaleWrapper">
         <div class="inner-content">
@@ -140,12 +169,7 @@
                     <div class="sub-v">★ THỜI GIAN NHANH CHÓNG ★</div>
                     <div class="sub-v">★ BẢO HÀNH LINH KIỆN 1 ĐỔI 1 ★</div>
                 </div>
-
                 <div class="nav-v">
-                    <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link">
-                        <i class="fa-solid fa-file-invoice-dollar"></i>
-                        <span class="nav-label">Báo giá</span>
-                    </a>
                     <a href="tel:733676869" class="nav-item dt-link">
                         <i class="fa-solid fa-phone"></i>
                         <span class="nav-label">733 676 869</span>
@@ -154,7 +178,7 @@
                         <i class="fa-brands fa-facebook-messenger"></i>
                         <span class="nav-label">Messenger</span>
                     </a>
-                    <a href="https://maps.app.goo.gl/3Q8mG8Vf4Z3j8m7G7" target="_blank" class="nav-item dt-link">
+                    <a href="https://maps.app.goo.gl/Bakalarska6" target="_blank" class="nav-item dt-link">
                         <i class="fa-solid fa-location-dot"></i>
                         <span class="nav-label">Google map</span>
                     </a>
@@ -188,26 +212,14 @@
                 <div class="footer-h">
                     <div class="info-col">
                         <div class="v-label">Cơ sở 1</div>
-                        <div>
-                            <p class="content-p">Nadrzeczna 7C/A3 (ASG-A3)</p>
-                            <p class="content-p">05-552 Wólka Kosowska</p>
-                            <p class="content-p"><span class="hl">Hotline:</span> 733 67 68 69</p>
-                        </div>
+                        <div><p class="content-p">Nadrzeczna 7C/A3 (ASG-A3)</p><p class="content-p">05-552 Wólka Kosowska</p><p class="content-p"><span class="hl">Hotline:</span> 733 67 68 69</p></div>
                     </div>
                     <div class="info-col">
                         <div class="v-label">Cơ sở 2</div>
-                        <div>
-                            <p class="content-p">Bakalarska 2/B214</p>
-                            <p class="content-p">02-212 Warszawa</p>
-                            <p class="content-p"><span class="hl">Hotline:</span> 787 456 999</p>
-                        </div>
+                        <div><p class="content-p">Bakalarska 2/B214</p><p class="content-p">02-212 Warszawa</p><p class="content-p"><span class="hl">Hotline:</span> 787 456 999</p></div>
                     </div>
                     <div class="info-col">
-                        <div>
-                            <p class="content-p"><span class="hl">Website:</span> aloserwis.com</p>
-                            <p class="content-p"><span class="hl">Facebook:</span> fb.com/dienthoaibalan</p>
-                            <p class="content-p"><span class="hl">Email:</span> alo@aloserwis.com</p>
-                        </div>
+                        <div><p class="content-p"><span class="hl">Website:</span> aloserwis.com</p><p class="content-p"><span class="hl">Facebook:</span> fb.com/dienthoaibalan</p><p class="content-p"><span class="hl">Email:</span> alo@aloserwis.com</p></div>
                     </div>
                 </div>
             </div>
@@ -215,6 +227,60 @@
     </div>
 
     <script>
+        // --- TUYẾT RƠI THẲNG, CHẬM, NHẸ NHÀNG ---
+        const canvas = document.getElementById('snow-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, snowflakes = [];
+
+        function initSnow() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+            snowflakes = [];
+            for(let i = 0; i < 100; i++) { // Số lượng vừa phải để không rối
+                snowflakes.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: Math.random() * 3 + 1,
+                    opacity: Math.random() * 0.5 + 0.2,
+                    speed: Math.random() * 0.9 + 0.3, // Tốc độ rất chậm
+                    blur: Math.random() * 2
+                });
+            }
+        }
+
+        function drawSnow() {
+            ctx.clearRect(0, 0, width, height);
+            snowflakes.forEach(p => {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+                if (p.blur > 1) {
+                    ctx.shadowColor = 'white';
+                    ctx.shadowBlur = p.blur * 4;
+                }
+                ctx.fill();
+                ctx.restore();
+
+                // Rơi thẳng đứng
+                p.y += p.speed;
+
+                // Nếu chạm đáy thì quay lại đỉnh
+                if (p.y > height + 10) {
+                    p.y = -10;
+                    p.x = Math.random() * width;
+                }
+            });
+            requestAnimationFrame(drawSnow);
+        }
+
+        window.addEventListener('resize', initSnow);
+        initSnow();
+        drawSnow();
+
+        // --- NAVIGATION & RESCALE ---
         const links = document.querySelectorAll('.dt-link');
         links.forEach(link => {
             link.addEventListener('click', function(e) {
@@ -224,12 +290,6 @@
                     this.classList.add('active');
                 }
             });
-        });
-
-        document.addEventListener('touchstart', function(e) {
-            if (!e.target.closest('.dt-link')) {
-                links.forEach(l => l.classList.remove('active'));
-            }
         });
 
         function rescale() {
