@@ -179,13 +179,13 @@
                 <div class="nav-v nav-left">
                     <a href="tel:733676869" class="nav-item dt-link c-orange"><i class="fa-solid fa-phone"></i><span class="nav-label">BAKALARSKA: 733 67 68 69</span></a>
                     <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link c-orange"><i class="fa-brands fa-facebook-messenger"></i><span class="nav-label">MESSENGER: ALO SERWIS</span></a>
-                    <a href="https://maps.app.goo.gl/uX3L5S9C5y2zT2uD8" target="_blank" class="nav-item dt-link c-orange"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
+                    <a href="https://maps.app.goo.gl/zNUxFsg79Cb9y1SNA" target="_blank" class="nav-item dt-link c-orange"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
                 </div>
 
                 <div class="nav-v nav-right">
                     <a href="tel:787456999" class="nav-item dt-link c-blue"><i class="fa-solid fa-phone"></i><span class="nav-label">WÓLKA: 787 456 999</span></a>
                     <a href="viber://chat?number=48787456999" class="nav-item dt-link c-purple"><i class="fa-brands fa-viber"></i><span class="nav-label">VIBER: 787 456 999</span></a>
-                    <a href="https://maps.app.goo.gl/Yp4L4zSjH8f2zT8u5" target="_blank" class="nav-item dt-link c-blue"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
+                    <a href="https://maps.app.goo.gl/Ay5MhtteeFQSsx1e6" target="_blank" class="nav-item dt-link c-blue"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
                 </div>
             </div>
 
@@ -234,6 +234,8 @@
         const links = document.querySelectorAll('.dt-link');
         links.forEach(link => {
             link.addEventListener('click', function(e) {
+                e.stopPropagation(); 
+                
                 if (!this.classList.contains('active')) {
                     e.preventDefault(); 
                     links.forEach(l => l.classList.remove('active'));
@@ -242,6 +244,10 @@
                     return true;
                 }
             });
+        });
+
+        document.body.addEventListener('click', function() {
+            links.forEach(l => l.classList.remove('active'));
         });
 
         // --- 2. PULL TO REFRESH ---
@@ -253,6 +259,8 @@
         let currentScale = 1;
 
         document.addEventListener('touchstart', function(e) {
+            if (e.target.closest('.dt-link')) return;
+
             if (window.scrollY === 0) {
                 startY = e.touches[0].pageY;
                 isPulling = true;
