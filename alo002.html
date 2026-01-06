@@ -34,6 +34,7 @@
             color: white; z-index: 9999;
             box-shadow: 0 4px 15px rgba(0, 136, 204, 0.6);
             opacity: 0;
+            transition: opacity 0.2s;
         }
 
         #snow-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 25; pointer-events: none; }
@@ -256,17 +257,62 @@
         });
         document.body.addEventListener('click', () => links.forEach(l => l.classList.remove('active')));
 
-        let startY = 0; let isPulling = false; const threshold = 150;
+        // --- PULL TO REFRESH LOGIC RE-ADDED ---
+        let startY = 0; 
+        let isPulling = false; 
+        const threshold = 150;
         const ptr = document.getElementById('ptr-indicator');
         const wrap = document.getElementById('rescaleWrapper');
-        let scale = 1;
+        let currentScale = 1;
 
+        document.addEventListener('touchstart', e => {
+            // Chỉ kích hoạt khi đang ở trên cùng của trang
+            if (window.scrollY === 0) { 
+                startY = e.touches[0].pageY; 
+                isPulling = true; 
+                wrap.style.transition = 'none'; 
+            }
+        }, {passive: false});
+
+        document.addEventListener('touchmove', e => {
+            if (!isPulling) return;
+            const diff = e.touches[0].pageY - startY;
+            
+            if (diff > 0) {
+                e.preventDefault();
+                const move = Math.pow(diff, 0.85); // Hiệu ứng kéo nặng dần
+                ptr.style.opacity = '1';
+                ptr.style.transform = `translateX(-50%) translateY(${Math.min(move, threshold + 20)}px) rotate(${diff * 2}deg)`;
+                wrap.style.transform = `scale(${currentScale}) translateY(${move / 5}px)`;
+            }
+        }, {passive: false});
+
+        document.addEventListener('touchend', e => {
+            if (!isPulling) return;
+            const diff = e.changedTouches[0].pageY - startY;
+            
+            wrap.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            
+            if (diff > threshold) {
+                // Hiệu ứng reload
+                ptr.style.transform = `translateX(-50%) translateY(${threshold}px) rotate(720deg)`;
+                setTimeout(() => location.reload(), 300);
+            } else {
+                // Trở về vị trí cũ
+                ptr.style.opacity = '0';
+                ptr.style.transform = `translateX(-50%) translateY(-60px)`;
+                wrap.style.transform = `scale(${currentScale})`;
+            }
+            isPulling = false;
+        });
+
+        // --- RESCALE & SNOW LOGIC ---
         function rescale() {
             const isP = window.innerHeight > window.innerWidth;
             const dW = isP ? 1080 : 1920; const dH = isP ? 1920 : 1080;
-            scale = Math.min(window.innerWidth / dW, window.innerHeight / dH);
+            currentScale = Math.min(window.innerWidth / dW, window.innerHeight / dH);
             wrap.style.width = dW+'px'; wrap.style.height = dH+'px';
-            wrap.style.transform = `scale(${scale})`;
+            wrap.style.transform = `scale(${currentScale})`;
         }
 
         const canvas = document.getElementById('snow-canvas'); const ctx = canvas.getContext('2d');
