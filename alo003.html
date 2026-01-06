@@ -27,7 +27,7 @@
             -webkit-user-select: none;
         }
 
-        /* --- PULL TO REFRESH INDICATOR --- */
+        /* --- PULL TO REFRESH --- */
         #ptr-indicator {
             position: fixed;
             top: -70px; left: 50%; transform: translateX(-50%);
@@ -40,13 +40,10 @@
             transition: opacity 0.2s;
         }
 
-        /* --- FIREWORKS CANVAS --- */
         #fw-canvas {
-            position: fixed;
-            top: 0; left: 0;
+            position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
-            z-index: 1;
-            pointer-events: none;
+            z-index: 1; pointer-events: none;
         }
 
         /* --- ANIMATIONS --- */
@@ -59,14 +56,13 @@
             100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
         }
         @keyframes borderGlow { 0%, 100% { box-shadow: inset 0 0 30px rgba(230,0,0,0.3), 0 0 20px rgba(230,0,0,0.2); } 50% { box-shadow: inset 0 0 50px rgba(230,0,0,0.5), 0 0 40px rgba(230,0,0,0.4); } }
-        @keyframes giftPulse { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px var(--primary-red)); } 50% { transform: scale(1.5) translateY(-10px); filter: drop-shadow(0 0 20px #fff); } }
+        @keyframes giftPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3) translateY(-5px); } }
 
         .banner-container { 
             position: relative; flex-shrink: 0; overflow: hidden; 
             border: 2px solid rgba(230, 0, 0, 0.4);
             animation: borderGlow 4s infinite ease-in-out;
             z-index: 10;
-            background: transparent;
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .inner-content { position: absolute; inset: 0; background: rgba(0,0,0,0.45); overflow: hidden; z-index: 5; }
@@ -114,20 +110,34 @@
             .shimmer-v { font-size: 95px; font-weight: 900; margin: 20px 0; }
             .dynamic-badge-v { font-size: 75px; padding: 20px 50px; min-width: 550px; }
             .visual-v { position: relative; width: 950px; height: 820px; margin: 20px 0; }
-            .visual-v .glow-spinner { display: none; } 
             .promo-v { background: white; padding: 18px 55px; border-radius: 100px; font-size: 48px; font-weight: 900; color: #000; display: flex; align-items: center; }
             .commit-v { margin-top: 40px; display: flex; flex-direction: column; gap: 40px; text-align: center; } 
             .sub-v { color: white; font-size: 38px; font-weight: 700; text-transform: uppercase; }
+            
             .nav-v { position: absolute; bottom: 80px; display: flex; flex-direction: column; gap: 35px; z-index: 100; }
             .nav-left { left: 40px; align-items: flex-start; }
             .nav-right { right: 40px; align-items: flex-end; }
-            .nav-item { text-decoration: none; width: 135px; height: 135px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 70px; display: flex; justify-content: center; align-items: center; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow: hidden; }
+            
+            .nav-item { 
+                text-decoration: none; 
+                width: 135px; height: 135px; 
+                background: rgba(255, 255, 255, 0.1); 
+                backdrop-filter: blur(15px); 
+                border: 3px solid rgba(255, 255, 255, 0.3); 
+                border-radius: 70px; 
+                display: flex; justify-content: center; align-items: center; 
+                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+                overflow: hidden; 
+            }
             .nav-item.active { width: fit-content; padding: 0 45px; background: rgba(255, 255, 255, 0.25); border-color: #fff; }
             .nav-item i { font-size: 65px; min-width: 80px; text-align: center; }
             .nav-label { color: white; font-size: 34px; font-weight: 900; opacity: 0; max-width: 0; transition: all 0.3s ease; white-space: nowrap; text-transform: uppercase; }
             .nav-item.active .nav-label { opacity: 1; max-width: 900px; margin-left: 20px; }
+            
             .nav-right .nav-item.active { flex-direction: row-reverse; }
             .nav-right .nav-item.active .nav-label { margin-left: 0; margin-right: 20px; }
+            
+            /* COLORS */
             .c-orange { color: var(--primary-orange); }
             .c-red { color: var(--primary-red); }
             .c-purple { color: var(--viber-purple); }
@@ -159,7 +169,6 @@
 <body onclick="closeAllNav()">
 
     <div id="ptr-indicator"><i class="fa-solid fa-arrows-rotate fa-2x"></i></div>
-    
     <canvas id="fw-canvas"></canvas>
 
     <div class="banner-container" id="rescaleWrapper">
@@ -170,6 +179,7 @@
                 <div class="dynamic-line" style="margin: 15px 0;"></div>
                 <div class="shimmer-v shimmer-text">PHẦN CỨNG & MỀM</div>
                 <div class="dynamic-badge dynamic-badge-v cycling-text">LAPTOP</div>
+                
                 <div class="visual-v">
                     <div class="glow-spinner"></div> 
                     <div class="image-slider">
@@ -179,6 +189,7 @@
                         <img src="https://i.postimg.cc/tCWStZ2y/kom02.png" class="slide-img">
                     </div>
                 </div>
+
                 <div class="promo-v"><span class="gift-icon">🎁</span> MIỄN PHÍ KIỂM TRA TƯ VẤN</div>
                 <div class="commit-v">
                     <div class="sub-v">★ GIÁ TỐT NHẤT BA LAN ★</div>
@@ -189,13 +200,13 @@
                 <div class="nav-v nav-left">
                     <a href="tel:733676869" class="nav-item dt-link c-orange" onclick="handleNav(event, this)"><i class="fa-solid fa-phone"></i><span class="nav-label">Bakalarska: 733 67 68 69</span></a>
                     <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link c-orange" onclick="handleNav(event, this)"><i class="fa-brands fa-facebook-messenger"></i><span class="nav-label">Messenger: Alo Serwis</span></a>
-                    <a href="https://maps.app.goo.gl/zNUxFsg79Cb9y1SNA" target="_blank" class="nav-item dt-link c-orange"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
+                    <a href="https://maps.app.goo.gl/Ay5MhtteeFQSsx1e60" target="_blank" class="nav-item dt-link c-orange" onclick="handleNav(event, this)"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
                 </div>
                 
                 <div class="nav-v nav-right">
                     <a href="tel:787456999" class="nav-item dt-link c-red" onclick="handleNav(event, this)"><i class="fa-solid fa-phone"></i><span class="nav-label">Wólka: 787 456 999</span></a>
                     <a href="viber://chat?number=48787456999" class="nav-item dt-link c-purple" onclick="handleNav(event, this)"><i class="fa-brands fa-viber"></i><span class="nav-label">Viber: 787 456 999</span></a>
-                    <a href="https://maps.app.goo.gl/Ay5MhtteeFQSsx1e6" target="_blank" class="nav-item dt-link c-blue"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
+                    <a href="https://maps.app.goo.gl/Ay5MhtteeFQSsx1e61" target="_blank" class="nav-item dt-link c-red" onclick="handleNav(event, this)"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
                 </div>
             </div>
 
@@ -211,6 +222,7 @@
                     <p class="sub-h">★ TẬN TÂM, UY TÍN & CHUYÊN NGHIỆP</p>
                     <p class="sub-h">★ HOÀN TIỀN 100% NẾU KHÔNG HÀI LÒNG</p>
                 </div>
+                
                 <div class="visual-h">
                     <div class="glow-spinner"></div>
                     <div class="image-slider">
@@ -220,20 +232,22 @@
                         <img src="https://i.postimg.cc/tCWStZ2y/kom02.png" class="slide-img">
                     </div>
                 </div>
+
                 <div class="footer-line-wrapper">
                     <div class="dynamic-line" style="width: 100%;"></div>
                 </div>
+
                 <div class="footer-h">
                     <div class="info-col">
                         <div class="vertical-hl">Cơ sở 1</div>
                         <div class="col-text">
-                           <a href="https://maps.app.goo.gl/WpD9KsuXoHAtqQh18" target="_blank" style="text-decoration:none; color:inherit;">Bakalarska 2 / B214</a><br>02-212 Warszawa<br><span class="hl-red">Hotline:</span> 733 676 869
+                           <a href="https://maps.app.goo.gl/Ay5MhtteeFQSsx1e60" target="_blank" style="text-decoration:none; color:inherit;">Bakalarska 2 / B214</a><br>02-212 Warszawa<br><span class="hl-red">Hotline:</span> 733 676 869
                         </div>
                     </div>
                     <div class="info-col">
                         <div class="vertical-hl">Cơ sở 2</div>
                         <div class="col-text">
-                           <a href="https://maps.app.goo.gl/oYnL1868Qd8p6fU39" target="_blank" style="text-decoration:none; color:inherit;">Nadrzeczna 7C / A3 (ASG)</a><br>05-552 Wólka Kosowska<br><span class="hl-red">Hotline:</span> 787 456 999
+                           <a href="https://maps.app.goo.gl/Ay5MhtteeFQSsx1e61" target="_blank" style="text-decoration:none; color:inherit;">Nadrzeczna 7C / A3 (ASG)</a><br>05-552 Wólka Kosowska<br><span class="hl-red">Hotline:</span> 787 456 999
                         </div>
                     </div>
                     <div class="info-col">
@@ -249,11 +263,26 @@
     </div>
 
     <script>
-        // --- PULL TO REFRESH LOGIC ---
+        // HANDLE NAV CLICK: CHẠM 1 HIỆN NHÃN - CHẠM 2 MỞ LINK
+        function handleNav(e, el) {
+            e.stopPropagation();
+            const allLinks = document.querySelectorAll('.dt-link');
+            if (!el.classList.contains('active')) {
+                e.preventDefault(); 
+                allLinks.forEach(l => l.classList.remove('active')); 
+                el.classList.add('active'); 
+            } 
+        }
+
+        function closeAllNav() {
+            document.querySelectorAll('.dt-link').forEach(l => l.classList.remove('active'));
+        }
+
+        // PULL TO REFRESH
         let startY = 0; let isPulling = false; const threshold = 160;
         const ptr = document.getElementById('ptr-indicator');
         const wrap = document.getElementById('rescaleWrapper');
-        let currentGlobalScale = 1;
+        let currentScale = 1;
 
         document.addEventListener('touchstart', e => {
             if (window.scrollY === 0) { startY = e.touches[0].pageY; isPulling = true; wrap.style.transition = 'none'; }
@@ -267,7 +296,7 @@
                 const move = Math.pow(diff, 0.85);
                 ptr.style.opacity = Math.min(diff / threshold, 1);
                 ptr.style.transform = `translateX(-50%) translateY(${Math.min(move, threshold + 20)}px) rotate(${diff * 2}deg)`;
-                wrap.style.transform = `scale(${currentGlobalScale}) translateY(${move / 5}px)`;
+                wrap.style.transform = `scale(${currentScale}) translateY(${move / 5}px)`;
             }
         }, {passive: false});
 
@@ -280,103 +309,57 @@
                 setTimeout(() => location.reload(), 300);
             } else {
                 ptr.style.opacity = '0'; ptr.style.transform = `translateX(-50%) translateY(-70px)`;
-                wrap.style.transform = `scale(${currentGlobalScale})`;
+                wrap.style.transform = `scale(${currentScale})`;
             }
             isPulling = false;
         });
 
-        // --- FIREWORKS SCRIPT ---
+        // FIREWORKS
         const canvas = document.getElementById('fw-canvas');
         const ctx = canvas.getContext('2d');
         let fwParticles = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resizeCanvas); resizeCanvas();
 
         class Particle {
-            constructor(x, y, color, velocityX, velocityY) {
+            constructor(x, y, color, vx, vy) {
                 this.x = x; this.y = y; this.color = color;
-                this.velocityX = velocityX; this.velocityY = velocityY;
-                this.alpha = 1;
-                this.friction = 0.985;
-                this.gravity = 0.07;
+                this.vx = vx; this.vy = vy; this.alpha = 1;
             }
             draw() {
-                ctx.save();
-                ctx.globalAlpha = this.alpha;
-                ctx.beginPath();
+                ctx.save(); ctx.globalAlpha = this.alpha; ctx.beginPath();
                 ctx.arc(this.x, this.y, 2.5, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.shadowBlur = 12;
-                ctx.shadowColor = this.color;
-                ctx.fill();
-                ctx.restore();
+                ctx.fillStyle = this.color; ctx.shadowBlur = 12; ctx.shadowColor = this.color;
+                ctx.fill(); ctx.restore();
             }
             update() {
-                this.velocityX *= this.friction;
-                this.velocityY *= this.friction;
-                this.velocityY += this.gravity;
-                this.x += this.velocityX;
-                this.y += this.velocityY;
-                this.alpha -= 0.007;
+                this.vx *= 0.985; this.vy *= 0.985; this.vy += 0.07;
+                this.x += this.vx; this.y += this.vy; this.alpha -= 0.007;
             }
         }
 
         function createExplosion(x, y) {
-            const count = 25;
-            const colors = ['#ff0000', '#ffd700', '#ffffff', '#ff4500', '#00e5ff', '#ff00ff'];
+            const colors = ['#ff0000', '#ffd700', '#ffffff', '#7360f2'];
             const color = colors[Math.floor(Math.random() * colors.length)];
-            const angleStep = (Math.PI * 2) / count;
-            for (let i = 0; i < count; i++) {
-                const velocity = Math.random() * 4 + 1;
-                fwParticles.push(new Particle(
-                    x, y, color,
-                    Math.cos(angleStep * i) * velocity,
-                    Math.sin(angleStep * i) * velocity
-                ));
+            for (let i = 0; i < 25; i++) {
+                const v = Math.random() * 4 + 1;
+                const a = (Math.PI * 2 / 25) * i;
+                fwParticles.push(new Particle(x, y, color, Math.cos(a) * v, Math.sin(a) * v));
             }
         }
 
-        function animateFireworks() {
+        function animate() {
             ctx.globalCompositeOperation = 'destination-out';
             ctx.fillStyle = 'rgba(0, 0, 0, 0.18)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.globalCompositeOperation = 'lighter';
-
-            fwParticles.forEach((p, index) => {
-                if (p.alpha > 0) {
-                    p.update(); p.draw();
-                } else {
-                    fwParticles.splice(index, 1);
-                }
-            });
-
-            if (Math.random() < 0.012) {
-                createExplosion(Math.random() * canvas.width, Math.random() * (canvas.height * 0.5));
-            }
-            requestAnimationFrame(animateFireworks);
+            fwParticles.forEach((p, i) => { if (p.alpha > 0) { p.update(); p.draw(); } else { fwParticles.splice(i, 1); } });
+            if (Math.random() < 0.012) createExplosion(Math.random() * canvas.width, Math.random() * canvas.height * 0.5);
+            requestAnimationFrame(animate);
         }
-        animateFireworks();
+        animate();
 
-        // --- COMMON UI LOGIC ---
-        function handleNav(e, el) {
-            if (el.getAttribute('target') !== '_blank') {
-                e.stopPropagation();
-                const links = document.querySelectorAll('.dt-link');
-                if (!el.classList.contains('active')) {
-                    e.preventDefault();
-                    links.forEach(l => l.classList.remove('active'));
-                    el.classList.add('active');
-                }
-            }
-        }
-        function closeAllNav() {
-            document.querySelectorAll('.dt-link').forEach(l => l.classList.remove('active'));
-        }
+        // SLIDER & RESCALE
         const words = ["LAPTOP", "MÁY TÍNH", "FAKTURA"];
         let wordIdx = 0;
         setInterval(() => {
@@ -384,30 +367,31 @@
             document.querySelectorAll('.cycling-text').forEach(el => el.innerText = words[wordIdx]);
         }, 1200);
 
-        function startImageSlider() {
-            const sliders = document.querySelectorAll('.image-slider');
-            sliders.forEach(slider => {
-                const imgs = slider.querySelectorAll('.slide-img');
-                let imgIdx = 0;
-                setInterval(() => {
-                    imgs[imgIdx].classList.remove('active');
-                    imgIdx = (imgIdx + 1) % imgs.length;
-                    imgs[imgIdx].classList.add('active');
-                }, 4000);
-            });
+        function startSlider() {
+            setInterval(() => {
+                const sliders = document.querySelectorAll('.image-slider');
+                sliders.forEach(s => {
+                    const active = s.querySelector('.slide-img.active');
+                    if(active) {
+                        let next = active.nextElementSibling || s.firstElementChild;
+                        active.classList.remove('active');
+                        next.classList.add('active');
+                    }
+                });
+            }, 4000);
         }
 
         function rescale() {
             const isPortrait = window.innerHeight > window.innerWidth;
             const designW = isPortrait ? 1080 : 1920;
             const designH = isPortrait ? 1920 : 1080;
-            currentGlobalScale = Math.min(window.innerWidth / designW, window.innerHeight / designH);
-            const wrapper = document.getElementById('rescaleWrapper');
-            wrapper.style.width = designW + 'px'; wrapper.style.height = designH + 'px';
-            wrapper.style.transform = `scale(${currentGlobalScale})`;
+            currentScale = Math.min(window.innerWidth / designW, window.innerHeight / designH);
+            const wrap = document.getElementById('rescaleWrapper');
+            wrap.style.width = designW + 'px'; wrap.style.height = designH + 'px';
+            wrap.style.transform = `scale(${currentScale})`;
         }
         window.addEventListener('resize', rescale);
-        window.addEventListener('load', () => { rescale(); startImageSlider(); });
+        window.addEventListener('load', () => { rescale(); startSlider(); });
     </script>
 </body>
 </html>
