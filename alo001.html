@@ -25,7 +25,7 @@
             touch-action: none; 
         }
 
-        /* --- BIỂU TƯỢNG PULL TO REFRESH --- */
+        /* --- PULL TO REFRESH --- */
         #ptr-indicator {
             position: fixed;
             top: -60px;
@@ -109,6 +109,7 @@
             .nav-label { 
                 color: white; font-size: 34px; font-weight: 900; 
                 opacity: 0; max-width: 0; transition: all 0.3s ease; pointer-events: none; 
+                white-space: nowrap;
             }
             .nav-item.active .nav-label { opacity: 1; max-width: 850px; margin-left: 20px; }
             .c-orange { color: var(--primary-orange); } .c-blue { color: var(--hotline-blue); } .c-purple { color: var(--viber-purple); } .c-red { color: var(--map-red); }
@@ -177,14 +178,14 @@
                 
                 <div class="nav-v nav-left">
                     <a href="tel:733676869" class="nav-item dt-link c-orange"><i class="fa-solid fa-phone"></i><span class="nav-label">BAKALARSKA: 733 67 68 69</span></a>
-                    <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link c-orange"><i class="fa-brands fa-facebook-messenger"></i><span class="nav-label">Messenger</span></a>
-                    <a href="https://maps.app.goo.gl/zNUxFsg79Cb9y1SNA" target="_blank" class="nav-item dt-link c-orange"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
+                    <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link c-orange"><i class="fa-brands fa-facebook-messenger"></i><span class="nav-label">MESSENGER: ALO SERWIS</span></a>
+                    <a href="https://maps.app.goo.gl/uX3L5S9C5y2zT2uD8" target="_blank" class="nav-item dt-link c-orange"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
                 </div>
 
                 <div class="nav-v nav-right">
                     <a href="tel:787456999" class="nav-item dt-link c-blue"><i class="fa-solid fa-phone"></i><span class="nav-label">WÓLKA: 787 456 999</span></a>
-                    <a href="#" class="nav-item dt-link c-purple"><i class="fa-brands fa-viber"></i><span class="nav-label">VIBER: 787 456 999</span></a>
-                    <a href="https://maps.app.goo.gl/Ay5MhtteeFQSsx1e6" target="_blank" class="nav-item dt-link c-blue"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
+                    <a href="viber://chat?number=48787456999" class="nav-item dt-link c-purple"><i class="fa-brands fa-viber"></i><span class="nav-label">VIBER: 787 456 999</span></a>
+                    <a href="https://maps.app.goo.gl/Yp4L4zSjH8f2zT8u5" target="_blank" class="nav-item dt-link c-blue"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
                 </div>
             </div>
 
@@ -229,21 +230,15 @@
     </div>
 
     <script>
-        // --- 1. XỬ LÝ SỰ KIỆN CLICK NÚT (FIX: HIỆN LABEL TRƯỚC) ---
+        // --- 1. XỬ LÝ SỰ KIỆN CLICK NÚT ---
         const links = document.querySelectorAll('.dt-link');
         links.forEach(link => {
             link.addEventListener('click', function(e) {
-                // Nếu nút này CHƯA xòe ra
                 if (!this.classList.contains('active')) {
-                    e.preventDefault(); // CHẶN gọi điện/mở link ngay lập tức
-                    
-                    // Thu nhỏ tất cả các nút khác lại
+                    e.preventDefault(); 
                     links.forEach(l => l.classList.remove('active'));
-                    
-                    // Xòe nút hiện tại ra để hiện label
                     this.classList.add('active');
                 } else {
-                    // Nếu nút ĐÃ xòe rồi, cho phép thực hiện link (gọi điện, messenger...)
                     return true;
                 }
             });
