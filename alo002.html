@@ -25,15 +25,9 @@
             touch-action: none; 
         }
 
-        #snow-canvas { 
-            position: fixed; 
-            top: 0; left: 0; 
-            width: 100vw; height: 100vh; 
-            z-index: 9999; 
-            pointer-events: none;
-        }
+        #snow-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; pointer-events: none; }
 
-        /* PTR Indicator - Luôn màu xanh theo yêu cầu */
+        /* PTR Indicator - ALO002 Style */
         #ptr-indicator {
             position: fixed; top: -70px; left: 50%; transform: translateX(-50%);
             width: 60px; height: 60px; background: var(--primary-blue);
@@ -42,37 +36,65 @@
             opacity: 0; transition: opacity 0.2s;
         }
 
+        /* Animations */
         @keyframes rotateGlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes shimmer { to { background-position: 200% center; } }
         @keyframes shakePulse { 0%, 100% { transform: scale(1) rotate(0deg); } 20% { transform: scale(1.05) rotate(-1deg); } 40% { transform: scale(1.05) rotate(1deg); } }
         @keyframes expandCenter { 0% { transform: scaleX(0); opacity: 0; } 50% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(0); opacity: 0; } }
-        @keyframes giantHeartBeat {
-            0% { transform: scale(1); }
-            14% { transform: scale(1.8); } 
-            28% { transform: scale(1); }
-            42% { transform: scale(1.8); }
-            70% { transform: scale(1); }
+        @keyframes giantHeartBeat { 0% { transform: scale(1); } 14% { transform: scale(1.8); } 28% { transform: scale(1); } 42% { transform: scale(1.8); } 70% { transform: scale(1); } }
+
+        /* Container & Border Chase */
+        .banner-container { 
+            position: relative; 
+            flex-shrink: 0; 
+            overflow: hidden;
+            background: rgba(0, 136, 204, 0.2);
+        }
+        
+        .banner-container::before {
+            content: ''; position: absolute;
+            width: 150%; height: 150%; top: -25%; left: -25%;
+            background-image: conic-gradient(transparent, transparent, transparent, var(--primary-blue), #fff, var(--primary-blue));
+            animation: rotateGlow 4s linear infinite; z-index: 1;
         }
 
+        .inner-content { 
+            position: absolute; 
+            inset: 4px; 
+            background: var(--dark-bg); 
+            z-index: 5; 
+            overflow: hidden;
+        }
+
+        /* Reusable Components */
         .shimmer-text { 
             background: linear-gradient(to right, var(--primary-blue) 0%, #fff 50%, var(--primary-blue) 100%); 
             background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
             animation: shimmer 3s linear infinite; 
         }
 
-        .lay-ngay-badge { background: var(--primary-blue); color: white; font-weight: 900; border-radius: 12px; box-shadow: 0 0 35px var(--primary-blue); animation: shakePulse 1.2s infinite ease-in-out; -webkit-text-fill-color: white; }
+        .lay-ngay-badge { 
+            background: var(--primary-blue); color: white; font-weight: 900; 
+            border-radius: 12px; box-shadow: 0 0 35px var(--primary-blue); 
+            animation: shakePulse 1.2s infinite ease-in-out;
+            -webkit-text-fill-color: white; 
+        }
 
-        .banner-container { position: relative; flex-shrink: 0; overflow: hidden; }
-        .inner-content { position: absolute; inset: 2px; background: var(--dark-bg); overflow: hidden; z-index: 5; }
-        .banner-container::before { content: ''; position: absolute; inset: -150px; background: conic-gradient(from 0deg, transparent 65%, var(--primary-blue) 85%, #fff 100%); animation: rotateGlow 4s linear infinite; z-index: 1; }
-        .banner-container::after { content: ''; position: absolute; inset: 6px; background: var(--dark-bg); z-index: 2; }
-        .glow-spinner { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, transparent 50%, var(--primary-blue) 95%, #fff 100%); animation: rotateGlow 2.5s linear infinite; -webkit-mask: radial-gradient(circle, transparent 65%, black 67%); filter: blur(8px) drop-shadow(0 0 40px var(--primary-blue)); }
+        .glow-spinner { 
+            position: absolute; inset: 0; border-radius: 50%; 
+            background: conic-gradient(from 0deg, transparent 50%, var(--primary-blue) 95%, #fff 100%); 
+            animation: rotateGlow 2.5s linear infinite; 
+            -webkit-mask: radial-gradient(circle, transparent 65%, black 67%); 
+            filter: blur(8px) drop-shadow(0 0 40px var(--primary-blue)); 
+        }
 
         /* --- MOBILE LAYOUT --- */
         @media (max-aspect-ratio: 1/1) {
             #banner-h { display: none; }
-            .banner-container { width: 1080px; height: 1920px; }
+            .banner-container { width: 1080px; height: 1920px; border-radius: 60px; }
+            .inner-content { border-radius: 56px; }
             .layout-v { position: absolute; inset: 0; z-index: 10; padding: 20px 0; display: flex; flex-direction: column; align-items: center; }
+            
             .header-v { color: var(--primary-blue); font-size: 115px; font-weight: 900; margin-bottom: 15px; }
             .title-v { color: white; font-size: 78px; font-weight: 900; text-transform: uppercase; text-align: center; }
             .line-v { width: 90%; height: 4px; background: #111; position: relative; overflow: hidden; margin: 15px 0; }
@@ -85,7 +107,7 @@
             .visual-v { position: relative; width: 900px; height: 900px; margin: 20px 0; display: flex; justify-content: center; align-items: center; }
             .phone-v { width: 107%; transform: rotate(-5deg); filter: drop-shadow(0 0 70px rgba(0, 136, 204, 0.6)); z-index: 6; }
             
-            .promo-v { background: white; padding: 18px 55px; border-radius: 100px; font-size: 46px; font-weight: 900; margin-top: 20px; display: flex; align-items: center; overflow: visible; }
+            .promo-v { background: white; padding: 18px 55px; border-radius: 100px; font-size: 46px; font-weight: 900; margin-top: 20px; display: flex; align-items: center; }
             .icon-gift-v { color: var(--primary-blue); font-size: 65px; margin-right: 30px; animation: giantHeartBeat 1.5s infinite; }
 
             .commit-v { margin-top: 40px; display: flex; flex-direction: column; gap: 32px; text-align: center; } 
@@ -108,7 +130,10 @@
         /* --- DESKTOP LAYOUT --- */
         @media (min-aspect-ratio: 1/1) {
             #banner-v { display: none; }
-            .banner-container { width: 1920px; height: 1080px; }
+            .banner-container { width: 1920px; height: 1080px; border-radius: 80px; }
+            /* Co vào 2px mép trên/dưới cho Desktop */
+            .inner-content { inset: 6px 4px; border-radius: 76px; } 
+
             .layout-h { position: absolute; inset: 0; z-index: 10; padding: 40px 100px; display: flex; flex-direction: column; }
             .header-h { color: var(--primary-blue); font-size: 115px; font-weight: 900; margin-bottom: 5px; }
             .title-h { font-size: 81px; color: white; font-weight: 900; margin: 0; text-transform: uppercase; }
@@ -120,19 +145,24 @@
             .row-h { display: flex; align-items: center; gap: 40px; }
             .lay-ngay-h { font-size: 65px; padding: 10px 50px; }
 
-            .promo-h { background: white; color: black; padding: 12px 45px; border-radius: 100px; font-weight: 900; font-size: 42px; width: fit-content; margin: 45px 0; display: flex; align-items: center; overflow: visible; }
-            .icon-free-h { color: var(--primary-blue); font-size: 65px; margin-right: 35px; animation: giantHeartBeat 1.5s infinite; display: inline-block; transform-origin: center; }
+            .promo-h { background: white; color: black; padding: 12px 45px; border-radius: 100px; font-weight: 900; font-size: 42px; width: fit-content; margin: 45px 0; display: flex; align-items: center; }
+            .icon-free-h { color: var(--primary-blue); font-size: 65px; margin-right: 35px; animation: giantHeartBeat 1.5s infinite; display: inline-block; }
 
             .commitments-h { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; } 
             .sub-h { font-size: 34px; font-weight: 900; color: white; text-transform: uppercase; margin: 0; letter-spacing: 2px; }
             
-            .visual-h { position: absolute; right: 100px; top: 45%; transform: translateY(-50%); width: 820px; height: 820px; display: flex; justify-content: center; align-items: center; }
+            .visual-h { position: absolute; right: 100px; top: 42%; transform: translateY(-50%); width: 820px; height: 820px; display: flex; justify-content: center; align-items: center; }
             .phone-h { width: 100%; transform: rotate(-5deg); filter: drop-shadow(0 0 70px rgba(0, 136, 204, 0.5)); z-index: 6; }
             
-            .line-h-bottom { width: 100%; height: 4px; background: #111; position: absolute; bottom: 15%; left: 0; overflow: hidden; }
+            .line-h-bottom { width: 100%; height: 4px; background: #111; position: absolute; bottom: 16%; left: 0; overflow: hidden; }
             .line-h-bottom::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--primary-blue), #fff, var(--primary-blue), transparent); animation: expandCenter 4s ease-in-out infinite; transform-origin: center; }
             
-            .footer-h { position: absolute; bottom: 0; left: 0; width: 100%; height: 16%; display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; padding: 0 50px; box-sizing: border-box; background: rgba(0,0,0,0.9); z-index: 20; }
+            .footer-h { 
+                position: absolute; bottom: 0; left: 0; width: 100%; height: 16%; 
+                display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; 
+                padding: 0 50px; box-sizing: border-box; background: rgba(0,0,0,0.95); 
+                z-index: 20; border-top: 2px solid rgba(0, 136, 204, 0.4);
+            }
             .info-col { display: flex; align-items: center; justify-content: center; color: #fff; gap: 20px; }
             .vertical-hl { writing-mode: vertical-rl; transform: rotate(180deg); color: var(--primary-blue); font-weight: 900; font-size: 24px; border-left: 3px solid var(--primary-blue); padding-left: 12px; white-space: nowrap; text-transform: uppercase; }
             .col-text { font-size: 24px; line-height: 1.5; text-align: left; }
@@ -170,12 +200,12 @@
                 <div class="nav-v nav-left">
                     <a href="tel:733676869" class="nav-item dt-link c-orange"><i class="fa-solid fa-phone"></i><span class="nav-label">BAKALARSKA: 733 67 68 69</span></a>
                     <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link c-orange"><i class="fa-brands fa-facebook-messenger"></i><span class="nav-label">MESSENGER: ALO SERWIS</span></a>
-                    <a href="https://maps.google.com/?q=Bakalarska+2+Warszawa" target="_blank" class="nav-item dt-link c-orange"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
+                    <a href="#" class="nav-item dt-link c-orange"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
                 </div>
                 <div class="nav-v nav-right">
                     <a href="tel:787456999" class="nav-item dt-link c-blue"><i class="fa-solid fa-phone"></i><span class="nav-label">WÓLKA: 787 456 999</span></a>
                     <a href="viber://chat?number=48787456999" class="nav-item dt-link c-purple"><i class="fa-brands fa-viber"></i><span class="nav-label">VIBER: 787 456 999</span></a>
-                    <a href="https://maps.google.com/?q=Nadrzeczna+7C+Wolka+Kosowska" target="_blank" class="nav-item dt-link c-blue"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
+                    <a href="#" class="nav-item dt-link c-blue"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
                 </div>
             </div>
 
@@ -206,11 +236,11 @@
                 <div class="line-h-bottom"></div>
                 <div class="footer-h">
                     <div class="info-col">
-                        <div class="vertical-hl">CƠ SỞ 1</div>
+                        <div class="vertical-hl">Cơ sở 1</div>
                         <div class="col-text">Bakalarska 2 / B214<br>02-212 Warszawa<br><span class="hl-blue">Hotline:</span> 733 676 869</div>
                     </div>
                     <div class="info-col">
-                        <div class="vertical-hl">CƠ SỞ 2</div>
+                        <div class="vertical-hl">Cơ sở 2</div>
                         <div class="col-text">Nadrzeczna 7C / A3 (ASG)<br>05-552 Wólka Kosowska<br><span class="hl-blue">Hotline:</span> 787 456 999</div>
                     </div>
                     <div class="info-col">
@@ -236,48 +266,32 @@
             initSnow();
         }
 
-        /* --- ALO002 PTR LOGIC --- */
+        /* --- PTR LOGIC ALO002 --- */
         let startY = 0, pullDistance = 0, isPulling = false;
-        const PULL_THRESHOLD = 100; // Đã giảm xuống 100px theo yêu cầu
-
         document.addEventListener('touchstart', e => {
-            if (window.scrollY === 0) {
-                startY = e.touches[0].pageY;
-                isPulling = true;
-                wrap.style.transition = 'none';
-                ptr.style.transition = 'none';
-            }
+            if (window.scrollY === 0) { startY = e.touches[0].pageY; isPulling = true; }
         }, {passive: false});
 
         document.addEventListener('touchmove', e => {
             if (!isPulling) return;
             const diff = e.touches[0].pageY - startY;
-
             if (diff > 0) {
                 e.preventDefault();
-                pullDistance = Math.pow(diff, 0.85); // Tăng nhẹ hệ số lực kéo
-                
+                pullDistance = Math.pow(diff, 0.85);
                 ptr.style.opacity = Math.min(pullDistance / 80, 1);
                 ptr.style.transform = `translateX(-50%) translateY(${pullDistance}px) rotate(${diff * 2}deg)`;
                 wrap.style.transform = `scale(${currentScale}) translateY(${pullDistance / 3}px)`;
-                
-                // Luôn giữ màu xanh, không đổi màu ở bất kỳ ngưỡng nào
             }
         }, {passive: false});
 
         document.addEventListener('touchend', () => {
             if (!isPulling) return;
             isPulling = false;
-
-            if (pullDistance > PULL_THRESHOLD) {
-                // Hiệu ứng xoay reload
-                ptr.style.transition = 'all 0.3s ease';
+            if (pullDistance > 100) {
+                ptr.style.transition = 'all 0.3s';
                 ptr.style.transform = `translateX(-50%) translateY(80px) rotate(720deg)`;
-                setTimeout(() => { location.reload(); }, 400);
+                setTimeout(() => location.reload(), 400);
             } else {
-                // Trả về vị trí cũ
-                ptr.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-                wrap.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
                 ptr.style.opacity = '0';
                 ptr.style.transform = `translateX(-50%) translateY(-70px)`;
                 wrap.style.transform = `scale(${currentScale})`;
@@ -285,7 +299,7 @@
             pullDistance = 0;
         });
 
-        /* --- SNOW --- */
+        /* --- SNOW SYSTEM --- */
         const canvas = document.getElementById('snow-canvas'); 
         const ctx = canvas.getContext('2d');
         let flakes = [];
@@ -303,11 +317,11 @@
                 ctx.fillStyle = `rgba(255, 255, 255, ${f.o})`; ctx.fill(); 
                 f.y += f.s; f.x += Math.sin(f.y / 50) * 0.5;
                 if (f.y > canvas.height) f.y = -10; 
-                if (f.x > canvas.width) f.x = 0; if (f.x < 0) f.x = canvas.width;
             });
             requestAnimationFrame(drawSnow);
         }
 
+        /* --- MOBILE NAV TOGGLE --- */
         const links = document.querySelectorAll('.dt-link');
         links.forEach(link => {
             link.addEventListener('click', function(e) {
