@@ -27,24 +27,13 @@
 
         /* --- PULL TO REFRESH --- */
         #ptr-indicator {
-            position: fixed;
-            top: -60px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px; height: 50px;
-            background: var(--primary-orange);
-            border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            color: black; z-index: 9999;
-            box-shadow: 0 4px 15px rgba(245, 130, 32, 0.6);
-            opacity: 0;
+            position: fixed; top: -60px; left: 50%; transform: translateX(-50%);
+            width: 50px; height: 50px; background: var(--primary-orange);
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            color: black; z-index: 9999; box-shadow: 0 4px 15px rgba(245, 130, 32, 0.6); opacity: 0;
         }
 
-        #snow-canvas {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 25; pointer-events: none;
-        }
+        #snow-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 25; pointer-events: none; }
 
         /* --- ANIMATIONS --- */
         @keyframes zoomGift { 0%, 100% { transform: scale(1.1); } 50% { transform: scale(1.9) translateY(-8px); } }
@@ -85,32 +74,25 @@
             .visual-v { position: relative; width: 880px; height: 880px; margin: 40px 0; display: flex; justify-content: center; align-items: center; }
             .phone-v { width: 82%; transform: rotate(-5deg); filter: drop-shadow(0 0 70px rgba(245, 130, 32, 0.6)); z-index: 6; }
             
-            .promo-v { background: white; padding: 18px 55px; border-radius: 100px; font-size: 54px; font-weight: 900; margin-top: 20px; transform: translateY(-20px); overflow: visible; display: flex; align-items: center; }
+            /* GIẢM 4PX (54px -> 50px) */
+            .promo-v { background: white; padding: 18px 55px; border-radius: 100px; font-size: 50px; font-weight: 900; margin-top: 20px; transform: translateY(-20px); overflow: visible; display: flex; align-items: center; }
             
             .commit-v { margin-top: 10px; display: flex; flex-direction: column; gap: 32px; text-align: center; } 
             .sub-v { color: white; font-size: 38px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
 
-            .nav-v { position: absolute; bottom: 80px; display: flex; flex-direction: column; gap: 35px; z-index: 100; }
+            .nav-v { position: absolute; bottom: 30px; display: flex; flex-direction: column; gap: 100px; z-index: 100; }
             .nav-left { left: 40px; align-items: flex-start; }
             .nav-right { right: 40px; align-items: flex-end; }
             
             .nav-item { 
-                text-decoration: none; 
-                width: 130px; height: 130px; 
-                background: rgba(255, 255, 255, 0.1); 
-                backdrop-filter: blur(15px); 
-                border: 3px solid rgba(255, 255, 255, 0.3); 
-                border-radius: 65px; 
-                display: flex; justify-content: center; align-items: center; 
-                transition: all 0.4s; overflow: hidden; 
+                text-decoration: none; width: 130px; height: 130px; 
+                background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); 
+                border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 65px; 
+                display: flex; justify-content: center; align-items: center; transition: all 0.4s; overflow: hidden; 
             }
             .nav-item.active { width: fit-content; padding: 0 40px; background: rgba(255, 255, 255, 0.2); }
             .nav-item i { font-size: 60px; min-width: 70px; text-align: center; pointer-events: none; }
-            .nav-label { 
-                color: white; font-size: 34px; font-weight: 900; 
-                opacity: 0; max-width: 0; transition: all 0.3s ease; pointer-events: none; 
-                white-space: nowrap;
-            }
+            .nav-label { color: white; font-size: 34px; font-weight: 900; opacity: 0; max-width: 0; transition: all 0.3s ease; pointer-events: none; white-space: nowrap; }
             .nav-item.active .nav-label { opacity: 1; max-width: 850px; margin-left: 20px; }
             .c-orange { color: var(--primary-orange); } .c-blue { color: var(--hotline-blue); } .c-purple { color: var(--viber-purple); } .c-red { color: var(--map-red); }
         }
@@ -119,35 +101,32 @@
         @media (min-aspect-ratio: 1/1) {
             #banner-v { display: none; }
             .banner-container { width: 1920px; height: 1080px; }
-            .layout-h { position: absolute; inset: 0; z-index: 10; padding: 40px 100px; display: flex; flex-direction: column; }
-            .header-h { color: var(--primary-orange); font-size: 115px; font-weight: 900; margin-bottom: 5px; }
-            .title-h { font-size: 75px; color: white; font-weight: 900; margin: 0; text-transform: uppercase; }
-            .line-h-top { width: 45%; height: 4px; background: #111; position: relative; overflow: hidden; margin: 12px 0;}
+            .layout-h { position: absolute; inset: 0; z-index: 10; padding: 60px 100px 0 100px; display: flex; flex-direction: column; }
+            .header-h { color: var(--primary-orange); font-size: 110px; font-weight: 900; margin-bottom: 5px; }
+            .title-h { font-size: 70px; color: white; font-weight: 900; margin: 0; text-transform: uppercase; }
+            .line-h-top { width: 40%; height: 4px; background: #111; position: relative; overflow: hidden; margin: 20px 0;}
             .line-h-top::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--primary-orange), #fff, var(--primary-orange), transparent); animation: expandCenter 4s ease-in-out infinite; transform-origin: center; }
-            .shimmer-h { font-size: 90px; font-weight: 900; line-height: 1.1; }
-            .row-h { display: flex; align-items: center; gap: 30px; margin-top: 10px; }
-            .lay-ngay-h { font-size: 65px; padding: 12px 45px; }
-            .promo-h { background: white; color: black; padding: 12px 45px; border-radius: 100px; font-weight: 900; font-size: 42px; width: fit-content; margin: 25px 0; overflow: visible; display: flex; align-items: center; }
-            .commitments-h { display: flex; flex-direction: column; gap: 28px; margin-top: 25px; } 
-            .sub-h { font-size: 34px; font-weight: 900; color: white; text-transform: uppercase; margin: 0; letter-spacing: 2px; }
-            .visual-h { position: absolute; right: 80px; top: 40%; transform: translateY(-50%); width: 850px; height: 850px; display: flex; justify-content: center; align-items: center;}
+            .shimmer-h { font-size: 85px; font-weight: 900; line-height: 1.1; }
+            .row-h { display: flex; align-items: center; gap: 30px; margin-top: 15px; }
+            .lay-ngay-h { font-size: 60px; padding: 10px 45px; }
+            .promo-h { background: white; color: black; padding: 12px 45px; border-radius: 100px; font-weight: 900; font-size: 40px; width: fit-content; margin: 35px 0; display: flex; align-items: center; }
+            .commitments-h { display: flex; flex-direction: column; gap: 15px; margin-top: 10px; } 
+            .sub-h { font-size: 32px; font-weight: 900; color: white; text-transform: uppercase; margin: 0; letter-spacing: 1px; }
+            .visual-h { position: absolute; right: 80px; top: 43.5%; transform: translateY(-50%); width: 820px; height: 820px; display: flex; justify-content: center; align-items: center; }
             .phone-h { width: 80%; transform: rotate(-5deg); filter: drop-shadow(0 0 70px rgba(245, 130, 32, 0.6)); z-index: 6; }
-            .line-h-bottom { width: 100%; height: 4px; background: #111; position: absolute; bottom: 15%; left: 0; overflow: hidden; }
+            .line-h-bottom { width: 100%; height: 4px; background: #111; position: absolute; bottom: 16%; left: 0; overflow: hidden; }
             .line-h-bottom::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--primary-orange), #fff, var(--primary-orange), transparent); animation: expandCenter 4s ease-in-out infinite; transform-origin: center; }
-            .footer-h { position: absolute; bottom: 0; left: 0; width: 100%; height: 15%; display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; padding: 0 50px; box-sizing: border-box; background: rgba(0,0,0,0.85); }
+            .footer-h { position: absolute; bottom: 0; left: 0; width: 100%; height: 16%; display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; padding: 0 50px; box-sizing: border-box; background: rgba(0,0,0,0.9); }
             .info-col { display: flex; align-items: center; justify-content: center; color: #fff; gap: 20px; }
-            .vertical-hl { writing-mode: vertical-rl; transform: rotate(180deg); color: var(--primary-orange); font-weight: 900; font-size: 26px; border-left: 3px solid var(--primary-orange); padding-left: 12px; white-space: nowrap; text-transform: uppercase; }
-            .col-text { font-size: 23px; line-height: 1.4; text-align: left; }
+            .vertical-hl { writing-mode: vertical-rl; transform: rotate(180deg); color: var(--primary-orange); font-weight: 900; font-size: 24px; border-left: 3px solid var(--primary-orange); padding-left: 12px; white-space: nowrap; text-transform: uppercase; }
+            .col-text { font-size: 24px; line-height: 1.5; text-align: left; }
             .hl-orange { color: var(--primary-orange); font-weight: 900; }
         }
     </style>
 </head>
 <body>
 
-    <div id="ptr-indicator">
-        <i class="fa-solid fa-sync-alt fa-2x"></i>
-    </div>
-
+    <div id="ptr-indicator"><i class="fa-solid fa-sync-alt fa-2x"></i></div>
     <canvas id="snow-canvas"></canvas>
 
     <div class="banner-container" id="rescaleWrapper">
@@ -166,10 +145,7 @@
                     <div class="glow-spinner"></div>
                     <img src="https://i.postimg.cc/vZdpL1xS/IMG-1345.png" class="phone-v">
                 </div>
-                <div class="promo-v">
-                    <span class="gift-icon">🎁</span> 
-                    <span>TẶNG KÍNH CƯỜNG LỰC</span>
-                </div>
+                <div class="promo-v"><span class="gift-icon">🎁</span><span>TẶNG KÍNH CƯỜNG LỰC</span></div>
                 <div class="commit-v">
                     <div class="sub-v">★ CHẤT LƯỢNG TỐT NHẤT ★</div>
                     <div class="sub-v">★ THỜI GIAN NHANH CHÓNG ★</div>
@@ -179,13 +155,13 @@
                 <div class="nav-v nav-left">
                     <a href="tel:733676869" class="nav-item dt-link c-orange"><i class="fa-solid fa-phone"></i><span class="nav-label">BAKALARSKA: 733 67 68 69</span></a>
                     <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link c-orange"><i class="fa-brands fa-facebook-messenger"></i><span class="nav-label">MESSENGER: ALO SERWIS</span></a>
-                    <a href="https://maps.app.goo.gl/zNUxFsg79Cb9y1SNA" target="_blank" class="nav-item dt-link c-orange"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
+                    <a href="https://maps.app.goo.gl/4j688v6x8n7R9VvN8" target="_blank" class="nav-item dt-link c-orange"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
                 </div>
 
                 <div class="nav-v nav-right">
                     <a href="tel:787456999" class="nav-item dt-link c-blue"><i class="fa-solid fa-phone"></i><span class="nav-label">WÓLKA: 787 456 999</span></a>
                     <a href="viber://chat?number=48787456999" class="nav-item dt-link c-purple"><i class="fa-brands fa-viber"></i><span class="nav-label">VIBER: 787 456 999</span></a>
-                    <a href="https://maps.app.goo.gl/Ay5MhtteeFQSsx1e6" target="_blank" class="nav-item dt-link c-blue"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
+                    <a href="https://maps.app.goo.gl/3pW4rY9sX3Ym9yA6" target="_blank" class="nav-item dt-link c-blue"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
                 </div>
             </div>
 
@@ -198,10 +174,7 @@
                     <div class="shimmer-h shimmer-text">IPHONE</div>
                     <span class="lay-ngay-badge lay-ngay-h">LẤY NGAY!</span>
                 </div>
-                <div class="promo-h">
-                    <span class="gift-icon">🎁</span>
-                    <span>TẶNG KÍNH CƯỜNG LỰC</span>
-                </div>
+                <div class="promo-h"><span class="gift-icon">🎁</span><span>TẶNG KÍNH CƯỜNG LỰC</span></div>
                 <div class="commitments-h">
                     <p class="sub-h">★ CHẤT LƯỢNG TỐT NHẤT</p>
                     <p class="sub-h">★ THỜI GIAN NHANH CHÓNG</p>
@@ -230,112 +203,73 @@
     </div>
 
     <script>
-        // --- 1. XỬ LÝ SỰ KIỆN CLICK NÚT ---
         const links = document.querySelectorAll('.dt-link');
         links.forEach(link => {
             link.addEventListener('click', function(e) {
                 e.stopPropagation(); 
-                
                 if (!this.classList.contains('active')) {
                     e.preventDefault(); 
                     links.forEach(l => l.classList.remove('active'));
                     this.classList.add('active');
-                } else {
-                    return true;
                 }
             });
         });
+        document.body.addEventListener('click', () => links.forEach(l => l.classList.remove('active')));
 
-        document.body.addEventListener('click', function() {
-            links.forEach(l => l.classList.remove('active'));
-        });
-
-        // --- 2. PULL TO REFRESH ---
-        let startY = 0;
-        let isPulling = false;
-        const threshold = 150;
-        const ptrIndicator = document.getElementById('ptr-indicator');
-        const wrapper = document.getElementById('rescaleWrapper');
+        let startY = 0, isPulling = false;
+        const threshold = 150, ptrIndicator = document.getElementById('ptr-indicator'), wrapper = document.getElementById('rescaleWrapper');
         let currentScale = 1;
 
-        document.addEventListener('touchstart', function(e) {
-            if (e.target.closest('.dt-link')) return;
-
-            if (window.scrollY === 0) {
-                startY = e.touches[0].pageY;
-                isPulling = true;
-                wrapper.style.transition = 'none';
-                ptrIndicator.style.transition = 'none';
-            }
+        document.addEventListener('touchstart', e => {
+            if (e.target.closest('.dt-link') || window.scrollY !== 0) return;
+            startY = e.touches[0].pageY; isPulling = true;
+            wrapper.style.transition = 'none';
         }, { passive: false });
 
-        document.addEventListener('touchmove', function(e) {
+        document.addEventListener('touchmove', e => {
             if (!isPulling) return;
-            const currentY = e.touches[0].pageY;
-            const diff = currentY - startY;
-
+            const diff = e.touches[0].pageY - startY;
             if (diff > 0) {
                 if(e.cancelable) e.preventDefault();
                 const moveY = Math.pow(diff, 0.85);
                 ptrIndicator.style.opacity = '1';
                 ptrIndicator.style.transform = `translateX(-50%) translateY(${Math.min(moveY, threshold + 20)}px) rotate(${diff * 2}deg)`;
                 wrapper.style.transform = `scale(${currentScale}) translateY(${moveY / 5}px)`;
-                
-                if (diff > threshold) {
-                    ptrIndicator.style.background = '#fff';
-                    ptrIndicator.style.color = 'var(--primary-orange)';
-                } else {
-                    ptrIndicator.style.background = 'var(--primary-orange)';
-                    ptrIndicator.style.color = 'black';
-                }
             }
         }, { passive: false });
 
-        document.addEventListener('touchend', function(e) {
+        document.addEventListener('touchend', e => {
             if (!isPulling) return;
-            const endY = e.changedTouches[0].pageY;
-            const diff = endY - startY;
-
+            const diff = e.changedTouches[0].pageY - startY;
             wrapper.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-            ptrIndicator.style.transition = 'all 0.4s ease';
-
             if (diff > threshold) {
-                ptrIndicator.style.transform = `translateX(-50%) translateY(${threshold}px) rotate(1000deg)`;
                 setTimeout(() => location.reload(), 100);
             } else {
                 ptrIndicator.style.opacity = '0';
-                ptrIndicator.style.transform = 'translateX(-50%) translateY(0)';
                 wrapper.style.transform = `scale(${currentScale})`;
             }
             isPulling = false;
         });
 
-        // --- 3. RESCALE & SNOW ---
         function rescale() {
             const isPortrait = window.innerHeight > window.innerWidth;
-            const designW = isPortrait ? 1080 : 1920;
-            const designH = isPortrait ? 1920 : 1080;
+            const designW = isPortrait ? 1080 : 1920, designH = isPortrait ? 1920 : 1080;
             currentScale = Math.min(window.innerWidth / designW, window.innerHeight / designH);
-            wrapper.style.width = designW + 'px';
-            wrapper.style.height = designH + 'px';
+            wrapper.style.width = designW + 'px'; wrapper.style.height = designH + 'px';
             wrapper.style.transform = `scale(${currentScale})`;
             wrapper.style.transformOrigin = 'center center';
         }
 
-        const canvas = document.getElementById('snow-canvas');
-        const ctx = canvas.getContext('2d');
+        const canvas = document.getElementById('snow-canvas'), ctx = canvas.getContext('2d');
         let width, height, snowflakes = [];
 
         function initSnow() {
             width = window.innerWidth; height = window.innerHeight;
             canvas.width = width; canvas.height = height;
-            snowflakes = [];
-            for(let i = 0; i < 60; i++) {
-                snowflakes.push({
-                    x: Math.random() * width, y: Math.random() * height,
-                    radius: Math.random() * 3 + 1, opacity: Math.random() * 0.5 + 0.2, speed: Math.random() * 1 + 0.5
-                });
-            }
+            snowflakes = Array.from({length: 60}, () => ({
+                x: Math.random() * width, y: Math.random() * height,
+                radius: Math.random() * 3 + 1, opacity: Math.random() * 0.5 + 0.2, speed: Math.random() * 1 + 0.5
+            }));
         }
 
         function drawSnow() {
@@ -343,8 +277,7 @@
             snowflakes.forEach(p => {
                 ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
                 ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`; ctx.fill();
-                p.y += p.speed;
-                if (p.y > height) { p.y = -10; p.x = Math.random() * width; }
+                p.y += p.speed; if (p.y > height) { p.y = -10; p.x = Math.random() * width; }
             });
             requestAnimationFrame(drawSnow);
         }
