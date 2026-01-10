@@ -13,6 +13,8 @@
             --viber-purple: #7360f2;
             --hotline-blue: #0088cc;
             --map-red: #eb4034;
+            /* Cấu hình bo góc đồng nhất */
+            --main-radius: 60px; 
         }
 
         html, body {
@@ -51,11 +53,50 @@
         .gift-icon { display: inline-block; font-size: 1.3em; animation: zoomGift 1.2s ease-in-out infinite; vertical-align: middle; margin-right: 15px; position: relative; z-index: 50; }
         .lay-ngay-badge { background: var(--primary-orange); color: black; font-weight: 900; border-radius: 15px; box-shadow: 0 0 50px var(--primary-orange); animation: shakePulse 1.2s infinite ease-in-out; -webkit-text-fill-color: black; }
 
-        .banner-container { position: relative; flex-shrink: 0; overflow: hidden; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .inner-content { position: absolute; inset: 2px; background: var(--dark-bg); overflow: hidden; z-index: 5; }
-        .banner-container::before { content: ''; position: absolute; inset: -150px; background: conic-gradient(from 0deg, transparent 65%, var(--primary-orange) 85%, #fff 100%); animation: rotateGlow 4s linear infinite; z-index: 1; }
-        .banner-container::after { content: ''; position: absolute; inset: 6px; background: var(--dark-bg); z-index: 2; }
-        .glow-spinner { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, transparent 50%, var(--primary-orange) 95%, #fff 100%); animation: rotateGlow 2.5s linear infinite; -webkit-mask: radial-gradient(circle, transparent 68%, black 70%); filter: blur(10px) drop-shadow(0 0 40px var(--primary-orange)); }
+        /* --- BORDER GLOW EFFECT WITH ROUNDED CORNERS --- */
+        .banner-container { 
+            position: relative; 
+            flex-shrink: 0; 
+            overflow: hidden; 
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            border-radius: var(--main-radius); /* Bo góc container ngoài */
+        }
+        
+        .inner-content { 
+            position: absolute; 
+            inset: 8px; /* Độ dày của đường viền */
+            background: var(--dark-bg); 
+            overflow: hidden; 
+            z-index: 5; 
+            border-radius: calc(var(--main-radius) - 4px); /* Bo góc ruột bên trong */
+        }
+
+        .banner-container::before { 
+            content: ''; 
+            position: absolute; 
+            inset: -150px; 
+            background: conic-gradient(from 0deg, transparent 65%, var(--primary-orange) 85%, #fff 100%); 
+            animation: rotateGlow 4s linear infinite; 
+            z-index: 1; 
+        }
+
+        /* --- PHẦN NÀY TẠO ĐỘ PHẲNG CHO NỀN ĐỂ VIỀN HIỆN RÕ --- */
+        .banner-container::after { 
+            content: ''; 
+            position: absolute; 
+            inset: 0; 
+            border-radius: var(--main-radius);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            z-index: 2; 
+        }
+
+        .glow-spinner { 
+            position: absolute; inset: 0; border-radius: 50%; 
+            background: conic-gradient(from 0deg, transparent 50%, var(--primary-orange) 95%, #fff 100%); 
+            animation: rotateGlow 2.5s linear infinite; 
+            -webkit-mask: radial-gradient(circle, transparent 68%, black 70%); 
+            filter: blur(10px) drop-shadow(0 0 40px var(--primary-orange)); 
+        }
 
         /* --- MOBILE LAYOUT --- */
         @media (max-aspect-ratio: 1/1) {
@@ -74,7 +115,6 @@
             .visual-v { position: relative; width: 880px; height: 880px; margin: 40px 0; display: flex; justify-content: center; align-items: center; }
             .phone-v { width: 82%; transform: rotate(-5deg); filter: drop-shadow(0 0 70px rgba(245, 130, 32, 0.6)); z-index: 6; }
             
-            /* GIẢM 4PX (54px -> 50px) */
             .promo-v { background: white; padding: 18px 55px; border-radius: 100px; font-size: 50px; font-weight: 900; margin-top: 20px; transform: translateY(-20px); overflow: visible; display: flex; align-items: center; }
             
             .commit-v { margin-top: 10px; display: flex; flex-direction: column; gap: 32px; text-align: center; } 
@@ -155,13 +195,13 @@
                 <div class="nav-v nav-left">
                     <a href="tel:733676869" class="nav-item dt-link c-orange"><i class="fa-solid fa-phone"></i><span class="nav-label">BAKALARSKA: 733 67 68 69</span></a>
                     <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link c-orange"><i class="fa-brands fa-facebook-messenger"></i><span class="nav-label">MESSENGER: ALO SERWIS</span></a>
-                    <a href="https://maps.app.goo.gl/4j688v6x8n7R9VvN8" target="_blank" class="nav-item dt-link c-orange"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
+                    <a href="https://maps.app.goo.gl/YourMapLink1" target="_blank" class="nav-item dt-link c-orange"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
                 </div>
 
                 <div class="nav-v nav-right">
                     <a href="tel:787456999" class="nav-item dt-link c-blue"><i class="fa-solid fa-phone"></i><span class="nav-label">WÓLKA: 787 456 999</span></a>
                     <a href="viber://chat?number=48787456999" class="nav-item dt-link c-purple"><i class="fa-brands fa-viber"></i><span class="nav-label">VIBER: 787 456 999</span></a>
-                    <a href="https://maps.app.goo.gl/3pW4rY9sX3Ym9yA6" target="_blank" class="nav-item dt-link c-blue"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
+                    <a href="https://maps.app.goo.gl/YourMapLink2" target="_blank" class="nav-item dt-link c-blue"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
                 </div>
             </div>
 
@@ -203,6 +243,7 @@
     </div>
 
     <script>
+        // Điều khiển đóng mở Label khi Click
         const links = document.querySelectorAll('.dt-link');
         links.forEach(link => {
             link.addEventListener('click', function(e) {
@@ -216,53 +257,21 @@
         });
         document.body.addEventListener('click', () => links.forEach(l => l.classList.remove('active')));
 
-        let startY = 0, isPulling = false;
-        const threshold = 150, ptrIndicator = document.getElementById('ptr-indicator'), wrapper = document.getElementById('rescaleWrapper');
-        let currentScale = 1;
-
-        document.addEventListener('touchstart', e => {
-            if (e.target.closest('.dt-link') || window.scrollY !== 0) return;
-            startY = e.touches[0].pageY; isPulling = true;
-            wrapper.style.transition = 'none';
-        }, { passive: false });
-
-        document.addEventListener('touchmove', e => {
-            if (!isPulling) return;
-            const diff = e.touches[0].pageY - startY;
-            if (diff > 0) {
-                if(e.cancelable) e.preventDefault();
-                const moveY = Math.pow(diff, 0.85);
-                ptrIndicator.style.opacity = '1';
-                ptrIndicator.style.transform = `translateX(-50%) translateY(${Math.min(moveY, threshold + 20)}px) rotate(${diff * 2}deg)`;
-                wrapper.style.transform = `scale(${currentScale}) translateY(${moveY / 5}px)`;
-            }
-        }, { passive: false });
-
-        document.addEventListener('touchend', e => {
-            if (!isPulling) return;
-            const diff = e.changedTouches[0].pageY - startY;
-            wrapper.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-            if (diff > threshold) {
-                setTimeout(() => location.reload(), 100);
-            } else {
-                ptrIndicator.style.opacity = '0';
-                wrapper.style.transform = `scale(${currentScale})`;
-            }
-            isPulling = false;
-        });
-
+        // Logic Rescale
         function rescale() {
             const isPortrait = window.innerHeight > window.innerWidth;
             const designW = isPortrait ? 1080 : 1920, designH = isPortrait ? 1920 : 1080;
-            currentScale = Math.min(window.innerWidth / designW, window.innerHeight / designH);
-            wrapper.style.width = designW + 'px'; wrapper.style.height = designH + 'px';
-            wrapper.style.transform = `scale(${currentScale})`;
+            const scale = Math.min(window.innerWidth / designW, window.innerHeight / designH);
+            const wrapper = document.getElementById('rescaleWrapper');
+            wrapper.style.width = designW + 'px'; 
+            wrapper.style.height = designH + 'px';
+            wrapper.style.transform = `scale(${scale})`;
             wrapper.style.transformOrigin = 'center center';
         }
 
+        // Snow Effect
         const canvas = document.getElementById('snow-canvas'), ctx = canvas.getContext('2d');
         let width, height, snowflakes = [];
-
         function initSnow() {
             width = window.innerWidth; height = window.innerHeight;
             canvas.width = width; canvas.height = height;
@@ -271,7 +280,6 @@
                 radius: Math.random() * 3 + 1, opacity: Math.random() * 0.5 + 0.2, speed: Math.random() * 1 + 0.5
             }));
         }
-
         function drawSnow() {
             ctx.clearRect(0, 0, width, height);
             snowflakes.forEach(p => {
