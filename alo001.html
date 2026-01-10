@@ -13,7 +13,6 @@
             --viber-purple: #7360f2;
             --hotline-blue: #0088cc;
             --map-red: #eb4034;
-            /* Cấu hình bo góc đồng nhất */
             --main-radius: 60px; 
         }
 
@@ -29,10 +28,11 @@
 
         /* --- PULL TO REFRESH --- */
         #ptr-indicator {
-            position: fixed; top: -60px; left: 50%; transform: translateX(-50%);
-            width: 50px; height: 50px; background: var(--primary-orange);
+            position: fixed; top: -80px; left: 50%; transform: translateX(-50%);
+            width: 60px; height: 60px; background: var(--primary-orange);
             border-radius: 50%; display: flex; justify-content: center; align-items: center;
             color: black; z-index: 9999; box-shadow: 0 4px 15px rgba(245, 130, 32, 0.6); opacity: 0;
+            transition: opacity 0.2s;
         }
 
         #snow-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 25; pointer-events: none; }
@@ -53,22 +53,21 @@
         .gift-icon { display: inline-block; font-size: 1.3em; animation: zoomGift 1.2s ease-in-out infinite; vertical-align: middle; margin-right: 15px; position: relative; z-index: 50; }
         .lay-ngay-badge { background: var(--primary-orange); color: black; font-weight: 900; border-radius: 15px; box-shadow: 0 0 50px var(--primary-orange); animation: shakePulse 1.2s infinite ease-in-out; -webkit-text-fill-color: black; }
 
-        /* --- BORDER GLOW EFFECT WITH ROUNDED CORNERS --- */
         .banner-container { 
             position: relative; 
             flex-shrink: 0; 
             overflow: hidden; 
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            border-radius: var(--main-radius); /* Bo góc container ngoài */
+            transition: transform 0.1s linear; 
+            border-radius: var(--main-radius); 
         }
         
         .inner-content { 
             position: absolute; 
-            inset: 8px; /* Độ dày của đường viền */
+            inset: 8px; 
             background: var(--dark-bg); 
             overflow: hidden; 
             z-index: 5; 
-            border-radius: calc(var(--main-radius) - 4px); /* Bo góc ruột bên trong */
+            border-radius: calc(var(--main-radius) - 4px); 
         }
 
         .banner-container::before { 
@@ -80,7 +79,6 @@
             z-index: 1; 
         }
 
-        /* --- PHẦN NÀY TẠO ĐỘ PHẲNG CHO NỀN ĐỂ VIỀN HIỆN RÕ --- */
         .banner-container::after { 
             content: ''; 
             position: absolute; 
@@ -243,7 +241,54 @@
     </div>
 
     <script>
-        // Điều khiển đóng mở Label khi Click
+        const wrapper = document.getElementById('rescaleWrapper');
+        const ptr = document.getElementById('ptr-indicator');
+        let startY = 0, isPulling = false, currentScale = 1;
+
+        // Logic Rescale (Giữ nguyên)
+        function rescale() {
+            const isPortrait = window.innerHeight > window.innerWidth;
+            const designW = isPortrait ? 1080 : 1920, designH = isPortrait ? 1920 : 1080;
+            currentScale = Math.min(window.innerWidth / designW, window.innerHeight / designH);
+            wrapper.style.width = designW + 'px'; 
+            wrapper.style.height = designH + 'px';
+            wrapper.style.transform = `scale(${currentScale})`;
+            wrapper.style.transformOrigin = 'center center';
+        }
+
+        // Logic Pull To Refresh Cập Nhật
+        document.addEventListener('touchstart', e => {
+            startY = e.touches[0].pageY;
+            isPulling = true;
+        }, {passive: true});
+
+        document.addEventListener('touchmove', e => {
+            if (!isPulling) return;
+            const y = e.touches[0].pageY;
+            const diff = y - startY;
+            if (diff > 0) {
+                const move = Math.min(diff * 0.4, 150);
+                ptr.style.opacity = move / 150;
+                ptr.style.top = (move - 70) + 'px';
+                ptr.style.transform = `translateX(-50%) rotate(${diff}deg)`;
+                wrapper.style.transform = `scale(${currentScale}) translateY(${move/2}px)`;
+            }
+        }, {passive: true});
+
+        document.addEventListener('touchend', e => {
+            const diff = e.changedTouches[0].pageY - startY;
+            if (diff > 200) {
+                ptr.innerHTML = '<i class="fa-solid fa-sync-alt fa-spin fa-2x"></i>';
+                location.reload();
+            } else {
+                ptr.style.opacity = '0';
+                ptr.style.top = '-80px';
+                wrapper.style.transform = `scale(${currentScale})`;
+            }
+            isPulling = false;
+        });
+
+        // Điều khiển Nav Labels
         const links = document.querySelectorAll('.dt-link');
         links.forEach(link => {
             link.addEventListener('click', function(e) {
@@ -257,19 +302,7 @@
         });
         document.body.addEventListener('click', () => links.forEach(l => l.classList.remove('active')));
 
-        // Logic Rescale
-        function rescale() {
-            const isPortrait = window.innerHeight > window.innerWidth;
-            const designW = isPortrait ? 1080 : 1920, designH = isPortrait ? 1920 : 1080;
-            const scale = Math.min(window.innerWidth / designW, window.innerHeight / designH);
-            const wrapper = document.getElementById('rescaleWrapper');
-            wrapper.style.width = designW + 'px'; 
-            wrapper.style.height = designH + 'px';
-            wrapper.style.transform = `scale(${scale})`;
-            wrapper.style.transformOrigin = 'center center';
-        }
-
-        // Snow Effect
+        // Snow Effect (Giữ nguyên)
         const canvas = document.getElementById('snow-canvas'), ctx = canvas.getContext('2d');
         let width, height, snowflakes = [];
         function initSnow() {
