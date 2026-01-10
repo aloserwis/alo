@@ -21,48 +21,35 @@
             overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none;
         }
 
-        /* --- BANNER CONTAINER (CHUNG CHO CẢ 2 PHIÊN BẢN) --- */
+        /* PULL TO REFRESH UI */
+        #ptr-element {
+            position: absolute; top: 0; left: 0; width: 100%; height: 150px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: var(--primary-red); z-index: 1000; pointer-events: none;
+            transform: translateY(-100%); transition: transform 0.2s;
+        }
+        #ptr-element i { font-size: 60px; margin-bottom: 10px; text-shadow: 0 0 10px var(--primary-red); }
+
         .banner-container { 
-            position: relative; 
-            flex-shrink: 0; 
-            overflow: hidden; 
-            z-index: 10; 
-            background: #000; 
-            box-shadow: 0 0 80px rgba(230, 0, 0, 0.5); 
-            border-radius: 40px; /* Bo góc cho cả Desktop và Mobile */
+            position: relative; flex-shrink: 0; overflow: hidden; z-index: 10; 
+            background: #000; box-shadow: 0 0 80px rgba(230, 0, 0, 0.5); border-radius: 40px;
         }
 
-        /* HIỆU ỨNG VIỀN CHẠY SÁNG MƯỢT */
+        /* VIỀN CHẠY SÁNG */
         .banner-container::before {
-            content: ''; position: absolute; 
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: conic-gradient(
-                transparent, 
-                var(--primary-red), 
-                transparent 20%, 
-                #fff 25%, 
-                transparent 30%, 
-                var(--primary-red), 
-                transparent 70%, 
-                #fff 75%, 
-                transparent 80%
-            );
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(transparent, var(--primary-red), transparent 20%, #fff 25%, transparent 30%, var(--primary-red), transparent 70%, #fff 75%, transparent 80%);
             animation: rotateBorder 4s linear infinite; z-index: 1;
         }
 
-        /* LỚP NỘI DUNG ĐEN CÁCH VIỀN 3PX HOÀN HẢO */
         .inner-content { 
-            position: absolute; 
-            top: 3px; left: 3px; right: 3px; bottom: 3px; 
-            background: #000; 
-            overflow: hidden; 
-            z-index: 5; 
-            border-radius: 37px; /* (40px - 3px) để khớp với bo góc ngoài */
+            position: absolute; top: 3px; left: 3px; right: 3px; bottom: 3px; 
+            background: #000; overflow: hidden; z-index: 5; border-radius: 37px;
         }
 
         @keyframes rotateBorder { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* --- EFFECT ALO SERWIS --- */
+        /* TEXT EFFECTS */
         @keyframes redShimmer { 0% { background-position: -150% center; } 100% { background-position: 150% center; } }
         .alo-serwis-red {
             background: linear-gradient(to right, var(--primary-red) 0%, var(--primary-red) 40%, #ffcccc 50%, var(--primary-red) 60%, var(--primary-red) 100%);
@@ -70,46 +57,28 @@
             animation: redShimmer 4s infinite linear; filter: drop-shadow(0 2px 10px rgba(230, 0, 0, 0.5)); font-weight: 900;
         }
 
-        /* --- DÒNG KẺ NGANG --- */
-        .line-container { width: 100%; display: flex; margin: 15px 0; }
-        .dynamic-line-v2 { height: 5px; background: #111; position: relative; overflow: hidden; border-radius: 10px; }
-        .dynamic-line-v2::after { 
-            content: ''; position: absolute; inset: 0; 
-            background: linear-gradient(90deg, transparent, var(--primary-red), #fff, var(--primary-red), transparent); 
-            animation: expandLine 4s ease-in-out infinite; transform-origin: center;
-        }
-        @keyframes expandLine { 0% { transform: scaleX(0); opacity: 0; } 50% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(0); opacity: 0; } }
-
-        /* --- GIFT BOX EFFECT --- */
-        @keyframes giftSuperPulse {
-            0%, 100% { transform: scale(1.1); filter: drop-shadow(0 0 10px var(--primary-red)); }
-            50% { transform: scale(1.8) translateY(-10px); filter: drop-shadow(0 0 30px var(--primary-red)) brightness(1.3); }
-        }
-        .gift-box-wrapper { position: relative; display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; margin-right: 30px; }
-        .gift-icon-001 { font-size: 65px; color: #fff; animation: giftSuperPulse 1.5s ease-in-out infinite; text-shadow: 0 0 15px var(--primary-red); }
-
-        /* --- COMMON TEXT STYLE --- */
         .shimmer-text { background: linear-gradient(to right, var(--primary-red) 0%, #fff 50%, var(--primary-red) 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 3s linear infinite; }
         @keyframes shimmer { to { background-position: 200% center; } }
+
+        /* LINE & BADGE */
+        .line-container { width: 100%; display: flex; margin: 15px 0; }
+        .dynamic-line-v2 { height: 5px; background: #111; position: relative; overflow: hidden; border-radius: 10px; }
+        .dynamic-line-v2::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--primary-red), #fff, var(--primary-red), transparent); animation: expandLine 4s ease-in-out infinite; transform-origin: center; }
+        @keyframes expandLine { 0% { transform: scaleX(0); opacity: 0; } 50% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(0); opacity: 0; } }
+
         .dynamic-badge { background: var(--primary-red); color: white; font-weight: 900; border-radius: 12px; box-shadow: 0 0 30px rgba(230, 0, 0, 0.6); animation: shakePulse 1.2s infinite ease-in-out; text-align: center; position: relative; z-index: 120; }
         @keyframes shakePulse { 0%, 100% { transform: scale(1) rotate(0deg); } 20% { transform: scale(1.03) rotate(-0.5deg); } 40% { transform: scale(1.03) rotate(0.5deg); } }
 
-        /* --- VÒNG TRÒN XOAY --- */
-        .glow-spinner { 
-            position: absolute; left: 50%; top: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 50%; z-index: 4; pointer-events: none;
-        }
-        .glow-spinner::before {
-            content: ''; position: absolute; inset: 0; border-radius: 50%; padding: 10px;
-            background: conic-gradient(from 0deg, transparent 40%, var(--primary-red), #fff);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor; mask-composite: exclude; animation: rotateGlow 2.5s linear infinite; filter: drop-shadow(0 0 25px var(--primary-red));
-        }
+        /* GIFT ICON */
+        @keyframes giftSuperPulse { 0%, 100% { transform: scale(1.1); filter: drop-shadow(0 0 10px var(--primary-red)); } 50% { transform: scale(1.8) translateY(-10px); filter: drop-shadow(0 0 30px var(--primary-red)) brightness(1.3); } }
+        .gift-box-wrapper { position: relative; display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; margin-right: 30px; }
+        .gift-icon-001 { font-size: 65px; color: #fff; animation: giftSuperPulse 1.5s ease-in-out infinite; text-shadow: 0 0 15px var(--primary-red); }
+
+        /* SLIDER & SPINNER */
+        .glow-spinner { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); border-radius: 50%; z-index: 4; pointer-events: none; }
+        .glow-spinner::before { content: ''; position: absolute; inset: 0; border-radius: 50%; padding: 10px; background: conic-gradient(from 0deg, transparent 40%, var(--primary-red), #fff); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: rotateGlow 2.5s linear infinite; filter: drop-shadow(0 0 25px var(--primary-red)); }
         @keyframes rotateGlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* --- SLIDER --- */
         .image-slider { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 6; }
         .slide-img { position: absolute; max-width: 85%; max-height: 85%; opacity: 0; display: none; object-fit: contain; filter: drop-shadow(0 15px 35px rgba(0,0,0,0.6)); }
         .slide-img.active { display: block; opacity: 1; animation: imageAppear 0.8s ease-out forwards; }
@@ -126,15 +95,14 @@
             .dynamic-line-v2 { width: 85%; }
             .shimmer-v { font-size: 95px; font-weight: 900; margin: 20px 0; }
             .dynamic-badge-v { font-size: 55px; padding: 18px 40px; min-width: 700px; }
-            
             .visual-v { position: relative; width: 807px; height: 807px; margin: 40px 0; }
             .glow-spinner { width: 807px; height: 807px; }
-
             .promo-v { background: white; padding: 28px 65px; border-radius: 120px; font-size: 48px; font-weight: 900; color: #000; display: flex; align-items: center; margin-bottom: 40px; }
             .commit-v { display: flex; flex-direction: column; gap: 40px; text-align: center; margin-top: 10px; } 
             .sub-v { color: white; font-size: 38px; font-weight: 700; text-transform: uppercase; }
             
-            .nav-v { position: absolute; bottom: 120px; display: flex; flex-direction: column; gap: 70px; z-index: 100; }
+            /* NAV MOBILE CÁCH VIỀN DƯỚI (GIỐNG ALO001) */
+            .nav-v { position: absolute; bottom: 60px; display: flex; flex-direction: column; gap: 50px; z-index: 100; }
             .nav-left { left: 40px; align-items: flex-start; } 
             .nav-right { right: 40px; align-items: flex-end; }
             .nav-item { text-decoration: none; width: 135px; height: 135px; background: rgba(255,255,255,0.1); backdrop-filter: blur(15px); border: 3px solid rgba(255,255,255,0.3); border-radius: 70px; display: flex; justify-content: center; align-items: center; transition: all 0.4s; }
@@ -160,29 +128,12 @@
             .promo-h { background: white; color: #000; padding: 23px 60px; border-radius: 120px; font-weight: 900; font-size: 42px; margin: 35px 0; width: fit-content; display: flex; align-items: center; }
             .commitments-h { display: flex; flex-direction: column; gap: 20px; }
             .sub-h { font-size: 32px; font-weight: 900; color: white; text-transform: uppercase; margin: 0; }
-            
             .visual-h { position: absolute; right: 50px; top: 40%; transform: translateY(-50%); width: 765px; height: 765px; }
             .glow-spinner { width: 765px; height: 765px; }
-
-            .footer-divider-h {
-                position: absolute; bottom: 15%; left: 50%; transform: translateX(-50%);
-                width: 95%; height: 2px;
-                background: linear-gradient(90deg, transparent, rgba(230,0,0,0.8), #fff, rgba(230,0,0,0.8), transparent);
-                box-shadow: 0 0 15px var(--primary-red); z-index: 15;
-            }
-            .footer-divider-h::after {
-                content: ''; position: absolute; top: 0; left: -100px; width: 150px; height: 100%;
-                background: linear-gradient(90deg, transparent, #fff, transparent);
-                animation: scanLight 4s infinite linear;
-            }
+            .footer-divider-h { position: absolute; bottom: 15%; left: 50%; transform: translateX(-50%); width: 95%; height: 2px; background: linear-gradient(90deg, transparent, rgba(230,0,0,0.8), #fff, rgba(230,0,0,0.8), transparent); box-shadow: 0 0 15px var(--primary-red); z-index: 15; }
+            .footer-divider-h::after { content: ''; position: absolute; top: 0; left: -100px; width: 150px; height: 100%; background: linear-gradient(90deg, transparent, #fff, transparent); animation: scanLight 4s infinite linear; }
             @keyframes scanLight { 0% { left: -150px; } 100% { left: 100%; } }
-
-            .footer-h { 
-                position: absolute; bottom: 0; left: 0; width: 100%; height: 15%; 
-                display: grid; grid-template-columns: 1fr 1fr 1fr; 
-                align-items: center; justify-items: center; 
-                background: rgba(0,0,0,0.95); 
-            }
+            .footer-h { position: absolute; bottom: 0; left: 0; width: 100%; height: 15%; display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center; justify-items: center; background: rgba(0,0,0,0.95); }
             .info-col { display: flex; align-items: center; justify-content: center; color: #fff; gap: 20px; }
             .vertical-hl { writing-mode: vertical-rl; transform: rotate(180deg); color: var(--primary-red); font-weight: 900; font-size: 24px; border-left: 3px solid var(--primary-red); padding-left: 12px; }
             .col-text { font-size: 24px; line-height: 1.3; }
@@ -191,6 +142,11 @@
     </style>
 </head>
 <body onclick="closeAllNav()">
+
+    <div id="ptr-element">
+        <i class="fa-solid fa-arrows-rotate"></i>
+        <span style="font-weight: 900; font-size: 30px;">RELOADING...</span>
+    </div>
 
     <div class="banner-container" id="rescaleWrapper">
         <div class="inner-content">
@@ -223,14 +179,14 @@
                 </div>
                 
                 <div class="nav-v nav-left">
-                    <a href="tel:733676869" class="nav-item dt-link c-orange" onclick="handleNav(event, this)"><i class="fa-solid fa-phone"></i><span class="nav-label">BAKALARSKA: 733 67 68 69</span></a>
-                    <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link c-orange" onclick="handleNav(event, this)"><i class="fa-brands fa-facebook-messenger"></i><span class="nav-label">MESSENGER: ALO SERWIS</span></a>
-                    <a href="#" class="nav-item dt-link c-orange" onclick="handleNav(event, this)"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
+                    <a href="tel:733676869" class="nav-item dt-link c-orange" onclick="handleNav(event, this)"><i class="fa-solid fa-phone"></i><span class="nav-label">733 67 68 69</span></a>
+                    <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link c-orange" onclick="handleNav(event, this)"><i class="fa-brands fa-facebook-messenger"></i><span class="nav-label">MESSENGER</span></a>
+                    <a href="#" class="nav-item dt-link c-orange" onclick="handleNav(event, this)"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2</span></a>
                 </div>
                 <div class="nav-v nav-right">
-                    <a href="tel:787456999" class="nav-item dt-link c-red" onclick="handleNav(event, this)"><i class="fa-solid fa-phone"></i><span class="nav-label">WÓLKA: 787 456 999</span></a>
-                    <a href="viber://chat?number=48787456999" class="nav-item dt-link c-purple" onclick="handleNav(event, this)"><i class="fa-brands fa-viber"></i><span class="nav-label">VIBER: 787 456 999</span></a>
-                    <a href="#" class="nav-item dt-link c-red" onclick="handleNav(event, this)"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
+                    <a href="tel:787456999" class="nav-item dt-link c-red" onclick="handleNav(event, this)"><i class="fa-solid fa-phone"></i><span class="nav-label">787 456 999</span></a>
+                    <a href="viber://chat?number=48787456999" class="nav-item dt-link c-purple" onclick="handleNav(event, this)"><i class="fa-brands fa-viber"></i><span class="nav-label">VIBER</span></a>
+                    <a href="#" class="nav-item dt-link c-red" onclick="handleNav(event, this)"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG</span></a>
                 </div>
             </div>
 
@@ -258,9 +214,7 @@
                         <img src="https://i.postimg.cc/tCWStZ2y/kom02.png" class="slide-img">
                     </div>
                 </div>
-
                 <div class="footer-divider-h"></div>
-
                 <div class="footer-h">
                     <div class="info-col">
                         <div class="vertical-hl">CƠ SỞ 1</div>
@@ -283,6 +237,29 @@
     </div>
 
     <script>
+        /* PULL TO REFRESH LOGIC */
+        let touchStart = 0;
+        let touchEnd = 0;
+        const ptr = document.getElementById('ptr-element');
+
+        window.addEventListener('touchstart', e => touchStart = e.touches[0].pageY);
+        window.addEventListener('touchmove', e => {
+            touchEnd = e.touches[0].pageY;
+            let dist = touchEnd - touchStart;
+            if (dist > 0 && dist < 200) {
+                ptr.style.transform = `translateY(${dist - 150}px)`;
+            }
+        });
+        window.addEventListener('touchend', () => {
+            if (touchEnd - touchStart > 180) {
+                ptr.style.transform = 'translateY(0)';
+                setTimeout(() => location.reload(), 500);
+            } else {
+                ptr.style.transform = 'translateY(-100%)';
+            }
+        });
+
+        /* NAVIGATION */
         function handleNav(e, el) { 
             e.stopPropagation(); 
             const allLinks = document.querySelectorAll('.dt-link'); 
@@ -294,6 +271,7 @@
         }
         function closeAllNav() { document.querySelectorAll('.dt-link').forEach(l => l.classList.remove('active')); }
 
+        /* CYCLING TEXT */
         const words = [ "MÁY TÍNH - KOMPUTER", "LAPTOP - TABLET", "FAKTURA - HÓA ĐƠN", "MÁY IN - MỰC IN" ];
         let wordIdx = 0;
         setInterval(() => {
@@ -301,6 +279,7 @@
             document.querySelectorAll('.cycling-text').forEach(el => el.innerText = words[wordIdx]);
         }, 1500);
 
+        /* SLIDER */
         function startSlider() {
             setInterval(() => {
                 const sliders = document.querySelectorAll('.image-slider');
@@ -315,6 +294,7 @@
             }, 4000);
         }
 
+        /* RESCALE */
         function rescale() {
             const isPortrait = window.innerHeight > window.innerWidth;
             const designW = isPortrait ? 1080 : 1920;
