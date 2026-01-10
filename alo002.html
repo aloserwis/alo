@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>ALO SERWIS - BLUE EDITION</title>
+    <title>ALO SERWIS - BLUE EDITION (ALO002)</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -21,7 +21,6 @@
             font-family: 'Montserrat', sans-serif;
             display: flex; justify-content: center; align-items: center;
             overflow: hidden; 
-            /* Chặn reload mặc định của trình duyệt để dùng PTR custom */
             overscroll-behavior-y: none; 
             touch-action: none; 
         }
@@ -34,7 +33,7 @@
             pointer-events: none;
         }
 
-        /* PTR Indicator - Style từ bản alo001 */
+        /* PTR Indicator - Luôn màu xanh theo yêu cầu */
         #ptr-indicator {
             position: fixed; top: -70px; left: 50%; transform: translateX(-50%);
             width: 60px; height: 60px; background: var(--primary-blue);
@@ -144,7 +143,6 @@
 <body>
 
     <canvas id="snow-canvas"></canvas>
-    
     <div id="ptr-indicator"><i class="fa-solid fa-sync-alt fa-2x"></i></div>
 
     <div class="banner-container" id="rescaleWrapper">
@@ -172,12 +170,12 @@
                 <div class="nav-v nav-left">
                     <a href="tel:733676869" class="nav-item dt-link c-orange"><i class="fa-solid fa-phone"></i><span class="nav-label">BAKALARSKA: 733 67 68 69</span></a>
                     <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link c-orange"><i class="fa-brands fa-facebook-messenger"></i><span class="nav-label">MESSENGER: ALO SERWIS</span></a>
-                    <a href="https://maps.google.com" target="_blank" class="nav-item dt-link c-orange"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
+                    <a href="https://maps.google.com/?q=Bakalarska+2+Warszawa" target="_blank" class="nav-item dt-link c-orange"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
                 </div>
                 <div class="nav-v nav-right">
                     <a href="tel:787456999" class="nav-item dt-link c-blue"><i class="fa-solid fa-phone"></i><span class="nav-label">WÓLKA: 787 456 999</span></a>
                     <a href="viber://chat?number=48787456999" class="nav-item dt-link c-purple"><i class="fa-brands fa-viber"></i><span class="nav-label">VIBER: 787 456 999</span></a>
-                    <a href="https://maps.google.com" target="_blank" class="nav-item dt-link c-blue"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
+                    <a href="https://maps.google.com/?q=Nadrzeczna+7C+Wolka+Kosowska" target="_blank" class="nav-item dt-link c-blue"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
                 </div>
             </div>
 
@@ -234,14 +232,13 @@
             const dW = isP ? 1080 : 1920, dH = isP ? 1920 : 1080;
             currentScale = Math.min(window.innerWidth / dW, window.innerHeight / dH);
             wrap.style.width = dW + 'px'; wrap.style.height = dH + 'px';
-            wrap.style.transformOrigin = 'center center';
             wrap.style.transform = `scale(${currentScale})`;
             initSnow();
         }
 
-        /* --- NÂNG CẤP PULL TO REFRESH CHUẨN ALO001 --- */
+        /* --- ALO002 PTR LOGIC --- */
         let startY = 0, pullDistance = 0, isPulling = false;
-        const PULL_THRESHOLD = 150; // Ngưỡng để reload
+        const PULL_THRESHOLD = 100; // Đã giảm xuống 100px theo yêu cầu
 
         document.addEventListener('touchstart', e => {
             if (window.scrollY === 0) {
@@ -254,23 +251,17 @@
 
         document.addEventListener('touchmove', e => {
             if (!isPulling) return;
-            const currentY = e.touches[0].pageY;
-            const diff = currentY - startY;
+            const diff = e.touches[0].pageY - startY;
 
             if (diff > 0) {
                 e.preventDefault();
-                // Friction logic: Càng kéo càng nặng
-                pullDistance = Math.pow(diff, 0.8); 
+                pullDistance = Math.pow(diff, 0.85); // Tăng nhẹ hệ số lực kéo
                 
-                ptr.style.opacity = Math.min(pullDistance / 100, 1);
+                ptr.style.opacity = Math.min(pullDistance / 80, 1);
                 ptr.style.transform = `translateX(-50%) translateY(${pullDistance}px) rotate(${diff * 2}deg)`;
                 wrap.style.transform = `scale(${currentScale}) translateY(${pullDistance / 3}px)`;
-
-                if (pullDistance > PULL_THRESHOLD) {
-                    ptr.style.background = '#f58220'; // Đổi màu cam khi đạt ngưỡng
-                } else {
-                    ptr.style.background = '#0088cc';
-                }
+                
+                // Luôn giữ màu xanh, không đổi màu ở bất kỳ ngưỡng nào
             }
         }, {passive: false});
 
@@ -279,14 +270,12 @@
             isPulling = false;
 
             if (pullDistance > PULL_THRESHOLD) {
-                // Hiệu ứng xoay khi đang reload
+                // Hiệu ứng xoay reload
                 ptr.style.transition = 'all 0.3s ease';
-                ptr.style.transform = `translateX(-50%) translateY(100px) rotate(720deg)`;
-                setTimeout(() => {
-                    location.reload(); // Tải lại trang
-                }, 500);
+                ptr.style.transform = `translateX(-50%) translateY(80px) rotate(720deg)`;
+                setTimeout(() => { location.reload(); }, 400);
             } else {
-                // Trả về vị trí cũ nếu chưa đủ lực kéo
+                // Trả về vị trí cũ
                 ptr.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
                 wrap.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
                 ptr.style.opacity = '0';
@@ -296,19 +285,15 @@
             pullDistance = 0;
         });
 
-        /* --- SNOW EFFECT --- */
+        /* --- SNOW --- */
         const canvas = document.getElementById('snow-canvas'); 
         const ctx = canvas.getContext('2d');
         let flakes = [];
         function initSnow() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
             flakes = Array.from({length: 80}, () => ({ 
-                x: Math.random() * canvas.width, 
-                y: Math.random() * canvas.height, 
-                r: Math.random() * 4 + 1, 
-                s: Math.random() * 1.5 + 0.5,
-                o: Math.random() * 0.5 + 0.3
+                x: Math.random() * canvas.width, y: Math.random() * canvas.height, 
+                r: Math.random() * 4 + 1, s: Math.random() * 1.5 + 0.5, o: Math.random() * 0.5 + 0.3
             }));
         }
         function drawSnow() {
@@ -323,7 +308,6 @@
             requestAnimationFrame(drawSnow);
         }
 
-        /* --- MENU INTERACTION --- */
         const links = document.querySelectorAll('.dt-link');
         links.forEach(link => {
             link.addEventListener('click', function(e) {
