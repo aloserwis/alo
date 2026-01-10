@@ -21,6 +21,8 @@
             font-family: 'Montserrat', sans-serif;
             display: flex; justify-content: center; align-items: center;
             overflow: hidden; 
+            /* Chặn reload mặc định của trình duyệt để dùng PTR custom */
+            overscroll-behavior-y: none; 
             touch-action: none; 
         }
 
@@ -32,11 +34,13 @@
             pointer-events: none;
         }
 
+        /* PTR Indicator - Style từ bản alo001 */
         #ptr-indicator {
-            position: fixed; top: -60px; left: 50%; transform: translateX(-50%);
-            width: 50px; height: 50px; background: var(--primary-blue);
+            position: fixed; top: -70px; left: 50%; transform: translateX(-50%);
+            width: 60px; height: 60px; background: var(--primary-blue);
             border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            color: white; z-index: 9998; box-shadow: 0 4px 15px rgba(0, 136, 204, 0.6); opacity: 0;
+            color: white; z-index: 10000; box-shadow: 0 4px 15px rgba(0, 136, 204, 0.6); 
+            opacity: 0; transition: opacity 0.2s;
         }
 
         @keyframes rotateGlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
@@ -59,7 +63,7 @@
 
         .lay-ngay-badge { background: var(--primary-blue); color: white; font-weight: 900; border-radius: 12px; box-shadow: 0 0 35px var(--primary-blue); animation: shakePulse 1.2s infinite ease-in-out; -webkit-text-fill-color: white; }
 
-        .banner-container { position: relative; flex-shrink: 0; overflow: hidden; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .banner-container { position: relative; flex-shrink: 0; overflow: hidden; }
         .inner-content { position: absolute; inset: 2px; background: var(--dark-bg); overflow: hidden; z-index: 5; }
         .banner-container::before { content: ''; position: absolute; inset: -150px; background: conic-gradient(from 0deg, transparent 65%, var(--primary-blue) 85%, #fff 100%); animation: rotateGlow 4s linear infinite; z-index: 1; }
         .banner-container::after { content: ''; position: absolute; inset: 6px; background: var(--dark-bg); z-index: 2; }
@@ -82,7 +86,6 @@
             .visual-v { position: relative; width: 900px; height: 900px; margin: 20px 0; display: flex; justify-content: center; align-items: center; }
             .phone-v { width: 107%; transform: rotate(-5deg); filter: drop-shadow(0 0 70px rgba(0, 136, 204, 0.6)); z-index: 6; }
             
-            /* CẬP NHẬT: KÍCH THƯỚC GIẢM 4PX (50px -> 46px) */
             .promo-v { background: white; padding: 18px 55px; border-radius: 100px; font-size: 46px; font-weight: 900; margin-top: 20px; display: flex; align-items: center; overflow: visible; }
             .icon-gift-v { color: var(--primary-blue); font-size: 65px; margin-right: 30px; animation: giantHeartBeat 1.5s infinite; }
 
@@ -141,6 +144,7 @@
 <body>
 
     <canvas id="snow-canvas"></canvas>
+    
     <div id="ptr-indicator"><i class="fa-solid fa-sync-alt fa-2x"></i></div>
 
     <div class="banner-container" id="rescaleWrapper">
@@ -159,9 +163,7 @@
                     <div class="glow-spinner"></div>
                     <img src="https://i.postimg.cc/nrqSgNx0/unnamed-(1).png" class="phone-v">
                 </div>
-
-                <div class="promo-v"><i class="fa-solid fa-gift icon-gift-v"></i><span>TƯ VẤN & KHẢO SÁT FREE</span></div>
-                
+                <div class="promo-v"><i class="fa-solid fa-gift icon-gift-v"></i><span>TƯ VẤN & KHẢO SÁT FREE!</span></div>
                 <div class="commit-v">
                     <div class="sub-v">★ THI CÔNG NHANH - THẨM MỸ ★</div>
                     <div class="sub-v">★ THIẾT BỊ CHÍNH HÃNG 100% ★</div>
@@ -170,12 +172,12 @@
                 <div class="nav-v nav-left">
                     <a href="tel:733676869" class="nav-item dt-link c-orange"><i class="fa-solid fa-phone"></i><span class="nav-label">BAKALARSKA: 733 67 68 69</span></a>
                     <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link c-orange"><i class="fa-brands fa-facebook-messenger"></i><span class="nav-label">MESSENGER: ALO SERWIS</span></a>
-                    <a href="https://maps.app.goo.gl/uXv7R9M1s7sV1bUu5" target="_blank" class="nav-item dt-link c-orange"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
+                    <a href="https://maps.google.com" target="_blank" class="nav-item dt-link c-orange"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
                 </div>
                 <div class="nav-v nav-right">
                     <a href="tel:787456999" class="nav-item dt-link c-blue"><i class="fa-solid fa-phone"></i><span class="nav-label">WÓLKA: 787 456 999</span></a>
                     <a href="viber://chat?number=48787456999" class="nav-item dt-link c-purple"><i class="fa-brands fa-viber"></i><span class="nav-label">VIBER: 787 456 999</span></a>
-                    <a href="https://maps.app.goo.gl/X2z7z2S8Z8Z8Z8Z8Z" target="_blank" class="nav-item dt-link c-blue"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
+                    <a href="https://maps.google.com" target="_blank" class="nav-item dt-link c-blue"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
                 </div>
             </div>
 
@@ -192,7 +194,7 @@
                 </div>
                 <div class="promo-h">
                     <i class="fa-solid fa-gift icon-free-h"></i>
-                    <span>TƯ VẤN & KHẢO SÁT FREE</span>
+                    <span>TƯ VẤN & KHẢO SÁT FREE!</span>
                 </div>
                 <div class="commitments-h">
                     <p class="sub-h">★ THI CÔNG NHANH - THẨM MỸ</p>
@@ -224,6 +226,7 @@
 
     <script>
         const wrap = document.getElementById('rescaleWrapper');
+        const ptr = document.getElementById('ptr-indicator');
         let currentScale = 1;
 
         function rescale() {
@@ -231,31 +234,69 @@
             const dW = isP ? 1080 : 1920, dH = isP ? 1920 : 1080;
             currentScale = Math.min(window.innerWidth / dW, window.innerHeight / dH);
             wrap.style.width = dW + 'px'; wrap.style.height = dH + 'px';
+            wrap.style.transformOrigin = 'center center';
             wrap.style.transform = `scale(${currentScale})`;
             initSnow();
         }
 
-        let startY = 0, isPulling = false;
-        const ptr = document.getElementById('ptr-indicator');
+        /* --- NÂNG CẤP PULL TO REFRESH CHUẨN ALO001 --- */
+        let startY = 0, pullDistance = 0, isPulling = false;
+        const PULL_THRESHOLD = 150; // Ngưỡng để reload
+
         document.addEventListener('touchstart', e => {
-            if (window.scrollY === 0) { startY = e.touches[0].pageY; isPulling = true; wrap.style.transition = 'none'; }
-        }, {passive: false});
-        document.addEventListener('touchmove', e => {
-            if (!isPulling) return;
-            const diff = e.touches[0].pageY - startY;
-            if (diff > 0) {
-                e.preventDefault();
-                const moveY = Math.pow(diff, 0.85);
-                ptr.style.opacity = '1';
-                ptr.style.transform = `translateX(-50%) translateY(${Math.min(moveY, 150)}px) rotate(${diff*2}deg)`;
-                wrap.style.transform = `scale(${currentScale}) translateY(${moveY/5}px)`;
+            if (window.scrollY === 0) {
+                startY = e.touches[0].pageY;
+                isPulling = true;
+                wrap.style.transition = 'none';
+                ptr.style.transition = 'none';
             }
         }, {passive: false});
+
+        document.addEventListener('touchmove', e => {
+            if (!isPulling) return;
+            const currentY = e.touches[0].pageY;
+            const diff = currentY - startY;
+
+            if (diff > 0) {
+                e.preventDefault();
+                // Friction logic: Càng kéo càng nặng
+                pullDistance = Math.pow(diff, 0.8); 
+                
+                ptr.style.opacity = Math.min(pullDistance / 100, 1);
+                ptr.style.transform = `translateX(-50%) translateY(${pullDistance}px) rotate(${diff * 2}deg)`;
+                wrap.style.transform = `scale(${currentScale}) translateY(${pullDistance / 3}px)`;
+
+                if (pullDistance > PULL_THRESHOLD) {
+                    ptr.style.background = '#f58220'; // Đổi màu cam khi đạt ngưỡng
+                } else {
+                    ptr.style.background = '#0088cc';
+                }
+            }
+        }, {passive: false});
+
         document.addEventListener('touchend', () => {
-            isPulling = false; ptr.style.opacity = '0'; rescale();
-            wrap.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            if (!isPulling) return;
+            isPulling = false;
+
+            if (pullDistance > PULL_THRESHOLD) {
+                // Hiệu ứng xoay khi đang reload
+                ptr.style.transition = 'all 0.3s ease';
+                ptr.style.transform = `translateX(-50%) translateY(100px) rotate(720deg)`;
+                setTimeout(() => {
+                    location.reload(); // Tải lại trang
+                }, 500);
+            } else {
+                // Trả về vị trí cũ nếu chưa đủ lực kéo
+                ptr.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                wrap.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                ptr.style.opacity = '0';
+                ptr.style.transform = `translateX(-50%) translateY(-70px)`;
+                wrap.style.transform = `scale(${currentScale})`;
+            }
+            pullDistance = 0;
         });
 
+        /* --- SNOW EFFECT --- */
         const canvas = document.getElementById('snow-canvas'); 
         const ctx = canvas.getContext('2d');
         let flakes = [];
@@ -282,6 +323,7 @@
             requestAnimationFrame(drawSnow);
         }
 
+        /* --- MENU INTERACTION --- */
         const links = document.querySelectorAll('.dt-link');
         links.forEach(link => {
             link.addEventListener('click', function(e) {
