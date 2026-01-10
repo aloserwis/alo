@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>ALO SERWIS - Sửa chữa & Lắp đặt</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary-orange: #f58220;
+            --primary-blue: #0088cc;
+            --primary-red: #ff3131;
+            --current-theme: #f58220; 
+            --dark-bg: #000000;
+            --viber-purple: #7360f2;
+            --hotline-blue: #0088cc;
+            --map-red: #eb4034;
+            --main-radius: 60px; 
+        }
+
+        html, body {
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            background-color: #000;
+            font-family: 'Montserrat', sans-serif;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden; 
+            touch-action: none; 
+        }
+
+        #ptr-indicator {
+            position: fixed; top: -80px; left: 50%; transform: translateX(-50%);
+            width: 60px; height: 60px; background: var(--current-theme);
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            color: black; z-index: 9999; box-shadow: 0 4px 15px rgba(0,0,0,0.5); opacity: 0;
+        }
+
+        #snow-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 25; pointer-events: none; }
+
+        @keyframes zoomGift { 0%, 100% { transform: scale(1.1); } 50% { transform: scale(1.9) translateY(-8px); } }
+        @keyframes rotateGlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes shimmer { to { background-position: 200% center; } }
+        @keyframes shakePulse { 0%, 100% { transform: scale(1) rotate(0deg); } 20% { transform: scale(1.1) rotate(-3deg); } 40% { transform: scale(1.1) rotate(3deg); } }
+        @keyframes expandCenter { 0% { transform: scaleX(0); opacity: 0; } 50% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(0); opacity: 0; } }
+
+        .shimmer-text { 
+            background: linear-gradient(to right, var(--current-theme) 0%, #fff 50%, var(--current-theme) 100%); 
+            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            animation: shimmer 3s linear infinite; 
+        }
+
+        .gift-icon { display: inline-block; font-size: 1.3em; animation: zoomGift 1.2s ease-in-out infinite; vertical-align: middle; margin-right: 15px; position: relative; z-index: 50; }
+        .lay-ngay-badge { background: var(--current-theme); color: black; font-weight: 900; border-radius: 15px; box-shadow: 0 0 50px var(--current-theme); animation: shakePulse 1.2s infinite ease-in-out; -webkit-text-fill-color: black; transition: background 0.4s, box-shadow 0.4s, opacity 0.3s; }
+
+        .banner-container { position: relative; flex-shrink: 0; overflow: hidden; border-radius: var(--main-radius); transition: transform 0.1s linear; }
+        .inner-content { position: absolute; inset: 8px; background: var(--dark-bg); overflow: hidden; z-index: 5; border-radius: calc(var(--main-radius) - 4px); }
+        .banner-container::before { content: ''; position: absolute; inset: -150px; background: conic-gradient(from 0deg, transparent 65%, var(--current-theme) 85%, #fff 100%); animation: rotateGlow 4s linear infinite; z-index: 1; }
+        .banner-container::after { content: ''; position: absolute; inset: 0; border-radius: var(--main-radius); box-shadow: inset 0 0 20px rgba(0,0,0,0.5); z-index: 2; }
+
+        .glow-spinner { 
+            position: absolute; inset: 0; border-radius: 50%; 
+            background: conic-gradient(from 0deg, transparent 50%, var(--current-theme) 95%, #fff 100%); 
+            animation: rotateGlow 2.5s linear infinite; 
+            -webkit-mask: radial-gradient(circle, transparent 68%, black 70%); 
+            filter: blur(10px) drop-shadow(0 0 40px var(--current-theme)); 
+        }
+
+        .img-wrapper { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
+        .phone-img { width: 100%; height: 100%; object-fit: contain; transition: opacity 0.4s ease-in-out, transform 0.4s ease; }
+
+        @media (max-aspect-ratio: 1/1) {
+            #banner-h { display: none; }
+            .banner-container { width: 1080px; height: 1920px; }
+            .layout-v { position: absolute; inset: 0; z-index: 10; padding: 20px 0; display: flex; flex-direction: column; align-items: center; }
+            .header-v { color: var(--current-theme); font-size: 115px; font-weight: 900; margin-bottom: 15px; transition: color 0.4s; }
+            .title-v { color: white; font-size: 78px; font-weight: 900; text-transform: uppercase; text-align: center; transform: translateY(-20px); }
+            .line-v { width: 90%; height: 4px; background: #111; position: relative; overflow: hidden; margin: 15px 0; transform: translateY(-20px); }
+            .line-v::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--current-theme), #fff, var(--current-theme), transparent); animation: expandCenter 4s ease-in-out infinite; transform-origin: center; }
+            .shimmer-v { font-size: 85px; font-weight: 900; text-align: center; }
+            .row-v { display: flex; align-items: center; gap: 25px; margin-top: 10px; height: 150px; justify-content: center; }
+            .lay-ngay-v { font-size: 65px; padding: 15px 30px; min-width: 450px; text-align: center; }
+            .visual-v { position: relative; width: 880px; height: 880px; margin: 40px 0; display: flex; justify-content: center; align-items: center; }
+            .promo-v { background: white; padding: 18px 55px; border-radius: 100px; font-size: 50px; font-weight: 900; margin-top: 20px; transform: translateY(-20px); display: flex; align-items: center; }
+            .commit-v { margin-top: 10px; display: flex; flex-direction: column; gap: 32px; text-align: center; } 
+            .sub-v { color: white; font-size: 38px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+            .nav-v { position: absolute; bottom: 30px; display: flex; flex-direction: column; gap: 100px; z-index: 100; }
+            .nav-left { left: 40px; align-items: flex-start; }
+            .nav-right { right: 40px; align-items: flex-end; }
+            .nav-item { text-decoration: none; width: 130px; height: 130px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 65px; display: flex; justify-content: center; align-items: center; transition: all 0.4s; overflow: hidden; }
+            .nav-item.active { width: fit-content; padding: 0 40px; background: rgba(255, 255, 255, 0.2); }
+            .nav-item i { font-size: 60px; min-width: 70px; text-align: center; pointer-events: none; }
+            .nav-label { color: white; font-size: 34px; font-weight: 900; opacity: 0; max-width: 0; transition: all 0.3s ease; pointer-events: none; white-space: nowrap; }
+            .nav-item.active .nav-label { opacity: 1; max-width: 850px; margin-left: 20px; }
+            .c-orange i { color: var(--primary-orange) !important; } 
+            .c-blue i { color: var(--hotline-blue) !important; } 
+            .c-purple i { color: var(--viber-purple) !important; } 
+            .c-orange-map i { color: var(--primary-orange) !important; } 
+        }
+
+        @media (min-aspect-ratio: 1/1) {
+            #banner-v { display: none; }
+            .banner-container { width: 1920px; height: 1080px; }
+            .layout-h { position: absolute; inset: 0; z-index: 10; padding: 60px 100px 0 100px; display: flex; flex-direction: column; }
+            .header-h { color: var(--current-theme); font-size: 110px; font-weight: 900; margin-bottom: 5px; transition: color 0.4s; }
+            .title-h { font-size: 70px; color: white; font-weight: 900; margin: 0; text-transform: uppercase; }
+            .line-h-top { width: 40%; height: 4px; background: #111; position: relative; overflow: hidden; margin: 20px 0;}
+            .line-h-top::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--current-theme), #fff, var(--current-theme), transparent); animation: expandCenter 4s ease-in-out infinite; transform-origin: center; }
+            .shimmer-h { font-size: 85px; font-weight: 900; line-height: 1.1; }
+            .row-h { display: flex; align-items: center; gap: 30px; margin-top: 15px; height: 100px; }
+            .lay-ngay-h { font-size: 55px; padding: 10px 35px; min-width: 400px; text-align: center; }
+            .promo-h { background: white; color: black; padding: 12px 45px; border-radius: 100px; font-weight: 900; font-size: 40px; width: fit-content; margin: 35px 0; display: flex; align-items: center; }
+            .commitments-h { display: flex; flex-direction: column; gap: 15px; margin-top: 10px; } 
+            .sub-h { font-size: 32px; font-weight: 900; color: white; text-transform: uppercase; margin: 0; letter-spacing: 1px; }
+            .visual-h { position: absolute; right: 80px; top: 43.5%; transform: translateY(-50%); width: 820px; height: 820px; display: flex; justify-content: center; align-items: center; }
+            .line-h-bottom { width: 100%; height: 4px; background: #111; position: absolute; bottom: 16%; left: 0; overflow: hidden; }
+            .line-h-bottom::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--current-theme), #fff, var(--current-theme), transparent); animation: expandCenter 4s ease-in-out infinite; transform-origin: center; }
+            .footer-h { position: absolute; bottom: 0; left: 0; width: 100%; height: 16%; display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; padding: 0 50px; box-sizing: border-box; background: rgba(0,0,0,0.9); }
+            .info-col { display: flex; align-items: center; justify-content: center; color: #fff; gap: 20px; }
+            .vertical-hl { writing-mode: vertical-rl; transform: rotate(180deg); color: var(--current-theme); font-weight: 900; font-size: 24px; border-left: 3px solid var(--current-theme); padding-left: 12px; white-space: nowrap; text-transform: uppercase; }
+            .col-text { font-size: 24px; line-height: 1.5; text-align: left; }
+            .hl-orange { color: var(--current-theme); font-weight: 900; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="ptr-indicator"><i class="fa-solid fa-sync-alt fa-2x"></i></div>
+    <canvas id="snow-canvas"></canvas>
+
+    <div class="banner-container" id="rescaleWrapper">
+        <div class="inner-content">
+            <div id="banner-v" class="layout-v">
+                <div class="header-v">ALO SERWIS</div>
+                <div class="title-v" id="title-text-v">SỬA CHỮA ĐIỆN THOẠI</div>
+                <div class="line-v"></div>
+                <div class="shimmer-v shimmer-text" id="shimmer-text-v">THAY MÀN HÌNH</div>
+                <div class="row-v" id="row-wrapper-v">
+                    <div class="shimmer-v shimmer-text" id="model-text-v">IPHONE</div>
+                    <span class="lay-ngay-badge lay-ngay-v" id="badge-text-v">LẤY NGAY!</span>
+                </div>
+                <div class="visual-v">
+                    <div class="glow-spinner"></div>
+                    <div class="img-wrapper">
+                        <img id="img-v" src="https://i.postimg.cc/vZdpL1xS/IMG-1345.png" class="phone-v phone-img">
+                    </div>
+                </div>
+                <div class="promo-v">
+                    <span class="gift-icon">🎁</span>
+                    <span id="promo-text-v">TẶNG KÍNH CƯỜNG LỰC</span>
+                </div>
+                <div class="commit-v">
+                    <div class="sub-v" id="c1-v">★ CHẤT LƯỢNG TỐT NHẤT ★</div>
+                    <div class="sub-v" id="c2-v">★ THỜI GIAN NHANH CHÓNG ★</div>
+                    <div class="sub-v" id="c3-v">★ BẢO HÀNH 1 ĐỔI 1 ★</div>
+                </div>
+                <div class="nav-v nav-left">
+                    <a href="tel:733676869" class="nav-item dt-link c-orange"><i class="fa-solid fa-phone"></i><span class="nav-label">BAKALARSKA: 733 67 68 69</span></a>
+                    <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link c-orange"><i class="fa-brands fa-facebook-messenger"></i><span class="nav-label">MESSENGER: ALO SERWIS</span></a>
+                    <a href="#" target="_blank" class="nav-item dt-link c-orange-map"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
+                </div>
+                <div class="nav-v nav-right">
+                    <a href="tel:787456999" class="nav-item dt-link c-blue"><i class="fa-solid fa-phone"></i><span class="nav-label">WÓLKA: 787 456 999</span></a>
+                    <a href="viber://chat?number=48787456999" class="nav-item dt-link c-purple"><i class="fa-brands fa-viber"></i><span class="nav-label">VIBER: 787 456 999</span></a>
+                    <a href="#" target="_blank" class="nav-item dt-link c-blue"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
+                </div>
+            </div>
+
+            <div id="banner-h" class="layout-h">
+                <div class="header-h">ALO SERWIS</div>
+                <div class="title-h" id="title-text-h">SỬA CHỮA ĐIỆN THOẠI</div>
+                <div class="line-h-top"></div>
+                <div class="shimmer-h shimmer-text" id="shimmer-text-h">THAY MÀN HÌNH</div>
+                <div class="row-h" id="row-wrapper-h">
+                    <div class="shimmer-h shimmer-text" id="model-text-h">IPHONE</div>
+                    <span class="lay-ngay-badge lay-ngay-h" id="badge-text-h">LẤY NGAY!</span>
+                </div>
+                <div class="promo-h">
+                    <span class="gift-icon">🎁</span>
+                    <span id="promo-text-h">TẶNG KÍNH CƯỜNG LỰC</span>
+                </div>
+                <div class="commitments-h">
+                    <p class="sub-h" id="c1-h">★ CHẤT LƯỢNG TỐT NHẤT</p>
+                    <p class="sub-h" id="c2-h">★ THỜI GIAN NHANH CHÓNG</p>
+                    <p class="sub-h" id="c3-h">★ BẢO HÀNH 1 ĐỔI 1</p>
+                </div>
+                <div class="visual-h">
+                    <div class="glow-spinner"></div>
+                    <div class="img-wrapper">
+                        <img id="img-h" src="https://i.postimg.cc/vZdpL1xS/IMG-1345.png" class="phone-h phone-img">
+                    </div>
+                </div>
+                <div class="line-h-bottom"></div>
+                <div class="footer-h">
+                    <div class="info-col">
+                        <div class="vertical-hl">CƠ SỞ 1</div>
+                        <div class="col-text">Bakalarska 2 / B214<br>02-212 Warszawa<br><span class="hl-orange">Hotline:</span> 733 676 869</div>
+                    </div>
+                    <div class="info-col">
+                        <div class="vertical-hl">CƠ SỞ 2</div>
+                        <div class="col-text">Nadrzeczna 7C / A3 (ASG)<br>05-552 Wólka Kosowska<br><span class="hl-orange">Hotline:</span> 787 456 999</div>
+                    </div>
+                    <div class="info-col">
+                        <div class="col-text"><span class="hl-orange">Website:</span> aloserwis.com<br><span class="hl-orange">Facebook:</span> fb.com/dienthoaibalan<br><span class="hl-orange">Email:</span> alo@aloserwis.com</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let mode = 0; 
+        let redSubStepImg = 0;
+        let redSubStepText = 0;
+        
+        const redTexts = ["MÁY TÍNH - KOMPUTER", "LAPTOP - TABLET", "MÁY IN - MỰC IN", "FAKTURA - HÓA ĐƠN"];
+        const redImages = [
+            "https://i.postimg.cc/tCWStZ2y/kom02.png",
+            "https://i.postimg.cc/QtPG3dmL/macbook.png",
+            "https://i.postimg.cc/g23QnPyq/Chat-GPT-Image-6-sty-2026-19-20-23.png"
+        ];
+
+        const els = {
+            titleV: document.getElementById('title-text-v'), titleH: document.getElementById('title-text-h'),
+            shimV: document.getElementById('shimmer-text-v'), shimH: document.getElementById('shimmer-text-h'),
+            modelV: document.getElementById('model-text-v'), modelH: document.getElementById('model-text-h'),
+            badgeV: document.getElementById('badge-text-v'), badgeH: document.getElementById('badge-text-h'),
+            promoV: document.getElementById('promo-text-v'), promoH: document.getElementById('promo-text-h'),
+            c1V: document.getElementById('c1-v'), c1H: document.getElementById('c1-h'),
+            c2V: document.getElementById('c2-v'), c2H: document.getElementById('c2-h'),
+            c3V: document.getElementById('c3-v'), c3H: document.getElementById('c3-h'),
+            imgV: document.getElementById('img-v'), imgH: document.getElementById('img-h')
+        };
+
+        const IMG_PHONE = "https://i.postimg.cc/vZdpL1xS/IMG-1345.png";
+        const IMG_CAMERA = "https://i.postimg.cc/nrqSgNx0/unnamed-(1).png";
+        const COLORS = ['#f58220', '#0088cc', '#ff3131'];
+
+        setInterval(() => {
+            mode = (mode + 1) % 3;
+            const newColor = COLORS[mode];
+            document.documentElement.style.setProperty('--current-theme', newColor);
+            
+            els.imgV.style.opacity = els.imgH.style.opacity = "0";
+
+            setTimeout(() => {
+                if(mode === 1) { // BLUE - DỊCH VỤ LẮP ĐẶT
+                    els.modelV.style.display = els.modelH.style.display = 'block';
+                    els.titleV.innerText = els.titleH.innerText = 'DỊCH VỤ LẮP ĐẶT';
+                    els.shimV.innerText = els.shimH.innerText = 'CCTV - NET - ALARM';
+                    els.modelV.innerText = els.modelH.innerText = 'ĐIỆN';
+                    els.badgeV.innerText = els.badgeH.innerText = 'CHUYÊN NGHIỆP';
+                    els.promoV.innerText = els.promoH.innerText = 'TƯ VẤN & KHẢO SÁT FREE';
+                    
+                    // Cập nhật cả V và H
+                    els.c1V.innerText = '★ THI CÔNG NHANH & THẨM MỸ ★';
+                    els.c1H.innerText = '★ THI CÔNG NHANH & THẨM MỸ';
+                    els.c2V.innerText = '★ THIẾT BỊ CHÍNH HÃNG 100% ★';
+                    els.c2H.innerText = '★ THIẾT BỊ CHÍNH HÃNG 100%';
+                    els.c3V.innerText = '★ HỖ TRỢ KỸ THUẬT 24/7 ★';
+                    els.c3H.innerText = '★ HỖ TRỢ KỸ THUẬT 24/7';
+                    
+                    els.imgV.src = els.imgH.src = IMG_CAMERA;
+                } else if (mode === 2) { // RED - MUA BÁN & SỬA CHỮA
+                    els.modelV.style.display = els.modelH.style.display = 'none';
+                    els.titleV.innerText = els.titleH.innerText = 'MUA BÁN & SỬA CHỮA';
+                    els.shimV.innerText = els.shimH.innerText = 'PHẦN CỨNG & MỀM';
+                    
+                    els.promoV.innerText = els.promoH.innerText = 'TƯ VẤN & KIỂM TRA FREE';
+                    
+                    els.c1V.innerText = '★ GIÁ TỐT NHẤT BA LAN ★';
+                    els.c1H.innerText = '★ GIÁ TỐT NHẤT BA LAN';
+                    els.c2V.innerText = '★ TẬN TÂM & CHUYÊN NGHIỆP ★';
+                    els.c2H.innerText = '★ TẬN TÂM & CHUYÊN NGHIỆP';
+                    els.c3V.innerText = '★ HOÀN TIỀN NẾU KHÔNG HÀI LÒNG ★';
+                    els.c3H.innerText = '★ HOÀN TIỀN NẾU KHÔNG HÀI LÒNG';
+                    
+                    redSubStepImg = 0; redSubStepText = 0;
+                    els.badgeV.innerText = els.badgeH.innerText = redTexts[0];
+                    els.imgV.src = els.imgH.src = redImages[0];
+                } else { // ORANGE - SỬA CHỮA ĐIỆN THOẠI
+                    els.modelV.style.display = els.modelH.style.display = 'block';
+                    els.titleV.innerText = els.titleH.innerText = 'SỬA CHỮA ĐIỆN THOẠI';
+                    els.shimV.innerText = els.shimH.innerText = 'THAY MÀN HÌNH';
+                    els.modelV.innerText = els.modelH.innerText = 'IPHONE';
+                    els.badgeV.innerText = els.badgeH.innerText = 'LẤY NGAY!';
+                    els.promoV.innerText = els.promoH.innerText = 'TẶNG KÍNH CƯỜNG LỰC';
+                    
+                    els.c1V.innerText = '★ CHẤT LƯỢNG TỐT NHẤT ★';
+                    els.c1H.innerText = '★ CHẤT LƯỢNG TỐT NHẤT';
+                    els.c2V.innerText = '★ THỜI GIAN NHANH CHÓNG ★';
+                    els.c2H.innerText = '★ THỜI GIAN NHANH CHÓNG';
+                    els.c3V.innerText = '★ BẢO HÀNH 1 ĐỔI 1 ★';
+                    els.c3H.innerText = '★ BẢO HÀNH 1 ĐỔI 1';
+                    
+                    els.imgV.src = els.imgH.src = IMG_PHONE;
+                }
+                els.imgV.style.opacity = els.imgH.style.opacity = "1";
+            }, 400);
+        }, 9000);
+
+        setInterval(() => {
+            if (mode === 2) {
+                redSubStepImg = (redSubStepImg + 1) % redImages.length;
+                els.imgV.style.opacity = els.imgH.style.opacity = "0";
+                setTimeout(() => {
+                    els.imgV.src = els.imgH.src = redImages[redSubStepImg];
+                    els.imgV.style.opacity = els.imgH.style.opacity = "1";
+                }, 300);
+            }
+        }, 3000);
+
+        setInterval(() => {
+            if (mode === 2) {
+                redSubStepText = (redSubStepText + 1) % redTexts.length;
+                els.badgeV.style.opacity = els.badgeH.style.opacity = "0";
+                setTimeout(() => {
+                    els.badgeV.innerText = els.badgeH.innerText = redTexts[redSubStepText];
+                    els.badgeV.style.opacity = els.badgeH.style.opacity = "1";
+                }, 300);
+            }
+        }, 2250);
+
+        // HÀM RESCALE & SNOW
+        const wrapper = document.getElementById('rescaleWrapper');
+        const ptr = document.getElementById('ptr-indicator');
+        let startY = 0, isPulling = false, currentScale = 1;
+
+        function rescale() {
+            const isPortrait = window.innerHeight > window.innerWidth;
+            const designW = isPortrait ? 1080 : 1920, designH = isPortrait ? 1920 : 1080;
+            currentScale = Math.min(window.innerWidth / designW, window.innerHeight / designH);
+            wrapper.style.width = designW + 'px'; wrapper.style.height = designH + 'px';
+            wrapper.style.transform = `scale(${currentScale})`;
+            wrapper.style.transformOrigin = 'center center';
+        }
+
+        document.addEventListener('touchstart', e => { startY = e.touches[0].pageY; isPulling = true; wrapper.style.transition = 'none'; }, {passive: true});
+        document.addEventListener('touchmove', e => {
+            if (!isPulling) return;
+            const diff = e.touches[0].pageY - startY;
+            if (diff > 0) {
+                const move = Math.min(diff * 0.5, 160);
+                ptr.style.opacity = move / 100;
+                ptr.style.top = (move - 80) + 'px';
+                wrapper.style.transform = `scale(${currentScale}) translateY(${move/2}px)`;
+            }
+        }, {passive: true});
+        document.addEventListener('touchend', e => {
+            if (!isPulling) return;
+            const diff = e.changedTouches[0].pageY - startY;
+            wrapper.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            if (diff > 220) { ptr.innerHTML = '<i class="fa-solid fa-sync-alt fa-spin fa-2x"></i>'; setTimeout(() => location.reload(), 600); }
+            else { ptr.style.opacity = '0'; ptr.style.top = '-80px'; wrapper.style.transform = `scale(${currentScale})`; }
+            isPulling = false;
+        });
+
+        const links = document.querySelectorAll('.dt-link');
+        links.forEach(link => { link.addEventListener('click', function(e) { e.stopPropagation(); if (!this.classList.contains('active')) { e.preventDefault(); links.forEach(l => l.classList.remove('active')); this.classList.add('active'); } }); });
+        document.body.addEventListener('click', () => links.forEach(l => l.classList.remove('active')));
+
+        const canvas = document.getElementById('snow-canvas'), ctx = canvas.getContext('2d');
+        let width, height, snowflakes = [];
+        function initSnow() {
+            width = window.innerWidth; height = window.innerHeight;
+            canvas.width = width; canvas.height = height;
+            snowflakes = Array.from({length: 60}, () => ({
+                x: Math.random() * width, y: Math.random() * height,
+                radius: Math.random() * 3 + 1, opacity: Math.random() * 0.5 + 0.2, speed: Math.random() * 1 + 0.5
+            }));
+        }
+        function drawSnow() {
+            ctx.clearRect(0, 0, width, height);
+            snowflakes.forEach(p => {
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`; ctx.fill();
+                p.y += p.speed; if (p.y > height) { p.y = -10; p.x = Math.random() * width; }
+            });
+            requestAnimationFrame(drawSnow);
+        }
+        window.addEventListener('resize', () => { initSnow(); rescale(); });
+        window.addEventListener('load', () => { initSnow(); drawSnow(); rescale(); });
+    </script>
+</body>
+</html>
