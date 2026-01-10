@@ -21,33 +21,43 @@
             overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none;
         }
 
-        /* --- BANNER CONTAINER --- */
+        /* --- BANNER CONTAINER (CHUNG CHO CẢ 2 PHIÊN BẢN) --- */
         .banner-container { 
             position: relative; 
             flex-shrink: 0; 
             overflow: hidden; 
             z-index: 10; 
             background: #000; 
-            padding: 8px; /* Độ dày của dải sáng */
             box-shadow: 0 0 80px rgba(230, 0, 0, 0.5); 
+            border-radius: 40px; /* Bo góc cho cả Desktop và Mobile */
         }
-        
-        /* Hiệu ứng viền chạy - Lùi vào 3px bằng cách sử dụng inset hoặc margin */
+
+        /* HIỆU ỨNG VIỀN CHẠY SÁNG MƯỢT */
         .banner-container::before {
             content: ''; position: absolute; 
             top: -50%; left: -50%; width: 200%; height: 200%;
-            background: conic-gradient(transparent, var(--primary-red), transparent 20%, #fff 25%, transparent 30%, var(--primary-red), transparent 70%, #fff 75%, transparent 80%);
+            background: conic-gradient(
+                transparent, 
+                var(--primary-red), 
+                transparent 20%, 
+                #fff 25%, 
+                transparent 30%, 
+                var(--primary-red), 
+                transparent 70%, 
+                #fff 75%, 
+                transparent 80%
+            );
             animation: rotateBorder 4s linear infinite; z-index: 1;
         }
 
-        /* Lớp phủ để tạo khoảng cách 3px từ mép ngoài */
+        /* LỚP NỘI DUNG ĐEN CÁCH VIỀN 3PX HOÀN HẢO */
         .inner-content { 
-            position: relative; 
-            width: 100%; height: 100%; 
+            position: absolute; 
+            top: 3px; left: 3px; right: 3px; bottom: 3px; 
             background: #000; 
             overflow: hidden; 
             z-index: 5; 
-            border: 3px solid #000; /* Khoảng cách lùi vào 3px từ mép ngoài */
+            border-radius: 37px; /* (40px - 3px) để khớp với bo góc ngoài */
         }
 
         @keyframes rotateBorder { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
@@ -60,7 +70,7 @@
             animation: redShimmer 4s infinite linear; filter: drop-shadow(0 2px 10px rgba(230, 0, 0, 0.5)); font-weight: 900;
         }
 
-        /* --- DÒNG KẺ NGANG TRÊN CÙNG --- */
+        /* --- DÒNG KẺ NGANG --- */
         .line-container { width: 100%; display: flex; margin: 15px 0; }
         .dynamic-line-v2 { height: 5px; background: #111; position: relative; overflow: hidden; border-radius: 10px; }
         .dynamic-line-v2::after { 
@@ -108,7 +118,7 @@
         /* --- LAYOUT MOBILE --- */
         @media (max-aspect-ratio: 1/1) {
             #banner-h { display: none; }
-            .banner-container { width: 1080px; height: 1920px; border-radius: 40px; border: 3px solid #000; } /* Lùi 3px từ mép */
+            .banner-container { width: 1080px; height: 1920px; }
             .layout-v { position: absolute; inset: 0; z-index: 10; padding: 60px 0; display: flex; flex-direction: column; align-items: center; }
             .header-v { font-size: 130px; margin-bottom: 10px; }
             .title-v { color: white; font-size: 80px; font-weight: 900; text-transform: uppercase; }
