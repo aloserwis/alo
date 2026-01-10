@@ -3,337 +3,329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>ALO SERWIS - ROUNDED CHASE (ALO002)</title>
+    <title>ALO SERWIS - Laptop & PC</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --primary-blue: #0088cc; 
-            --primary-orange: #f58220;
+            --primary-red: #e60000;
+            --light-red: #ff4d4d;
+            --primary-orange: #ff8800;
             --viber-purple: #7360f2;
-            --dark-bg: #000000;
         }
 
         html, body {
-            margin: 0; padding: 0;
-            width: 100%; height: 100%;
-            background-color: #000;
-            font-family: 'Montserrat', sans-serif;
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background-color: #000; font-family: 'Montserrat', sans-serif;
             display: flex; justify-content: center; align-items: center;
-            overflow: hidden; 
-            overscroll-behavior-y: none; 
-            touch-action: none; 
+            overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none;
         }
 
-        #snow-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; pointer-events: none; }
-
-        /* PTR Indicator */
-        #ptr-indicator {
-            position: fixed; top: -70px; left: 50%; transform: translateX(-50%);
-            width: 60px; height: 60px; background: var(--primary-blue);
-            border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            color: white; z-index: 10000; box-shadow: 0 4px 15px rgba(0, 136, 204, 0.6); 
-            opacity: 0; transition: opacity 0.2s;
-        }
-
-        /* Animations */
-        @keyframes rotateGlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes shimmer { to { background-position: 200% center; } }
-        @keyframes shakePulse { 0%, 100% { transform: scale(1) rotate(0deg); } 20% { transform: scale(1.05) rotate(-1deg); } 40% { transform: scale(1.05) rotate(1deg); } }
-        @keyframes expandCenter { 0% { transform: scaleX(0); opacity: 0; } 50% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(0); opacity: 0; } }
-        @keyframes giantHeartBeat { 0% { transform: scale(1); } 14% { transform: scale(1.8); } 28% { transform: scale(1); } 42% { transform: scale(1.8); } 70% { transform: scale(1); } }
-
-        /* Container & Perfect Rounded Border Chase (Style ALO003) */
+        /* --- BANNER CONTAINER (CHUNG CHO CẢ 2 PHIÊN BẢN) --- */
         .banner-container { 
             position: relative; 
             flex-shrink: 0; 
-            overflow: hidden; /* Cắt phần dư thừa của gradient xoay */
-            padding: 4px; /* Độ dày viền */
-            box-sizing: border-box;
-            background: rgba(0, 136, 204, 0.1);
+            overflow: hidden; 
+            z-index: 10; 
+            background: #000; 
+            box-shadow: 0 0 80px rgba(230, 0, 0, 0.5); 
+            border-radius: 40px; /* Bo góc cho cả Desktop và Mobile */
         }
-        
-        /* Lớp ánh sáng xoay */
+
+        /* HIỆU ỨNG VIỀN CHẠY SÁNG MƯỢT */
         .banner-container::before {
-            content: ''; 
-            position: absolute;
-            width: 200%; height: 200%; 
-            top: -50%; left: -50%;
-            background: conic-gradient(transparent, transparent, transparent, var(--primary-blue), #fff, var(--primary-blue));
-            animation: rotateGlow 4s linear infinite; 
-            z-index: 1;
+            content: ''; position: absolute; 
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(
+                transparent, 
+                var(--primary-red), 
+                transparent 20%, 
+                #fff 25%, 
+                transparent 30%, 
+                var(--primary-red), 
+                transparent 70%, 
+                #fff 75%, 
+                transparent 80%
+            );
+            animation: rotateBorder 4s linear infinite; z-index: 1;
         }
 
+        /* LỚP NỘI DUNG ĐEN CÁCH VIỀN 3PX HOÀN HẢO */
         .inner-content { 
-            position: relative; /* Quan trọng để nằm trên ::before */
-            width: 100%; height: 100%;
-            background: var(--dark-bg); 
+            position: absolute; 
+            top: 3px; left: 3px; right: 3px; bottom: 3px; 
+            background: #000; 
+            overflow: hidden; 
             z-index: 5; 
-            overflow: hidden;
+            border-radius: 37px; /* (40px - 3px) để khớp với bo góc ngoài */
         }
 
-        .shimmer-text { 
-            background: linear-gradient(to right, var(--primary-blue) 0%, #fff 50%, var(--primary-blue) 100%); 
-            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-            animation: shimmer 3s linear infinite; 
+        @keyframes rotateBorder { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* --- EFFECT ALO SERWIS --- */
+        @keyframes redShimmer { 0% { background-position: -150% center; } 100% { background-position: 150% center; } }
+        .alo-serwis-red {
+            background: linear-gradient(to right, var(--primary-red) 0%, var(--primary-red) 40%, #ffcccc 50%, var(--primary-red) 60%, var(--primary-red) 100%);
+            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: redShimmer 4s infinite linear; filter: drop-shadow(0 2px 10px rgba(230, 0, 0, 0.5)); font-weight: 900;
         }
 
-        .lay-ngay-badge { 
-            background: var(--primary-blue); color: white; font-weight: 900; 
-            border-radius: 12px; box-shadow: 0 0 35px var(--primary-blue); 
-            animation: shakePulse 1.2s infinite ease-in-out;
-            -webkit-text-fill-color: white; 
+        /* --- DÒNG KẺ NGANG --- */
+        .line-container { width: 100%; display: flex; margin: 15px 0; }
+        .dynamic-line-v2 { height: 5px; background: #111; position: relative; overflow: hidden; border-radius: 10px; }
+        .dynamic-line-v2::after { 
+            content: ''; position: absolute; inset: 0; 
+            background: linear-gradient(90deg, transparent, var(--primary-red), #fff, var(--primary-red), transparent); 
+            animation: expandLine 4s ease-in-out infinite; transform-origin: center;
         }
+        @keyframes expandLine { 0% { transform: scaleX(0); opacity: 0; } 50% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(0); opacity: 0; } }
 
+        /* --- GIFT BOX EFFECT --- */
+        @keyframes giftSuperPulse {
+            0%, 100% { transform: scale(1.1); filter: drop-shadow(0 0 10px var(--primary-red)); }
+            50% { transform: scale(1.8) translateY(-10px); filter: drop-shadow(0 0 30px var(--primary-red)) brightness(1.3); }
+        }
+        .gift-box-wrapper { position: relative; display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; margin-right: 30px; }
+        .gift-icon-001 { font-size: 65px; color: #fff; animation: giftSuperPulse 1.5s ease-in-out infinite; text-shadow: 0 0 15px var(--primary-red); }
+
+        /* --- COMMON TEXT STYLE --- */
+        .shimmer-text { background: linear-gradient(to right, var(--primary-red) 0%, #fff 50%, var(--primary-red) 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 3s linear infinite; }
+        @keyframes shimmer { to { background-position: 200% center; } }
+        .dynamic-badge { background: var(--primary-red); color: white; font-weight: 900; border-radius: 12px; box-shadow: 0 0 30px rgba(230, 0, 0, 0.6); animation: shakePulse 1.2s infinite ease-in-out; text-align: center; position: relative; z-index: 120; }
+        @keyframes shakePulse { 0%, 100% { transform: scale(1) rotate(0deg); } 20% { transform: scale(1.03) rotate(-0.5deg); } 40% { transform: scale(1.03) rotate(0.5deg); } }
+
+        /* --- VÒNG TRÒN XOAY --- */
         .glow-spinner { 
-            position: absolute; inset: 0; border-radius: 50%; 
-            background: conic-gradient(from 0deg, transparent 50%, var(--primary-blue) 95%, #fff 100%); 
-            animation: rotateGlow 2.5s linear infinite; 
-            -webkit-mask: radial-gradient(circle, transparent 65%, black 67%); 
-            filter: blur(8px) drop-shadow(0 0 40px var(--primary-blue)); 
+            position: absolute; left: 50%; top: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%; z-index: 4; pointer-events: none;
         }
+        .glow-spinner::before {
+            content: ''; position: absolute; inset: 0; border-radius: 50%; padding: 10px;
+            background: conic-gradient(from 0deg, transparent 40%, var(--primary-red), #fff);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude; animation: rotateGlow 2.5s linear infinite; filter: drop-shadow(0 0 25px var(--primary-red));
+        }
+        @keyframes rotateGlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* --- MOBILE LAYOUT --- */
+        /* --- SLIDER --- */
+        .image-slider { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 6; }
+        .slide-img { position: absolute; max-width: 85%; max-height: 85%; opacity: 0; display: none; object-fit: contain; filter: drop-shadow(0 15px 35px rgba(0,0,0,0.6)); }
+        .slide-img.active { display: block; opacity: 1; animation: imageAppear 0.8s ease-out forwards; }
+        @keyframes imageAppear { 0% { opacity: 0; transform: translateY(30px) scale(0.85); filter: blur(10px); } 100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
+
+        /* --- LAYOUT MOBILE --- */
         @media (max-aspect-ratio: 1/1) {
             #banner-h { display: none; }
-            .banner-container { width: 1080px; height: 1920px; border-radius: 60px; }
-            .inner-content { border-radius: 56px; } /* Nhỏ hơn container 4px */
+            .banner-container { width: 1080px; height: 1920px; }
+            .layout-v { position: absolute; inset: 0; z-index: 10; padding: 60px 0; display: flex; flex-direction: column; align-items: center; }
+            .header-v { font-size: 130px; margin-bottom: 10px; }
+            .title-v { color: white; font-size: 80px; font-weight: 900; text-transform: uppercase; }
+            .line-container { justify-content: center; }
+            .dynamic-line-v2 { width: 85%; }
+            .shimmer-v { font-size: 95px; font-weight: 900; margin: 20px 0; }
+            .dynamic-badge-v { font-size: 55px; padding: 18px 40px; min-width: 700px; }
             
-            .layout-v { position: absolute; inset: 0; z-index: 10; padding: 20px 0; display: flex; flex-direction: column; align-items: center; }
-            .header-v { color: var(--primary-blue); font-size: 115px; font-weight: 900; margin-bottom: 15px; }
-            .title-v { color: white; font-size: 78px; font-weight: 900; text-transform: uppercase; text-align: center; }
-            .line-v { width: 90%; height: 4px; background: #111; position: relative; overflow: hidden; margin: 15px 0; }
-            .line-v::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--primary-blue), #fff, var(--primary-blue), transparent); animation: expandCenter 4s ease-in-out infinite; transform-origin: center; }
-            .shimmer-v { font-size: 85px; font-weight: 900; text-align: center; }
-            .row-v { display: flex; align-items: center; gap: 25px; margin-top: 10px; }
-            .visual-v { position: relative; width: 900px; height: 900px; margin: 20px 0; display: flex; justify-content: center; align-items: center; }
-            .phone-v { width: 107%; transform: rotate(-5deg); filter: drop-shadow(0 0 70px rgba(0, 136, 204, 0.6)); z-index: 6; }
-            .promo-v { background: white; padding: 18px 55px; border-radius: 100px; font-size: 46px; font-weight: 900; margin-top: 20px; display: flex; align-items: center; }
-            .icon-gift-v { color: var(--primary-blue); font-size: 65px; margin-right: 30px; animation: giantHeartBeat 1.5s infinite; }
-            
-            .commit-v { margin-top: 40px; display: flex; flex-direction: column; gap: 32px; } 
-            .sub-v { color: white; font-size: 38px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+            .visual-v { position: relative; width: 807px; height: 807px; margin: 40px 0; }
+            .glow-spinner { width: 807px; height: 807px; }
 
-            .nav-v { position: absolute; bottom: 30px; display: flex; flex-direction: column; gap: 100px; z-index: 100; }
-            .nav-left { left: 40px; align-items: flex-start; }
+            .promo-v { background: white; padding: 28px 65px; border-radius: 120px; font-size: 48px; font-weight: 900; color: #000; display: flex; align-items: center; margin-bottom: 40px; }
+            .commit-v { display: flex; flex-direction: column; gap: 40px; text-align: center; margin-top: 10px; } 
+            .sub-v { color: white; font-size: 38px; font-weight: 700; text-transform: uppercase; }
+            
+            .nav-v { position: absolute; bottom: 120px; display: flex; flex-direction: column; gap: 70px; z-index: 100; }
+            .nav-left { left: 40px; align-items: flex-start; } 
             .nav-right { right: 40px; align-items: flex-end; }
-            .nav-item { text-decoration: none; width: 130px; height: 130px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 65px; display: flex; justify-content: center; align-items: center; transition: all 0.4s; overflow: hidden; }
-            .nav-item.active { width: fit-content; padding: 0 40px; }
-            .nav-item i { font-size: 60px; min-width: 70px; text-align: center; }
-            .nav-label { color: white; font-size: 34px; font-weight: 900; opacity: 0; max-width: 0; transition: all 0.3s ease; white-space: nowrap; }
-            .nav-item.active .nav-label { opacity: 1; max-width: 850px; margin-left: 20px; }
-            .c-orange { color: var(--primary-orange); } 
-            .c-blue { color: var(--primary-blue); }    
-            .c-purple { color: var(--viber-purple); } 
+            .nav-item { text-decoration: none; width: 135px; height: 135px; background: rgba(255,255,255,0.1); backdrop-filter: blur(15px); border: 3px solid rgba(255,255,255,0.3); border-radius: 70px; display: flex; justify-content: center; align-items: center; transition: all 0.4s; }
+            .nav-item.active { width: fit-content; padding: 0 45px; background: rgba(255,255,255,0.25); border-color: #fff; }
+            .nav-item i { font-size: 65px; min-width: 80px; text-align: center; }
+            .nav-label { color: white; font-size: 34px; font-weight: 900; opacity: 0; max-width: 0; transition: all 0.3s ease; white-space: nowrap; overflow: hidden;}
+            .nav-item.active .nav-label { opacity: 1; max-width: 900px; margin-left: 20px; }
+            .c-orange { color: var(--primary-orange); } .c-red { color: var(--primary-red); } .c-purple { color: var(--viber-purple); }
         }
 
-        /* --- DESKTOP LAYOUT --- */
+        /* --- LAYOUT DESKTOP --- */
         @media (min-aspect-ratio: 1/1) {
             #banner-v { display: none; }
-            .banner-container { 
-                width: 1920px; height: 1080px; border-radius: 80px; 
-                padding: 6px 4px; /* Áp dụng co lề 2px mép trên/dưới qua padding */
-            }
-            .inner-content { border-radius: 74px; } 
-
+            .banner-container { width: 1920px; height: 1080px; }
             .layout-h { position: absolute; inset: 0; z-index: 10; padding: 40px 100px; display: flex; flex-direction: column; }
-            .header-h { color: var(--primary-blue); font-size: 115px; font-weight: 900; margin-bottom: 5px; }
-            .title-h { font-size: 81px; color: white; font-weight: 900; text-transform: uppercase; }
-            .line-h-top { width: 45%; height: 4px; background: #111; position: relative; overflow: hidden; margin: 12px 0;}
-            .line-h-top::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--primary-blue), #fff, var(--primary-blue), transparent); animation: expandCenter 4s ease-in-out infinite; transform-origin: center; }
+            .header-h { font-size: 135px; margin: 0; }
+            .title-h { font-size: 75px; color: white; font-weight: 900; text-transform: uppercase; margin: 0; }
+            .line-container { justify-content: flex-start; }
+            .dynamic-line-v2 { width: 850px; } 
+            .shimmer-h { font-size: 80px; font-weight: 900; margin-top: 15px; }
+            .row-h { display: flex; align-items: center; margin-top: 25px; }
+            .dynamic-badge-h { font-size: 50px; padding: 12px 60px; min-width: 750px; }
+            .promo-h { background: white; color: #000; padding: 23px 60px; border-radius: 120px; font-weight: 900; font-size: 42px; margin: 35px 0; width: fit-content; display: flex; align-items: center; }
+            .commitments-h { display: flex; flex-direction: column; gap: 20px; }
+            .sub-h { font-size: 32px; font-weight: 900; color: white; text-transform: uppercase; margin: 0; }
             
-            .service-list-h { display: flex; flex-direction: column; gap: 15px; }
-            .shimmer-h-large { font-size: 78px; font-weight: 900; letter-spacing: 2px; }
-            .row-h { display: flex; align-items: center; gap: 40px; }
-            .promo-h { background: white; color: black; padding: 12px 45px; border-radius: 100px; font-weight: 900; font-size: 42px; width: fit-content; margin: 45px 0; display: flex; align-items: center; }
-            .icon-free-h { color: var(--primary-blue); font-size: 65px; margin-right: 35px; animation: giantHeartBeat 1.5s infinite; }
-            
-            .commitments-h { display: flex; flex-direction: column; gap: 12px; }
-            .sub-h { font-size: 34px; font-weight: 900; color: white; text-transform: uppercase; letter-spacing: 2px; }
+            .visual-h { position: absolute; right: 50px; top: 40%; transform: translateY(-50%); width: 765px; height: 765px; }
+            .glow-spinner { width: 765px; height: 765px; }
 
-            .visual-h { position: absolute; right: 100px; top: 42%; transform: translateY(-50%); width: 820px; height: 820px; display: flex; justify-content: center; align-items: center; }
-            .phone-h { width: 100%; transform: rotate(-5deg); filter: drop-shadow(0 0 70px rgba(0, 136, 204, 0.5)); z-index: 6; }
-            .line-h-bottom { width: 100%; height: 4px; background: #111; position: absolute; bottom: 16%; left: 0; overflow: hidden; }
-            .line-h-bottom::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--primary-blue), #fff, var(--primary-blue), transparent); animation: expandCenter 4s ease-in-out infinite; transform-origin: center; }
-            
+            .footer-divider-h {
+                position: absolute; bottom: 15%; left: 50%; transform: translateX(-50%);
+                width: 95%; height: 2px;
+                background: linear-gradient(90deg, transparent, rgba(230,0,0,0.8), #fff, rgba(230,0,0,0.8), transparent);
+                box-shadow: 0 0 15px var(--primary-red); z-index: 15;
+            }
+            .footer-divider-h::after {
+                content: ''; position: absolute; top: 0; left: -100px; width: 150px; height: 100%;
+                background: linear-gradient(90deg, transparent, #fff, transparent);
+                animation: scanLight 4s infinite linear;
+            }
+            @keyframes scanLight { 0% { left: -150px; } 100% { left: 100%; } }
+
             .footer-h { 
-                position: absolute; bottom: 0; left: 0; width: 100%; height: 16%; 
-                display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; 
-                padding: 0 50px; box-sizing: border-box; background: rgba(0,0,0,0.95); 
-                z-index: 20; border-top: 2px solid rgba(0, 136, 204, 0.4);
+                position: absolute; bottom: 0; left: 0; width: 100%; height: 15%; 
+                display: grid; grid-template-columns: 1fr 1fr 1fr; 
+                align-items: center; justify-items: center; 
+                background: rgba(0,0,0,0.95); 
             }
             .info-col { display: flex; align-items: center; justify-content: center; color: #fff; gap: 20px; }
-            .vertical-hl { writing-mode: vertical-rl; transform: rotate(180deg); color: var(--primary-blue); font-weight: 900; font-size: 24px; border-left: 3px solid var(--primary-blue); padding-left: 12px; white-space: nowrap; text-transform: uppercase; }
-            .col-text { font-size: 24px; line-height: 1.5; }
-            .hl-blue { color: var(--primary-blue); font-weight: 900; }
+            .vertical-hl { writing-mode: vertical-rl; transform: rotate(180deg); color: var(--primary-red); font-weight: 900; font-size: 24px; border-left: 3px solid var(--primary-red); padding-left: 12px; }
+            .col-text { font-size: 24px; line-height: 1.3; }
+            .hl-red { color: var(--primary-red); font-weight: 900; font-size: 24px; }
         }
     </style>
 </head>
-<body>
-
-    <canvas id="snow-canvas"></canvas>
-    <div id="ptr-indicator"><i class="fa-solid fa-sync-alt fa-2x"></i></div>
+<body onclick="closeAllNav()">
 
     <div class="banner-container" id="rescaleWrapper">
         <div class="inner-content">
-            
             <div id="banner-v" class="layout-v">
-                <div class="header-v shimmer-text">ALO SERWIS</div>
-                <div class="title-v">DỊCH VỤ LẮP ĐẶT</div>
-                <div class="line-v"></div>
-                <div class="shimmer-v shimmer-text">CCTV - NET - ALARM</div>
-                <div class="row-v">
-                    <div class="shimmer-v shimmer-text">ĐIỆN</div>
-                    <span class="lay-ngay-badge" style="font-size:70px; padding:15px 40px;">UY TÍN!</span>
-                </div>
+                <div class="header-v alo-serwis-red">ALO SERWIS</div>
+                <div class="title-v">MUA BÁN & SỬA CHỮA</div>
+                <div class="line-container"><div class="dynamic-line-v2"></div></div>
+                <div class="shimmer-v shimmer-text">PHẦN CỨNG & MỀM</div>
+                <div class="dynamic-badge dynamic-badge-v cycling-text">MÁY TÍNH - KOMPUTER</div>
+                
                 <div class="visual-v">
-                    <div class="glow-spinner"></div>
-                    <img src="https://i.postimg.cc/nrqSgNx0/unnamed-(1).png" class="phone-v">
+                    <div class="glow-spinner"></div> 
+                    <div class="image-slider">
+                        <img src="https://i.postimg.cc/QtPG3dmL/macbook.png" class="slide-img active">
+                        <img src="https://i.postimg.cc/g23QnPyq/Chat-GPT-Image-6-sty-2026-19-20-23.png" class="slide-img">
+                        <img src="https://i.postimg.cc/Z5NfH9HY/kom01.png" class="slide-img">
+                        <img src="https://i.postimg.cc/tCWStZ2y/kom02.png" class="slide-img">
+                    </div>
                 </div>
-                <div class="promo-v"><i class="fa-solid fa-gift icon-gift-v"></i><span>TƯ VẤN & KHẢO SÁT FREE!</span></div>
+
+                <div class="promo-v">
+                    <div class="gift-box-wrapper"><i class="fa-solid fa-gift gift-icon-001"></i></div>
+                    TƯ VẤN & KIỂM TRA Free
+                </div>
+                
                 <div class="commit-v">
-                    <div class="sub-v">★ THI CÔNG NHANH - THẨM MỸ ★</div>
-                    <div class="sub-v">★ THIẾT BỊ CHÍNH HÃNG 100% ★</div>
+                    <div class="sub-v">★ GIÁ TỐT NHẤT BA LAN ★</div>
+                    <div class="sub-v">★ TẬN TÂM, UY TÍN & CHUYÊN NGHIỆP ★</div>
+                    <div class="sub-v">★ HOÀN TIỀN 100% NẾU KHÔNG HÀI LÒNG ★</div>
                 </div>
+                
                 <div class="nav-v nav-left">
-                    <a href="tel:733676869" class="nav-item dt-link c-orange"><i class="fa-solid fa-phone"></i><span class="nav-label">BAKALARSKA: 733 67 68 69</span></a>
-                    <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link c-orange"><i class="fa-brands fa-facebook-messenger"></i><span class="nav-label">MESSENGER: ALO SERWIS</span></a>
-                    <a href="#" class="nav-item dt-link c-orange"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
+                    <a href="tel:733676869" class="nav-item dt-link c-orange" onclick="handleNav(event, this)"><i class="fa-solid fa-phone"></i><span class="nav-label">BAKALARSKA: 733 67 68 69</span></a>
+                    <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link c-orange" onclick="handleNav(event, this)"><i class="fa-brands fa-facebook-messenger"></i><span class="nav-label">MESSENGER: ALO SERWIS</span></a>
+                    <a href="#" class="nav-item dt-link c-orange" onclick="handleNav(event, this)"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
                 </div>
                 <div class="nav-v nav-right">
-                    <a href="tel:787456999" class="nav-item dt-link c-blue"><i class="fa-solid fa-phone"></i><span class="nav-label">WÓLKA: 787 456 999</span></a>
-                    <a href="viber://chat?number=48787456999" class="nav-item dt-link c-purple"><i class="fa-brands fa-viber"></i><span class="nav-label">VIBER: 787 456 999</span></a>
-                    <a href="#" class="nav-item dt-link c-blue"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
+                    <a href="tel:787456999" class="nav-item dt-link c-red" onclick="handleNav(event, this)"><i class="fa-solid fa-phone"></i><span class="nav-label">WÓLKA: 787 456 999</span></a>
+                    <a href="viber://chat?number=48787456999" class="nav-item dt-link c-purple" onclick="handleNav(event, this)"><i class="fa-brands fa-viber"></i><span class="nav-label">VIBER: 787 456 999</span></a>
+                    <a href="#" class="nav-item dt-link c-red" onclick="handleNav(event, this)"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
                 </div>
             </div>
 
             <div id="banner-h" class="layout-h">
-                <div class="header-h shimmer-text">ALO SERWIS</div>
-                <div class="title-h">DỊCH VỤ LẮP ĐẶT</div>
-                <div class="line-h-top"></div>
-                <div class="service-list-h">
-                    <div class="shimmer-h-large shimmer-text">CCTV - NET - ALARM</div>
-                    <div class="row-h">
-                        <span class="shimmer-h-large shimmer-text">ĐIỆN</span>
-                        <span class="lay-ngay-badge" style="font-size:65px; padding:10px 50px;">CHUYÊN NGHIỆP</span>
-                    </div>
-                </div>
+                <div class="header-h alo-serwis-red">ALO SERWIS</div>
+                <div class="title-h">MUA BÁN & SỬA CHỮA</div>
+                <div class="line-container"><div class="dynamic-line-v2"></div></div>
+                <div class="shimmer-h shimmer-text">PHẦN CỨNG & MỀM</div>
+                <div class="row-h"><span class="dynamic-badge dynamic-badge-h cycling-text">MÁY TÍNH - KOMPUTER</span></div>
                 <div class="promo-h">
-                    <i class="fa-solid fa-gift icon-free-h"></i>
-                    <span>TƯ VẤN & KHẢO SÁT FREE!</span>
+                    <div class="gift-box-wrapper"><i class="fa-solid fa-gift gift-icon-001"></i></div>
+                    TƯ VẤN & KIỂM TRA Free
                 </div>
                 <div class="commitments-h">
-                    <div class="sub-h">★ THI CÔNG NHANH - THẨM MỸ</div>
-                    <div class="sub-h">★ THIẾT BỊ CHÍNH HÃNG 100%</div>
+                    <p class="sub-h">★ GIÁ TỐT NHẤT BA LAN</p>
+                    <p class="sub-h">★ TẬN TÂM, UY TÍN & CHUYÊN NGHIỆP</p>
+                    <p class="sub-h">★ HOÀN TIỀN 100% NẾU KHÔNG HÀI LÒNG</p>
                 </div>
                 <div class="visual-h">
                     <div class="glow-spinner"></div>
-                    <img src="https://i.postimg.cc/nrqSgNx0/unnamed-(1).png" class="phone-h">
+                    <div class="image-slider">
+                        <img src="https://i.postimg.cc/QtPG3dmL/macbook.png" class="slide-img active">
+                        <img src="https://i.postimg.cc/g23QnPyq/Chat-GPT-Image-6-sty-2026-19-20-23.png" class="slide-img">
+                        <img src="https://i.postimg.cc/Z5NfH9HY/kom01.png" class="slide-img">
+                        <img src="https://i.postimg.cc/tCWStZ2y/kom02.png" class="slide-img">
+                    </div>
                 </div>
-                <div class="line-h-bottom"></div>
+
+                <div class="footer-divider-h"></div>
+
                 <div class="footer-h">
                     <div class="info-col">
-                        <div class="vertical-hl">Cơ sở 1</div>
-                        <div class="col-text">Bakalarska 2 / B214<br>02-212 Warszawa<br><span class="hl-blue">Hotline:</span> 733 676 869</div>
+                        <div class="vertical-hl">CƠ SỞ 1</div>
+                        <div class="col-text">Bakalarska 2 / B214<br>02-212 Warszawa<br><span class="hl-red">Hotline:</span> 733 676 869</div>
                     </div>
                     <div class="info-col">
-                        <div class="vertical-hl">Cơ sở 2</div>
-                        <div class="col-text">Nadrzeczna 7C / A3 (ASG)<br>05-552 Wólka Kosowska<br><span class="hl-blue">Hotline:</span> 787 456 999</div>
+                        <div class="vertical-hl">CƠ SỞ 2</div>
+                        <div class="col-text">Nadrzeczna 7C / A3 (ASG)<br>05-552 Wólka Kosowska<br><span class="hl-red">Hotline:</span> 787 456 999</div>
                     </div>
                     <div class="info-col">
-                        <div class="col-text"><span class="hl-blue">Website:</span> aloserwis.com<br><span class="hl-blue">Facebook:</span> fb.com/dienthoaibalan<br><span class="hl-blue">Email:</span> alo@aloserwis.com</div>
+                        <div class="col-text">
+                            <span class="hl-red">Website:</span> aloserwis.com<br>
+                            <span class="hl-red">Facebook:</span> fb.com/dienthoaibalan<br>
+                            <span class="hl-red">Email:</span> aloserwis@gmail.com
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
     <script>
-        const wrap = document.getElementById('rescaleWrapper');
-        const ptr = document.getElementById('ptr-indicator');
-        let currentScale = 1;
+        function handleNav(e, el) { 
+            e.stopPropagation(); 
+            const allLinks = document.querySelectorAll('.dt-link'); 
+            if (!el.classList.contains('active')) { 
+                e.preventDefault(); 
+                allLinks.forEach(l => l.classList.remove('active')); 
+                el.classList.add('active'); 
+            } 
+        }
+        function closeAllNav() { document.querySelectorAll('.dt-link').forEach(l => l.classList.remove('active')); }
+
+        const words = [ "MÁY TÍNH - KOMPUTER", "LAPTOP - TABLET", "FAKTURA - HÓA ĐƠN", "MÁY IN - MỰC IN" ];
+        let wordIdx = 0;
+        setInterval(() => {
+            wordIdx = (wordIdx + 1) % words.length;
+            document.querySelectorAll('.cycling-text').forEach(el => el.innerText = words[wordIdx]);
+        }, 1500);
+
+        function startSlider() {
+            setInterval(() => {
+                const sliders = document.querySelectorAll('.image-slider');
+                sliders.forEach(s => {
+                    const active = s.querySelector('.slide-img.active');
+                    if(active) {
+                        let next = active.nextElementSibling || s.firstElementChild;
+                        active.classList.remove('active');
+                        next.classList.add('active');
+                    }
+                });
+            }, 4000);
+        }
 
         function rescale() {
-            const isP = window.innerHeight > window.innerWidth;
-            const dW = isP ? 1080 : 1920, dH = isP ? 1920 : 1080;
-            currentScale = Math.min(window.innerWidth / dW, window.innerHeight / dH);
-            wrap.style.width = dW + 'px'; wrap.style.height = dH + 'px';
-            wrap.style.transform = `scale(${currentScale})`;
-            initSnow();
+            const isPortrait = window.innerHeight > window.innerWidth;
+            const designW = isPortrait ? 1080 : 1920;
+            const designH = isPortrait ? 1920 : 1080;
+            const scale = Math.min(window.innerWidth / designW, window.innerHeight / designH);
+            const wrap = document.getElementById('rescaleWrapper');
+            wrap.style.width = designW + 'px'; wrap.style.height = designH + 'px';
+            wrap.style.transform = `scale(${scale})`;
         }
-
-        /* PTR LOGIC */
-        let startY = 0, pullDistance = 0, isPulling = false;
-        document.addEventListener('touchstart', e => {
-            if (window.scrollY === 0) { startY = e.touches[0].pageY; isPulling = true; }
-        }, {passive: false});
-
-        document.addEventListener('touchmove', e => {
-            if (!isPulling) return;
-            const diff = e.touches[0].pageY - startY;
-            if (diff > 0) {
-                e.preventDefault();
-                pullDistance = Math.pow(diff, 0.85);
-                ptr.style.opacity = Math.min(pullDistance / 80, 1);
-                ptr.style.transform = `translateX(-50%) translateY(${pullDistance}px) rotate(${diff * 2}deg)`;
-                wrap.style.transform = `scale(${currentScale}) translateY(${pullDistance / 3}px)`;
-            }
-        }, {passive: false});
-
-        document.addEventListener('touchend', () => {
-            if (!isPulling) return;
-            isPulling = false;
-            if (pullDistance > 100) {
-                ptr.style.transition = 'all 0.3s';
-                ptr.style.transform = `translateX(-50%) translateY(80px) rotate(720deg)`;
-                setTimeout(() => location.reload(), 400);
-            } else {
-                ptr.style.opacity = '0';
-                ptr.style.transform = `translateX(-50%) translateY(-70px)`;
-                wrap.style.transform = `scale(${currentScale})`;
-            }
-            pullDistance = 0;
-        });
-
-        /* SNOW */
-        const canvas = document.getElementById('snow-canvas'); 
-        const ctx = canvas.getContext('2d');
-        let flakes = [];
-        function initSnow() {
-            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-            flakes = Array.from({length: 80}, () => ({ 
-                x: Math.random() * canvas.width, y: Math.random() * canvas.height, 
-                r: Math.random() * 4 + 1, s: Math.random() * 1.5 + 0.5, o: Math.random() * 0.5 + 0.3
-            }));
-        }
-        function drawSnow() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            flakes.forEach(f => { 
-                ctx.beginPath(); ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2); 
-                ctx.fillStyle = `rgba(255, 255, 255, ${f.o})`; ctx.fill(); 
-                f.y += f.s; 
-                if (f.y > canvas.height) f.y = -10; 
-            });
-            requestAnimationFrame(drawSnow);
-        }
-
-        const links = document.querySelectorAll('.dt-link');
-        links.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.stopPropagation();
-                if (!this.classList.contains('active')) {
-                    e.preventDefault();
-                    links.forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                }
-            });
-        });
-        document.body.addEventListener('click', () => links.forEach(l => l.classList.remove('active')));
-
         window.addEventListener('resize', rescale);
-        window.addEventListener('load', rescale);
-        initSnow(); drawSnow();
+        window.addEventListener('load', () => { rescale(); startSlider(); });
     </script>
 </body>
 </html>
