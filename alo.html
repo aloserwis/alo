@@ -53,8 +53,11 @@
         .gift-icon { display: inline-block; font-size: 1.3em; animation: zoomGift 1.2s ease-in-out infinite; vertical-align: middle; margin-right: 15px; position: relative; z-index: 50; }
         .lay-ngay-badge { background: var(--current-theme); color: black; font-weight: 900; border-radius: 15px; box-shadow: 0 0 50px var(--current-theme); animation: shakePulse 1.2s infinite ease-in-out; -webkit-text-fill-color: black; transition: background 0.4s, box-shadow 0.4s, opacity 0.3s; }
 
-        .banner-container { position: relative; flex-shrink: 0; overflow: hidden; border-radius: var(--main-radius); transition: transform 0.1s linear; }
-        .inner-content { position: absolute; inset: 8px; background: var(--dark-bg); overflow: hidden; z-index: 5; border-radius: calc(var(--main-radius) - 4px); }
+        .banner-container { position: relative; flex-shrink: 0; overflow: hidden; border-radius: var(--main-radius); transition: transform 0.1s linear; cursor: grab; }
+        .banner-container:active { cursor: grabbing; }
+        .inner-content { position: absolute; inset: 8px; background: var(--dark-bg); overflow: hidden; z-index: 5; border-radius: calc(var(--main-radius) - 4px); pointer-events: none; }
+        .inner-content a, .inner-content i { pointer-events: auto; }
+        
         .banner-container::before { content: ''; position: absolute; inset: -150px; background: conic-gradient(from 0deg, transparent 65%, var(--current-theme) 85%, #fff 100%); animation: rotateGlow 4s linear infinite; z-index: 1; }
         .banner-container::after { content: ''; position: absolute; inset: 0; border-radius: var(--main-radius); box-shadow: inset 0 0 20px rgba(0,0,0,0.5); z-index: 2; }
 
@@ -212,7 +215,8 @@
         let mode = 0; 
         let redSubStepImg = 0;
         let redSubStepText = 0;
-        
+        let mainInterval; 
+
         const redTexts = ["MÁY TÍNH - KOMPUTER", "LAPTOP - TABLET", "MÁY IN - MỰC IN", "FAKTURA - HÓA ĐƠN"];
         const redImages = [
             "https://i.postimg.cc/tCWStZ2y/kom02.png",
@@ -236,96 +240,125 @@
         const IMG_CAMERA = "https://i.postimg.cc/nrqSgNx0/unnamed-(1).png";
         const COLORS = ['#f58220', '#0088cc', '#ff3131'];
 
-        setInterval(() => {
-            mode = (mode + 1) % 3;
+        function updateMode(targetMode = null) {
+            if (targetMode !== null) mode = targetMode;
+            else mode = (mode + 1) % 3;
+
             const newColor = COLORS[mode];
             document.documentElement.style.setProperty('--current-theme', newColor);
             
             els.imgV.style.opacity = els.imgH.style.opacity = "0";
 
             setTimeout(() => {
-                if(mode === 1) { // BLUE - DỊCH VỤ LẮP ĐẶT
+                if(mode === 1) { // BLUE
                     els.modelV.style.display = els.modelH.style.display = 'block';
                     els.titleV.innerText = els.titleH.innerText = 'DỊCH VỤ LẮP ĐẶT';
                     els.shimV.innerText = els.shimH.innerText = 'CCTV - NET - ALARM';
                     els.modelV.innerText = els.modelH.innerText = 'ĐIỆN';
                     els.badgeV.innerText = els.badgeH.innerText = 'CHUYÊN NGHIỆP';
                     els.promoV.innerText = els.promoH.innerText = 'TƯ VẤN & KHẢO SÁT FREE';
-                    
-                    // Cập nhật cả V và H
-                    els.c1V.innerText = '★ THI CÔNG NHANH & THẨM MỸ ★';
-                    els.c1H.innerText = '★ THI CÔNG NHANH & THẨM MỸ';
-                    els.c2V.innerText = '★ THIẾT BỊ CHÍNH HÃNG 100% ★';
-                    els.c2H.innerText = '★ THIẾT BỊ CHÍNH HÃNG 100%';
-                    els.c3V.innerText = '★ HỖ TRỢ KỸ THUẬT 24/7 ★';
-                    els.c3H.innerText = '★ HỖ TRỢ KỸ THUẬT 24/7';
-                    
+                    els.c1V.innerText = '★ THI CÔNG NHANH & THẨM MỸ ★'; els.c1H.innerText = '★ THI CÔNG NHANH & THẨM MỸ';
+                    els.c2V.innerText = '★ THIẾT BỊ CHÍNH HÃNG 100% ★'; els.c2H.innerText = '★ THIẾT BỊ CHÍNH HÃNG 100%';
+                    els.c3V.innerText = '★ HỖ TRỢ KỸ THUẬT 24/7 ★'; els.c3H.innerText = '★ HỖ TRỢ KỸ THUẬT 24/7';
                     els.imgV.src = els.imgH.src = IMG_CAMERA;
-                } else if (mode === 2) { // RED - MUA BÁN & SỬA CHỮA
+                } else if (mode === 2) { // RED
                     els.modelV.style.display = els.modelH.style.display = 'none';
                     els.titleV.innerText = els.titleH.innerText = 'MUA BÁN & SỬA CHỮA';
                     els.shimV.innerText = els.shimH.innerText = 'PHẦN CỨNG & MỀM';
-                    
                     els.promoV.innerText = els.promoH.innerText = 'TƯ VẤN & KIỂM TRA FREE';
-                    
-                    els.c1V.innerText = '★ GIÁ TỐT NHẤT BA LAN ★';
-                    els.c1H.innerText = '★ GIÁ TỐT NHẤT BA LAN';
-                    els.c2V.innerText = '★ TẬN TÂM & CHUYÊN NGHIỆP ★';
-                    els.c2H.innerText = '★ TẬN TÂM & CHUYÊN NGHIỆP';
-                    els.c3V.innerText = '★ HOÀN TIỀN NẾU KHÔNG HÀI LÒNG ★';
-                    els.c3H.innerText = '★ HOÀN TIỀN NẾU KHÔNG HÀI LÒNG';
-                    
+                    els.c1V.innerText = '★ GIÁ TỐT NHẤT BA LAN ★'; els.c1H.innerText = '★ GIÁ TỐT NHẤT BA LAN';
+                    els.c2V.innerText = '★ TẬN TÂM & CHUYÊN NGHIỆP ★'; els.c2H.innerText = '★ TẬN TÂM & CHUYÊN NGHIỆP';
+                    els.c3V.innerText = '★ HOÀN TIỀN NẾU KHÔNG HÀI LÒNG ★'; els.c3H.innerText = '★ HOÀN TIỀN NẾU KHÔNG HÀI LÒNG';
                     redSubStepImg = 0; redSubStepText = 0;
                     els.badgeV.innerText = els.badgeH.innerText = redTexts[0];
                     els.imgV.src = els.imgH.src = redImages[0];
-                } else { // ORANGE - SỬA CHỮA ĐIỆN THOẠI
+                } else { // ORANGE
                     els.modelV.style.display = els.modelH.style.display = 'block';
                     els.titleV.innerText = els.titleH.innerText = 'SỬA CHỮA ĐIỆN THOẠI';
                     els.shimV.innerText = els.shimH.innerText = 'THAY MÀN HÌNH';
                     els.modelV.innerText = els.modelH.innerText = 'IPHONE';
                     els.badgeV.innerText = els.badgeH.innerText = 'LẤY NGAY!';
                     els.promoV.innerText = els.promoH.innerText = 'TẶNG KÍNH CƯỜNG LỰC';
-                    
-                    els.c1V.innerText = '★ CHẤT LƯỢNG TỐT NHẤT ★';
-                    els.c1H.innerText = '★ CHẤT LƯỢNG TỐT NHẤT';
-                    els.c2V.innerText = '★ THỜI GIAN NHANH CHÓNG ★';
-                    els.c2H.innerText = '★ THỜI GIAN NHANH CHÓNG';
-                    els.c3V.innerText = '★ BẢO HÀNH 1 ĐỔI 1 ★';
-                    els.c3H.innerText = '★ BẢO HÀNH 1 ĐỔI 1';
-                    
+                    els.c1V.innerText = '★ CHẤT LƯỢNG TỐT NHẤT ★'; els.c1H.innerText = '★ CHẤT LƯỢNG TỐT NHẤT';
+                    els.c2V.innerText = '★ THỜI GIAN NHANH CHÓNG ★'; els.c2H.innerText = '★ THỜI GIAN NHANH CHÓNG';
+                    els.c3V.innerText = '★ BẢO HÀNH 1 ĐỔI 1 ★'; els.c3H.innerText = '★ BẢO HÀNH 1 ĐỔI 1';
                     els.imgV.src = els.imgH.src = IMG_PHONE;
                 }
                 els.imgV.style.opacity = els.imgH.style.opacity = "1";
             }, 400);
-        }, 9000);
+        }
 
-        setInterval(() => {
-            if (mode === 2) {
-                redSubStepImg = (redSubStepImg + 1) % redImages.length;
-                els.imgV.style.opacity = els.imgH.style.opacity = "0";
-                setTimeout(() => {
-                    els.imgV.src = els.imgH.src = redImages[redSubStepImg];
-                    els.imgV.style.opacity = els.imgH.style.opacity = "1";
-                }, 300);
-            }
-        }, 3000);
+        function startAutoCycle() {
+            clearInterval(mainInterval);
+            mainInterval = setInterval(() => updateMode(), 9000);
+        }
 
-        setInterval(() => {
-            if (mode === 2) {
-                redSubStepText = (redSubStepText + 1) % redTexts.length;
-                els.badgeV.style.opacity = els.badgeH.style.opacity = "0";
-                setTimeout(() => {
-                    els.badgeV.innerText = els.badgeH.innerText = redTexts[redSubStepText];
-                    els.badgeV.style.opacity = els.badgeH.style.opacity = "1";
-                }, 300);
-            }
-        }, 2250);
+        startAutoCycle();
 
-        // HÀM RESCALE & SNOW
+        // PHẦN RED MODE SUB-ANIMATION
+        setInterval(() => { if (mode === 2) { redSubStepImg = (redSubStepImg + 1) % redImages.length; els.imgV.style.opacity = els.imgH.style.opacity = "0"; setTimeout(() => { els.imgV.src = els.imgH.src = redImages[redSubStepImg]; els.imgV.style.opacity = els.imgH.style.opacity = "1"; }, 300); } }, 3000);
+        setInterval(() => { if (mode === 2) { redSubStepText = (redSubStepText + 1) % redTexts.length; els.badgeV.style.opacity = els.badgeH.style.opacity = "0"; setTimeout(() => { els.badgeV.innerText = els.badgeH.innerText = redTexts[redSubStepText]; els.badgeV.style.opacity = els.badgeH.style.opacity = "1"; }, 300); } }, 2250);
+
+        // THAO TÁC VUỐT (SWIPE) VÀ KÉO (DRAG)
         const wrapper = document.getElementById('rescaleWrapper');
         const ptr = document.getElementById('ptr-indicator');
-        let startY = 0, isPulling = false, currentScale = 1;
+        let startX = 0, startY = 0, isDragging = false, currentScale = 1;
 
+        const handleStart = (e) => {
+            startX = (e.touches ? e.touches[0].pageX : e.pageX);
+            startY = (e.touches ? e.touches[0].pageY : e.pageY);
+            isDragging = true;
+            wrapper.style.transition = 'none';
+        };
+
+        const handleEnd = (e) => {
+            if (!isDragging) return;
+            const endX = (e.changedTouches ? e.changedTouches[0].pageX : e.pageX);
+            const endY = (e.changedTouches ? e.changedTouches[0].pageY : e.pageY);
+            const diffX = endX - startX;
+            const diffY = endY - startY;
+
+            // Kiểm tra lực vuốt (Threshold = 50px)
+            if (Math.abs(diffX) > 80 || Math.abs(diffY) > 80) {
+                // Nếu không phải là kéo xuống để Refresh (Pull to refresh)
+                if (!(diffY > 200 && Math.abs(diffX) < 100)) {
+                    updateMode();
+                    startAutoCycle(); // Reset lại timer 9s
+                }
+            }
+
+            // Xử lý pull-to-refresh
+            if (diffY > 220 && Math.abs(diffX) < 100) {
+                ptr.innerHTML = '<i class="fa-solid fa-sync-alt fa-spin fa-2x"></i>';
+                setTimeout(() => location.reload(), 600);
+            } else {
+                ptr.style.opacity = '0'; ptr.style.top = '-80px';
+                wrapper.style.transform = `scale(${currentScale})`;
+                wrapper.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            }
+            isDragging = false;
+        };
+
+        const handleMove = (e) => {
+            if (!isDragging) return;
+            const moveY = (e.touches ? e.touches[0].pageY : e.pageY) - startY;
+            if (moveY > 0 && moveY < 250) {
+                const move = Math.min(moveY * 0.5, 160);
+                ptr.style.opacity = move / 100;
+                ptr.style.top = (move - 80) + 'px';
+                wrapper.style.transform = `scale(${currentScale}) translateY(${move/2}px)`;
+            }
+        };
+
+        wrapper.addEventListener('touchstart', handleStart, {passive: true});
+        wrapper.addEventListener('touchmove', handleMove, {passive: true});
+        wrapper.addEventListener('touchend', handleEnd);
+        
+        wrapper.addEventListener('mousedown', handleStart);
+        window.addEventListener('mousemove', handleMove);
+        window.addEventListener('mouseup', handleEnd);
+
+        // RESCALE & SNOW
         function rescale() {
             const isPortrait = window.innerHeight > window.innerWidth;
             const designW = isPortrait ? 1080 : 1920, designH = isPortrait ? 1920 : 1080;
@@ -334,26 +367,6 @@
             wrapper.style.transform = `scale(${currentScale})`;
             wrapper.style.transformOrigin = 'center center';
         }
-
-        document.addEventListener('touchstart', e => { startY = e.touches[0].pageY; isPulling = true; wrapper.style.transition = 'none'; }, {passive: true});
-        document.addEventListener('touchmove', e => {
-            if (!isPulling) return;
-            const diff = e.touches[0].pageY - startY;
-            if (diff > 0) {
-                const move = Math.min(diff * 0.5, 160);
-                ptr.style.opacity = move / 100;
-                ptr.style.top = (move - 80) + 'px';
-                wrapper.style.transform = `scale(${currentScale}) translateY(${move/2}px)`;
-            }
-        }, {passive: true});
-        document.addEventListener('touchend', e => {
-            if (!isPulling) return;
-            const diff = e.changedTouches[0].pageY - startY;
-            wrapper.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-            if (diff > 220) { ptr.innerHTML = '<i class="fa-solid fa-sync-alt fa-spin fa-2x"></i>'; setTimeout(() => location.reload(), 600); }
-            else { ptr.style.opacity = '0'; ptr.style.top = '-80px'; wrapper.style.transform = `scale(${currentScale})`; }
-            isPulling = false;
-        });
 
         const links = document.querySelectorAll('.dt-link');
         links.forEach(link => { link.addEventListener('click', function(e) { e.stopPropagation(); if (!this.classList.contains('active')) { e.preventDefault(); links.forEach(l => l.classList.remove('active')); this.classList.add('active'); } }); });
@@ -364,20 +377,9 @@
         function initSnow() {
             width = window.innerWidth; height = window.innerHeight;
             canvas.width = width; canvas.height = height;
-            snowflakes = Array.from({length: 60}, () => ({
-                x: Math.random() * width, y: Math.random() * height,
-                radius: Math.random() * 3 + 1, opacity: Math.random() * 0.5 + 0.2, speed: Math.random() * 1 + 0.5
-            }));
+            snowflakes = Array.from({length: 60}, () => ({ x: Math.random() * width, y: Math.random() * height, radius: Math.random() * 3 + 1, opacity: Math.random() * 0.5 + 0.2, speed: Math.random() * 1 + 0.5 }));
         }
-        function drawSnow() {
-            ctx.clearRect(0, 0, width, height);
-            snowflakes.forEach(p => {
-                ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`; ctx.fill();
-                p.y += p.speed; if (p.y > height) { p.y = -10; p.x = Math.random() * width; }
-            });
-            requestAnimationFrame(drawSnow);
-        }
+        function drawSnow() { ctx.clearRect(0, 0, width, height); snowflakes.forEach(p => { ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2); ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`; ctx.fill(); p.y += p.speed; if (p.y > height) { p.y = -10; p.x = Math.random() * width; } }); requestAnimationFrame(drawSnow); }
         window.addEventListener('resize', () => { initSnow(); rescale(); });
         window.addEventListener('load', () => { initSnow(); drawSnow(); rescale(); });
     </script>
