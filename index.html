@@ -72,6 +72,40 @@
         .img-wrapper { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
         .phone-img { width: 100%; height: 100%; object-fit: contain; transition: opacity 0.4s ease-in-out, transform 0.4s ease; }
 
+        .footer-h { 
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 16%; 
+            display: grid; 
+            grid-template-columns: 0.5fr 1fr 1fr 1fr; 
+            align-items: center; padding: 0 50px; box-sizing: border-box; 
+            background: rgba(0,0,0,0.9); 
+        }
+        
+        .logo-col {
+            display: flex; justify-content: center; align-items: center;
+            position: relative; height: 100%;
+        }
+
+        .logo-glow-ring {
+            position: absolute; width: 130px; height: 130px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, transparent 50%, var(--current-theme) 95%, #fff 100%);
+            animation: rotateGlow 3s linear infinite;
+            -webkit-mask: radial-gradient(circle, transparent 64%, black 66%);
+            filter: drop-shadow(0 0 10px var(--current-theme));
+        }
+
+        .footer-logo {
+            width: 90px; height: 90px;
+            object-fit: contain;
+            z-index: 2;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
+        }
+
+        .info-col { display: flex; align-items: center; justify-content: center; color: #fff; gap: 20px; }
+        .vertical-hl { writing-mode: vertical-rl; transform: rotate(180deg); color: var(--current-theme); font-weight: 900; font-size: 24px; border-left: 3px solid var(--current-theme); padding-left: 12px; white-space: nowrap; text-transform: uppercase; transition: color 0.4s, border-color 0.4s; }
+        .col-text { font-size: 24px; line-height: 1.5; text-align: left; }
+        .hl-orange { color: var(--current-theme); font-weight: 900; transition: color 0.4s; }
+
         @media (max-aspect-ratio: 1/1) {
             #banner-h { display: none; }
             .banner-container { width: 1080px; height: 1920px; }
@@ -111,6 +145,7 @@
             .line-h-top::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--current-theme), #fff, var(--current-theme), transparent); animation: expandCenter 4s ease-in-out infinite; transform-origin: center; }
             .shimmer-h { font-size: 85px; font-weight: 900; line-height: 1.1; }
             .row-h { display: flex; align-items: center; gap: 30px; margin-top: 15px; height: 100px; }
+            .lay-ngay-badge { display: flex; align-items: center; justify-content: center; }
             .lay-ngay-h { font-size: 55px; padding: 10px 35px; min-width: 400px; text-align: center; }
             .promo-h { background: white; color: black; padding: 12px 45px; border-radius: 100px; font-weight: 900; font-size: 40px; width: fit-content; margin: 35px 0; display: flex; align-items: center; }
             .commitments-h { display: flex; flex-direction: column; gap: 15px; margin-top: 10px; } 
@@ -118,11 +153,6 @@
             .visual-h { position: absolute; right: 80px; top: 43.5%; transform: translateY(-50%); width: 820px; height: 820px; display: flex; justify-content: center; align-items: center; }
             .line-h-bottom { width: 100%; height: 4px; background: #111; position: absolute; bottom: 16%; left: 0; overflow: hidden; }
             .line-h-bottom::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--current-theme), #fff, var(--current-theme), transparent); animation: expandCenter 4s ease-in-out infinite; transform-origin: center; }
-            .footer-h { position: absolute; bottom: 0; left: 0; width: 100%; height: 16%; display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; padding: 0 50px; box-sizing: border-box; background: rgba(0,0,0,0.9); }
-            .info-col { display: flex; align-items: center; justify-content: center; color: #fff; gap: 20px; }
-            .vertical-hl { writing-mode: vertical-rl; transform: rotate(180deg); color: var(--current-theme); font-weight: 900; font-size: 24px; border-left: 3px solid var(--current-theme); padding-left: 12px; white-space: nowrap; text-transform: uppercase; }
-            .col-text { font-size: 24px; line-height: 1.5; text-align: left; }
-            .hl-orange { color: var(--current-theme); font-weight: 900; }
         }
     </style>
 </head>
@@ -157,15 +187,16 @@
                     <div class="sub-v" id="c2-v">★ THỜI GIAN NHANH CHÓNG ★</div>
                     <div class="sub-v" id="c3-v">★ BẢO HÀNH 1 ĐỔI 1 ★</div>
                 </div>
+
                 <div class="nav-v nav-left">
                     <a href="tel:733676869" class="nav-item dt-link c-orange"><i class="fa-solid fa-phone"></i><span class="nav-label">BAKALARSKA: 733 67 68 69</span></a>
                     <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link c-orange"><i class="fa-brands fa-facebook-messenger"></i><span class="nav-label">MESSENGER: ALO SERWIS</span></a>
-                    <a href="#" target="_blank" class="nav-item dt-link c-orange-map"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
+                    <a href="https://maps.app.goo.gl/Jb5LNxLsuDhqGy6E9" target="_blank" class="nav-item dt-link c-orange-map"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
                 </div>
                 <div class="nav-v nav-right">
                     <a href="tel:787456999" class="nav-item dt-link c-blue"><i class="fa-solid fa-phone"></i><span class="nav-label">WÓLKA: 787 456 999</span></a>
                     <a href="viber://chat?number=48787456999" class="nav-item dt-link c-purple"><i class="fa-brands fa-viber"></i><span class="nav-label">VIBER: 787 456 999</span></a>
-                    <a href="#" target="_blank" class="nav-item dt-link c-blue"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
+                    <a href="https://maps.app.goo.gl/9a9Y6o6PTJxXL8EV7" target="_blank" class="nav-item dt-link c-blue"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
                 </div>
             </div>
 
@@ -195,6 +226,10 @@
                 </div>
                 <div class="line-h-bottom"></div>
                 <div class="footer-h">
+                    <div class="logo-col">
+                        <div class="logo-glow-ring"></div>
+                        <img src="https://i.postimg.cc/QN00FJtR/logo.png" class="footer-logo" alt="Logo">
+                    </div>
                     <div class="info-col">
                         <div class="vertical-hl">CƠ SỞ 1</div>
                         <div class="col-text">Bakalarska 2 / B214<br>02-212 Warszawa<br><span class="hl-orange">Hotline:</span> 733 676 869</div>
@@ -295,11 +330,9 @@
 
         startAutoCycle();
 
-        // PHẦN RED MODE SUB-ANIMATION
         setInterval(() => { if (mode === 2) { redSubStepImg = (redSubStepImg + 1) % redImages.length; els.imgV.style.opacity = els.imgH.style.opacity = "0"; setTimeout(() => { els.imgV.src = els.imgH.src = redImages[redSubStepImg]; els.imgV.style.opacity = els.imgH.style.opacity = "1"; }, 300); } }, 3000);
         setInterval(() => { if (mode === 2) { redSubStepText = (redSubStepText + 1) % redTexts.length; els.badgeV.style.opacity = els.badgeH.style.opacity = "0"; setTimeout(() => { els.badgeV.innerText = els.badgeH.innerText = redTexts[redSubStepText]; els.badgeV.style.opacity = els.badgeH.style.opacity = "1"; }, 300); } }, 2250);
 
-        // THAO TÁC VUỐT (SWIPE) VÀ KÉO (DRAG)
         const wrapper = document.getElementById('rescaleWrapper');
         const ptr = document.getElementById('ptr-indicator');
         let startX = 0, startY = 0, isDragging = false, currentScale = 1;
@@ -318,16 +351,13 @@
             const diffX = endX - startX;
             const diffY = endY - startY;
 
-            // Kiểm tra lực vuốt (Threshold = 50px)
             if (Math.abs(diffX) > 80 || Math.abs(diffY) > 80) {
-                // Nếu không phải là kéo xuống để Refresh (Pull to refresh)
                 if (!(diffY > 200 && Math.abs(diffX) < 100)) {
                     updateMode();
-                    startAutoCycle(); // Reset lại timer 9s
+                    startAutoCycle();
                 }
             }
 
-            // Xử lý pull-to-refresh
             if (diffY > 220 && Math.abs(diffX) < 100) {
                 ptr.innerHTML = '<i class="fa-solid fa-sync-alt fa-spin fa-2x"></i>';
                 setTimeout(() => location.reload(), 600);
@@ -353,12 +383,10 @@
         wrapper.addEventListener('touchstart', handleStart, {passive: true});
         wrapper.addEventListener('touchmove', handleMove, {passive: true});
         wrapper.addEventListener('touchend', handleEnd);
-        
         wrapper.addEventListener('mousedown', handleStart);
         window.addEventListener('mousemove', handleMove);
         window.addEventListener('mouseup', handleEnd);
 
-        // RESCALE & SNOW
         function rescale() {
             const isPortrait = window.innerHeight > window.innerWidth;
             const designW = isPortrait ? 1080 : 1920, designH = isPortrait ? 1920 : 1080;
@@ -368,9 +396,33 @@
             wrapper.style.transformOrigin = 'center center';
         }
 
+        // --- CẬP NHẬT LOGIC CLICK CHO NAV-ITEM ---
         const links = document.querySelectorAll('.dt-link');
-        links.forEach(link => { link.addEventListener('click', function(e) { e.stopPropagation(); if (!this.classList.contains('active')) { e.preventDefault(); links.forEach(l => l.classList.remove('active')); this.classList.add('active'); } }); });
-        document.body.addEventListener('click', () => links.forEach(l => l.classList.remove('active')));
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Ngăn chặn hành động mặc định nếu nút chưa active
+                if (!this.classList.contains('active')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Xóa active khỏi các nút khác
+                    links.forEach(l => l.classList.remove('active'));
+                    
+                    // Kích hoạt nút hiện tại để hiện label
+                    this.classList.add('active');
+                } else {
+                    // Nếu đã active (bấm lần 2), để link hoạt động bình thường
+                    e.stopPropagation();
+                }
+            });
+        });
+
+        // Bấm ra ngoài vùng nút thì thu hồi label
+        document.body.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-item')) {
+                links.forEach(l => l.classList.remove('active'));
+            }
+        });
 
         const canvas = document.getElementById('snow-canvas'), ctx = canvas.getContext('2d');
         let width, height, snowflakes = [];
