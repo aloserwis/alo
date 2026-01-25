@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regulamin Serwisu - ALO SERWIS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary-orange: #f58220;
+            --dark-bg: #1a1a1a;
+            --text-gray: #333;
+            --light-bg: #f9f9f9;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--text-gray);
+            background-color: var(--light-bg);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 3px solid var(--primary-orange);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            color: var(--primary-orange);
+            text-transform: uppercase;
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .regulamin-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .regulamin-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 18px;
+            padding: 15px;
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+
+        .regulamin-item:hover {
+            background: #fff5eb;
+        }
+
+        .regulamin-item i {
+            color: var(--primary-orange);
+            margin-right: 15px;
+            margin-top: 5px;
+            font-size: 18px;
+        }
+
+        .regulamin-item p {
+            margin: 0;
+            font-size: 15px;
+            text-align: justify;
+        }
+
+        .important {
+            font-weight: 700;
+            color: #000;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 15px;
+                padding: 20px;
+            }
+            header h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-file-contract"></i> REGULAMIN SERWISU</h1>
+        </header>
+
+        <div class="regulamin-list">
+            <div class="regulamin-item">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <p>Serwis świadczy usługi na terenie całej Polski.</p>
+            </div>
+
+            <div class="regulamin-item">
+                <i class="fa-solid fa-hand-holding-dollar"></i>
+                <p>Diagnoza uszkodzonego sprzętu w przypadku jego naprawy, jest <span class="important">bezpłatna</span>.</p>
+            </div>
+
+            <div class="regulamin-item">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <p>W przypadku, gdy naprawa zdiagnozowanego sprzętu jest możliwa, a zlecający rezygnuje z naprawy, koszt diagnozy to <span class="important">100zł</span>.</p>
+            </div>
+
+            <div class="regulamin-item">
+                <i class="fa-solid fa-clock"></i>
+                <p>Serwis wykonuje naprawy w czasie umówionym ze zleceniodawcą, każdorazowo informując go o jakichkolwiek zmianach.</p>
+            </div>
+
+            <div class="regulamin-item">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <p>Serwis <span class="important">nie odpowiada</span> za pozostawione pokrowce/karty SIM/karty pamięci/akcesoria dodatkowe, oraz dane na urządzeniu.</p>
+            </div>
+
+            <div class="regulamin-item">
+                <i class="fa-solid fa-shield-virus"></i>
+                <p>Naprawy sprzętu zawilgoconego, po upadkach i innych uszkodzeniach mechanicznych traktowane są jako <span class="important">naprawy wyższego ryzyka</span>. W trakcie ich naprawy mogą ujawnić się uszkodzenia, niezdiagnozowane podczas przyjęcia do serwisu. W takich przypadkach Serwis zastrzega sobie prawo do zwrotu urządzenia nie naprawionego lub z objawami uszkodzeń innymi, niż występujące podczas przyjęcia do serwisu.</p>
+            </div>
+
+            <div class="regulamin-item">
+                <i class="fa-solid fa-calendar-check"></i>
+                <p>Gwarancja na wykonaną naprawę wynosi <span class="important">30 dni</span> (obejmuje wyłącznie wymieniany element). W przypadku części ulegających naturalnemu zużyciu (złącza, gniazda ładowania, przyciski, obudowy) gwarancja wynosi 30 dni. Telefony zalane/zawilgocone traktowane są jako niestabilne - udzielana jest na nie wyłącznie <span class="important">gwarancja rozruchowa jednodniowa</span>.</p>
+            </div>
+
+            <div class="regulamin-item">
+                <i class="fa-solid fa-truck-ramp-box"></i>
+                <p>Serwis zastrzega sobie prawo do wydłużenia czasu naprawy w sytuacjach, gdy oczekuje na sprowadzenie części.</p>
+            </div>
+
+            <div class="regulamin-item">
+                <i class="fa-solid fa-warehouse"></i>
+                <p>Sprzęt nieodebrany w terminie 60 dni od poinformowania klienta o zakończeniu naprawy, podlega opłacie za magazynowanie wynoszącej <span class="important">5 złotych dziennie</span>.</p>
+            </div>
+
+            <div class="regulamin-item">
+                <i class="fa-solid fa-user-shield"></i>
+                <p>Zleceniodawca wyraża zgodę na przetwarzanie swoich danych osobowych przez firmę <span class="important">aloserwis.com</span> celem realizacji zlecenia (Dz. U z 2002r. Nr. 101, poz.926).</p>
+            </div>
+
+            <div class="regulamin-item">
+                <i class="fa-solid fa-gavel"></i>
+                <p>W sprawach nie uregulowanych niniejszym regulaminem mają zastosowanie przepisy kodeksu cywilnego.</p>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 ALO SERWIS - aloserwis.com. Wszelkie prawa zastrzeżone.
+        </footer>
+    </div>
+
+</body>
+</html>
