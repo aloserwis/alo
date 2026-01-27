@@ -3,49 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ALO SERWIS - Monitoring Systems</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <title>ALOSERWIS - Báo giá</title>
     <style>
-        :root { --primary: #2c3e50; --accent: #e67e22; --success: #27ae60; --error: #e74c3c; --viber: #7360f2; --wa: #25d366; --zalo: #0068ff; --fb: #1877f2; }
-        * { box-sizing: border-box; font-family: -apple-system, sans-serif; }
-        body { background: #f0f2f5; margin: 0; padding: 10px; line-height: 1.5; }
-        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        :root { --primary: #2c3e50; --accent: #e67e22; --success: #27ae60; --viber: #7360f2; --wa: #25d366; --zalo: #0068ff; }
+        * { box-sizing: border-box; font-family: "Segoe UI", Arial, sans-serif; }
+        body { background: #f0f2f5; margin: 0; padding: 10px; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         
-        /* Header */
-        .header-brand { text-align: center; margin-bottom: 20px; border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
-        .brand-name { font-size: 1.5rem; font-weight: bold; color: var(--accent); margin: 0; }
-        .brand-sub { font-size: 0.8rem; color: #666; margin: 5px 0; }
+        @media print {
+            @page { size: A4; margin: 0.6cm; }
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; max-width: 100%; border: none; padding: 0; }
+            .lang-selector, #sub-lang-container, .btn-main, .social-grid, .required, .manual-input, .opt-label:not(.selected) { display: none !important; }
+            .header-brand { margin-bottom: 5px; border-bottom: 1.5pt solid var(--accent); padding-bottom: 5px; text-align: center; }
+            .brand-1 { font-size: 18pt !important; margin: 0; font-weight: bold; color: var(--accent); }
+            .brand-2 { font-size: 10pt !important; margin: 2px 0; color: #444; }
+            .brand-sub { font-size: 9pt !important; color: var(--primary) !important; margin: 3px 0 0; font-weight: bold; }
+            .section-title { background: #f2f2f2 !important; color: black !important; margin: 8px 0 3px; padding: 4px; font-size: 9pt; border-left: 3px solid var(--accent); }
+            .question-block { margin-bottom: 4px; border-bottom: 0.5pt solid #eee; padding-bottom: 2px; page-break-inside: avoid; }
+            .question-text { font-size: 8.5pt; font-weight: bold; }
+            .opt-label.selected { display: block !important; border: none; font-weight: bold; padding: 0; font-size: 8.5pt; color: #000; }
+            .manual-output { display: block !important; font-size: 8.5pt; font-style: italic; color: #444; }
+            input[type="text"], textarea { border: none !important; font-size: 9.5pt; padding: 1px 0; background: none !important; }
+        }
 
-        /* Selectors */
-        .lang-selector { display: flex; gap: 8px; margin-bottom: 10px; }
-        .lang-item { flex: 1; border: 1px solid #ddd; padding: 12px 5px; border-radius: 8px; text-align: center; cursor: pointer; font-size: 0.9rem; background: #fff; font-weight: bold; }
+        .header-brand { text-align: center; margin-bottom: 15px; border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
+        .brand-1 { font-size: 1.6rem; font-weight: bold; color: var(--accent); margin: 0; letter-spacing: 2px; }
+        .brand-2 { font-size: 0.85rem; color: #444; margin: 2px 0; font-weight: 500; }
+        .brand-sub { font-size: 0.85rem; color: var(--primary); margin: 5px 0 0; font-weight: bold; font-style: italic; }
+
+        .lang-selector { display: flex; gap: 4px; margin-bottom: 10px; }
+        .lang-item { flex: 1; border: 1px solid #ddd; padding: 8px 2px; border-radius: 6px; text-align: center; cursor: pointer; font-size: 0.75rem; background: #fff; font-weight: bold; }
         .lang-item input { display: none; }
-        .lang-item:has(input:checked) { background: var(--accent); border-color: var(--accent); color: #fff; }
-
-        #sub-lang-container { display: none; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px; animation: slideDown 0.3s; background: #fff8f0; padding: 10px; border-radius: 10px; border: 1px dashed var(--accent); }
-        .sub-lang-item { border: 1px solid #ccc; padding: 8px 2px; border-radius: 6px; text-align: center; cursor: pointer; font-size: 0.75rem; background: #fff; font-weight: bold; }
+        .lang-item:has(input:checked) { background: var(--accent); color: #fff; border-color: var(--accent); }
+        #sub-lang-container { display: none; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-bottom: 10px; padding: 8px; background: #fff8f0; border-radius: 8px; border: 1px dashed var(--accent); }
+        .sub-lang-item { border: 1px solid #ccc; padding: 6px 2px; border-radius: 5px; text-align: center; cursor: pointer; font-size: 0.7rem; background: #fff; font-weight: bold; }
         .sub-lang-item input { display: none; }
-        .sub-lang-item:has(input:checked) { background: #34495e; color: #fff; border-color: #34495e; }
+        .sub-lang-item:has(input:checked) { background: #34495e; color: #fff; }
 
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Form Elements */
-        .section-title { background: #f8f9fa; padding: 8px 12px; font-weight: bold; margin: 25px 0 10px; border-left: 4px solid var(--accent); font-size: 0.85rem; }
-        input, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; margin-top: 5px; outline: none; }
-        input.error { border-color: var(--error); background: #fff6f5; }
-
-        /* Questions */
-        .question-block { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
-        .question-text { font-weight: bold; font-size: 0.9rem; color: var(--primary); display: block; margin-bottom: 10px; }
-        .options-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .opt-label { border: 1px solid #ddd; padding: 10px 4px; border-radius: 8px; text-align: center; font-size: 0.7rem; cursor: pointer; background: #fff; display: flex; align-items: center; justify-content: center; min-height: 48px; }
+        .section-title { background: #f8f9fa; padding: 6px 10px; font-weight: bold; margin: 12px 0 6px; border-left: 4px solid var(--accent); font-size: 0.8rem; }
+        input[type="text"], textarea { width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; margin-top: 4px; outline: none; font-size: 14px; }
+        .question-block { margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid #eee; }
+        .question-text { font-weight: bold; font-size: 0.8rem; color: var(--primary); display: block; margin-bottom: 5px; }
+        .options-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+        .opt-label { border: 1px solid #ddd; padding: 6px 2px; border-radius: 6px; text-align: center; font-size: 0.65rem; cursor: pointer; background: #fff; min-height: 35px; display: flex; align-items: center; justify-content: center; }
         .opt-label input { display: none; }
-        .opt-label:has(input:checked) { background: #34495e; color: white; border-color: #34495e; }
-
-        /* Buttons */
-        .btn-main { background: var(--success); color: white; border: none; width: 100%; padding: 16px; font-size: 1rem; border-radius: 50px; cursor: pointer; font-weight: bold; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
-        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .btn-social { border: none; color: white; padding: 12px; border-radius: 8px; font-size: 0.85rem; font-weight: bold; cursor: pointer; text-decoration: none; text-align: center; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .opt-label.selected { background: #34495e; color: white; border-color: #34495e; }
+        .manual-input { background: #fcfcfc; border: 1px dashed #bbb !important; font-size: 0.75rem !important; margin-top: 5px; height: 30px; }
+        .manual-output { display: none; }
+        .btn-main { background: var(--success); color: white; border: none; width: 100%; padding: 14px; font-size: 0.95rem; border-radius: 50px; cursor: pointer; font-weight: bold; margin: 15px 0; }
+        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+        .btn-social { color: white; padding: 8px; border-radius: 6px; font-size: 0.75rem; font-weight: bold; text-decoration: none; text-align: center; cursor: pointer; }
         .viber { background: var(--viber); } .wa { background: var(--wa); } .zalo { background: var(--zalo); } .fb { background: var(--fb); }
     </style>
 </head>
@@ -53,110 +61,133 @@
 
 <div class="container">
     <div class="lang-selector">
-        <label class="lang-item"><input type="radio" name="main_lang" value="PL" checked onchange="setLang('PL')"> 🇵🇱 PL</label>
-        <label class="lang-item"><input type="radio" name="main_lang" value="EN" onchange="setLang('EN')"> 🇺🇸 EN</label>
-        <label class="lang-item"><input type="radio" name="main_lang" value="VN" onchange="setLang('VN')"> 🇻🇳 VN</label>
-        <label class="lang-item"><input type="radio" name="main_lang" value="#" id="btn-more-lang" onchange="toggleExtra(true)"> 🌐 #</label>
+        <label class="lang-item"><input type="radio" name="L" value="PL" checked onchange="toggleExtra(false); setLang('PL')"> 🇵🇱 PL</label>
+        <label class="lang-item"><input type="radio" name="L" value="EN" onchange="toggleExtra(false); setLang('EN')"> 🇺🇸 EN</label>
+        <label class="lang-item"><input type="radio" name="L" value="VN" onchange="toggleExtra(false); setLang('VN')"> 🇻🇳 VN</label>
+        <label class="lang-item"><input type="radio" name="L" value="#" onchange="toggleExtra(true)"> 🌐 #</label>
     </div>
 
     <div id="sub-lang-container">
-        <label class="sub-lang-item"><input type="radio" name="main_lang" value="TR" onchange="setLang('TR')"> 🇹🇷 TR</label>
-        <label class="sub-lang-item"><input type="radio" name="main_lang" value="CN" onchange="setLang('CN')"> 🇨🇳 CN</label>
-        <label class="sub-lang-item"><input type="radio" name="main_lang" value="UK" onchange="setLang('UK')"> 🇺🇦 UK</label>
-        <label class="sub-lang-item"><input type="radio" name="main_lang" value="DE" onchange="setLang('DE')"> 🇩🇪 DE</label>
+        <label class="sub-lang-item"><input type="radio" name="L" value="TR" onchange="setLang('TR')"> 🇹🇷 TR</label>
+        <label class="sub-lang-item"><input type="radio" name="L" value="CN" onchange="setLang('CN')"> 🇨🇳 CN</label>
+        <label class="sub-lang-item"><input type="radio" name="L" value="UK" onchange="setLang('UK')"> 🇺🇦 UK</label>
+        <label class="sub-lang-item"><input type="radio" name="L" value="DE" onchange="setLang('DE')"> 🇩🇪 DE</label>
     </div>
 
     <div class="header-brand">
-        <p class="brand-name">ALO SERWIS</p>
-        <p id="txt-brand-sub" class="brand-sub">aloserwis.com | Profesionalne Systemy Monitoringu</p>
+        <p class="brand-1">ALOSERWIS</p>
+        <p id="txt-brand-2" class="brand-2"></p>
+        <p id="txt-brand-sub" class="brand-sub"></p>
     </div>
 
-    <div class="section-title"><span id="txt-sec-1">I. DANE KLIENTA</span></div>
-    <input type="text" id="cust_name" placeholder="Name">
-    <input type="text" id="cust_phone" placeholder="Phone PL (9 digits)">
+    <div class="section-title"><span id="txt-sec-1"></span></div>
+    <input type="text" id="cust_name" placeholder="">
+    <input type="text" id="cust_phone" placeholder="">
     
-    <div class="section-title"><span id="txt-sec-2">II. SZCZEGÓŁY (Min. 6)</span></div>
+    <div class="section-title"><span id="txt-sec-2"></span></div>
     <div id="questions-container"></div>
 
-    <div class="section-title"><span id="txt-sec-3">III. UWAGI</span></div>
-    <textarea id="final_note" rows="3"></textarea>
+    <div class="section-title"><span id="txt-sec-3"></span></div>
+    <textarea id="final_note" rows="2"></textarea>
 
-    <div style="margin-top: 30px;">
-        <button class="btn-main" id="txt-btn-pdf" onclick="processAction('pdf')">POBIERZ PDF</button>
-        <div class="social-grid">
-            <a class="btn-social viber" onclick="processAction('viber')">🟣 Viber</a>
-            <a class="btn-social wa" onclick="processAction('wa')">🟢 WhatsApp</a>
-            <a class="btn-social zalo" onclick="processAction('zalo')">🔵 Zalo</a>
-            <a href="https://m.me/dienthoaibalan" target="_blank" class="btn-social fb">🔵 Messenger</a>
-        </div>
+    <button class="btn-main" id="txt-btn-pdf" onclick="exportToPDF()"></button>
+    
+    <div class="social-grid">
+        <a class="btn-social viber" onclick="sendSocial('viber')">Viber</a>
+        <a class="btn-social wa" onclick="sendSocial('wa')">WhatsApp</a>
+        <a class="btn-social zalo" onclick="sendSocial('zalo')">Zalo</a>
+        <a href="https://m.me/dienthoaibalan" target="_blank" class="btn-social fb">Messenger</a>
     </div>
 </div>
 
 <script>
     const TARGET_PHONE = "48888666679";
     const translations = {
-        PL: { brandSub: "aloserwis.com | Profesionalne Systemy Monitoringu", sec1: "I. DANE KLIENTA", sec2: "II. SZCZEGÓŁY (Min. 6)", sec3: "III. UWAGI", btnPdf: "POBIERZ PDF", name: "Imię i Nazwisko", phone: "Numer telefonu PL (9 cyfr)", err: "Błąd danych!", questions: [{q:"1. Typ obiektu?", a:["Dom","Biuro","Magazyn"]},{q:"2. Liczba kamer?", a:["1-4","5-10","> 10"]},{q:"3. Lokalizacja?", a:["Wewnątrz","Zewnątrz","Obie"]},{q:"4. Stan?", a:["Nowy","Istniejący","Remont"]},{q:"5. Połączenie?", a:["Kabel IP","Wi-Fi","Analog"]},{q:"6. Sprzęt?", a:["Z montażem","Własny","Porada"]},{q:"7. Funkcje?", a:["Kolor w nocy","Alarm","Audio"]},{q:"8. Archiwizacja?", a:["1 Tydzień","1 Miesiąc","Cloud"]},{q:"9. Budżet?", a:["Oszczędny","Standard","Premium"]},{q:"10. Termin?", a:["Pilne","Wkrótce","Wycena"]}] },
-        VN: { brandSub: "aloserwis.com | Hệ thống giám sát chuyên nghiệp", sec1: "I. THÔNG TIN KHÁCH HÀNG", sec2: "II. CHI TIẾT (Ít nhất 6 câu)", sec3: "III. GHI CHÚ BỔ SUNG", btnPdf: "TẢI PDF", name: "Họ và Tên", phone: "SĐT Ba Lan (9 số)", err: "Lỗi thông tin!", questions: [{q:"1. Loại công trình?", a:["Nhà riêng","Văn phòng","Kho"]},{q:"2. Số lượng?", a:["1-4","5-10",">10"]},{q:"3. Vị trí?", a:["Trong nhà","Ngoài trời","Cả hai"]},{q:"4. Hạ tầng?", a:["Mới","Đã ở","Thay cũ"]},{q:"5. Kết nối?", a:["Có dây IP","Wifi","Analog"]},{q:"6. Nguồn hàng?", a:["Trọn gói","Có sẵn","Tư vấn"]},{q:"7. Tính năng?", a:["Màu đêm","Báo động","Đàm thoại"]},{q:"8. Lưu trữ?", a:["1 Tuần","1 Tháng","Cloud"]},{q:"9. Ngân sách?", a:["Tiết kiệm","Cân bằng","Cao cấp"]},{q:"10. Tiến độ?", a:["Gấp","Bình thường","Khảo giá"]}] },
-        EN: { brandSub: "aloserwis.com | Professional Security Systems", sec1: "I. CUSTOMER INFO", sec2: "II. DETAILS (Min. 6)", sec3: "III. NOTES", btnPdf: "DOWNLOAD PDF", name: "Full Name", phone: "Poland Phone (9 digits)", err: "Invalid Data!", questions: [{q:"1. Type?", a:["House","Office","Warehouse"]},{q:"2. Qty?", a:["1-4","5-10","> 10"]},{q:"3. Location?", a:["Indoor","Outdoor","Both"]},{q:"4. Status?", a:["New","Exist","Remodel"]},{q:"5. Link?", a:["Wired IP","Wi-Fi","Analog"]},{q:"6. Supply?", a:["Full service","Own set","Advice"]},{q:"7. Feature?", a:["Night color","Alarm","Audio"]},{q:"8. Storage?", a:["1 Week","1 Month","Cloud"]},{q:"9. Budget?", a:["Eco","Standard","Premium"]},{q:"10. Time?", a:["Urgent","Monthly","Quote"]}] },
-        TR: { brandSub: "aloserwis.com | Profesyonel İzleme", sec1: "I. MÜŞTERİ BİLGİLERİ", sec2: "II. DETAYLAR (Min. 6)", sec3: "III. NOTLAR", btnPdf: "PDF İNDİR", name: "Ad Soyad", phone: "Polonya Telefonu (9 hane)", err: "Hata!", questions: [{q:"1. Tip?", a:["Ev","Ofis","Depo"]},{q:"2. Sayı?", a:["1-4","5-10",">10"]},{q:"3. Konum?", a:["İç","Dış","Her ikisi"]},{q:"4. Durum?", a:["Yeni","Mevcut","Yenileme"]},{q:"5. Bağlantı?", a:["Kablolu IP","Wi-Fi","Analog"]},{q:"6. Ekipman?", a:["Tam servis","Kendi","Danışman"]},{q:"7. Özellik?", a:["Gece renkli","Alarm","Ses"]},{q:"8. Kayıt?", a:["1 Hafta","1 Ay","Bulut"]},{q:"9. Bütçe?", a:["Eko","Standart","Premium"]},{q:"10. Zaman?", a:["Acil","Bu ay","Fiyat"]}] },
-        CN: { brandSub: "aloserwis.com | 专业监控系统", sec1: "I. 客户信息", sec2: "II. 详情 (至少6项)", sec3: "III. 备注", btnPdf: "下载 PDF", name: "姓名", phone: "波兰电话 (9位)", err: "数据无效!", questions: [{q:"1. 类型?", a:["住宅","办公室","仓库"]},{q:"2. 数量?", a:["1-4","5-10",">10"]},{q:"3. 位置?", a:["室内","室外","两者"]},{q:"4. 状态?", a:["新建","现有","更换"]},{q:"5. 连接?", a:["有线 IP","Wi-Fi","模拟"]},{q:"6. 来源?", a:["全套","自带","咨询"]},{q:"7. 功能?", a:["夜间彩色","报警","语音"]},{q:"8. 存储?", a:["1周","1月","云端"]},{q:"9. 预算?", a:["经济","标准","高级"]},{q:"10. 时间?", a:["立即","本月","询价"]}] },
-        UK: { brandSub: "aloserwis.com | Професійний відеонагляд", sec1: "I. ДАНІ КЛІЄНТА", sec2: "II. ДЕТАЛІ (Мін. 6)", sec3: "III. ПРИМІТКИ", btnPdf: "ЗАВАНТАЖИТИ PDF", name: "Ім'я", phone: "Телефон PL (9 цифр)", err: "Помилка!", questions: [{q:"1. Тип?", a:["Дім","Офіс","Склад"]},{q:"2. К-сть?", a:["1-4","5-10",">10"]},{q:"3. Місце?", a:["Внутрі","Зовні","Обидва"]},{q:"4. Стан?", a:["Новий","Є","Ремонт"]},{q:"5. Зв'язок?", a:["IP Кабель","Wi-Fi","Аналог"]},{q:"6. Облад.?", a:["Сервіс","Своє","Порада"]},{q:"7. Функції?", a:["Колір вночі","Алярм","Аудіо"]},{q:"8. Архів?", a:["1 Тиж","1 Міс","Хмара"]},{q:"9. Бюджет?", a:["Економ","Стандарт","Преміум"]},{q:"10. Термін?", a:["Терміново","Місяць","Ціна"]}] },
-        DE: { brandSub: "aloserwis.com | Überwachungssysteme", sec1: "I. KUNDENDATEN", sec2: "II. DETAILS (Min. 6)", sec3: "III. ANMERKUNGEN", btnPdf: "PDF LADEN", name: "Name", phone: "Telefon PL (9 Ziffern)", err: "Fehler!", questions: [{q:"1. Typ?", a:["Haus","Büro","Lager"]},{q:"2. Anzahl?", a:["1-4","5-10",">10"]},{q:"3. Ort?", a:["Innen","Außen","Beides"]},{q:"4. Status?", a:["Neu","Alt","Umbau"]},{q:"5. Netz?", a:["IP Kabel","Wi-Fi","Analog"]},{q:"6. Geräte?", a:["Service","Eigene","Beratung"]},{q:"7. Feature?", a:["Nachtfarbe","Alarm","Audio"]},{q:"8. Speicher?", a:["1 Woche","1 Monat","Cloud"]},{q:"9. Budget?", a:["Eco","Standard","Premium"]},{q:"10. Zeit?", a:["Sofort","Bald","Preis"]}] }
+        PL: { 
+            desc: "Profesjonalny montaż, konfiguracja i serwis monitoringu",
+            brand: "Wycena systemów monitoringu CCTV i innych", 
+            sec1: "I. DANE KLIENTA", sec2: "II. SZCZEGÓŁY SYSTEMU", sec3: "III. DODATKOWE UWAGI", 
+            btn: "POBIERZ PDF (A4)", name: "Imię i Nazwisko", phone: "Numer telefonu", 
+            other: "Opisz dodatkowo...", err: "Podaj Imię i Telefon!", 
+            qs: [{q:"1. Typ obiektu?", a:["Dom","Biuro","Magazyn"]},{q:"2. Liczba kamer?", a:["1-4","5-10","> 10"]},{q:"3. Lokalizacja?", a:["Wewnątrz","Zewnątrz","Obie"]},{q:"4. Stan?", a:["Nowy","Istniejący","Remont"]},{q:"5. Połączenie?", a:["Kabel IP","Wi-Fi","Analog"]},{q:"6. Sprzęt?", a:["Z montażem","Własny","Porada"]},{q:"7. Funkcje?", a:["Noc-Kolor","Alarm","Audio"]},{q:"8. Dysk?", a:["1 Tydz","1 Mies","Cloud"]},{q:"9. Budżet?", a:["Oszczędny","Standard","Premium"]},{q:"10. Termin?", a:["Pilne","Miesiąc","Wycena"]}] 
+        },
+        VN: { 
+            desc: "Chuyên lắp đặt, cấu hình và bảo trì hệ thống giám sát",
+            brand: "Báo giá hệ thống Camera giám sát cùng các hệ thống khác", 
+            sec1: "I. THÔNG TIN KHÁCH HÀNG", sec2: "II. CHI TIẾT HỆ THỐNG", sec3: "III. GHI CHÚ THÊM", 
+            btn: "XUẤT PDF TRANG A4", name: "Họ và Tên", phone: "Số điện thoại", 
+            other: "Mô tả thêm...", err: "Nhập Tên và SĐT!", 
+            qs: [{q:"1. Công trình?", a:["Nhà riêng","Văn phòng","Kho"]},{q:"2. Số lượng?", a:["1-4 mắt","5-10 mắt",">10 mắt"]},{q:"3. Vị trí?", a:["Trong nhà","Ngoài trời","Cả hai"]},{q:"4. Hạ tầng?", a:["Mới","Đã ở","Thay cũ"]},{q:"5. Kết nối?", a:["Có dây IP","Wifi","Analog"]},{q:"6. Thiết bị?", a:["Trọn gói","Có sẵn","Cần tư vấn"]},{q:"7. Tính năng?", a:["Màu đêm","Báo động","Đàm thoại"]},{q:"8. Lưu trữ?", a:["1 Tuần","1 Tháng","Cloud"]},{q:"9. Ngân sách?", a:["Tiết kiệm","Vừa phải","Cao cấp"]},{q:"10. Tiến độ?", a:["Gấp","Bình thường","Khảo giá"]}] 
+        },
+        EN: { 
+            desc: "Professional installation, configuration and CCTV service",
+            brand: "Security system quote and requirements", 
+            sec1: "I. CUSTOMER INFO", sec2: "II. SYSTEM DETAILS", sec3: "III. NOTES", 
+            btn: "SAVE A4 PDF", name: "Name", phone: "Phone Number", 
+            other: "Write more...", err: "Enter Name and Phone!", 
+            qs: [{q:"1. Property?", a:["House","Office","Warehouse"]},{q:"2. Qty?", a:["1-4","5-10","> 10"]},{q:"3. Location?", a:["Indoor","Outdoor","Both"]},{q:"4. Status?", a:["New","Exist","Remodel"]},{q:"5. Link?", a:["Wired IP","Wi-Fi","Analog"]},{q:"6. Service?", a:["Full set","Own","Advice"]},{q:"7. Features?", a:["Night color","Alarm","Audio"]},{q:"8. Storage?", a:["1 Week","1 Month","Cloud"]},{q:"9. Budget?", a:["Economy","Standard","Premium"]},{q:"10. Time?", a:["Urgent","Monthly","Quote"]}] 
+        }
     };
 
-    function toggleExtra(show) {
-        document.getElementById('sub-lang-container').style.display = show ? 'grid' : 'none';
-    }
+    // Tự động gán EN cho các ngôn ngữ khác nếu chưa có dịch chi tiết
+    ["TR","CN","UK","DE"].forEach(l => { translations[l] = translations.EN; });
 
-    function setLang(lang) {
-        if (lang !== '#') {
-            if (["PL","EN","VN"].includes(lang)) toggleExtra(false);
-            updateUI(lang);
-        }
-    }
+    let curLang = 'PL';
 
-    function updateUI(lang) {
-        const d = translations[lang];
-        document.getElementById('txt-brand-sub').innerText = d.brandSub;
-        document.getElementById('txt-sec-1').innerText = d.sec1;
-        document.getElementById('txt-sec-2').innerText = d.sec2;
-        document.getElementById('txt-sec-3').innerText = d.sec3;
-        document.getElementById('txt-btn-pdf').innerText = d.btnPdf;
-        document.getElementById('cust_name').placeholder = d.name;
-        document.getElementById('cust_phone').placeholder = d.phone;
+    function toggleExtra(s) { document.getElementById('sub-lang-container').style.display = s ? 'grid' : 'none'; }
 
-        const container = document.getElementById('questions-container');
-        container.innerHTML = '';
-        d.questions.forEach((item, i) => {
-            container.innerHTML += `
-                <div class="question-block">
-                    <span class="question-text">${item.q}</span>
-                    <div class="options-row">
-                        ${item.a.map(opt => `<label class="opt-label"><input type="radio" name="q${i}" value="${opt}"> ${opt}</label>`).join('')}
-                    </div>
-                </div>`;
+    function setLang(l) {
+        curLang = l; const cur = translations[l];
+        document.getElementById('txt-brand-2').innerText = cur.desc;
+        document.getElementById('txt-brand-sub').innerText = cur.brand;
+        document.getElementById('txt-sec-1').innerText = cur.sec1;
+        document.getElementById('txt-sec-2').innerText = cur.sec2;
+        document.getElementById('txt-sec-3').innerText = cur.sec3;
+        document.getElementById('txt-btn-pdf').innerText = cur.btn;
+        document.getElementById('cust_name').placeholder = cur.name;
+        document.getElementById('cust_phone').placeholder = cur.phone;
+        
+        const c = document.getElementById('questions-container');
+        c.innerHTML = '';
+        cur.qs.forEach((item, i) => {
+            const row = document.createElement('div');
+            row.className = 'question-block';
+            row.innerHTML = `
+                <span class="question-text">${item.q}</span>
+                <div class="options-row">${item.a.map(opt => `<label class="opt-label"><input type="radio" name="q${i}" value="${opt}" onchange="markSelected(this, ${i})"> ${opt}</label>`).join('')}</div>
+                <input type="text" class="manual-input" id="q${i}_man" placeholder="${cur.other}" oninput="updateManualOutput(${i})">
+                <div class="manual-output" id="q${i}_out"></div>
+            `;
+            c.appendChild(row);
         });
     }
 
-    function validate() {
-        const n = document.getElementById('cust_name').value.trim();
-        const p = document.getElementById('cust_phone').value.replace(/[\s\-\+]/g, '');
-        const plRegex = /^(?:48)?(?:\d{9})$/;
-        if (!n || !plRegex.test(p)) { alert("Check Name/Phone (9 digits)!"); return false; }
-        let count = 0;
-        for(let i=0; i<10; i++) if(document.querySelector(`input[name="q${i}"]:checked`)) count++;
-        if (count < 6) { alert("Min. 6 answers!"); return false; }
-        return true;
+    function markSelected(input, i) {
+        input.closest('.options-row').querySelectorAll('.opt-label').forEach(l => l.classList.remove('selected'));
+        input.parentElement.classList.add('selected');
     }
 
-    function processAction(type) {
-        if (!validate()) return;
-        const name = document.getElementById('cust_name').value;
-        const phone = document.getElementById('cust_phone').value;
-        let text = `ALO SERWIS QUOTE\nName: ${name}\nTel: ${phone}\n\n`;
-        // Logic gửi tin/PDF tương tự các bản trước
-        if (type === 'pdf') { alert("PDF Generated!"); } 
-        else { window.open(`https://wa.me/${TARGET_PHONE}?text=${encodeURIComponent(text)}`, '_blank'); }
+    function updateManualOutput(i) {
+        const val = document.getElementById(`q${i}_man`).value;
+        document.getElementById(`q${i}_out`).innerText = val ? "(" + val + ")" : "";
+    }
+
+    function exportToPDF() {
+        if (!document.getElementById('cust_name').value || !document.getElementById('cust_phone').value) {
+            alert(translations[curLang].err); return;
+        }
+        window.print();
+    }
+
+    function sendSocial(type) {
+        const cur = translations[curLang];
+        let text = `ALOSERWIS\nName: ${document.getElementById('cust_name').value}\nTel: ${document.getElementById('cust_phone').value}\n\n`;
+        cur.qs.forEach((item, i) => {
+            const sel = document.querySelector(`input[name="q${i}"]:checked`);
+            const man = document.getElementById(`q${i}_man`).value.trim();
+            if(sel || man) text += `${item.q} ${sel?sel.value:''} ${man?'('+man+')':''}\n`;
+        });
+        window.open(`https://wa.me/${TARGET_PHONE}?text=${encodeURIComponent(text)}`, '_blank');
     }
 
     setLang('PL');
