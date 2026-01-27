@@ -6,10 +6,20 @@
     <title>ALOSERWIS - Báo giá</title>
     <style>
         :root { --primary: #2c3e50; --accent: #e67e22; --bg: #f4f7f9; --wa: #25d366; --viber: #7360f2; --zalo: #0068ff; --fb: #1877f2; }
-        * { box-sizing: border-box; font-family: "Segoe UI", Arial, sans-serif; }
+        * { box-sizing: border-box; font-family: "Segoe UI", Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background: var(--bg); margin: 0; padding: 10px; color: var(--primary); }
         .container { max-width: 500px; margin: auto; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
         
+        /* Modal Styles */
+        #modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
+        #modal-box { background: white; width: 100%; max-width: 320px; border-radius: 15px; text-align: center; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); animation: pop 0.3s ease; }
+        @keyframes pop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        #modal-text { font-size: 1rem; font-weight: bold; margin-bottom: 25px; color: #d35400; line-height: 1.5; }
+        .modal-btn-group { display: flex; flex-direction: column; gap: 10px; }
+        .m-btn { border: none; padding: 12px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
+        .btn-retry { background: var(--accent); color: white; }
+        .btn-close { background: #ecf0f1; color: #7f8c8d; }
+
         .header-brand { text-align: center; margin-bottom: 15px; border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
         .brand-1 { font-size: 1.6rem; font-weight: 900; color: var(--accent); margin: 0; letter-spacing: 1px; }
         .brand-2 { font-size: 0.8rem; font-weight: 600; margin: 4px 0; color: #444; }
@@ -29,29 +39,31 @@
         .question-block { margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid #eee; }
         .question-text { font-weight: bold; font-size: 0.8rem; display: block; margin-bottom: 5px; }
         .options-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
-        .row-4 { grid-template-columns: repeat(4, 1fr) !important; }
-        
         .opt-label { border: 1px solid #eee; padding: 8px 2px; border-radius: 6px; text-align: center; font-size: 0.65rem; cursor: pointer; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 45px; font-weight: 600; }
         .opt-label input { display: none; }
         .opt-label.selected { background: var(--primary); color: white; border-color: var(--primary); }
-        
         .manual-input { background: #fafafa; border: 1px dashed #ccc !important; font-size: 0.7rem !important; margin-top: 4px; height: 28px; }
         
         .hint-send { text-align: center; font-size: 0.75rem; font-weight: bold; color: var(--accent); margin-top: 20px; }
-
         .social-row { display: flex; justify-content: space-between; gap: 8px; margin-top: 10px; padding-bottom: 10px; }
-        .social-circle { flex: 1; max-width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 3px 8px rgba(0,0,0,0.15); border: none; cursor: pointer; transition: 0.3s; }
-        .social-circle img { width: 30px; height: 30px; object-fit: contain; }
-        .social-circle span { font-size: 1.6rem; }
-
-        .sc-mail { background: var(--accent); color: white; }
-        .sc-wa { background: var(--wa); }
-        .sc-viber { background: var(--viber); }
-        .sc-zalo { background: var(--zalo); }
-        .sc-fb { background: var(--fb); }
+        .social-circle { flex: 1; max-width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 3px 8px rgba(0,0,0,0.15); border: none; cursor: pointer; }
+        .social-circle img { width: 30px; height: 30px; }
+        
+        /* Tăng cỡ icon Email */
+        .sc-mail span { font-size: 1.8rem; line-height: 1; margin-top: -2px; }
     </style>
 </head>
 <body>
+
+<div id="modal-overlay">
+    <div id="modal-box">
+        <div id="modal-text"></div>
+        <div class="modal-btn-group">
+            <button id="btn-modal-retry" class="m-btn btn-retry" onclick="resetAnswers()"></button>
+            <button id="btn-modal-close" class="m-btn btn-close" onclick="closeModal()"></button>
+        </div>
+    </div>
+</div>
 
 <div class="container">
     <div class="lang-selector">
@@ -84,7 +96,7 @@
     <div id="questions-container"></div>
 
     <div class="section-title"><span id="txt-sec-3"></span></div>
-    <div class="options-row row-4">
+    <div class="options-row" style="grid-template-columns: repeat(4, 1fr);">
         <label class="opt-label"><input type="checkbox" name="extra" value="ALARM" onchange="toggleCheck(this)">🔔 ALARM</label>
         <label class="opt-label"><input type="checkbox" name="extra" value="DOMOFON" onchange="toggleCheck(this)">📞 DOMO</label>
         <label class="opt-label"><input type="checkbox" name="extra" value="SIEĆ" onchange="toggleCheck(this)">🌐 SIEĆ</label>
@@ -97,11 +109,11 @@
     <div class="hint-send" id="txt-hint-send"></div>
 
     <div class="social-row">
-        <button onclick="sendEmail()" class="social-circle sc-mail"><span>✉️</span></button>
-        <button onclick="sendSocial('wa')" class="social-circle sc-wa"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"></button>
-        <button onclick="sendSocial('viber')" class="social-circle sc-viber"><img src="https://cdn.worldvectorlogo.com/logos/viber-3.svg"></button>
-        <button onclick="sendSocial('zalo')" class="social-circle sc-zalo"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"></button>
-        <a href="https://m.me/dienthoaibalan" target="_blank" class="social-circle sc-fb"><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg"></a>
+        <button onclick="sendEmail()" class="social-circle sc-mail" style="background:var(--accent); color:white"><span>✉️</span></button>
+        <button onclick="sendSocial('wa')" class="social-circle" style="background:var(--wa)"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"></button>
+        <button onclick="sendSocial('viber')" class="social-circle" style="background:var(--viber)"><img src="https://cdn.worldvectorlogo.com/logos/viber-3.svg"></button>
+        <button onclick="sendSocial('zalo')" class="social-circle" style="background:var(--zalo)"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"></button>
+        <a href="https://m.me/dienthoaibalan" target="_blank" class="social-circle" style="background:var(--fb)"><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg"></a>
     </div>
 </div>
 
@@ -111,31 +123,49 @@
     
     const translations = {
         PL: { 
-            desc: "MONTAŻ I SERWIS MONITORINGU",
-            brand: "Wycena systemów monitoringu CCTV i innych",
-            note: "(im więcej informacji podasz, tym dokładniejszą wycenę otrzymasz)",
+            desc: "MONTAŻ I SERWIS MONITORINGU", brand: "Wycena systemów CCTV i innych", note: "(im więcej informacji podasz, tym dokładniejszą wycenę otrzymasz)",
             sec1: "I. DANE KLIENTA", sec2: "II. SZCZEGÓŁY SYSTEMU", sec3: "III. INNE SYSTEMY?", sec4: "IV. UWAGI",
-            name: "Imię và Nazwisko", phone: "Numer telefonu", addr: "Adres montażu", other: "Inne...", 
-            err: "Wypełnij Name, Tel và Adres!", errQs: "Wybierz min. 5 opcji (50%)!",
-            hint: "( Wybierz formę otrzymania wyceny )",
-            qs: [{q:"1. Typ obiektu?", a:["Dom","Biuro","Magazyn"]},{q:"2. Liczba kamer?", a:["1-4","5-10","> 10"]},{q:"3. Lokalizacja?", a:["Wewnątrz","Zewnątrz","Obie"]},{q:"4. Stan?", a:["Nowy","Istniejący","Remont"]},{q:"5. Połączenie?", a:["Kabel IP","Wi-Fi","Analog"]},{q:"6. Sprzęt?", a:["Z montażem","Własny","Porada"]},{q:"7. Funkcje?", a:["Noc-Kolor","Alarm","Audio"]},{q:"8. Dysk?", a:["1 Tydz","1 Mies","Cloud"]},{q:"9. Budżet?", a:["Oszczędny","Standard","Premium"]},{q:"10. Termin?", a:["Pilne","Miesiąc","Wycena"]}]
+            name: "Imię i Nazwisko", phone: "Numer telefonu", addr: "Adres montażu", other: "Inne...", 
+            err: "Wypełnij Imię, Tel i Adres!", errQs: "Wybierz przynajmniej 5 opcji!",
+            hint: "(Wybierz formę otrzymania wyceny)", mRetry: "Wyczyść wybór", mOk: "Zamknij",
+            qs: [{q:"1. Typ obiektu?", a:["Dom","Biuro","Magazyn"]},{q:"2. Liczba kamer?", a:["1-4","5-10","> 10"]},{q:"3. Lokalizacja?", a:["Wewnątrz","Zewnątrz","Obie"]},{q:"4. Stan?", a:["Nowy","Istniejący","Remont"]},{q:"5. Połączenie?", a:["Kabel IP","Wi-Fi","Analog"]},{q:"6. Sprzęt?", a:["Z montażem","Własny","Porada"]},{q:"7. Funkcje?", a:["Noc-Kolor","Alarm","Audio"]},{q:"8. Dysk?", a:["1 Tydz","1 Mies","Cloud"]},{q:"9. Budżet?", a:["Ekonomiczny","Standard","Premium"]},{q:"10. Termin?", a:["Pilne","Miesiąc","Wycena"]}]
         },
         VN: { 
-            desc: "LẮP ĐẶT & BẢO TRÌ CAMERA",
-            brand: "Báo giá hệ thống Camera giám sát cùng các hệ thống khác",
-            note: "(khách hàng cung cấp càng đầy đủ thông tin thì sẽ càng có Báo giá chính xác nhất)",
+            desc: "LẮP ĐẶT & BẢO TRÌ CAMERA", brand: "Báo giá hệ thống Camera và các hệ thống khác", note: "(Cung cấp đầy đủ thông tin để nhận báo giá chính xác nhất)",
             sec1: "I. THÔNG TIN KHÁCH HÀNG", sec2: "II. CHI TIẾT HỆ THỐNG", sec3: "III. HỆ THỐNG KHÁC?", sec4: "IV. GHI CHÚ",
-            name: "Họ và Tên", phone: "Số điện thoại", addr: "Địa chỉ lắp đặt", other: "Mô tả thêm...", 
-            err: "Vui lòng nhập Tên, SĐT và Địa chỉ!", errQs: "Vui lòng trả lời ít nhất 5 câu hỏi (50%)!",
-            hint: "( Lựa chọn hình thức nhận Báo giá )",
+            name: "Họ và Tên", phone: "Số điện thoại", addr: "Địa chỉ lắp đặt", other: "Khác...", 
+            err: "Vui lòng nhập Tên, SĐT và Địa chỉ!", errQs: "Vui lòng trả lời ít nhất 5 câu hỏi!",
+            hint: "(Lựa chọn hình thức nhận Báo giá)", mRetry: "Lựa chọn lại", mOk: "Đóng",
             qs: [{q:"1. Công trình?", a:["Nhà riêng","Văn phòng","Kho"]},{q:"2. Số lượng?", a:["1-4 mắt","5-10 mắt",">10 mắt"]},{q:"3. Vị trí?", a:["Trong nhà","Ngoài trời","Cả hai"]},{q:"4. Hạ tầng?", a:["Mới","Đã ở","Thay cũ"]},{q:"5. Kết nối?", a:["Dây IP","Wifi","Analog"]},{q:"6. Thiết bị?", a:["Trọn gói","Có sẵn","Cần tư vấn"]},{q:"7. Tính năng?", a:["Màu đêm","Báo động","Đàm thoại"]},{q:"8. Lưu trữ?", a:["1 Tuần","1 Tháng","Cloud"]},{q:"9. Ngân sách?", a:["Tiết kiệm","Vừa phải","Cao cấp"]},{q:"10. Tiến độ?", a:["Gấp","Bình thường","Khảo giá"]}]
+        },
+        EN: { 
+            desc: "CCTV INSTALLATION & SERVICE", brand: "CCTV & Security Systems Quote", note: "(The more info you provide, the more accurate quote we can give)",
+            sec1: "I. CUSTOMER DETAILS", sec2: "II. SYSTEM DETAILS", sec3: "III. OTHER SYSTEMS?", sec4: "IV. NOTES",
+            name: "Full Name", phone: "Phone Number", addr: "Installation Address", other: "Other...", 
+            err: "Please fill Name, Phone and Address!", errQs: "Please answer at least 5 questions!",
+            hint: "(Choose how you want to receive the quote)", mRetry: "Reset choices", mOk: "Close",
+            qs: [{q:"1. Building type?", a:["House","Office","Warehouse"]},{q:"2. Number of cameras?", a:["1-4","5-10","> 10"]},{q:"3. Location?", a:["Indoor","Outdoor","Both"]},{q:"4. Status?", a:["New","Existing","Renovation"]},{q:"5. Connection?", a:["IP Cable","Wi-Fi","Analog"]},{q:"6. Equipment?", a:["With installation","My own","Advice needed"]},{q:"7. Features?", a:["Night Color","Alarm","Audio"]},{q:"8. Storage?", a:["1 Week","1 Month","Cloud"]},{q:"9. Budget?", a:["Economy","Standard","Premium"]},{q:"10. Timeline?", a:["Urgent","1 Month","Just pricing"]}]
         }
     };
 
-    translations.EN = { ...translations.PL, desc: "CCTV INSTALLATION & SERVICE", brand: "Security system quote", name: "Full Name", phone: "Phone", addr: "Address", err: "Fill info!", errQs: "Answer at least 5 questions!", hint: "( Choose how to receive the quote )" };
     ["TR","CN","UK","DE"].forEach(l => { translations[l] = translations.EN; });
 
     let curLang = 'PL';
+
+    function openModal(msg) {
+        document.getElementById('modal-text').innerText = msg;
+        document.getElementById('modal-overlay').style.display = 'flex';
+    }
+    function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; }
+
+    function resetAnswers() {
+        document.querySelectorAll('input[type="radio"]:not([name="L"])').forEach(r => { r.checked = false; r.dataset.wasChecked = "false"; });
+        document.querySelectorAll('input[name="extra"]').forEach(c => c.checked = false);
+        document.querySelectorAll('.manual-input, #final_note').forEach(i => i.value = '');
+        document.querySelectorAll('.opt-label').forEach(l => l.classList.remove('selected'));
+        closeModal();
+    }
+
     function toggleExtra(s) { document.getElementById('sub-lang-container').style.display = s ? 'grid' : 'none'; }
 
     function setLang(l) {
@@ -148,6 +178,8 @@
         document.getElementById('txt-sec-3').innerText = cur.sec3;
         document.getElementById('txt-sec-4').innerText = cur.sec4;
         document.getElementById('txt-hint-send').innerText = cur.hint;
+        document.getElementById('btn-modal-retry').innerText = cur.mRetry;
+        document.getElementById('btn-modal-close').innerText = cur.mOk;
         document.getElementById('cust_name').placeholder = cur.name;
         document.getElementById('cust_phone').placeholder = cur.phone;
         document.getElementById('cust_address').placeholder = cur.addr;
@@ -157,42 +189,48 @@
         cur.qs.forEach((item, i) => {
             const row = document.createElement('div');
             row.className = 'question-block';
-            row.innerHTML = `<span class="question-text">${item.q}</span><div class="options-row">${item.a.map(opt => `<label class="opt-label"><input type="radio" name="q${i}" value="${opt}" onchange="markSel(this)"> ${opt}</label>`).join('')}</div><input type="text" class="manual-input" id="q${i}_man" placeholder="${cur.other}">`;
+            row.innerHTML = `<span class="question-text">${item.q}</span><div class="options-row">${item.a.map(opt => `<label class="opt-label"><input type="radio" name="q${i}" value="${opt}" onclick="handleRadioClick(this)"> ${opt}</label>`).join('')}</div><input type="text" class="manual-input" id="q${i}_man" placeholder="${cur.other}">`;
             c.appendChild(row);
         });
     }
 
-    function markSel(el) { el.closest('.options-row').querySelectorAll('.opt-label').forEach(l => l.classList.remove('selected')); el.parentElement.classList.add('selected'); }
+    function handleRadioClick(el) {
+        const isSelected = el.dataset.wasChecked === "true";
+        document.querySelectorAll(`input[name="${el.name}"]`).forEach(r => {
+            r.checked = false; r.dataset.wasChecked = "false";
+            r.parentElement.classList.remove('selected');
+        });
+        if (!isSelected) {
+            el.checked = true; el.dataset.wasChecked = "true";
+            el.parentElement.classList.add('selected');
+        }
+    }
+
     function toggleCheck(el) { el.parentElement.classList.toggle('selected', el.checked); }
 
     function buildContent() {
         const name = document.getElementById('cust_name').value;
         const phone = document.getElementById('cust_phone').value;
         const addr = document.getElementById('cust_address').value;
-        if (!name || !phone || !addr) { alert(translations[curLang].err); return null; }
+        if (!name || !phone || !addr) { openModal(translations[curLang].err); return null; }
 
         let answered = 0;
-        let text = `ALOSERWIS - BÁO GIÁ\nKH: ${name}\nSĐT: ${phone}\nĐC: ${addr}\n\n`;
-        
+        let text = `ALOSERWIS - QUOTE\nName: ${name}\nTel: ${phone}\nAddr: ${addr}\n\n`;
         translations[curLang].qs.forEach((item, i) => {
             const sel = document.querySelector(`input[name="q${i}"]:checked`);
             const man = document.getElementById(`q${i}_man`).value.trim();
-            if(sel || man) {
-                text += `${item.q} ${sel?sel.value:''} ${man?'('+man+')':''}\n`;
-                answered++;
-            }
+            if(sel || man) { text += `${item.q} ${sel?sel.value:''} ${man?'('+man+')':''}\n`; answered++; }
         });
 
-        if (answered < 5) { alert(translations[curLang].errQs); return null; }
-
+        if (answered < 5) { openModal(translations[curLang].errQs); return null; }
         const extras = Array.from(document.querySelectorAll('input[name="extra"]:checked')).map(el => el.value);
-        if(extras.length > 0) text += `\nHệ thống khác: ${extras.join(', ')}\n`;
+        if(extras.length > 0) text += `\nExtras: ${extras.join(', ')}\n`;
         const note = document.getElementById('final_note').value.trim();
-        if(note) text += `\nGhi chú: ${note}`;
+        if(note) text += `\nNote: ${note}`;
         return { name, text };
     }
 
-    function sendEmail() { const d = buildContent(); if(!d) return; window.location.href = `mailto:${TARGET_EMAIL}?subject=Bao gia - ${d.name}&body=${encodeURIComponent(d.text)}`; }
+    function sendEmail() { const d = buildContent(); if(!d) return; window.location.href = `mailto:${TARGET_EMAIL}?subject=Quote Request - ${d.name}&body=${encodeURIComponent(d.text)}`; }
     function sendSocial(t) { const d = buildContent(); if(!d) return; const enc = encodeURIComponent(d.text); if(t==='wa') window.open(`https://wa.me/${TARGET_PHONE}?text=${enc}`); if(t==='viber') window.open(`viber://chat?number=${TARGET_PHONE}&draft=${enc}`); if(t==='zalo') window.open(`https://zalo.me/${TARGET_PHONE}`); }
 
     setLang('PL');
