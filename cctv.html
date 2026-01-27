@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ALO SERWIS - Monitoringu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root { --primary: #2c3e50; --accent: #e67e22; --success: #27ae60; --error: #e74c3c; --viber: #7360f2; --wa: #25d366; --zalo: #0068ff; --fb: #1877f2; }
+        * { box-sizing: border-box; font-family: -apple-system, sans-serif; }
+        body { background: #f0f2f5; margin: 0; padding: 10px; line-height: 1.5; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        
+        .header-brand { text-align: center; margin-bottom: 20px; border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
+        .brand-name { font-size: 1.5rem; font-weight: bold; color: var(--accent); margin: 0; }
+        .brand-sub { font-size: 0.8rem; color: #666; margin: 5px 0; }
+
+        .section-title { background: #f8f9fa; padding: 8px 12px; font-weight: bold; margin: 25px 0 10px; border-left: 4px solid var(--accent); font-size: 0.85rem; }
+        .required { color: var(--error); }
+
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; margin-top: 5px; outline: none; }
+        input.error { border-color: var(--error) !important; background: #fff6f5; }
+
+        /* Language Selector at TOP */
+        .lang-selector { display: flex; gap: 8px; margin-bottom: 20px; }
+        .lang-item { flex: 1; border: 1px solid #ddd; padding: 12px 5px; border-radius: 8px; text-align: center; cursor: pointer; font-size: 0.9rem; background: #fff; font-weight: bold; transition: 0.3s; }
+        .lang-item input { display: none; }
+        .lang-item:has(input:checked) { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+        /* Questions */
+        .question-block { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
+        .question-text { font-weight: bold; font-size: 0.95rem; color: var(--primary); display: block; margin-bottom: 10px; }
+        .options-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .opt-label { border: 1px solid #ddd; padding: 12px 5px; border-radius: 8px; text-align: center; font-size: 0.7rem; cursor: pointer; background: #fff; display: flex; align-items: center; justify-content: center; min-height: 45px; }
+        .opt-label input { display: none; }
+        .opt-label:has(input:checked) { background: #34495e; color: white; border-color: #34495e; }
+        
+        .manual-input { background: #fffcf0; border: 1px dashed #f39c12 !important; margin-top: 8px; font-size: 0.85rem !important; }
+
+        /* Buttons */
+        .btn-main { background: var(--success); color: white; border: none; width: 100%; padding: 16px; font-size: 1rem; border-radius: 50px; cursor: pointer; font-weight: bold; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn-social { border: none; color: white; padding: 12px; border-radius: 8px; font-size: 0.85rem; font-weight: bold; cursor: pointer; text-decoration: none; text-align: center; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .viber { background: var(--viber); }
+        .wa { background: var(--wa); }
+        .zalo { background: var(--zalo); }
+        .fb { background: var(--fb); }
+    </style>
+</head>
+<body>
+
+<div class="container" id="main-form">
+    <div class="lang-selector">
+        <label class="lang-item"><input type="radio" name="lang" value="PL" checked onchange="changeLang('PL')"> 🇵🇱 PL</label>
+        <label class="lang-item"><input type="radio" name="lang" value="EN" onchange="changeLang('EN')"> 🇺🇸 EN</label>
+        <label class="lang-item"><input type="radio" name="lang" value="VN" onchange="changeLang('VN')"> 🇻🇳 VN</label>
+        <label class="lang-item"><input type="radio" name="lang" value="#" onchange="changeLang('#')"> 🌐 #</label>
+    </div>
+
+    <div class="header-brand">
+        <p class="brand-name">ALO SERWIS</p>
+        <p id="txt-brand-sub" class="brand-sub">aloserwis.com | Profesionalne Systemy Monitoringu</p>
+    </div>
+
+    <div class="section-title"><span id="txt-sec-1">I. DANE KLIENTA</span> <span class="required">*</span></div>
+    <input type="text" id="cust_name" placeholder="Imię và Tên (Wymagane)">
+    <input type="text" id="cust_phone" placeholder="Numer telefonu PL (9 cyfr)">
+    
+    <div class="section-title"><span id="txt-sec-2">II. SZCZEGÓŁY (Min. 6 odpowiedzi)</span></div>
+    <div id="questions-container"></div>
+
+    <div class="section-title"><span id="txt-sec-3">III. DODATKOWE UWAGI</span></div>
+    <textarea id="final_note" rows="3" placeholder="Inne wymagania..."></textarea>
+
+    <div style="margin-top: 30px;">
+        <button class="btn-main" id="txt-btn-pdf" onclick="processAction('pdf')">POBIERZ PDF</button>
+        <div class="social-grid">
+            <a class="btn-social viber" onclick="processAction('viber')">🟣 Viber</a>
+            <a class="btn-social wa" onclick="processAction('wa')">🟢 WhatsApp</a>
+            <a class="btn-social zalo" onclick="processAction('zalo')">🔵 Zalo</a>
+            <a href="https://m.me/dienthoaibalan" target="_blank" class="btn-social fb">🔵 Messenger</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    const TARGET_PHONE = "48888666679";
+    
+    const translations = {
+        PL: {
+            brandSub: "aloserwis.com | Profesionalne Systemy Monitoringu",
+            sec1: "I. DANE KLIENTA",
+            sec2: "II. SZCZEGÓŁY (Min. 6 odpowiedzi)",
+            sec3: "III. DODATKOWE UWAGI",
+            btnPdf: "POBIERZ PDF",
+            namePl: "Imię i Nazwisko (Wymagane)",
+            phonePl: "Numer telefonu PL (9 cyfr)",
+            notePl: "Inne wymagania...",
+            manualPl: "Lub wpisz tutaj...",
+            errInfo: "Proszę podać Imię i prawidłowy numer telefonu w Polsce!",
+            errCount: "Proszê odpowiedzieć na co najmniej 6 pytań.",
+            questions: [
+                { q: "1. Typ obiektu?", a: ["Dom", "Biuro", "Magazyn"] },
+                { q: "2. Liczba kamer?", a: ["1-4", "5-10", "> 10"] },
+                { q: "3. Lokalizacja?", a: ["Wewnątrz", "Zewnątrz", "Obie"] },
+                { q: "4. Stan budynku?", a: ["Nowy", "Używany", "Remont"] },
+                { q: "5. Połączenie?", a: ["Kabel IP", "Wi-Fi", "Analog"] },
+                { q: "6. Sprzęt?", a: ["Od firmy", "Mam własny", "Doradztwo"] },
+                { q: "7. Funkcje?", a: ["Kolor w nocy", "Alarm/Syrena", "Audio"] },
+                { q: "8. Archiwizacja?", a: ["1 Tydzień", "1 Miesiąc", "Cloud"] },
+                { q: "9. Budżet?", a: ["Oszczędny", "Standard", "Premium"] },
+                { q: "10. Termin?", a: ["Pilne", "W tym m-cu", "Wycena"] }
+            ]
+        },
+        VN: {
+            brandSub: "aloserwis.com | Hệ thống giám sát chuyên nghiệp",
+            sec1: "I. THÔNG TIN KHÁCH HÀNG",
+            sec2: "II. CHI TIẾT (Ít nhất 6 câu trả lời)",
+            sec3: "III. GHI CHÚ BỔ SUNG",
+            btnPdf: "TẢI FILE PDF",
+            namePl: "Họ và Tên (Bắt buộc)",
+            phonePl: "Số điện thoại Ba Lan (9 số)",
+            notePl: "Yêu cầu khác...",
+            manualPl: "Hoặc tự viết vào đây...",
+            errInfo: "Vui lòng nhập Tên và SĐT Ba Lan hợp lệ!",
+            errCount: "Vui lòng trả lời ít nhất 6 câu hỏi.",
+            questions: [
+                { q: "1. Loại hình công trình?", a: ["Nhà riêng", "Văn phòng", "Kho xưởng"] },
+                { q: "2. Số lượng camera?", a: ["1-4 mắt", "5-10 mắt", "> 10 mắt"] },
+                { q: "3. Vị trí lắp đặt?", a: ["Trong nhà", "Ngoài trời", "Cả hai"] },
+                { q: "4. Trạng thái hạ tầng?", a: ["Mới xây", "Đã ở", "Thay cũ"] },
+                { q: "5. Công nghệ kết nối?", a: ["Có dây IP", "Wifi", "Analog"] },
+                { q: "6. Nguồn thiết bị?", a: ["Thầu cung cấp", "Có sẵn", "Cần tư vấn"] },
+                { q: "7. Tính năng ưu tiên?", a: ["Màu đêm", "Báo động", "Đàm thoại"] },
+                { q: "8. Thời gian lưu trữ?", a: ["1 Tuần", "1 Tháng", "Cloud"] },
+                { q: "9. Ngân sách dự chi?", a: ["Tiết kiệm", "Cân bằng", "Cao cấp"] },
+                { q: "10. Mức độ cần gấp?", a: ["Ngay lập tức", "Trong tuần", "Khảo giá"] }
+            ]
+        },
+        EN: {
+            brandSub: "aloserwis.com | Professional Security Systems",
+            sec1: "I. CUSTOMER INFO",
+            sec2: "II. DETAILS (Min. 6 answers)",
+            sec3: "III. ADDITIONAL NOTES",
+            btnPdf: "DOWNLOAD PDF",
+            namePl: "Full Name (Required)",
+            phonePl: "Poland Phone No. (9 digits)",
+            notePl: "Other requirements...",
+            manualPl: "Or type here...",
+            errInfo: "Please provide Name and valid Polish phone number!",
+            errCount: "Please answer at least 6 questions.",
+            questions: [
+                { q: "1. Building type?", a: ["House", "Office", "Warehouse"] },
+                { q: "2. Camera quantity?", a: ["1-4", "5-10", "> 10"] },
+                { q: "3. Location?", a: ["Indoor", "Outdoor", "Both"] },
+                { q: "4. Infrastructure?", a: ["New", "Existing", "Replace"] },
+                { q: "5. Connection?", a: ["Wired IP", "Wi-Fi", "Analog"] },
+                { q: "6. Equipment?", a: ["Full service", "Own hardware", "Advice"] },
+                { q: "7. Features?", a: ["Night color", "Alarm", "2-way Audio"] },
+                { q: "8. Storage?", a: ["1 Week", "1 Month", "Cloud"] },
+                { q: "9. Budget?", a: ["Economy", "Standard", "Premium"] },
+                { q: "10. Urgency?", a: ["Urgent", "This month", "Pricing"] }
+            ]
+        }
+    };
+
+    // Mặc định PL
+    let currentData = translations.PL;
+
+    function changeLang(lang) {
+        currentData = translations[lang] || translations.EN;
+        if(lang === '#') currentData = translations.EN; // Dự phòng cho #
+
+        document.getElementById('txt-brand-sub').innerText = currentData.brandSub;
+        document.getElementById('txt-sec-1').innerText = currentData.sec1;
+        document.getElementById('txt-sec-2').innerText = currentData.sec2;
+        document.getElementById('txt-sec-3').innerText = currentData.sec3;
+        document.getElementById('txt-btn-pdf').innerText = currentData.btnPdf;
+        document.getElementById('cust_name').placeholder = currentData.namePl;
+        document.getElementById('cust_phone').placeholder = currentData.phonePl;
+        document.getElementById('final_note').placeholder = currentData.notePl;
+        
+        renderQuestions();
+    }
+
+    function renderQuestions() {
+        const container = document.getElementById('questions-container');
+        container.innerHTML = '';
+        currentData.questions.forEach((item, index) => {
+            container.innerHTML += `
+                <div class="question-block">
+                    <span class="question-text">${item.q}</span>
+                    <div class="options-row">
+                        ${item.a.map(opt => `<label class="opt-label"><input type="radio" name="q${index}" value="${opt}"> ${opt}</label>`).join('')}
+                    </div>
+                    <input type="text" id="q${index}_manual" class="manual-input" placeholder="${currentData.manualPl}">
+                </div>`;
+        });
+    }
+
+    function validate() {
+        const name = document.getElementById('cust_name').value.trim();
+        const phone = document.getElementById('cust_phone').value.replace(/[\s\-\+]/g, '');
+        const plRegex = /^(?:48)?(?:\d{9})$/;
+        
+        if (!name || !plRegex.test(phone)) {
+            alert(currentData.errInfo);
+            return false;
+        }
+
+        let answeredCount = 0;
+        currentData.questions.forEach((_, index) => {
+            if (document.querySelector(`input[name="q${index}"]:checked`) || document.getElementById(`q${index}_manual`).value.trim()) answeredCount++;
+        });
+
+        if (answeredCount < 6) {
+            alert(currentData.errCount);
+            return false;
+        }
+        return true;
+    }
+
+    function processAction(type) {
+        if (!validate()) return;
+        if (type === 'pdf') generatePDF();
+        else sendSocial(type);
+    }
+
+    function generatePDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        let y = 15;
+        doc.setFontSize(18); doc.setTextColor(230, 126, 34);
+        doc.text("ALO SERWIS - aloserwis.com", 105, y, {align:"center"});
+        y += 20; doc.setFontSize(10); doc.setTextColor(0);
+        doc.text(`Klient: ${document.getElementById('cust_name').value}`, 20, y);
+        y += 7; doc.text(`Tel: ${document.getElementById('cust_phone').value}`, 20, y);
+        y += 15;
+        currentData.questions.forEach((item, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const manual = document.getElementById(`q${index}_manual`).value;
+            let ans = (selected?selected.value:'') + (manual?" ("+manual+")":"");
+            if(ans) {
+                doc.text(`${item.q} -> ${ans}`, 20, y);
+                y += 8;
+            }
+        });
+        doc.save("Wycena-ALO-SERWIS.pdf");
+    }
+
+    function sendSocial(platform) {
+        let text = `WYCENA CAMERA - ALO SERWIS\n------------------\n`;
+        text += `Klient: ${document.getElementById('cust_name').value}\n`;
+        text += `Tel: ${document.getElementById('cust_phone').value}\n\n`;
+        currentData.questions.forEach((item, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const manual = document.getElementById(`q${index}_manual`).value;
+            if(selected || manual) text += `${item.q}: ${(selected?selected.value:'')} ${manual?'('+manual+')':''}\n`;
+        });
+        const msg = encodeURIComponent(text);
+        if(platform === 'viber') window.open(`viber://chat?number=+${TARGET_PHONE}&draft=${msg}`, '_blank');
+        if(platform === 'wa') window.open(`https://wa.me/${TARGET_PHONE}?text=${msg}`, '_blank');
+        if(platform === 'zalo') window.open(`https://zalo.me/${TARGET_PHONE}`, '_blank');
+    }
+
+    // Khởi tạo lần đầu
+    changeLang('PL');
+</script>
+</body>
+</html>
