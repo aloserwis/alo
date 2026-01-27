@@ -5,56 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ALOSERWIS - Báo giá</title>
     <style>
-        :root { --primary: #2c3e50; --accent: #e67e22; --success: #27ae60; --viber: #7360f2; --wa: #25d366; --zalo: #0068ff; }
+        :root { --primary: #2c3e50; --accent: #e67e22; --bg: #f4f7f9; --wa: #25d366; --viber: #7360f2; --zalo: #0068ff; --fb: #1877f2; }
         * { box-sizing: border-box; font-family: "Segoe UI", Arial, sans-serif; }
-        body { background: #f0f2f5; margin: 0; padding: 10px; }
-        .container { max-width: 600px; margin: auto; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        body { background: var(--bg); margin: 0; padding: 10px; color: var(--primary); }
+        .container { max-width: 500px; margin: auto; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
         
-        @media print {
-            @page { size: A4; margin: 0.6cm; }
-            body { background: white; padding: 0; }
-            .container { box-shadow: none; max-width: 100%; border: none; padding: 0; }
-            .lang-selector, #sub-lang-container, .btn-main, .social-grid, .required, .manual-input, .opt-label:not(.selected) { display: none !important; }
-            .header-brand { margin-bottom: 5px; border-bottom: 1.5pt solid var(--accent); padding-bottom: 5px; text-align: center; }
-            .brand-1 { font-size: 18pt !important; margin: 0; font-weight: bold; color: var(--accent); }
-            .brand-2 { font-size: 10pt !important; margin: 2px 0; color: #444; }
-            .brand-sub { font-size: 9pt !important; color: var(--primary) !important; margin: 3px 0 0; font-weight: bold; }
-            .section-title { background: #f2f2f2 !important; color: black !important; margin: 8px 0 3px; padding: 4px; font-size: 9pt; border-left: 3px solid var(--accent); }
-            .question-block { margin-bottom: 4px; border-bottom: 0.5pt solid #eee; padding-bottom: 2px; page-break-inside: avoid; }
-            .question-text { font-size: 8.5pt; font-weight: bold; }
-            .opt-label.selected { display: block !important; border: none; font-weight: bold; padding: 0; font-size: 8.5pt; color: #000; }
-            .manual-output { display: block !important; font-size: 8.5pt; font-style: italic; color: #444; }
-            input[type="text"], textarea { border: none !important; font-size: 9.5pt; padding: 1px 0; background: none !important; }
-        }
-
         .header-brand { text-align: center; margin-bottom: 15px; border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
-        .brand-1 { font-size: 1.6rem; font-weight: bold; color: var(--accent); margin: 0; letter-spacing: 2px; }
-        .brand-2 { font-size: 0.85rem; color: #444; margin: 2px 0; font-weight: 500; }
-        .brand-sub { font-size: 0.85rem; color: var(--primary); margin: 5px 0 0; font-weight: bold; font-style: italic; }
+        .brand-1 { font-size: 1.6rem; font-weight: 900; color: var(--accent); margin: 0; letter-spacing: 1px; }
+        .brand-2 { font-size: 0.8rem; font-weight: 600; margin: 4px 0; color: #444; }
+        .brand-sub { font-size: 0.8rem; color: var(--primary); font-weight: bold; font-style: italic; margin-top: 5px; }
+        .brand-3 { font-size: 0.7rem; color: #666; font-style: italic; margin-top: 5px; line-height: 1.3; }
 
         .lang-selector { display: flex; gap: 4px; margin-bottom: 10px; }
         .lang-item { flex: 1; border: 1px solid #ddd; padding: 8px 2px; border-radius: 6px; text-align: center; cursor: pointer; font-size: 0.75rem; background: #fff; font-weight: bold; }
         .lang-item input { display: none; }
-        .lang-item:has(input:checked) { background: var(--accent); color: #fff; border-color: var(--accent); }
-        #sub-lang-container { display: none; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-bottom: 10px; padding: 8px; background: #fff8f0; border-radius: 8px; border: 1px dashed var(--accent); }
-        .sub-lang-item { border: 1px solid #ccc; padding: 6px 2px; border-radius: 5px; text-align: center; cursor: pointer; font-size: 0.7rem; background: #fff; font-weight: bold; }
-        .sub-lang-item input { display: none; }
-        .sub-lang-item:has(input:checked) { background: #34495e; color: #fff; }
+        .lang-item:has(input:checked) { background: var(--primary); color: #fff; }
 
-        .section-title { background: #f8f9fa; padding: 6px 10px; font-weight: bold; margin: 12px 0 6px; border-left: 4px solid var(--accent); font-size: 0.8rem; }
-        input[type="text"], textarea { width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; margin-top: 4px; outline: none; font-size: 14px; }
+        #sub-lang-container { display: none; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-bottom: 10px; padding: 8px; background: #fff8f0; border-radius: 8px; border: 1px dashed var(--accent); }
+
+        .section-title { background: #fdf2e9; padding: 6px 10px; font-weight: bold; margin: 12px 0 8px; border-left: 4px solid var(--accent); font-size: 0.75rem; }
+        input[type="text"], textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-top: 4px; outline: none; font-size: 14px; }
+        
         .question-block { margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid #eee; }
-        .question-text { font-weight: bold; font-size: 0.8rem; color: var(--primary); display: block; margin-bottom: 5px; }
+        .question-text { font-weight: bold; font-size: 0.8rem; display: block; margin-bottom: 5px; }
         .options-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
-        .opt-label { border: 1px solid #ddd; padding: 6px 2px; border-radius: 6px; text-align: center; font-size: 0.65rem; cursor: pointer; background: #fff; min-height: 35px; display: flex; align-items: center; justify-content: center; }
+        .row-4 { grid-template-columns: repeat(4, 1fr) !important; }
+        
+        .opt-label { border: 1px solid #eee; padding: 8px 2px; border-radius: 6px; text-align: center; font-size: 0.65rem; cursor: pointer; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 45px; font-weight: 600; }
         .opt-label input { display: none; }
-        .opt-label.selected { background: #34495e; color: white; border-color: #34495e; }
-        .manual-input { background: #fcfcfc; border: 1px dashed #bbb !important; font-size: 0.75rem !important; margin-top: 5px; height: 30px; }
-        .manual-output { display: none; }
-        .btn-main { background: var(--success); color: white; border: none; width: 100%; padding: 14px; font-size: 0.95rem; border-radius: 50px; cursor: pointer; font-weight: bold; margin: 15px 0; }
-        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-        .btn-social { color: white; padding: 8px; border-radius: 6px; font-size: 0.75rem; font-weight: bold; text-decoration: none; text-align: center; cursor: pointer; }
-        .viber { background: var(--viber); } .wa { background: var(--wa); } .zalo { background: var(--zalo); } .fb { background: var(--fb); }
+        .opt-label.selected { background: var(--primary); color: white; border-color: var(--primary); }
+        
+        .manual-input { background: #fafafa; border: 1px dashed #ccc !important; font-size: 0.7rem !important; margin-top: 4px; height: 28px; }
+        
+        .hint-send { text-align: center; font-size: 0.75rem; font-weight: bold; color: var(--accent); margin-top: 20px; }
+
+        .social-row { display: flex; justify-content: space-between; gap: 8px; margin-top: 10px; padding-bottom: 10px; }
+        .social-circle { flex: 1; max-width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 3px 8px rgba(0,0,0,0.15); border: none; cursor: pointer; transition: 0.3s; }
+        .social-circle img { width: 30px; height: 30px; object-fit: contain; }
+        .social-circle span { font-size: 1.6rem; }
+
+        .sc-mail { background: var(--accent); color: white; }
+        .sc-wa { background: var(--wa); }
+        .sc-viber { background: var(--viber); }
+        .sc-zalo { background: var(--zalo); }
+        .sc-fb { background: var(--fb); }
     </style>
 </head>
 <body>
@@ -64,131 +58,142 @@
         <label class="lang-item"><input type="radio" name="L" value="PL" checked onchange="toggleExtra(false); setLang('PL')"> 🇵🇱 PL</label>
         <label class="lang-item"><input type="radio" name="L" value="EN" onchange="toggleExtra(false); setLang('EN')"> 🇺🇸 EN</label>
         <label class="lang-item"><input type="radio" name="L" value="VN" onchange="toggleExtra(false); setLang('VN')"> 🇻🇳 VN</label>
-        <label class="lang-item"><input type="radio" name="L" value="#" onchange="toggleExtra(true)"> 🌐 #</label>
+        <label class="lang-item"><input type="radio" name="L" value="#" onchange="toggleExtra(true)"> 🌐</label>
     </div>
 
     <div id="sub-lang-container">
-        <label class="sub-lang-item"><input type="radio" name="L" value="TR" onchange="setLang('TR')"> 🇹🇷 TR</label>
-        <label class="sub-lang-item"><input type="radio" name="L" value="CN" onchange="setLang('CN')"> 🇨🇳 CN</label>
-        <label class="sub-lang-item"><input type="radio" name="L" value="UK" onchange="setLang('UK')"> 🇺🇦 UK</label>
-        <label class="sub-lang-item"><input type="radio" name="L" value="DE" onchange="setLang('DE')"> 🇩🇪 DE</label>
+        <label class="lang-item"><input type="radio" name="L" value="TR" onchange="setLang('TR')"> 🇹🇷 TR</label>
+        <label class="lang-item"><input type="radio" name="L" value="CN" onchange="setLang('CN')"> 🇨🇳 CN</label>
+        <label class="lang-item"><input type="radio" name="L" value="UK" onchange="setLang('UK')"> 🇺🇦 UK</label>
+        <label class="lang-item"><input type="radio" name="L" value="DE" onchange="setLang('DE')"> 🇩🇪 DE</label>
     </div>
 
     <div class="header-brand">
         <p class="brand-1">ALOSERWIS</p>
         <p id="txt-brand-2" class="brand-2"></p>
         <p id="txt-brand-sub" class="brand-sub"></p>
+        <p id="txt-brand-3" class="brand-3"></p>
     </div>
 
     <div class="section-title"><span id="txt-sec-1"></span></div>
     <input type="text" id="cust_name" placeholder="">
     <input type="text" id="cust_phone" placeholder="">
+    <input type="text" id="cust_address" placeholder="">
     
     <div class="section-title"><span id="txt-sec-2"></span></div>
     <div id="questions-container"></div>
 
     <div class="section-title"><span id="txt-sec-3"></span></div>
+    <div class="options-row row-4">
+        <label class="opt-label"><input type="checkbox" name="extra" value="ALARM" onchange="toggleCheck(this)">🔔 ALARM</label>
+        <label class="opt-label"><input type="checkbox" name="extra" value="DOMOFON" onchange="toggleCheck(this)">📞 DOMO</label>
+        <label class="opt-label"><input type="checkbox" name="extra" value="SIEĆ" onchange="toggleCheck(this)">🌐 SIEĆ</label>
+        <label class="opt-label"><input type="checkbox" name="extra" value="ELEKTRYK" onchange="toggleCheck(this)">⚡ ELEK</label>
+    </div>
+
+    <div class="section-title"><span id="txt-sec-4"></span></div>
     <textarea id="final_note" rows="2"></textarea>
 
-    <button class="btn-main" id="txt-btn-pdf" onclick="exportToPDF()"></button>
-    
-    <div class="social-grid">
-        <a class="btn-social viber" onclick="sendSocial('viber')">Viber</a>
-        <a class="btn-social wa" onclick="sendSocial('wa')">WhatsApp</a>
-        <a class="btn-social zalo" onclick="sendSocial('zalo')">Zalo</a>
-        <a href="https://m.me/dienthoaibalan" target="_blank" class="btn-social fb">Messenger</a>
+    <div class="hint-send" id="txt-hint-send"></div>
+
+    <div class="social-row">
+        <button onclick="sendEmail()" class="social-circle sc-mail"><span>✉️</span></button>
+        <button onclick="sendSocial('wa')" class="social-circle sc-wa"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"></button>
+        <button onclick="sendSocial('viber')" class="social-circle sc-viber"><img src="https://cdn.worldvectorlogo.com/logos/viber-3.svg"></button>
+        <button onclick="sendSocial('zalo')" class="social-circle sc-zalo"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"></button>
+        <a href="https://m.me/dienthoaibalan" target="_blank" class="social-circle sc-fb"><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg"></a>
     </div>
 </div>
 
 <script>
+    const TARGET_EMAIL = "alo@aloserwis.com";
     const TARGET_PHONE = "48888666679";
+    
     const translations = {
         PL: { 
-            desc: "Profesjonalny montaż, konfiguracja i serwis monitoringu",
-            brand: "Wycena systemów monitoringu CCTV i innych", 
-            sec1: "I. DANE KLIENTA", sec2: "II. SZCZEGÓŁY SYSTEMU", sec3: "III. DODATKOWE UWAGI", 
-            btn: "POBIERZ PDF (A4)", name: "Imię i Nazwisko", phone: "Numer telefonu", 
-            other: "Opisz dodatkowo...", err: "Podaj Imię i Telefon!", 
-            qs: [{q:"1. Typ obiektu?", a:["Dom","Biuro","Magazyn"]},{q:"2. Liczba kamer?", a:["1-4","5-10","> 10"]},{q:"3. Lokalizacja?", a:["Wewnątrz","Zewnątrz","Obie"]},{q:"4. Stan?", a:["Nowy","Istniejący","Remont"]},{q:"5. Połączenie?", a:["Kabel IP","Wi-Fi","Analog"]},{q:"6. Sprzęt?", a:["Z montażem","Własny","Porada"]},{q:"7. Funkcje?", a:["Noc-Kolor","Alarm","Audio"]},{q:"8. Dysk?", a:["1 Tydz","1 Mies","Cloud"]},{q:"9. Budżet?", a:["Oszczędny","Standard","Premium"]},{q:"10. Termin?", a:["Pilne","Miesiąc","Wycena"]}] 
+            desc: "MONTAŻ I SERWIS MONITORINGU",
+            brand: "Wycena systemów monitoringu CCTV i innych",
+            note: "(im więcej informacji podasz, tym dokładniejszą wycenę otrzymasz)",
+            sec1: "I. DANE KLIENTA", sec2: "II. SZCZEGÓŁY SYSTEMU", sec3: "III. INNE SYSTEMY?", sec4: "IV. UWAGI",
+            name: "Imię và Nazwisko", phone: "Numer telefonu", addr: "Adres montażu", other: "Inne...", 
+            err: "Wypełnij Name, Tel và Adres!", errQs: "Wybierz min. 5 opcji (50%)!",
+            hint: "( Wybierz formę otrzymania wyceny )",
+            qs: [{q:"1. Typ obiektu?", a:["Dom","Biuro","Magazyn"]},{q:"2. Liczba kamer?", a:["1-4","5-10","> 10"]},{q:"3. Lokalizacja?", a:["Wewnątrz","Zewnątrz","Obie"]},{q:"4. Stan?", a:["Nowy","Istniejący","Remont"]},{q:"5. Połączenie?", a:["Kabel IP","Wi-Fi","Analog"]},{q:"6. Sprzęt?", a:["Z montażem","Własny","Porada"]},{q:"7. Funkcje?", a:["Noc-Kolor","Alarm","Audio"]},{q:"8. Dysk?", a:["1 Tydz","1 Mies","Cloud"]},{q:"9. Budżet?", a:["Oszczędny","Standard","Premium"]},{q:"10. Termin?", a:["Pilne","Miesiąc","Wycena"]}]
         },
         VN: { 
-            desc: "Chuyên lắp đặt, cấu hình và bảo trì hệ thống giám sát",
-            brand: "Báo giá hệ thống Camera giám sát cùng các hệ thống khác", 
-            sec1: "I. THÔNG TIN KHÁCH HÀNG", sec2: "II. CHI TIẾT HỆ THỐNG", sec3: "III. GHI CHÚ THÊM", 
-            btn: "XUẤT PDF TRANG A4", name: "Họ và Tên", phone: "Số điện thoại", 
-            other: "Mô tả thêm...", err: "Nhập Tên và SĐT!", 
-            qs: [{q:"1. Công trình?", a:["Nhà riêng","Văn phòng","Kho"]},{q:"2. Số lượng?", a:["1-4 mắt","5-10 mắt",">10 mắt"]},{q:"3. Vị trí?", a:["Trong nhà","Ngoài trời","Cả hai"]},{q:"4. Hạ tầng?", a:["Mới","Đã ở","Thay cũ"]},{q:"5. Kết nối?", a:["Có dây IP","Wifi","Analog"]},{q:"6. Thiết bị?", a:["Trọn gói","Có sẵn","Cần tư vấn"]},{q:"7. Tính năng?", a:["Màu đêm","Báo động","Đàm thoại"]},{q:"8. Lưu trữ?", a:["1 Tuần","1 Tháng","Cloud"]},{q:"9. Ngân sách?", a:["Tiết kiệm","Vừa phải","Cao cấp"]},{q:"10. Tiến độ?", a:["Gấp","Bình thường","Khảo giá"]}] 
-        },
-        EN: { 
-            desc: "Professional installation, configuration and CCTV service",
-            brand: "Security system quote and requirements", 
-            sec1: "I. CUSTOMER INFO", sec2: "II. SYSTEM DETAILS", sec3: "III. NOTES", 
-            btn: "SAVE A4 PDF", name: "Name", phone: "Phone Number", 
-            other: "Write more...", err: "Enter Name and Phone!", 
-            qs: [{q:"1. Property?", a:["House","Office","Warehouse"]},{q:"2. Qty?", a:["1-4","5-10","> 10"]},{q:"3. Location?", a:["Indoor","Outdoor","Both"]},{q:"4. Status?", a:["New","Exist","Remodel"]},{q:"5. Link?", a:["Wired IP","Wi-Fi","Analog"]},{q:"6. Service?", a:["Full set","Own","Advice"]},{q:"7. Features?", a:["Night color","Alarm","Audio"]},{q:"8. Storage?", a:["1 Week","1 Month","Cloud"]},{q:"9. Budget?", a:["Economy","Standard","Premium"]},{q:"10. Time?", a:["Urgent","Monthly","Quote"]}] 
+            desc: "LẮP ĐẶT & BẢO TRÌ CAMERA",
+            brand: "Báo giá hệ thống Camera giám sát cùng các hệ thống khác",
+            note: "(khách hàng cung cấp càng đầy đủ thông tin thì sẽ càng có Báo giá chính xác nhất)",
+            sec1: "I. THÔNG TIN KHÁCH HÀNG", sec2: "II. CHI TIẾT HỆ THỐNG", sec3: "III. HỆ THỐNG KHÁC?", sec4: "IV. GHI CHÚ",
+            name: "Họ và Tên", phone: "Số điện thoại", addr: "Địa chỉ lắp đặt", other: "Mô tả thêm...", 
+            err: "Vui lòng nhập Tên, SĐT và Địa chỉ!", errQs: "Vui lòng trả lời ít nhất 5 câu hỏi (50%)!",
+            hint: "( Lựa chọn hình thức nhận Báo giá )",
+            qs: [{q:"1. Công trình?", a:["Nhà riêng","Văn phòng","Kho"]},{q:"2. Số lượng?", a:["1-4 mắt","5-10 mắt",">10 mắt"]},{q:"3. Vị trí?", a:["Trong nhà","Ngoài trời","Cả hai"]},{q:"4. Hạ tầng?", a:["Mới","Đã ở","Thay cũ"]},{q:"5. Kết nối?", a:["Dây IP","Wifi","Analog"]},{q:"6. Thiết bị?", a:["Trọn gói","Có sẵn","Cần tư vấn"]},{q:"7. Tính năng?", a:["Màu đêm","Báo động","Đàm thoại"]},{q:"8. Lưu trữ?", a:["1 Tuần","1 Tháng","Cloud"]},{q:"9. Ngân sách?", a:["Tiết kiệm","Vừa phải","Cao cấp"]},{q:"10. Tiến độ?", a:["Gấp","Bình thường","Khảo giá"]}]
         }
     };
 
-    // Tự động gán EN cho các ngôn ngữ khác nếu chưa có dịch chi tiết
+    translations.EN = { ...translations.PL, desc: "CCTV INSTALLATION & SERVICE", brand: "Security system quote", name: "Full Name", phone: "Phone", addr: "Address", err: "Fill info!", errQs: "Answer at least 5 questions!", hint: "( Choose how to receive the quote )" };
     ["TR","CN","UK","DE"].forEach(l => { translations[l] = translations.EN; });
 
     let curLang = 'PL';
-
     function toggleExtra(s) { document.getElementById('sub-lang-container').style.display = s ? 'grid' : 'none'; }
 
     function setLang(l) {
         curLang = l; const cur = translations[l];
         document.getElementById('txt-brand-2').innerText = cur.desc;
         document.getElementById('txt-brand-sub').innerText = cur.brand;
+        document.getElementById('txt-brand-3').innerText = cur.note;
         document.getElementById('txt-sec-1').innerText = cur.sec1;
         document.getElementById('txt-sec-2').innerText = cur.sec2;
         document.getElementById('txt-sec-3').innerText = cur.sec3;
-        document.getElementById('txt-btn-pdf').innerText = cur.btn;
+        document.getElementById('txt-sec-4').innerText = cur.sec4;
+        document.getElementById('txt-hint-send').innerText = cur.hint;
         document.getElementById('cust_name').placeholder = cur.name;
         document.getElementById('cust_phone').placeholder = cur.phone;
+        document.getElementById('cust_address').placeholder = cur.addr;
         
         const c = document.getElementById('questions-container');
         c.innerHTML = '';
         cur.qs.forEach((item, i) => {
             const row = document.createElement('div');
             row.className = 'question-block';
-            row.innerHTML = `
-                <span class="question-text">${item.q}</span>
-                <div class="options-row">${item.a.map(opt => `<label class="opt-label"><input type="radio" name="q${i}" value="${opt}" onchange="markSelected(this, ${i})"> ${opt}</label>`).join('')}</div>
-                <input type="text" class="manual-input" id="q${i}_man" placeholder="${cur.other}" oninput="updateManualOutput(${i})">
-                <div class="manual-output" id="q${i}_out"></div>
-            `;
+            row.innerHTML = `<span class="question-text">${item.q}</span><div class="options-row">${item.a.map(opt => `<label class="opt-label"><input type="radio" name="q${i}" value="${opt}" onchange="markSel(this)"> ${opt}</label>`).join('')}</div><input type="text" class="manual-input" id="q${i}_man" placeholder="${cur.other}">`;
             c.appendChild(row);
         });
     }
 
-    function markSelected(input, i) {
-        input.closest('.options-row').querySelectorAll('.opt-label').forEach(l => l.classList.remove('selected'));
-        input.parentElement.classList.add('selected');
-    }
+    function markSel(el) { el.closest('.options-row').querySelectorAll('.opt-label').forEach(l => l.classList.remove('selected')); el.parentElement.classList.add('selected'); }
+    function toggleCheck(el) { el.parentElement.classList.toggle('selected', el.checked); }
 
-    function updateManualOutput(i) {
-        const val = document.getElementById(`q${i}_man`).value;
-        document.getElementById(`q${i}_out`).innerText = val ? "(" + val + ")" : "";
-    }
+    function buildContent() {
+        const name = document.getElementById('cust_name').value;
+        const phone = document.getElementById('cust_phone').value;
+        const addr = document.getElementById('cust_address').value;
+        if (!name || !phone || !addr) { alert(translations[curLang].err); return null; }
 
-    function exportToPDF() {
-        if (!document.getElementById('cust_name').value || !document.getElementById('cust_phone').value) {
-            alert(translations[curLang].err); return;
-        }
-        window.print();
-    }
-
-    function sendSocial(type) {
-        const cur = translations[curLang];
-        let text = `ALOSERWIS\nName: ${document.getElementById('cust_name').value}\nTel: ${document.getElementById('cust_phone').value}\n\n`;
-        cur.qs.forEach((item, i) => {
+        let answered = 0;
+        let text = `ALOSERWIS - BÁO GIÁ\nKH: ${name}\nSĐT: ${phone}\nĐC: ${addr}\n\n`;
+        
+        translations[curLang].qs.forEach((item, i) => {
             const sel = document.querySelector(`input[name="q${i}"]:checked`);
             const man = document.getElementById(`q${i}_man`).value.trim();
-            if(sel || man) text += `${item.q} ${sel?sel.value:''} ${man?'('+man+')':''}\n`;
+            if(sel || man) {
+                text += `${item.q} ${sel?sel.value:''} ${man?'('+man+')':''}\n`;
+                answered++;
+            }
         });
-        window.open(`https://wa.me/${TARGET_PHONE}?text=${encodeURIComponent(text)}`, '_blank');
+
+        if (answered < 5) { alert(translations[curLang].errQs); return null; }
+
+        const extras = Array.from(document.querySelectorAll('input[name="extra"]:checked')).map(el => el.value);
+        if(extras.length > 0) text += `\nHệ thống khác: ${extras.join(', ')}\n`;
+        const note = document.getElementById('final_note').value.trim();
+        if(note) text += `\nGhi chú: ${note}`;
+        return { name, text };
     }
+
+    function sendEmail() { const d = buildContent(); if(!d) return; window.location.href = `mailto:${TARGET_EMAIL}?subject=Bao gia - ${d.name}&body=${encodeURIComponent(d.text)}`; }
+    function sendSocial(t) { const d = buildContent(); if(!d) return; const enc = encodeURIComponent(d.text); if(t==='wa') window.open(`https://wa.me/${TARGET_PHONE}?text=${enc}`); if(t==='viber') window.open(`viber://chat?number=${TARGET_PHONE}&draft=${enc}`); if(t==='zalo') window.open(`https://zalo.me/${TARGET_PHONE}`); }
 
     setLang('PL');
 </script>
