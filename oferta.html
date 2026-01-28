@@ -36,17 +36,19 @@
 
         /* Form */
         .section-title { background: #fdf2e9; padding: 6px 10px; font-weight: bold; margin: 12px 0 8px; border-left: 4px solid var(--accent); font-size: 0.75rem; }
-        input[type="text"], input[type="date"], select, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-top: 4px; outline: none; font-size: 14px; }
-        .question-block { margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid #eee; }
-        .question-text { font-weight: bold; font-size: 0.8rem; display: block; margin-bottom: 5px; }
-        .options-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
-        .opt-label { border: 1px solid #eee; padding: 8px 2px; border-radius: 6px; text-align: center; font-size: 0.65rem; cursor: pointer; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 45px; font-weight: 600; }
+        input[type="text"], input[type="date"], select, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-top: 4px; outline: none; font-size: 16px; }
+        
+        /* CẬP NHẬT FONT CHỮ CÂU HỎI & TRẢ LỜI (+40%) */
+        .question-block { margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #eee; }
+        .question-text { font-weight: bold; font-size: 1.15rem; display: block; margin-bottom: 8px; color: var(--primary); }
+        .options-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+        .opt-label { border: 1px solid #eee; padding: 10px 2px; border-radius: 6px; text-align: center; font-size: 0.95rem; cursor: pointer; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 55px; font-weight: 600; }
         .opt-label input { display: none; }
         .opt-label.selected { background: var(--primary); color: white; border-color: var(--primary); }
-        .manual-input { background: #fafafa; border: 1px dashed #ccc !important; font-size: 0.7rem !important; margin-top: 4px; height: 28px; }
+        .manual-input { background: #fafafa; border: 1px dashed #ccc !important; font-size: 1.0rem !important; margin-top: 8px; height: 35px; }
 
-        /* Hint Send - Căn giữa chuẩn */
-        .hint-send { text-align: center; font-size: 0.75rem; font-weight: 800; color: var(--primary); margin: 25px 0 5px 0; letter-spacing: 0.5px; }
+        /* Hint Send */
+        .hint-send { text-align: center; font-size: 0.8rem; font-weight: 800; color: var(--primary); margin: 25px 0 5px 0; letter-spacing: 0.5px; }
 
         /* Social Row */
         .social-row { 
@@ -59,8 +61,8 @@
             width: 100%;
         }
         .social-circle { 
-            width: 46px; 
-            height: 46px; 
+            width: 48px; 
+            height: 48px; 
             border-radius: 50%; 
             display: flex; 
             align-items: center; 
