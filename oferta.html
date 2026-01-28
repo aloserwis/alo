@@ -45,26 +45,22 @@
         .opt-label.selected { background: var(--primary); color: white; border-color: var(--primary); }
         .manual-input { background: #fafafa; border: 1px dashed #ccc !important; font-size: 0.7rem !important; margin-top: 4px; height: 28px; }
 
-        /* Appointment Section */
-        #appointment-sec { display: none; background: #f0f7ff; padding: 12px; border-radius: 8px; margin-top: 10px; border: 1px solid #d0e3f0; }
-        .appoint-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 5px; }
+        /* Hint Send - Căn giữa chuẩn */
+        .hint-send { text-align: center; font-size: 0.75rem; font-weight: 800; color: var(--primary); margin: 25px 0 5px 0; letter-spacing: 0.5px; }
 
-        .hint-send { text-align: center; font-size: 0.75rem; font-weight: bold; color: var(--accent); margin-top: 20px; }
-        
-        /* CẬP NHẬT: Tỉ lệ giãn cách tăng cực mạnh (x5) */
+        /* Social Row */
         .social-row { 
             display: flex; 
-            justify-content: space-evenly; /* Phân bổ đều khoảng trống dư thừa */
-            gap: 20vw; /* Tăng tỉ lệ gap lên 20% chiều ngang */
-            margin-top: 10px; 
-            padding: 20px 0; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 15px 10px;
             border-bottom: 1px solid #eee; 
             flex-wrap: nowrap;
-            overflow: hidden; /* Tránh tràn ngang nếu màn hình quá nhỏ */
+            width: 100%;
         }
         .social-circle { 
-            width: 48px; 
-            height: 48px; 
+            width: 46px; 
+            height: 46px; 
             border-radius: 50%; 
             display: flex; 
             align-items: center; 
@@ -78,12 +74,7 @@
         .social-circle:active { transform: scale(0.9); }
         .social-circle img { width: 60%; height: 60%; }
 
-        /* Giới hạn trên màn hình lớn để giữ thẩm mỹ */
-        @media (min-width: 500px) {
-            .social-row { gap: 60px; }
-        }
-
-        /* Footer */
+        /* Footer & Media Queries */
         .footer-info { margin-top: 20px; font-size: 0.62rem; color: #333; line-height: 1.2; border-top: 1px solid #eee; padding: 15px 20px 0 20px; }
         .footer-grid { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; }
         .f-location { display: flex; align-items: center; gap: 6px; flex: 0 1 auto; }
@@ -98,12 +89,12 @@
 
         @media (min-width: 600px) {
             .container { max-width: 750px; }
+            .social-row { justify-content: center; gap: 40px; }
             .footer-info { padding: 20px 40px 0 40px; }
             .footer-grid { flex-wrap: nowrap; gap: 10px; }
             .f-location { flex: 1; }
             .f-location:nth-child(2) { text-align: left; justify-content: center; }
             .f-contact { flex: 1; width: auto; text-align: right; margin-top: 0; background: none; border-left: 1px solid #eee; padding: 0 0 0 15px; display: flex; flex-direction: column; justify-content: center; border-radius: 0; }
-            .f-contact span { display: block; margin: 0; }
         }
     </style>
 </head>
@@ -151,7 +142,7 @@
         <label class="opt-label"><input type="checkbox" name="extra" value="ELEKTRYK" onchange="handleExtraClick(this)">⚡ ELEK</label>
     </div>
 
-    <div id="appointment-sec">
+    <div id="appointment-sec" style="display: none;">
         <div style="font-size:0.75rem; font-weight:bold; color: #2980b9;" id="txt-app-title"></div>
         <div class="appoint-grid">
             <input type="date" id="app_date">
@@ -208,7 +199,7 @@
             desc: "MONTAŻ I SERWIS MONITORINGU", brand: "Wycena systemów CCTV i innych", note: "(im więcej informacji, tym lepiej)", 
             sec1: "I. DANE KLIENTA", sec2: "II. SZCZEGÓŁY SYSTEMU", sec3: "III. INNE SYSTEMY?", sec4: "IV. UWAGI", 
             name: "Imię i Nazwisko", phone: "Numer telefonu", addr: "Adres montażu", other: "Inne...", 
-            err: "Wypełnij Imię, Tel i Adres!", errQs: "Wybierz min. 5 opcji!", hint: "(Wybierz formę báo giá)", 
+            err: "Wypełnij Imię, Tel i Adres!", errQs: "Wybierz min. 5 opcji!", hint: "Wybierz kanał przesłania zapytania:", 
             mRetry: "Wyczyść", mOk: "Zamknij", confirmAsk: "Wysłać qua", confirmUse: "Bạn dùng", yes: "Tak", no: "Nie",
             appTitle: "📅 Umów spotkanie w biurze:", appMsg: "Quý khách có muốn đặt lịch Tư vấn tại cửa hàng chúng tôi không?",
             qs: [{q:"1. Typ obiektu?", a:["Dom","Biuro","Magazyn"]},{q:"2. Liczba kamer?", a:["1-4","5-10","> 10"]},{q:"3. Lokalizacja?", a:["Wewnątrz","Zewnątrz","Obie"]},{q:"4. Stan?", a:["Nowy","Istniejący","Remont"]},{q:"5. Połączenie?", a:["Kabel IP","Wi-Fi","Analog"]},{q:"6. Sprzęt?", a:["Z montażem","Własny","Porada"]},{q:"7. Funkcje?", a:["Noc-Kolor","Alarm","Audio"]},{q:"8. Dysk?", a:["1 Tydz","1 Mies","Cloud"]},{q:"9. Budżet?", a:["Ekonomiczny","Standard","Premium"]},{q:"10. Termin?", a:["Pilne","Miesiąc","Wycena"]}] 
@@ -217,7 +208,7 @@
             desc: "LẮP ĐẶT & BẢO TRÌ CAMERA", brand: "Báo giá hệ thống Camera và các hệ thống khác", note: "(Càng nhiều thông tin báo giá càng chính xác)", 
             sec1: "I. THÔNG TIN KHÁCH HÀNG", sec2: "II. CHI TIẾT HỆ THỐNG", sec3: "III. HỆ THỐNG KHÁC?", sec4: "IV. GHI CHÚ", 
             name: "Họ và Tên", phone: "Số điện thoại", addr: "Địa chỉ lắp đặt", other: "Khác...", 
-            err: "Vui lòng nhập Tên, SĐT và Địa chỉ!", errQs: "Trả lời ít nhất 5 câu hỏi!", hint: "(Lựa chọn hình thức nhận Báo giá)", 
+            err: "Vui lòng nhập Tên, SĐT và Địa chỉ!", errQs: "Trả lời ít nhất 5 câu hỏi!", hint: "Vui lòng chọn kênh gửi yêu cầu Báo giá:", 
             mRetry: "Làm lại", mOk: "Đóng", confirmAsk: "Gửi qua", confirmUse: "Bạn dùng", yes: "Có", no: "Không",
             appTitle: "📅 Đặt lịch tư vấn tại cửa hàng:", appMsg: "Quý khách có muốn đặt lịch Tư vấn tại cửa hàng chúng tôi không?",
             qs: [{q:"1. Công trình?", a:["Nhà riêng","Văn phòng","Kho"]},{q:"2. Số lượng?", a:["1-4 mắt","5-10 mắt",">10 mắt"]},{q:"3. Vị trí?", a:["Trong nhà","Ngoài trời","Cả hai"]},{q:"4. Hạ tầng?", a:["Mới","Đã ở","Thay cũ"]},{q:"5. Kết nối?", a:["Dây IP","Wifi","Analog"]},{q:"6. Thiết bị?", a:["Trọn gói","Có sẵn","Cần tư vấn"]},{q:"7. Tính năng?", a:["Màu đêm","Báo động","Đàm thoại"]},{q:"8. Lưu trữ?", a:["1 Tuần","1 Tháng","Cloud"]},{q:"9. Ngân sách?", a:["Tiết kiệm","Vừa phải","Cao cấp"]},{q:"10. Tiến độ?", a:["Gấp","Bình thường","Khảo giá"]}] 
@@ -226,7 +217,7 @@
             desc: "CCTV INSTALLATION & SERVICE", brand: "CCTV & Security Systems Quote", note: "(More info = Better quote)", 
             sec1: "I. CUSTOMER DETAILS", sec2: "II. SYSTEM DETAILS", sec3: "III. OTHER SYSTEMS?", sec4: "IV. NOTES", 
             name: "Full Name", phone: "Phone Number", addr: "Address", other: "Other...", 
-            err: "Fill Name, Phone and Address!", errQs: "Answer min. 5 questions!", hint: "(Choose how to send)", 
+            err: "Fill Name, Phone and Address!", errQs: "Answer min. 5 questions!", hint: "Please choose a channel to send your request:", 
             mRetry: "Reset", mOk: "Close", confirmAsk: "Send via", confirmUse: "Use", yes: "Yes", no: "No",
             appTitle: "📅 Office Appointment:", appMsg: "Would you like to book an appointment at our store?",
             qs: [{q:"1. Building?", a:["House","Office","Warehouse"]},{q:"2. Cameras?", a:["1-4","5-10","> 10"]},{q:"3. Location?", a:["Indoor","Outdoor","Both"]},{q:"4. Status?", a:["New","Existing","Renovation"]},{q:"5. Connection?", a:["IP Cable","Wi-Fi","Analog"]},{q:"6. Equipment?", a:["Package","Own","Advice"]},{q:"7. Features?", a:["Night Color","Alarm","Audio"]},{q:"8. Storage?", a:["1 Week","1 Month","Cloud"]},{q:"9. Budget?", a:["Economy","Standard","Premium"]},{q:"10. Timeline?", a:["Urgent","Month","Pricing"]}] 
