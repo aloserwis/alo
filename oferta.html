@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ALOSERWIS - Báo giá</title>
     <style>
-        :root { --primary: #2c3e50; --accent: #e67e22; --bg: #f4f7f9; --wa: #25d366; --viber: #7360f2; --zalo: #0068ff; --fb: #1877f2; }
+        :root { --primary: #2c3e50; --accent: #e67e22; --bg: #f4f7f9; --wa: #25d366; --viber: #7360f2; --zalo: #0068ff; --sms: #34495e; }
         * { box-sizing: border-box; font-family: "Segoe UI", Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background: var(--bg); margin: 0; padding: 10px; color: var(--primary); }
         .container { max-width: 500px; margin: auto; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
@@ -50,9 +50,38 @@
         .appoint-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 5px; }
 
         .hint-send { text-align: center; font-size: 0.75rem; font-weight: bold; color: var(--accent); margin-top: 20px; }
-        .social-row { display: flex; justify-content: space-between; gap: 8px; margin-top: 10px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
-        .social-circle { flex: 1; max-width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; border: none; cursor: pointer; }
-        .social-circle img { width: 30px; height: 30px; }
+        
+        /* CẬP NHẬT: Tỉ lệ giãn cách tăng cực mạnh (x5) */
+        .social-row { 
+            display: flex; 
+            justify-content: space-evenly; /* Phân bổ đều khoảng trống dư thừa */
+            gap: 20vw; /* Tăng tỉ lệ gap lên 20% chiều ngang */
+            margin-top: 10px; 
+            padding: 20px 0; 
+            border-bottom: 1px solid #eee; 
+            flex-wrap: nowrap;
+            overflow: hidden; /* Tránh tràn ngang nếu màn hình quá nhỏ */
+        }
+        .social-circle { 
+            width: 48px; 
+            height: 48px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-decoration: none; 
+            border: none; 
+            cursor: pointer; 
+            flex-shrink: 0;
+            transition: transform 0.2s;
+        }
+        .social-circle:active { transform: scale(0.9); }
+        .social-circle img { width: 60%; height: 60%; }
+
+        /* Giới hạn trên màn hình lớn để giữ thẩm mỹ */
+        @media (min-width: 500px) {
+            .social-row { gap: 60px; }
+        }
 
         /* Footer */
         .footer-info { margin-top: 20px; font-size: 0.62rem; color: #333; line-height: 1.2; border-top: 1px solid #eee; padding: 15px 20px 0 20px; }
@@ -148,7 +177,7 @@
         <button onclick="askConfirm('wa')" class="social-circle" style="background:var(--wa)"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"></button>
         <button onclick="askConfirm('viber')" class="social-circle" style="background:var(--viber)"><img src="https://cdn.worldvectorlogo.com/logos/viber-3.svg"></button>
         <button onclick="askConfirm('zalo')" class="social-circle" style="background:var(--zalo)"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"></button>
-        <button onclick="askConfirm('fb')" class="social-circle" style="background:var(--fb)"><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg"></button>
+        <button onclick="askConfirm('sms')" class="social-circle" style="background:var(--sms)">💬</button>
     </div>
 
     <div class="footer-info">
@@ -173,13 +202,13 @@
 
 <script>
     const TARGET_EMAIL = "alo@aloserwis.com";
-    const TARGET_PHONE = "48888666679";
+    const TARGET_PHONE = "48733676869";
     const translations = {
         PL: { 
             desc: "MONTAŻ I SERWIS MONITORINGU", brand: "Wycena systemów CCTV i innych", note: "(im więcej informacji, tym lepiej)", 
             sec1: "I. DANE KLIENTA", sec2: "II. SZCZEGÓŁY SYSTEMU", sec3: "III. INNE SYSTEMY?", sec4: "IV. UWAGI", 
             name: "Imię i Nazwisko", phone: "Numer telefonu", addr: "Adres montażu", other: "Inne...", 
-            err: "Wypełnij Imię, Tel i Adres!", errQs: "Wybierz min. 5 opcji!", hint: "(Wybierz formę nhận báo giá)", 
+            err: "Wypełnij Imię, Tel i Adres!", errQs: "Wybierz min. 5 opcji!", hint: "(Wybierz formę báo giá)", 
             mRetry: "Wyczyść", mOk: "Zamknij", confirmAsk: "Wysłać qua", confirmUse: "Bạn dùng", yes: "Tak", no: "Nie",
             appTitle: "📅 Umów spotkanie w biurze:", appMsg: "Quý khách có muốn đặt lịch Tư vấn tại cửa hàng chúng tôi không?",
             qs: [{q:"1. Typ obiektu?", a:["Dom","Biuro","Magazyn"]},{q:"2. Liczba kamer?", a:["1-4","5-10","> 10"]},{q:"3. Lokalizacja?", a:["Wewnątrz","Zewnątrz","Obie"]},{q:"4. Stan?", a:["Nowy","Istniejący","Remont"]},{q:"5. Połączenie?", a:["Kabel IP","Wi-Fi","Analog"]},{q:"6. Sprzęt?", a:["Z montażem","Własny","Porada"]},{q:"7. Funkcje?", a:["Noc-Kolor","Alarm","Audio"]},{q:"8. Dysk?", a:["1 Tydz","1 Mies","Cloud"]},{q:"9. Budżet?", a:["Ekonomiczny","Standard","Premium"]},{q:"10. Termin?", a:["Pilne","Miesiąc","Wycena"]}] 
@@ -210,8 +239,8 @@
     function openModal(msg, mode = 'alert', type = '') {
         const textEl = document.getElementById('modal-text'); const btnGroup = document.getElementById('modal-btns'); textEl.innerText = msg;
         if (mode === 'confirm') {
-            const apps = { mail:'Email', wa:'WhatsApp', viber:'Viber', zalo:'Zalo', fb:'Messenger' };
-            const prefix = (type === 'mail' || type === 'fb') ? translations[curLang].confirmAsk : translations[curLang].confirmUse;
+            const apps = { mail:'Email', wa:'WhatsApp', viber:'Viber', zalo:'Zalo', sms:'SMS' };
+            const prefix = (type === 'mail' || type === 'sms') ? translations[curLang].confirmAsk : translations[curLang].confirmUse;
             textEl.innerText = `${prefix} ${apps[type]}?`;
             btnGroup.innerHTML = `<button class="m-btn btn-confirm" onclick="executeSend('${type}')">${translations[curLang].yes}</button><button class="m-btn btn-close" onclick="closeModal()">${translations[curLang].no}</button>`;
         } else if (mode === 'askApp') {
@@ -224,47 +253,24 @@
 
     function handleExtraClick(el) {
         el.parentElement.classList.toggle('selected', el.checked);
-        if (!el.checked) return; // Chỉ xử lý khi tích vào
-
-        // Kiểm tra ĐK 1 (Thông tin cá nhân)
+        if (!el.checked) return;
         const name = document.getElementById('cust_name').value;
         const phone = document.getElementById('cust_phone').value;
         const addr = document.getElementById('cust_address').value;
-        if (!name || !phone || !addr) {
-            el.checked = false; el.parentElement.classList.remove('selected');
-            openModal(translations[curLang].err); return;
-        }
-
-        // Kiểm tra ĐK 2 (Trả lời 5 câu hỏi)
+        if (!name || !phone || !addr) { el.checked = false; el.parentElement.classList.remove('selected'); openModal(translations[curLang].err); return; }
         let answered = 0;
-        translations[curLang].qs.forEach((_, i) => {
-            if(document.querySelector(`input[name="q${i}"]:checked`) || document.getElementById(`q${i}_man`).value.trim()) answered++;
-        });
-        if (answered < 5) {
-            el.checked = false; el.parentElement.classList.remove('selected');
-            openModal(translations[curLang].errQs); return;
-        }
-
-        // Thỏa mãn hết -> Hiện thông báo đặt lịch ngay (nếu chưa hỏi)
-        if (!appAsked) {
-            openModal(translations[curLang].appMsg, 'askApp');
-            appAsked = true;
-        }
+        translations[curLang].qs.forEach((_, i) => { if(document.querySelector(`input[name="q${i}"]:checked`) || document.getElementById(`q${i}_man`).value.trim()) answered++; });
+        if (answered < 5) { el.checked = false; el.parentElement.classList.remove('selected'); openModal(translations[curLang].errQs); return; }
+        if (!appAsked) { openModal(translations[curLang].appMsg, 'askApp'); appAsked = true; }
     }
 
-    function showAppSec() {
-        document.getElementById('appointment-sec').style.display = 'block';
-        closeModal();
-    }
-
+    function showAppSec() { document.getElementById('appointment-sec').style.display = 'block'; closeModal(); }
     function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; }
-
     function resetAnswers() {
         document.querySelectorAll('input[type="radio"]:not([name="L"])').forEach(r => { r.checked = false; r.dataset.wasChecked = "false"; r.parentElement.classList.remove('selected'); });
         document.querySelectorAll('input[name="extra"]').forEach(c => { c.checked = false; c.parentElement.classList.remove('selected'); });
         document.querySelectorAll('.manual-input, #final_note, #app_date').forEach(i => i.value = ''); 
-        document.getElementById('appointment-sec').style.display = 'none';
-        appAsked = false; closeModal();
+        document.getElementById('appointment-sec').style.display = 'none'; appAsked = false; closeModal();
     }
 
     function toggleExtra(s) { document.getElementById('sub-lang-container').style.display = s ? 'grid' : 'none'; }
@@ -302,9 +308,7 @@
         if(extras.length > 0) {
             text += `\nExtras: ${extras.join(', ')}\n`;
             if (document.getElementById('appointment-sec').style.display === 'block') {
-                const d = document.getElementById('app_date').value;
-                const t = document.getElementById('app_time').value;
-                const l = document.getElementById('app_loc').value;
+                const d = document.getElementById('app_date').value; const t = document.getElementById('app_time').value; const l = document.getElementById('app_loc').value;
                 if(d) text += `LỊCH HẸN: ${d} lúc ${t} tại ${l}\n`;
             }
         }
@@ -313,13 +317,24 @@
     }
 
     function askConfirm(type) { if(buildContent()) openModal('', 'confirm', type); }
+
     function executeSend(t) {
-        const d = buildContent(); if(!d) return; const enc = encodeURIComponent(d.text); closeModal();
-        if(t==='mail') window.location.href = `mailto:${TARGET_EMAIL}?subject=Quote Request - ${d.name}&body=${enc}`;
-        if(t==='wa') window.open(`https://wa.me/${TARGET_PHONE}?text=${enc}`);
-        if(t==='viber') window.open(`viber://chat?number=${TARGET_PHONE}&draft=${enc}`);
-        if(t==='zalo') window.open(`https://zalo.me/${TARGET_PHONE}`);
-        if(t==='fb') window.open(`https://m.me/dienthoaibalan`);
+        const d = buildContent(); if(!d) return; 
+        const enc = encodeURIComponent(d.text); 
+        closeModal();
+        
+        switch(t) {
+            case 'mail': window.location.href = `mailto:${TARGET_EMAIL}?subject=Quote Request - ${d.name}&body=${enc}`; break;
+            case 'wa': window.open(`https://wa.me/${TARGET_PHONE}?text=${enc}`, '_blank'); break;
+            case 'viber': window.open(`viber://chat?number=%2B${TARGET_PHONE}&draft=${enc}`, '_blank'); break;
+            case 'zalo': window.open(`https://zalo.me/${TARGET_PHONE}`, '_blank'); break;
+            case 'sms': 
+                const smsLink = (navigator.userAgent.match(/iPhone|iPad|iPod/i)) 
+                                ? `sms:+${TARGET_PHONE}&body=${enc}` 
+                                : `sms:+${TARGET_PHONE}?body=${enc}`;
+                window.location.href = smsLink;
+                break;
+        }
     }
     setLang('PL');
 </script>
