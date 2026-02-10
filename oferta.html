@@ -3,101 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ALOSERWIS - Báo giá</title>
+    <title>ALO SERWIS - Oferta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <style>
-        :root { --primary: #2c3e50; --accent: #e67e22; --bg: #f4f7f9; --wa: #25d366; --viber: #7360f2; --zalo: #0068ff; --sms: #34495e; }
+        :root { 
+            --primary: #2c3e50; 
+            --accent: #0088cc;
+            --bg: #f4f7f9; 
+            --wa: #25d366; 
+            --viber: #7360f2; 
+            --zalo: #0068ff; 
+            --sms: #34495e;
+            --brand-blue: #0088cc;
+            --menu-h: 55px;
+        }
         * { box-sizing: border-box; font-family: "Segoe UI", Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg); margin: 0; padding: 10px; color: var(--primary); }
-        .container { max-width: 500px; margin: auto; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        body { background: var(--bg); margin: 0; padding: 5px; color: var(--primary); }
+        .container { max-width: 500px; margin: auto; background: white; padding: 0 15px 15px 15px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
         
-        /* Modal Styles */
-        #modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
-        #modal-box { background: white; width: 100%; max-width: 320px; border-radius: 15px; text-align: center; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); animation: pop 0.3s ease; }
-        #modal-text { font-size: 1rem; font-weight: bold; margin-bottom: 25px; color: #d35400; line-height: 1.5; }
-        .modal-btn-group { display: flex; flex-direction: column; gap: 10px; }
-        .m-btn { border: none; padding: 12px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
-        .btn-confirm { background: var(--primary); color: white; }
-        .btn-retry { background: var(--accent); color: white; }
-        .btn-close { background: #ecf0f1; color: #7f8c8d; }
+        #main-menu {
+            position: sticky; top: 0; z-index: 1000; width: 100%; max-width: 500px;
+            margin: 0 auto 5px auto; height: var(--menu-h); background: #ffffff;
+            border-radius: 0 0 15px 15px; display: flex; justify-content: space-between;
+            align-items: center; border: 2px solid var(--brand-blue); padding: 0;
+            font-family: 'Montserrat', sans-serif; box-shadow: 0 4px 15px rgba(0,136,204,0.1);
+        }
 
-        /* Header Brand */
-        .header-brand { text-align: center; margin-bottom: 15px; border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
-        .brand-1 { font-size: 1.6rem; font-weight: 900; color: var(--accent); margin: 0; letter-spacing: 1px; }
-        .brand-2 { font-size: 0.8rem; font-weight: 600; margin: 4px 0; color: #444; }
+        .menu-item, .lang-toggle {
+            flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-decoration: none; height: 100%; color: #333; cursor: pointer; border: none; background: transparent; position: relative;
+        }
+        .menu-item i, .lang-toggle i { color: var(--brand-blue); font-size: 18px; margin-bottom: 2px; }
+        .menu-item span, .lang-toggle span { font-size: 10px; font-weight: 900; text-transform: uppercase; text-align: center; }
+
+        .lang-badge {
+            position: absolute; top: 8px; right: 8%; background: #e74c3c; color: white;
+            font-size: 7px !important; padding: 1px 4px; border-radius: 3px; font-weight: bold;
+        }
+
+        .header-brand { text-align: center; border-bottom: 2px solid var(--brand-blue); padding-bottom: 8px; padding-top: 10px; }
+        .brand-1 { font-size: 3.4rem; font-weight: 900; color: var(--brand-blue); margin: 0; letter-spacing: 1px; line-height: 1; }
+        .brand-2 { font-size: 1.4rem; font-weight: 600; margin: 4px 0; color: #444; }
         .brand-sub { font-size: 0.8rem; color: var(--primary); font-weight: bold; font-style: italic; margin-top: 5px; }
-        .brand-3 { font-size: 0.7rem; color: #666; font-style: italic; margin-top: 5px; line-height: 1.3; }
 
-        /* Languages */
-        .lang-selector { display: flex; gap: 4px; margin-bottom: 10px; }
-        .lang-item { flex: 1; border: 1px solid #ddd; padding: 8px 2px; border-radius: 6px; text-align: center; cursor: pointer; font-size: 0.75rem; background: #fff; font-weight: bold; }
-        .lang-item input { display: none; }
-        .lang-item:has(input:checked) { background: var(--primary); color: #fff; }
-        #sub-lang-container { display: none; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-bottom: 10px; padding: 8px; background: #fff8f0; border-radius: 8px; border: 1px dashed var(--accent); }
+        .section-title { 
+            position: sticky; top: var(--menu-h); z-index: 999; background: #eef7fc; 
+            padding: 8px 10px; margin: 15px -15px 10px -15px; border-left: 4px solid var(--brand-blue); 
+            font-size: 0.9rem; color: var(--brand-blue); box-shadow: 0 2px 4px rgba(0,0,0,0.05); font-weight: 900;
+        }
 
-        /* Form */
-        .section-title { background: #fdf2e9; padding: 6px 10px; font-weight: bold; margin: 12px 0 8px; border-left: 4px solid var(--accent); font-size: 0.75rem; }
-        input[type="text"], input[type="date"], select, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-top: 4px; outline: none; font-size: 16px; }
+        .question-text { position: sticky; top: 86px; z-index: 998; background: white; padding: 8px 0; font-weight: bold; font-size: 1.05rem; display: block; margin-bottom: 10px; color: var(--primary); border-bottom: 1px solid #f0f0f0; }
+        .question-block { margin-bottom: 25px; }
+        input[type="text"], input[type="date"], select, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-top: 4px; font-size: 16px; }
         
-        /* CẬP NHẬT FONT CHỮ CÂU HỎI & TRẢ LỜI (+40%) */
-        .question-block { margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #eee; }
-        .question-text { font-weight: bold; font-size: 1.15rem; display: block; margin-bottom: 8px; color: var(--primary); }
         .options-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-        .opt-label { border: 1px solid #eee; padding: 10px 2px; border-radius: 6px; text-align: center; font-size: 0.95rem; cursor: pointer; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 55px; font-weight: 600; }
+        .opt-label { border: 1px solid #eee; padding: 10px 2px; border-radius: 6px; text-align: center; font-size: 0.85rem; cursor: pointer; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 55px; font-weight: 600; }
         .opt-label input { display: none; }
-        .opt-label.selected { background: var(--primary); color: white; border-color: var(--primary); }
-        .manual-input { background: #fafafa; border: 1px dashed #ccc !important; font-size: 1.0rem !important; margin-top: 8px; height: 35px; }
-
-        /* Hint Send */
-        .hint-send { text-align: center; font-size: 0.8rem; font-weight: 800; color: var(--primary); margin: 25px 0 5px 0; letter-spacing: 0.5px; }
-
-        /* Social Row */
-        .social-row { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            padding: 15px 10px;
-            border-bottom: 1px solid #eee; 
-            flex-wrap: nowrap;
-            width: 100%;
-        }
-        .social-circle { 
-            width: 48px; 
-            height: 48px; 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            text-decoration: none; 
-            border: none; 
-            cursor: pointer; 
-            flex-shrink: 0;
-            transition: transform 0.2s;
-        }
-        .social-circle:active { transform: scale(0.9); }
+        .opt-label.selected { background: var(--brand-blue); color: white; border-color: var(--brand-blue); }
+        .manual-input { background: #fafafa; border: 1px dashed #ccc !important; font-size: 1.0rem !important; margin-top: 8px; height: 35px; width: 100%; }
+        
+        .hint-send { text-align: center; font-size: 0.8rem; font-weight: 800; color: var(--brand-blue); margin: 25px 0 10px 0; }
+        .social-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 10px; border-bottom: 1px solid #eee; gap: 8px; }
+        .social-circle { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; }
         .social-circle img { width: 60%; height: 60%; }
+        
+        #modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10001; align-items: center; justify-content: center; padding: 20px; }
+        #modal-box { background: white; width: 100%; max-width: 320px; border-radius: 15px; text-align: center; padding: 25px; }
+        .m-btn { border: none; padding: 12px; border-radius: 50px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 5px; }
+        
+        .footer-info { margin-top: 20px; font-size: 0.62rem; color: #333; line-height: 1.2; border-top: 1px solid #eee; padding-top: 15px; }
+        .f-label { font-weight: 900; color: var(--brand-blue); font-size: 0.52rem; writing-mode: vertical-lr; transform: rotate(180deg); border-right: 1.5px solid var(--brand-blue); padding-right: 4px; height: 38px; display: flex; align-items: center; }
 
-        /* Footer & Media Queries */
-        .footer-info { margin-top: 20px; font-size: 0.62rem; color: #333; line-height: 1.2; border-top: 1px solid #eee; padding: 15px 20px 0 20px; }
-        .footer-grid { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; }
-        .f-location { display: flex; align-items: center; gap: 6px; flex: 0 1 auto; }
-        .f-location:nth-child(2) { text-align: right; justify-content: flex-end; }
-        .f-label { font-weight: 900; color: var(--accent); font-size: 0.52rem; writing-mode: vertical-lr; transform: rotate(180deg); border-right: 1.5px solid var(--accent); padding-right: 4px; height: 38px; display: flex; align-items: center; flex-shrink: 0; white-space: nowrap; }
-        .f-detail { font-weight: 600; }
-        .f-detail b { color: var(--accent); font-size: 0.65rem; }
-        .f-contact { width: 100%; text-align: center; margin-top: 15px; padding: 10px; background: #fafafa; border-radius: 6px; font-size: 0.65rem; }
-        .f-contact span { display: inline-block; margin: 0 5px; }
-        .f-contact b { color: var(--accent); }
-        .footer-bottom { text-align: center; margin-top: 12px; font-weight: bold; font-size: 0.55rem; color: #ccc; }
-
-        @media (min-width: 600px) {
-            .container { max-width: 750px; }
-            .social-row { justify-content: center; gap: 40px; }
-            .footer-info { padding: 20px 40px 0 40px; }
-            .footer-grid { flex-wrap: nowrap; gap: 10px; }
-            .f-location { flex: 1; }
-            .f-location:nth-child(2) { text-align: left; justify-content: center; }
-            .f-contact { flex: 1; width: auto; text-align: right; margin-top: 0; background: none; border-left: 1px solid #eee; padding: 0 0 0 15px; display: flex; flex-direction: column; justify-content: center; border-radius: 0; }
-        }
+        @media (min-width: 600px) { .container, #main-menu { max-width: 750px; } }
     </style>
 </head>
 <body>
@@ -106,57 +85,51 @@
     <div id="modal-box"><div id="modal-text"></div><div class="modal-btn-group" id="modal-btns"></div></div>
 </div>
 
+<nav id="main-menu">
+    <a href="/" class="menu-item"><i class="fa-solid fa-house"></i><span id="menu-alo">ALO</span></a>
+    <a href="https://aloserwis.com/oferta" class="menu-item"><i class="fa-solid fa-tools"></i><span id="menu-oferta">OFERTA</span></a>
+    <a href="#" class="menu-item"><i class="fa-solid fa-images"></i><span id="menu-uslugi">USŁUGI</span></a>
+    <a href="#" class="menu-item"><i class="fa-solid fa-phone"></i><span id="menu-kontakt">KONTAKT</span></a>
+    <button class="lang-toggle" onclick="cycleLang()">
+        <i class="fa-solid fa-globe"></i>
+        <span class="lang-badge" id="lang-badge-txt">PL</span>
+        <span id="menu-lang">POLSKI</span>
+    </button>
+</nav>
+
 <div class="container">
-    <div class="lang-selector">
-        <label class="lang-item"><input type="radio" name="L" value="PL" checked onchange="toggleExtra(false); setLang('PL')"> 🇵🇱 PL</label>
-        <label class="lang-item"><input type="radio" name="L" value="EN" onchange="toggleExtra(false); setLang('EN')"> 🇺🇸 EN</label>
-        <label class="lang-item"><input type="radio" name="L" value="VN" onchange="toggleExtra(false); setLang('VN')"> 🇻🇳 VN</label>
-        <label class="lang-item"><input type="radio" name="L" value="#" onchange="toggleExtra(true)"> 🌐</label>
-    </div>
-
-    <div id="sub-lang-container">
-        <label class="lang-item"><input type="radio" name="L" value="TR" onchange="setLang('TR')"> 🇹🇷 TR</label>
-        <label class="lang-item"><input type="radio" name="L" value="CN" onchange="setLang('CN')"> 🇨🇳 CN</label>
-        <label class="lang-item"><input type="radio" name="L" value="UK" onchange="setLang('UK')"> 🇺🇦 UK</label>
-        <label class="lang-item"><input type="radio" name="L" value="DE" onchange="setLang('DE')"> 🇩🇪 DE</label>
-    </div>
-
     <div class="header-brand">
-        <p class="brand-1">ALOSERWIS</p>
+        <p class="brand-1">ALO SERWIS</p>
         <p id="txt-brand-2" class="brand-2"></p>
         <p id="txt-brand-sub" class="brand-sub"></p>
-        <p id="txt-brand-3" class="brand-3"></p>
+        <p id="txt-brand-3" style="font-size: 0.7rem; color: #666; font-style: italic; margin-top: 5px;"></p>
     </div>
 
     <div class="section-title"><span id="txt-sec-1"></span></div>
-    <input type="text" id="cust_name">
-    <input type="text" id="cust_phone">
-    <input type="text" id="cust_address">
+    <div style="padding-top: 5px;">
+        <input type="text" id="cust_name">
+        <input type="text" id="cust_phone">
+        <input type="text" id="cust_address">
+    </div>
     
     <div class="section-title"><span id="txt-sec-2"></span></div>
     <div id="questions-container"></div>
 
     <div class="section-title"><span id="txt-sec-3"></span></div>
-    <div class="options-row" style="grid-template-columns: repeat(4, 1fr);">
-        <label class="opt-label"><input type="checkbox" name="extra" value="ALARM" onchange="handleExtraClick(this)">🔔 ALARM</label>
-        <label class="opt-label"><input type="checkbox" name="extra" value="DOMOFON" onchange="handleExtraClick(this)">📞 DOMO</label>
-        <label class="opt-label"><input type="checkbox" name="extra" value="SIEĆ" onchange="handleExtraClick(this)">🌐 SIEĆ</label>
-        <label class="opt-label"><input type="checkbox" name="extra" value="ELEKTRYK" onchange="handleExtraClick(this)">⚡ ELEK</label>
-    </div>
-
-    <div id="appointment-sec" style="display: none;">
-        <div style="font-size:0.75rem; font-weight:bold; color: #2980b9;" id="txt-app-title"></div>
-        <div class="appoint-grid">
-            <input type="date" id="app_date">
-            <select id="app_time">
-                <option value="09:00">09:00</option><option value="11:00">11:00</option>
-                <option value="13:00">13:00</option><option value="15:00">15:00</option>
-                <option value="17:00">17:00</option>
-            </select>
+    <div class="options-row" style="grid-template-columns: repeat(4, 1fr);" id="extra-container">
         </div>
+
+    <div id="appointment-sec" style="display: none; border: 1px solid var(--brand-blue); border-radius: 10px; padding: 10px; margin-top: 10px; background: #fdfdfd;">
+        <div style="font-size:0.75rem; font-weight:bold; color: var(--brand-blue); margin-bottom:5px" id="txt-app-title"></div>
+        <input type="date" id="app_date" onchange="validateDate(this)">
+        <select id="app_time">
+            <option value="09:00">09:00</option><option value="10:00">10:00</option><option value="11:00">11:00</option>
+            <option value="12:00">12:00</option><option value="13:00">13:00</option><option value="14:00">14:00</option>
+            <option value="15:00">15:00</option><option value="16:00">16:00</option>
+        </select>
         <select id="app_loc" style="margin-top:8px;">
-            <option value="Bakalarska 2 / B214">Bakalarska 2 / B214 (Warszawa)</option>
-            <option value="Nadrzeczna 7C/A3">Nadrzeczna 7C/A3 (Wólka Kos.)</option>
+            <option value="Bakalarska 2/B214">Bakalarska 2/B214 (Warszawa)</option>
+            <option value="Nadrzeczna 7C/A3">Nadrzeczna 7C/A3 (Wólka Kosowska)</option>
         </select>
     </div>
 
@@ -164,32 +137,26 @@
     <textarea id="final_note" rows="2"></textarea>
 
     <div class="hint-send" id="txt-hint-send"></div>
-
     <div class="social-row">
-        <button onclick="askConfirm('mail')" class="social-circle" style="background:var(--accent); color:white">✉️</button>
+        <button onclick="askConfirm('mail')" class="social-circle" style="background:var(--brand-blue); color:white"><i class="fa-solid fa-envelope"></i></button>
         <button onclick="askConfirm('wa')" class="social-circle" style="background:var(--wa)"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"></button>
         <button onclick="askConfirm('viber')" class="social-circle" style="background:var(--viber)"><img src="https://cdn.worldvectorlogo.com/logos/viber-3.svg"></button>
         <button onclick="askConfirm('zalo')" class="social-circle" style="background:var(--zalo)"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"></button>
-        <button onclick="askConfirm('sms')" class="social-circle" style="background:var(--sms)">💬</button>
+        <button onclick="askConfirm('sms')" class="social-circle" style="background:var(--sms); color:white"><i class="fa-solid fa-comment-sms"></i></button>
     </div>
 
     <div class="footer-info">
-        <div class="footer-grid">
-            <div class="f-location">
+        <div class="footer-grid" style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 6px;">
                 <div class="f-label">OBIEKT 1</div>
-                <div class="f-detail">Bakalarska 2 / B214<br>02-212 Warszawa<br><b>733 67 68 69</b></div>
+                <div style="font-weight: 600;">Bakalarska 2 / B214<br>02-212, Warszawa<br>Hotline: <b>733 67 68 69</b></div>
             </div>
-            <div class="f-location">
+            <div style="display: flex; align-items: center; gap: 6px;">
                 <div class="f-label">OBIEKT 2</div>
-                <div class="f-detail">Nadrzeczna 7C/A3<br>05-552 Wólka Kos.<br><b>787 456 999</b></div>
-            </div>
-            <div class="f-contact">
-                <span><b>Website:</b> aloserwis.com</span>
-                <span><b>Facebook:</b> fb.com/aloserwis</span>
-                <span><b>Email:</b> alo@aloserwis.com</span>
+                <div style="font-weight: 600;">Nadrzeczna 7C / A3<br>05-552, Wólka Kosowska.<br>Hotline: <b>787 456 999</b></div>
             </div>
         </div>
-        <div class="footer-bottom">&copy; 2026 ALOSERWIS</div>
+        <div class="footer-bottom" style="text-align: center; margin-top: 12px; font-weight: bold; font-size: 0.55rem; color: #ccc;">&copy; 2026 ALOSERWIS</div>
     </div>
 </div>
 
@@ -198,39 +165,102 @@
     const TARGET_PHONE = "48733676869";
     const translations = {
         PL: { 
-            desc: "MONTAŻ I SERWIS MONITORINGU", brand: "Wycena systemów CCTV i innych", note: "(im więcej informacji, tym lepiej)", 
-            sec1: "I. DANE KLIENTA", sec2: "II. SZCZEGÓŁY SYSTEMU", sec3: "III. INNE SYSTEMY?", sec4: "IV. UWAGI", 
-            name: "Imię i Nazwisko", phone: "Numer telefonu", addr: "Adres montażu", other: "Inne...", 
-            err: "Wypełnij Imię, Tel i Adres!", errQs: "Wybierz min. 5 opcji!", hint: "Wybierz kanał przesłania zapytania:", 
-            mRetry: "Wyczyść", mOk: "Zamknij", confirmAsk: "Wysłać qua", confirmUse: "Bạn dùng", yes: "Tak", no: "Nie",
-            appTitle: "📅 Umów spotkanie w biurze:", appMsg: "Quý khách có muốn đặt lịch Tư vấn tại cửa hàng chúng tôi không?",
+            menu: ["ALO", "OFERTA", "USŁUGI", "KONTAKT", "POLSKI"],
+            desc: "MONTAŻ i SERWIS CCTV", brand: "Wycena systemów CCTV i inny", note: "(im więcej informacji, tym lepiej)", sec1: "I. DANE KLIENTA", sec2: "II. SZCZEGÓŁY SYSTEMU", sec3: "III. INNE SYSTEMY?", sec4: "IV. UWAGI", name: "Imię i Nazwisko", phone: "Numer telefonu", addr: "Adres montażu", other: "Inne...", err: "Wypełnij Imię, Numer telefonu i Adres montażu!", errQs: "Wybierz min. 5 opcji!", hint: "Wybierz kanał przesłania zapytania:", mRetry: "Wyczyść", mOk: "Zamknij", confirmAsk: "Wysłać via", confirmUse: "Użyć", yes: "Tak", no: "Nie", appTitle: "📅 Wybierz datę spotkania (Pn-Pt):", appMsg: "Czy chcesz umówić się na wizytę w naszym sklepie?", errWeekend: "Konsultanci không làm việc cuối tuần. Proszę wybrać inny termin.",
+            extras: [ {v:"ALARM", l:"🔔 ALARM"}, {v:"DOMOFON", l:"📞 DOMO"}, {v:"SIEĆ", l:"🌐 SIEĆ"}, {v:"ELEKTRYK", l:"⚡  ELEK"} ],
             qs: [{q:"1. Typ obiektu?", a:["Dom","Biuro","Magazyn"]},{q:"2. Liczba kamer?", a:["1-4","5-10","> 10"]},{q:"3. Lokalizacja?", a:["Wewnątrz","Zewnątrz","Obie"]},{q:"4. Stan?", a:["Nowy","Istniejący","Remont"]},{q:"5. Połączenie?", a:["Kabel IP","Wi-Fi","Analog"]},{q:"6. Sprzęt?", a:["Z montażem","Własny","Porada"]},{q:"7. Funkcje?", a:["Noc-Kolor","Alarm","Audio"]},{q:"8. Dysk?", a:["1 Tydz","1 Mies","Cloud"]},{q:"9. Budżet?", a:["Ekonomiczny","Standard","Premium"]},{q:"10. Termin?", a:["Pilne","Miesiąc","Wycena"]}] 
         },
-        VN: { 
-            desc: "LẮP ĐẶT & BẢO TRÌ CAMERA", brand: "Báo giá hệ thống Camera và các hệ thống khác", note: "(Càng nhiều thông tin báo giá càng chính xác)", 
-            sec1: "I. THÔNG TIN KHÁCH HÀNG", sec2: "II. CHI TIẾT HỆ THỐNG", sec3: "III. HỆ THỐNG KHÁC?", sec4: "IV. GHI CHÚ", 
-            name: "Họ và Tên", phone: "Số điện thoại", addr: "Địa chỉ lắp đặt", other: "Khác...", 
-            err: "Vui lòng nhập Tên, SĐT và Địa chỉ!", errQs: "Trả lời ít nhất 5 câu hỏi!", hint: "Vui lòng chọn kênh gửi yêu cầu Báo giá:", 
-            mRetry: "Làm lại", mOk: "Đóng", confirmAsk: "Gửi qua", confirmUse: "Bạn dùng", yes: "Có", no: "Không",
-            appTitle: "📅 Đặt lịch tư vấn tại cửa hàng:", appMsg: "Quý khách có muốn đặt lịch Tư vấn tại cửa hàng chúng tôi không?",
-            qs: [{q:"1. Công trình?", a:["Nhà riêng","Văn phòng","Kho"]},{q:"2. Số lượng?", a:["1-4 mắt","5-10 mắt",">10 mắt"]},{q:"3. Vị trí?", a:["Trong nhà","Ngoài trời","Cả hai"]},{q:"4. Hạ tầng?", a:["Mới","Đã ở","Thay cũ"]},{q:"5. Kết nối?", a:["Dây IP","Wifi","Analog"]},{q:"6. Thiết bị?", a:["Trọn gói","Có sẵn","Cần tư vấn"]},{q:"7. Tính năng?", a:["Màu đêm","Báo động","Đàm thoại"]},{q:"8. Lưu trữ?", a:["1 Tuần","1 Tháng","Cloud"]},{q:"9. Ngân sách?", a:["Tiết kiệm","Vừa phải","Cao cấp"]},{q:"10. Tiến độ?", a:["Gấp","Bình thường","Khảo giá"]}] 
-        },
         EN: { 
-            desc: "CCTV INSTALLATION & SERVICE", brand: "CCTV & Security Systems Quote", note: "(More info = Better quote)", 
-            sec1: "I. CUSTOMER DETAILS", sec2: "II. SYSTEM DETAILS", sec3: "III. OTHER SYSTEMS?", sec4: "IV. NOTES", 
-            name: "Full Name", phone: "Phone Number", addr: "Address", other: "Other...", 
-            err: "Fill Name, Phone and Address!", errQs: "Answer min. 5 questions!", hint: "Please choose a channel to send your request:", 
-            mRetry: "Reset", mOk: "Close", confirmAsk: "Send via", confirmUse: "Use", yes: "Yes", no: "No",
-            appTitle: "📅 Office Appointment:", appMsg: "Would you like to book an appointment at our store?",
+            menu: ["HOME", "OFFER", "SERVICES", "CONTACT", "ENGLISH"],
+            desc: "INSTAL & SERVICE CCTV", brand: "CCTV & Security Systems Quote", note: "(More info = Better quote)", sec1: "I. CUSTOMER DETAILS", sec2: "II. SYSTEM DETAILS", sec3: "III. OTHER SYSTEMS?", sec4: "IV. NOTES", name: "Full Name", phone: "Phone Number", addr: "Address", other: "Other...", err: "Please fill Name, Phone and Address install!", errQs: "Answer min. 5 questions!", hint: "Please choose a channel to send your request:", mRetry: "Reset", mOk: "Close", confirmAsk: "Send via", confirmUse: "Use", yes: "Yes", no: "No", appTitle: "📅 Choose date (Mon-Fri):", appMsg: "Would you like to book an appointment at our store?", errWeekend: "Consultants are off work on weekends. Please choose another date.",
+            extras: [ {v:"ALARM", l:"🔔 ALARM"}, {v:"DOMOFON", l:"📞 ENTRY"}, {v:"SIEĆ", l:"🌐 NET"}, {v:"ELEKTRYK", l:"⚡ ELEC"} ],
             qs: [{q:"1. Building?", a:["House","Office","Warehouse"]},{q:"2. Cameras?", a:["1-4","5-10","> 10"]},{q:"3. Location?", a:["Indoor","Outdoor","Both"]},{q:"4. Status?", a:["New","Existing","Renovation"]},{q:"5. Connection?", a:["IP Cable","Wi-Fi","Analog"]},{q:"6. Equipment?", a:["Package","Own","Advice"]},{q:"7. Features?", a:["Night Color","Alarm","Audio"]},{q:"8. Storage?", a:["1 Week","1 Month","Cloud"]},{q:"9. Budget?", a:["Economy","Standard","Premium"]},{q:"10. Timeline?", a:["Urgent","Month","Pricing"]}] 
+        },
+        VN: { 
+            menu: ["TRANG CHỦ", "BÁO GIÁ", "DỊCH VỤ", "LIÊN HỆ", "TIẾNG VIỆT"],
+            desc: "LẮP ĐẶT & BẢO TRÌ CAMERA", brand: "Báo giá hệ thống Camera và các hệ thống khác", note: "(Càng nhiều thông tin báo giá càng chính xác)", sec1: "I. THÔNG TIN KHÁCH HÀNG", sec2: "II. CHI TIẾT HỆ THỐNG", sec3: "III. HỆ THỐNG KHÁC?", sec4: "IV. GHI CHÚ", name: "Họ và Tên", phone: "Số điện thoại", addr: "Địa chỉ lắp đặt", other: "Khác...", err: "Vui lòng nhập Tên, SĐT và Địa chỉ lắp đặt!", errQs: "Trả lời ít nhất 5 câu hỏi!", hint: "Vui lòng chọn kênh gửi yêu cầu Báo giá:", mRetry: "Làm lại", mOk: "Đóng", confirmAsk: "Gửi qua", confirmUse: "Bạn dùng", yes: "Có", no: "Không", appTitle: "📅 Chọn ngày tư vấn (Thứ 2-6):", appMsg: "Quý khách có muốn đặt lịch Tư vấn tại cửa hàng chúng tôi không?", errWeekend: "Nhân viên tư vấn nghỉ làm việc cuối tuần. Vui lòng chọn ngày khác!",
+            extras: [ {v:"ALARM", l:"🔔 ALARM"}, {v:"DOMOFON", l:"📞 DOMO"}, {v:"SIEĆ", l:"🌐 MẠNG"}, {v:"ELEKTRYK", l:"⚡ ĐIỆN"} ],
+            qs: [{q:"1. Công trình?", a:["Nhà riêng","Văn phòng","Kho"]},{q:"2. Số lượng?", a:["1-4 mắt","5-10 mắt",">10 mắt"]},{q:"3. Vị trí?", a:["Trong nhà","Ngoài trời","Cả hai"]},{q:"4. Hạ tầng?", a:["Mới","Đã ở","Thay cũ"]},{q:"5. Kết nối?", a:["Dây IP","Wifi","Analog"]},{q:"6. Thiết bị?", a:["Trọn gói","Có sẵn","Cần tư vấn"]},{q:"7. Tính năng?", a:["Màu đêm","Báo động","Đàm thoại"]},{q:"8. Lưu trữ?", a:["1 Tuần","1 Tháng","Cloud"]},{q:"9. Ngân sách?", a:["Tiết kiệm","Vừa phải","Cao cấp"]},{q:"10. Tiến độ?", a:["Gấp","Bình thường","Khảo giá"]}] 
         }
     };
-    ["TR","CN","UK","DE"].forEach(l => { translations[l] = translations.EN; });
+
     let curLang = 'PL';
+    const langOrder = ['PL', 'EN', 'VN'];
     let appAsked = false;
 
+    function cycleLang() {
+        let idx = langOrder.indexOf(curLang);
+        idx = (idx + 1) % langOrder.length;
+        curLang = langOrder[idx];
+        setLang(curLang);
+    }
+
+    function setLang(l) {
+        const cur = translations[l];
+        document.getElementById('menu-alo').innerText = cur.menu[0];
+        document.getElementById('menu-oferta').innerText = cur.menu[1];
+        document.getElementById('menu-uslugi').innerText = cur.menu[2];
+        document.getElementById('menu-kontakt').innerText = cur.menu[3];
+        document.getElementById('menu-lang').innerText = cur.menu[4];
+        document.getElementById('lang-badge-txt').innerText = l;
+        document.getElementById('txt-brand-2').innerText = cur.desc;
+        document.getElementById('txt-brand-sub').innerText = cur.brand;
+        document.getElementById('txt-brand-3').innerText = cur.note;
+        document.getElementById('txt-sec-1').innerText = cur.sec1;
+        document.getElementById('txt-sec-2').innerText = cur.sec2;
+        document.getElementById('txt-sec-3').innerText = cur.sec3;
+        document.getElementById('txt-sec-4').innerText = cur.sec4;
+        document.getElementById('txt-hint-send').innerText = cur.hint;
+        document.getElementById('cust_name').placeholder = cur.name;
+        document.getElementById('cust_phone').placeholder = cur.phone + " *";
+        document.getElementById('cust_address').placeholder = cur.addr;
+        document.getElementById('txt-app-title').innerText = cur.appTitle;
+        
+        // Cập nhật câu hỏi
+        const c = document.getElementById('questions-container');
+        c.innerHTML = '';
+        cur.qs.forEach((item, i) => {
+            const row = document.createElement('div'); row.className = 'question-block';
+            row.innerHTML = `<span class="question-text">${item.q}</span><div class="options-row">${item.a.map(opt => `<label class="opt-label"><input type="radio" name="q${i}" value="${opt}" onclick="handleRadioClick(this)"> ${opt}</label>`).join('')}</div><input type="text" class="manual-input" id="q${i}_man" placeholder="${cur.other}">`;
+            c.appendChild(row);
+        });
+
+        // Cập nhật Extras (Dịch vụ khác)
+        const ex = document.getElementById('extra-container');
+        ex.innerHTML = cur.extras.map(e => `
+            <label class="opt-label">
+                <input type="checkbox" name="extra" value="${e.v}" onchange="handleExtraClick(this)">
+                ${e.l}
+            </label>
+        `).join('');
+    }
+
+    function handleRadioClick(el) {
+        document.querySelectorAll(`input[name="${el.name}"]`).forEach(r => { r.parentElement.classList.remove('selected'); });
+        el.parentElement.classList.add('selected');
+    }
+
+    function handleExtraClick(el) {
+        el.parentElement.classList.toggle('selected', el.checked);
+        if (el.checked && !appAsked) { 
+            openModal(translations[curLang].appMsg, 'askApp'); 
+            appAsked = true; 
+        }
+    }
+
+    function validateDate(input) {
+        if(!input.value) return;
+        const date = new Date(input.value);
+        const day = date.getDay(); // 0: CN, 6: T7
+        if (day === 0 || day === 6) {
+            alert(translations[curLang].errWeekend);
+            input.value = "";
+        }
+    }
+
     function openModal(msg, mode = 'alert', type = '') {
-        const textEl = document.getElementById('modal-text'); const btnGroup = document.getElementById('modal-btns'); textEl.innerText = msg;
+        const textEl = document.getElementById('modal-text'); const btnGroup = document.getElementById('modal-btns');
+        textEl.innerText = msg;
         if (mode === 'confirm') {
             const apps = { mail:'Email', wa:'WhatsApp', viber:'Viber', zalo:'Zalo', sms:'SMS' };
             const prefix = (type === 'mail' || type === 'sms') ? translations[curLang].confirmAsk : translations[curLang].confirmUse;
@@ -244,91 +274,58 @@
         document.getElementById('modal-overlay').style.display = 'flex';
     }
 
-    function handleExtraClick(el) {
-        el.parentElement.classList.toggle('selected', el.checked);
-        if (!el.checked) return;
-        const name = document.getElementById('cust_name').value;
-        const phone = document.getElementById('cust_phone').value;
-        const addr = document.getElementById('cust_address').value;
-        if (!name || !phone || !addr) { el.checked = false; el.parentElement.classList.remove('selected'); openModal(translations[curLang].err); return; }
-        let answered = 0;
-        translations[curLang].qs.forEach((_, i) => { if(document.querySelector(`input[name="q${i}"]:checked`) || document.getElementById(`q${i}_man`).value.trim()) answered++; });
-        if (answered < 5) { el.checked = false; el.parentElement.classList.remove('selected'); openModal(translations[curLang].errQs); return; }
-        if (!appAsked) { openModal(translations[curLang].appMsg, 'askApp'); appAsked = true; }
-    }
-
     function showAppSec() { document.getElementById('appointment-sec').style.display = 'block'; closeModal(); }
     function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; }
-    function resetAnswers() {
-        document.querySelectorAll('input[type="radio"]:not([name="L"])').forEach(r => { r.checked = false; r.dataset.wasChecked = "false"; r.parentElement.classList.remove('selected'); });
-        document.querySelectorAll('input[name="extra"]').forEach(c => { c.checked = false; c.parentElement.classList.remove('selected'); });
-        document.querySelectorAll('.manual-input, #final_note, #app_date').forEach(i => i.value = ''); 
-        document.getElementById('appointment-sec').style.display = 'none'; appAsked = false; closeModal();
-    }
-
-    function toggleExtra(s) { document.getElementById('sub-lang-container').style.display = s ? 'grid' : 'none'; }
-
-    function setLang(l) {
-        curLang = l; const cur = translations[l];
-        document.getElementById('txt-brand-2').innerText = cur.desc; document.getElementById('txt-brand-sub').innerText = cur.brand; document.getElementById('txt-brand-3').innerText = cur.note;
-        document.getElementById('txt-sec-1').innerText = cur.sec1; document.getElementById('txt-sec-2').innerText = cur.sec2; document.getElementById('txt-sec-3').innerText = cur.sec3; document.getElementById('txt-sec-4').innerText = cur.sec4;
-        document.getElementById('txt-hint-send').innerText = cur.hint; document.getElementById('cust_name').placeholder = cur.name; document.getElementById('cust_phone').placeholder = cur.phone; document.getElementById('cust_address').placeholder = cur.addr;
-        document.getElementById('txt-app-title').innerText = cur.appTitle;
-        const c = document.getElementById('questions-container'); c.innerHTML = '';
-        cur.qs.forEach((item, i) => {
-            const row = document.createElement('div'); row.className = 'question-block';
-            row.innerHTML = `<span class="question-text">${item.q}</span><div class="options-row">${item.a.map(opt => `<label class="opt-label"><input type="radio" name="q${i}" value="${opt}" onclick="handleRadioClick(this)"> ${opt}</label>`).join('')}</div><input type="text" class="manual-input" id="q${i}_man" placeholder="${cur.other}">`;
-            c.appendChild(row);
-        });
-    }
-
-    function handleRadioClick(el) {
-        const isSelected = el.dataset.wasChecked === "true";
-        document.querySelectorAll(`input[name="${el.name}"]`).forEach(r => { r.checked = false; r.dataset.wasChecked = "false"; r.parentElement.classList.remove('selected'); });
-        if (!isSelected) { el.checked = true; el.dataset.wasChecked = "true"; el.parentElement.classList.add('selected'); }
-    }
-
+    function resetAnswers() { location.reload(); }
+    
     function buildContent() {
-        const name = document.getElementById('cust_name').value; const phone = document.getElementById('cust_phone').value; const addr = document.getElementById('cust_address').value;
+        const name = document.getElementById('cust_name').value.trim(); 
+        const phone = document.getElementById('cust_phone').value.trim(); 
+        const addr = document.getElementById('cust_address').value.trim();
         if (!name || !phone || !addr) { openModal(translations[curLang].err); return null; }
-        let text = `ALOSERWIS - QUOTE\nName: ${name}\nTel: ${phone}\nAddr: ${addr}\n\n`; let answered = 0;
+        
+        let text = `ALOSERWIS - QUOTE\nName: ${name}\nTel: ${phone}\nAddr: ${addr}\n\n`; 
+        let answered = 0;
         translations[curLang].qs.forEach((item, i) => {
-            const sel = document.querySelector(`input[name="q${i}"]:checked`); const man = document.getElementById(`q${i}_man`).value.trim();
+            const sel = document.querySelector(`input[name="q${i}"]:checked`); 
+            const man = document.getElementById(`q${i}_man`).value.trim();
             if(sel || man) { text += `${item.q} ${sel?sel.value:''} ${man?'('+man+')':''}\n`; answered++; }
         });
         if (answered < 5) { openModal(translations[curLang].errQs); return null; }
+        
         const extras = Array.from(document.querySelectorAll('input[name="extra"]:checked')).map(el => el.value);
-        if(extras.length > 0) {
-            text += `\nExtras: ${extras.join(', ')}\n`;
-            if (document.getElementById('appointment-sec').style.display === 'block') {
-                const d = document.getElementById('app_date').value; const t = document.getElementById('app_time').value; const l = document.getElementById('app_loc').value;
-                if(d) text += `LỊCH HẸN: ${d} lúc ${t} tại ${l}\n`;
-            }
+        if(extras.length > 0) text += `\nExtras: ${extras.join(', ')}\n`;
+        
+        const appDate = document.getElementById('app_date').value;
+        if(document.getElementById('appointment-sec').style.display === 'block' && appDate) {
+            text += `\nAppointment: ${appDate} at ${document.getElementById('app_time').value}\nLoc: ${document.getElementById('app_loc').value}\n`;
         }
-        const note = document.getElementById('final_note').value.trim(); if(note) text += `\nNote: ${note}`;
+        const note = document.getElementById('final_note').value.trim(); 
+        if(note) text += `\nNote: ${note}`;
         return { name, text };
     }
 
     function askConfirm(type) { if(buildContent()) openModal('', 'confirm', type); }
-
     function executeSend(t) {
-        const d = buildContent(); if(!d) return; 
-        const enc = encodeURIComponent(d.text); 
-        closeModal();
-        
+        const d = buildContent(); if(!d) return; const enc = encodeURIComponent(d.text); closeModal();
         switch(t) {
             case 'mail': window.location.href = `mailto:${TARGET_EMAIL}?subject=Quote Request - ${d.name}&body=${enc}`; break;
             case 'wa': window.open(`https://wa.me/${TARGET_PHONE}?text=${enc}`, '_blank'); break;
             case 'viber': window.open(`viber://chat?number=%2B${TARGET_PHONE}&draft=${enc}`, '_blank'); break;
             case 'zalo': window.open(`https://zalo.me/${TARGET_PHONE}`, '_blank'); break;
-            case 'sms': 
-                const smsLink = (navigator.userAgent.match(/iPhone|iPad|iPod/i)) 
-                                ? `sms:+${TARGET_PHONE}&body=${enc}` 
-                                : `sms:+${TARGET_PHONE}?body=${enc}`;
-                window.location.href = smsLink;
-                break;
+            case 'sms': window.location.href = (navigator.userAgent.match(/iPhone|iPad|iPod/i)) ? `sms:+${TARGET_PHONE}&body=${enc}` : `sms:+${TARGET_PHONE}?body=${enc}`; break;
         }
     }
+
+    // Khởi tạo ngày tối thiểu
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const tomorrowStr = tomorrow.toISOString().split('T')[0];
+    const dateInput = document.getElementById('app_date');
+    dateInput.min = tomorrowStr;
+    dateInput.value = "";
+
     setLang('PL');
 </script>
 </body>
