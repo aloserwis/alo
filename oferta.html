@@ -100,7 +100,7 @@
     #modal-box { background: white; width: 100%; max-width: 320px; border-radius: 15px; text-align: center; padding: 25px; }
     .m-btn { border: none; padding: 14px; border-radius: 50px; font-weight: 900; cursor: pointer; width: 100%; margin-top: 8px; font-family: var(--font-main); text-transform: uppercase; font-size: 0.8rem; }
     .footer-info { margin-top: 20px; font-size: 0.65rem; color: #333; line-height: 1.4; border-top: 1px solid #eee; padding-top: 15px; }
-    .f-label { font-weight: 900; color: var(--brand-blue); font-size: 0.50rem; writing-mode: vertical-lr; transform: rotate(180deg); border-right: 2px solid var(--brand-blue); padding-right: 4px; height: 40px; display: flex; align-items: center; }
+    .f-label { font-weight: 900; color: var(--brand-blue); font-size: 0.55rem; writing-mode: vertical-lr; transform: rotate(180deg); border-right: 2px solid var(--brand-blue); padding-right: 4px; height: 40px; display: flex; align-items: center; }
     .m-btn.btn-success {background: #2ecc71 !important;color: white !important;border: none;box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);}
     @keyframes telegram-attention {
         0% { transform: scale(1) rotate(0deg); }
@@ -143,7 +143,7 @@
 </head>
 <body>
 <div id="modal-overlay">
-    <div id="modal-box"><div id="modal-text"></div><div class="modal-btn-group" id="modal-btns"></div></div>
+    <div id="modal-box"><div id="modal-text" style="white-space: pre-line; line-height: 1.5;"></div><div class="modal-btn-group" id="modal-btns"></div></div>
 </div>
 <nav id="main-menu">
     <a href="/" class="menu-item"><i class="fa-solid fa-house"></i><span id="menu-alo">ALO</span></a>
@@ -237,7 +237,7 @@
             msgLabels: {title: "ALO SERWIS - WYCENA", mailSub: "Zapytanie o wycenę", name: "Imię", tel: "Tel", addr: "Adres", extra: "Dodatki", app: "Spotkanie", loc: "Lokalizacja", note: "Uwagi"},
             menu: ["ALO", "OFERTA", "USŁUGI", "KONTAKT", "POLSKI"],
             desc: "MONTAŻ i SERWIS CCTV", brand: "Wycena systemów CCTV i inny", note: "(im więcej informacji, tym lepiej)", sec1: "I. DANE KLIENTA", sec2: "II. SZCZEGÓŁY SYSTEMU", sec3: "III. INNE SYSTEMY?", sec4: "IV. UWAGI", name: "Imię i Nazwisko", phone: "Numer telefonu", addr: "Adres montażu", other: "Inne...", err: "Wypełnij Imię, Numer telefonu i Adres montażu!", errQs: "Wybierz min. 5 opcji!", hint: "Wybierz kanał przesłania zapytania:", mRetry: "Wyczyść wszystko", mOk: "Zamknij", confirmAsk: "Wysłać via", confirmUse: "Użyć", yes: "Tak", no: "Nie", appTitle: "📅 Wybierz datę spotkania (Pn-Pt):", appMsg: "Czy chcesz umówić się na wizytę w naszym sklepie?", errWeekend: "Konsultanci nie pracują w weekendy.", resetBtn: "Wyczyść odpowiedzi",
-            sending: "Wysyłanie wyceny...", sentSuccess: "✅ WYŁANO POMYŚLNIE!\nSkontaktujemy się z Tobą jak najszybciej.", viberCopy: "Wycena skopiowana! Proszę 'Wklej' (Paste) w Viber.", tgError: "Błąd bota. Otwieranie czatu trực tiếp...", waitMsg: "Zwolnij! Odczekaj {s}s.",
+            sending: "Wysyłanie wyceny...", sentSuccess: "✅ WYŁANO POMYŚLNIE!\nSkontaktujemy się jak najszybciej, korzystając z podanego numeru telefonu:", viberCopy: "Wycena skopiowana! Proszę 'Wklej' (Paste) w Viber.", tgError: "Błąd bota. Otwieranie czatu trực tiếp...", waitMsg: "Zwolnij! Odczekaj {s}s.",
             extras: [ {v:"ALARM", l:"🔔 ALARM"}, {v:"DOMOFON", l:"📞 DOMO"}, {v:"SIEĆ", l:"🌐 SIEĆ"}, {v:"ELEKTRYK", l:"⚡  ELEK"} ],
             qs: [{q:"1. Typ obiektu:", a:["Dom","Biuro","Magazyn"]},{q:"2. Liczba kamer:", a:["1-4","5-10","> 10"]},{q:"3. Lokalizacj:", a:["Wewnątrz","Zewnątrz","Obie"]},{q:"4. Stan:", a:["Nowy","Istniejący","Remont"]},{q:"5. Połączenie:", a:["Kabel IP","Wi-Fi","Kable HD-CVI"]},{q:"6. Sprzęt:", a:["Z montażem","Własny","Porada"]},{q:"7. Funkcje:", a:["Noc-Kolor","Alarm","Audio"]},{q:"8. Dysk:", a:["1 Tydz","1 Mies","Cloud"]},{q:"9. Budżet:", a:["Ekonomiczny","Standard","Premium"]},{q:"10. Termin:", a:["Pilne","Miesiąc","Wycena"]}] 
         },
@@ -245,7 +245,7 @@
             msgLabels: {title: "ALO SERWIS - QUOTE", mailSub: "Quote Request", name: "Name", tel: "Tel", addr: "Addr", extra: "Extras", app: "Appointment", loc: "Location", note: "Note"},
             menu: ["HOME", "OFFER", "SERVICES", "CONTACT", "ENGLISH"],
             desc: "INSTAL & SERVICE CCTV", brand: "CCTV & Other Systems Quote", note: "(More info = Better quote)", sec1: "I. CUSTOMER DETAILS", sec2: "II. SYSTEM DETAILS", sec3: "III. OTHER SYSTEMS?", sec4: "IV. NOTES", name: "Full Name", phone: "Phone Number", addr: "Address", other: "Other...", err: "Please fill Name, Phone and Address install!", errQs: "Answer min. 5 questions!", hint: "Please choose a channel to send your request:", mRetry: "Reset All", mOk: "Close", confirmAsk: "Send via", confirmUse: "Use", yes: "Yes", no: "No", appTitle: "📅 Choose date (Mon-Fri):", appMsg: "Would you like to book an appointment at our store?", errWeekend: "Consultants are off work on weekends.", resetBtn: "Clear answers",
-            sending: "Sending quote...", sentSuccess: "✅ SENT SUCCESSFULLY!\nWe will contact you as soon as possible.", viberCopy: "Quote copied! Please 'Paste' into Viber.", tgError: "Bot error. Opening direct chat...", waitMsg: "Wait {s}s before next send.",
+            sending: "Sending quote...", sentSuccess: "✅ SENT SUCCESSFULLY!\nWe will contact you as soon as possible, using the phone number you provided:" , viberCopy: "Quote copied! Please 'Paste' into Viber.", tgError: "Bot error. Opening direct chat...", waitMsg: "Wait {s}s before next send.",
             extras: [ {v:"ALARM", l:"🔔 ALARM"}, {v:"DOMOFON", l:"📞 ENTRY"}, {v:"SIEĆ", l:"🌐 NET"}, {v:"ELEKTRYK", l:"⚡ ELEC"} ],
             qs: [{q:"1. Building:", a:["House","Office","Warehouse"]},{q:"2. Cameras:", a:["1-4","5-10","> 10"]},{q:"3. Location:", a:["Indoor","Outdoor","Both"]},{q:"4. Status:", a:["New","Existing","Renovation"]},{q:"5. Connection:", a:["IP Cable","Wi-Fi","HD-CVI Cable"]},{q:"6. Equipment:", a:["Package","Own","Advice"]},{q:"7. Features:", a:["Night Color","Alarm","Audio"]},{q:"8. Storage:", a:["1 Week","1 Month","Cloud"]},{q:"9. Budget:", a:["Economy","Standard","Premium"]},{q:"10. Timeline:", a:["Urgent","Month","Pricing"]}] 
         },
@@ -253,7 +253,7 @@
             msgLabels: {title: "ALO SERWIS - BÁO GIÁ", mailSub: "Yêu cầu báo giá", name: "Họ tên", tel: "SĐT", addr: "Địa chỉ", extra: "Thêm", app: "Lịch hẹn", loc: "Địa điểm", note: "Ghi chú"},
             menu: ["TRANG CHỦ", "BÁO GIÁ", "DỊCH VỤ", "LIÊN HỆ", "TIẾNG VIỆT"],
             desc: "LẮP ĐẶT & BẢO TRÌ CAMERA", brand: "Báo giá HT Camera và các hệ thống khác", note: "(Càng nhiều thông tin báo giá càng chính xác)", sec1: "I. THÔNG TIN KHÁCH HÀNG", sec2: "II. CHI TIẾT HỆ THỐNG", sec3: "III. HỆ THỐNG KHÁC?", sec4: "IV. GHI CHÚ", name: "Họ và Tên", phone: "Số điện thoại", addr: "Địa chỉ lắp đặt", other: "Khác...", err: "Vui lòng nhập Tên, SĐT và Địa chỉ lắp đặt!", errQs: "Trả lời ít nhất 5 câu hỏi!", hint: "Vui lòng chọn kênh gửi yêu cầu Báo giá:", mRetry: "Làm lại tất cả", mOk: "Đóng", confirmAsk: "Gửi qua", confirmUse: "Bạn dùng", yes: "Có", no: "Không", appTitle: "📅 Chọn ngày tư vấn (Thứ 2-6):", appMsg: "Quý khách có muốn đặt lịch Tư vấn tại cửa hàng chúng tôi không?", errWeekend: "Nhân viên tư vấn nghỉ làm việc cuối tuần!", resetBtn: "Xoá câu trả lời",
-            sending: "Đang gửi báo giá...", sentSuccess: "✅ GỬI THÀNH CÔNG!\nChúng tôi sẽ liên hệ với bạn sớm nhất có thể.", viberCopy: "Đã sao chép báo giá! Vui lòng 'Dán' vào Viber.", tgError: "Lỗi kết nối. Đang chuyển sang chat trực tiếp...", waitMsg: "Chờ {s} giây để gửi tiếp.",
+            sending: "Đang gửi báo giá...", sentSuccess: "✅ GỬI THÀNH CÔNG!\nChúng tôi sẽ liên hệ với bạn sớm nhất có thể, theo số điện thoại bạn đã cung cấp:" ,viberCopy: "Đã sao chép báo giá! Vui lòng 'Dán' vào Viber.", tgError: "Lỗi kết nối. Đang chuyển sang chat trực tiếp...", waitMsg: "Chờ {s} giây để gửi tiếp.",
             extras: [ {v:"ALARM", l:"🔔 ALARM"}, {v:"DOMOFON", l:"📞 DOMO"}, {v:"SIEĆ", l:"🌐 MẠNG"}, {v:"ELEKTRYK", l:"⚡ ĐIỆN"} ],
             qs: [{q:"1. Công trình:", a:["Nhà riêng","Văn phòng","Kho"]},{q:"2. Số lượng:", a:["1-4 mắt","5-10 mắt",">10 mắt"]},{q:"3. Vị trí:", a:["Trong nhà","Ngoài trời","Cả hai"]},{q:"4. Hạ tầng:", a:["Mới","Đã ở","Thay cũ"]},{q:"5. Kết nối:", a:["Dây IP","Wifi","Dây HD-CVI"]},{q:"6. Thiết bị:", a:["Trọn gói","Có sẵn","Cần tư vấn"]},{q:"7. Tính năng:", a:["Màu đêm","Báo động","Đàm thoại"]},{q:"8. Lưu trữ:", a:["1 Tuần","1 Tháng","Cloud"]},{q:"9. Ngân sách:", a:["Tiết kiệm","Vừa phải","Cao cấp"]},{q:"10. Tiến độ:", a:["Gấp","Bình thường","Khảo giá"]}] 
         }
@@ -430,7 +430,7 @@
         }
         const note = document.getElementById('final_note').value.trim(); 
         if(note) text += `\n${lb.note}: ${note}`;
-        return { name, text };
+        return { name, phone, text };
     }
 
     function askConfirm(type) { 
@@ -454,8 +454,9 @@
         
         const cur = translations[curLang]; 
         const text = d.text;
+        const phoneOfGuest = d.phone;
         const enc = encodeURIComponent(text);
-        
+        const fullSuccessMsg = cur.sentSuccess + "\n\n" + phoneOfGuest + "\n\n";
         try { 
             await navigator.clipboard.writeText(text); 
         } catch (e) {
@@ -477,7 +478,7 @@
                     body: JSON.stringify({ chat_id: TELEGRAM_MY_ID, text: text })
                 }).then(res => {
                     if(res.ok) {
-                        openModal(cur.sentSuccess, 'success');
+                        openModal(fullSuccessMsg, 'success');
                     } else {
                         openModal(cur.tgError);
                         setTimeout(() => window.open(`https://t.me/aka242`, '_blank'), 1500);
