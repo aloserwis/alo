@@ -5,9 +5,9 @@ let mainInterval;
 
 const redTexts = ["KOMPUTER - PC - AIO", "LAPTOP - MACBOOK", "DRUKARKA - TONER/TUSZ", "OPROGRAMOWANIE - OS"];
 const redImages = [
-    "https://i.postimg.cc/tCWStZ2y/kom02.png",
-    "https://i.postimg.cc/QtPG3dmL/macbook.png",
-    "https://i.postimg.cc/g23QnPyq/Chat-GPT-Image-6-sty-2026-19-20-23.png"
+    "https://i.postimg.cc/T2N68Yqm/pc2.png",
+    "https://i.postimg.cc/L672P6nB/macbook.png",
+    "https://i.postimg.cc/SKQ4FX57/pc3.png"
 ];
 
 const els = {
@@ -22,8 +22,8 @@ const els = {
     imgV: document.getElementById('img-v'), imgH: document.getElementById('img-h')
 };
 
-const IMG_PHONE = "https://i.postimg.cc/vZdpL1xS/IMG-1345.png";
-const IMG_CAMERA = "https://i.postimg.cc/nrqSgNx0/unnamed-(1).png";
+const IMG_PHONE = "https://i.postimg.cc/2ySrQ1Q9/iphone.png";
+const IMG_CAMERA = "https://i.postimg.cc/vHmZ9NXB/dahua-ptz.png";
 const COLORS = ['#f58220', '#0088cc', '#ff3131'];
 
 function updateMode(targetMode = null) {
@@ -162,7 +162,7 @@ window.addEventListener('mouseup', handleEnd);
 // Responsive Scaling
 function rescale() {
     const isPortrait = window.innerHeight > window.innerWidth;
-    const designW = isPortrait ? 1080 : 1920;
+    const designW = isPortrait ? 1080 : 1870;
     const bannerH = isPortrait ? 1920 : 1080;
     
     const menuH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--menu-height'));
@@ -231,4 +231,5 @@ window.addEventListener('load', () => {
     drawSnow(); 
     rescale(); 
     startAutoCycle();
+
 });
