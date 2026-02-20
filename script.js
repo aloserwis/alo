@@ -5,7 +5,7 @@ let mainInterval;
 
 const redTexts = ["KOMPUTER - PC - AIO", "LAPTOP - MACBOOK", "DRUKARKA - TONER/TUSZ", "OPROGRAMOWANIE - OS"];
 const redImages = [
-    "https://i.postimg.cc/Y0W3zvHW/pc2.png",
+    "https://i.postimg.cc/T2N68Yqm/pc2.png",
     "https://i.postimg.cc/L672P6nB/macbook.png",
     "https://i.postimg.cc/SKQ4FX57/pc3.png"
 ];
@@ -23,7 +23,7 @@ const els = {
 };
 
 const IMG_PHONE = "https://i.postimg.cc/2ySrQ1Q9/iphone.png";
-const IMG_CAMERA = "https://i.postimg.cc/DZmJT1Jv/dahua.png";
+const IMG_CAMERA = "https://i.postimg.cc/vHmZ9NXB/dahua-ptz.png";
 const COLORS = ['#f58220', '#0088cc', '#ff3131'];
 
 function updateMode(targetMode = null) {
@@ -163,7 +163,7 @@ window.addEventListener('mouseup', handleEnd);
 function rescale() {
     const isPortrait = window.innerHeight > window.innerWidth;
     const designW = isPortrait ? 1080 : 1870;
-    const bannerH = isPortrait ? 1870 : 1080;
+    const bannerH = isPortrait ? 1920 : 1080;
     
     const menuH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--menu-height'));
     const gap = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--gap'));
@@ -231,7 +231,4 @@ window.addEventListener('load', () => {
     drawSnow(); 
     rescale(); 
     startAutoCycle();
-
 });
-
-Làm sao để menu có kích thước chiều ngang bằng khung bên dưới
