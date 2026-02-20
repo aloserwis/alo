@@ -5,7 +5,7 @@ let mainInterval;
 
 const redTexts = ["KOMPUTER - PC - AIO", "LAPTOP - MACBOOK", "DRUKARKA - TONER/TUSZ", "OPROGRAMOWANIE - OS"];
 const redImages = [
-    "https://i.postimg.cc/T2N68Yqm/pc2.png",
+    "https://i.postimg.cc/Y0W3zvHW/pc2.png",
     "https://i.postimg.cc/L672P6nB/macbook.png",
     "https://i.postimg.cc/SKQ4FX57/pc3.png"
 ];
@@ -233,4 +233,5 @@ window.addEventListener('load', () => {
     startAutoCycle();
 
 });
+
 
