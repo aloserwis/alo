@@ -1,7 +1,11 @@
+/**
+ * CẤU HÌNH BIẾN TOÀN CỤC
+ */
 let mode = 0; 
 let redSubStepImg = 0;
 let redSubStepText = 0;
 let mainInterval; 
+let currentScale = 1;
 
 const redTexts = ["KOMPUTER - PC - AIO", "LAPTOP - MACBOOK", "DRUKARKA - TONER/TUSZ", "OPROGRAMOWANIE - OS"];
 const redImages = [
@@ -19,24 +23,35 @@ const els = {
     c1V: document.getElementById('c1-v'), c1H: document.getElementById('c1-h'),
     c2V: document.getElementById('c2-v'), c2H: document.getElementById('c2-h'),
     c3V: document.getElementById('c3-v'), c3H: document.getElementById('c3-h'),
-    imgV: document.getElementById('img-v'), imgH: document.getElementById('img-h')
+    imgV: document.getElementById('img-v'), imgH: document.getElementById('img-h'),
+    menu: document.getElementById('main-menu'),
+    appContainer: document.getElementById('app-container'),
+    ptr: document.getElementById('ptr-indicator')
 };
 
 const IMG_PHONE = "https://i.postimg.cc/2ySrQ1Q9/iphone.png";
 const IMG_CAMERA = "https://i.postimg.cc/DZmJT1Jv/dahua.png";
 const COLORS = ['#f58220', '#0088cc', '#ff3131'];
 
+/**
+ * HÀM CẬP NHẬT GIAO DIỆN THEO CHẾ ĐỘ (MODE)
+ */
 function updateMode(targetMode = null) {
     if (targetMode !== null) mode = targetMode;
     else mode = (mode + 1) % 3;
+    
     const newColor = COLORS[mode];
     document.documentElement.style.setProperty('--current-theme', newColor);
     
-    // Update menu border color
-    const menu = document.getElementById('main-menu');
-    if(menu) menu.style.borderColor = newColor;
+    // Cập nhật viền menu đồng bộ với theme
+    if(els.menu) {
+        els.menu.style.borderColor = newColor;
+        els.menu.style.width = "100%"; // Đảm bảo luôn chiếm hết chiều ngang container
+        els.menu.style.boxSizing = "border-box";
+    }
 
     els.imgV.style.opacity = els.imgH.style.opacity = "0";
+    
     setTimeout(() => {
         if(mode === 1) { 
             els.modelV.style.display = els.modelH.style.display = 'block';
@@ -76,12 +91,42 @@ function updateMode(targetMode = null) {
     }, 400);
 }
 
+/**
+ * HÀM ĐIỀU CHỈNH KÍCH THƯỚC (RESPONSIVE)
+ * Đảm bảo Menu và Banner có cùng chiều ngang thiết kế
+ */
+function rescale() {
+    const isPortrait = window.innerHeight > window.innerWidth;
+    
+    // Chiều rộng thiết kế gốc (Design Width)
+    const designW = isPortrait ? 1080 : 1870;
+    const bannerH = isPortrait ? 1870 : 1080;
+    
+    // Lấy chiều cao menu và khoảng cách từ CSS Variables
+    const rootStyle = getComputedStyle(document.documentElement);
+    const menuH = parseInt(rootStyle.getPropertyValue('--menu-height')) || 0;
+    const gap = parseInt(rootStyle.getPropertyValue('--gap')) || 0;
+    
+    const totalDesignH = bannerH + menuH + gap;
+
+    // Tính toán tỉ lệ scale để fit cả chiều rộng và chiều cao
+    currentScale = Math.min(window.innerWidth / designW, window.innerHeight / totalDesignH);
+    
+    // Cố định chiều rộng container để menu con width:100% hoạt động chính xác
+    els.appContainer.style.width = designW + 'px';
+    els.appContainer.style.transform = `scale(${currentScale})`;
+    els.appContainer.style.transformOrigin = "top center";
+}
+
+/**
+ * QUẢN LÝ CHU KỲ TỰ ĐỘNG
+ */
 function startAutoCycle() {
     clearInterval(mainInterval);
     mainInterval = setInterval(() => updateMode(), 9000);
 }
 
-// Sub-cycles for Mode 2
+// Sub-cycles cho Mode 2 (Red Mode)
 setInterval(() => { 
     if (mode === 2) { 
         redSubStepImg = (redSubStepImg + 1) % redImages.length; 
@@ -104,16 +149,16 @@ setInterval(() => {
     } 
 }, 2250);
 
-// Drag & Pull-to-refresh
-const appContainer = document.getElementById('app-container');
-const ptr = document.getElementById('ptr-indicator');
-let startX = 0, startY = 0, isDragging = false, currentScale = 1;
+/**
+ * TƯƠNG TÁC VUỐT (DRAG) & REFRESH
+ */
+let startX = 0, startY = 0, isDragging = false;
 
 const handleStart = (e) => {
     startX = (e.touches ? e.touches[0].pageX : e.pageX);
     startY = (e.touches ? e.touches[0].pageY : e.pageY);
     isDragging = true;
-    appContainer.style.transition = 'none';
+    els.appContainer.style.transition = 'none';
 };
 
 const handleEnd = (e) => {
@@ -123,6 +168,7 @@ const handleEnd = (e) => {
     const diffX = endX - startX;
     const diffY = endY - startY;
     
+    // Chuyển Mode khi vuốt ngang hoặc dọc vừa đủ
     if (Math.abs(diffX) > 80 || Math.abs(diffY) > 80) {
         if (!(diffY > 200 && Math.abs(diffX) < 100)) {
             updateMode();
@@ -130,13 +176,15 @@ const handleEnd = (e) => {
         }
     }
     
+    // Pull-to-refresh
     if (diffY > 220 && Math.abs(diffX) < 100) {
-        ptr.innerHTML = '<i class="fa-solid fa-sync-alt fa-spin fa-2x"></i>';
+        els.ptr.innerHTML = '<i class="fa-solid fa-sync-alt fa-spin fa-2x"></i>';
         setTimeout(() => location.reload(), 600);
     } else {
-        ptr.style.opacity = '0'; ptr.style.top = '-80px';
-        appContainer.style.transform = `scale(${currentScale})`;
-        appContainer.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        els.ptr.style.opacity = '0'; 
+        els.ptr.style.top = '-80px';
+        els.appContainer.style.transform = `scale(${currentScale})`;
+        els.appContainer.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
     }
     isDragging = false;
 };
@@ -146,56 +194,22 @@ const handleMove = (e) => {
     const moveY = (e.touches ? e.touches[0].pageY : e.pageY) - startY;
     if (moveY > 0 && moveY < 250) {
         const move = Math.min(moveY * 0.5, 160);
-        ptr.style.opacity = move / 100;
-        ptr.style.top = (move - 80) + 'px';
-        appContainer.style.transform = `scale(${currentScale}) translateY(${move/2}px)`;
+        els.ptr.style.opacity = move / 100;
+        els.ptr.style.top = (move - 80) + 'px';
+        els.appContainer.style.transform = `scale(${currentScale}) translateY(${move/2}px)`;
     }
 };
 
-appContainer.addEventListener('touchstart', handleStart, {passive: true});
-appContainer.addEventListener('touchmove', handleMove, {passive: true});
-appContainer.addEventListener('touchend', handleEnd);
-appContainer.addEventListener('mousedown', handleStart);
+els.appContainer.addEventListener('touchstart', handleStart, {passive: true});
+els.appContainer.addEventListener('touchmove', handleMove, {passive: true});
+els.appContainer.addEventListener('touchend', handleEnd);
+els.appContainer.addEventListener('mousedown', handleStart);
 window.addEventListener('mousemove', handleMove);
 window.addEventListener('mouseup', handleEnd);
 
-// Responsive Scaling
-function rescale() {
-    const isPortrait = window.innerHeight > window.innerWidth;
-    const designW = isPortrait ? 1080 : 1870;
-    const bannerH = isPortrait ? 1870 : 1080;
-    
-    const menuH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--menu-height'));
-    const gap = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--gap'));
-    const totalDesignH = bannerH + menuH + gap;
-
-    currentScale = Math.min(window.innerWidth / designW, window.innerHeight / totalDesignH);
-    appContainer.style.width = designW + 'px';
-    appContainer.style.transform = `scale(${currentScale})`;
-}
-
-// Nav items interaction
-const links = document.querySelectorAll('.dt-link');
-links.forEach(link => {
-    link.addEventListener('click', function(e) {
-        if (!this.classList.contains('active')) {
-            e.preventDefault();
-            e.stopPropagation();
-            links.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
-        } else {
-            e.stopPropagation();
-        }
-    });
-});
-
-document.body.addEventListener('click', (e) => {
-    if (!e.target.closest('.nav-item')) {
-        links.forEach(l => l.classList.remove('active'));
-    }
-});
-
-// Snow Effect
+/**
+ * HIỆU ỨNG TUYẾT RƠI (SNOW)
+ */
 const canvas = document.getElementById('snow-canvas'), ctx = canvas.getContext('2d');
 let width, height, snowflakes = [];
 
@@ -224,15 +238,34 @@ function drawSnow() {
     requestAnimationFrame(drawSnow); 
 }
 
-// Initializing
+/**
+ * KHỞI TẠO ỨNG DỤNG
+ */
 window.addEventListener('resize', () => { initSnow(); rescale(); });
 window.addEventListener('load', () => { 
     initSnow(); 
     drawSnow(); 
     rescale(); 
     startAutoCycle();
+    
+    // Xử lý click cho Nav Items
+    const links = document.querySelectorAll('.dt-link');
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (!this.classList.contains('active')) {
+                e.preventDefault();
+                e.stopPropagation();
+                links.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            } else {
+                e.stopPropagation();
+            }
+        });
+    });
 
+    document.body.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-item')) {
+            links.forEach(l => l.classList.remove('active'));
+        }
+    });
 });
-
-
-
