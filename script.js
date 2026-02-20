@@ -163,7 +163,7 @@ window.addEventListener('mouseup', handleEnd);
 function rescale() {
     const isPortrait = window.innerHeight > window.innerWidth;
     const designW = isPortrait ? 1080 : 1870;
-    const bannerH = isPortrait ? 1920 : 1080;
+    const bannerH = isPortrait ? 1870 : 1080;
     
     const menuH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--menu-height'));
     const gap = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--gap'));
@@ -233,5 +233,6 @@ window.addEventListener('load', () => {
     startAutoCycle();
 
 });
+
 
 
