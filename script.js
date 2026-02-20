@@ -23,7 +23,7 @@ const els = {
 };
 
 const IMG_PHONE = "https://i.postimg.cc/2ySrQ1Q9/iphone.png";
-const IMG_CAMERA = "https://i.postimg.cc/vHmZ9NXB/dahua-ptz.png";
+const IMG_CAMERA = "https://i.postimg.cc/DZmJT1Jv/dahua.png";
 const COLORS = ['#f58220', '#0088cc', '#ff3131'];
 
 function updateMode(targetMode = null) {
@@ -233,3 +233,4 @@ window.addEventListener('load', () => {
     startAutoCycle();
 
 });
+
