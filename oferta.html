@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        
     :root { 
         --primary: #2c3e50; 
         --accent: #0088cc;
@@ -20,9 +21,10 @@
         font-family: var(--font-main);
         -webkit-tap-highlight-color: transparent; 
     }
-    body { background: var(--bg); margin: 0; padding: 5px; color: var(--primary); }
+    body { background: var(--bg); margin: 0; padding: clamp(4px, 1.2vw, 16px); color: var(--primary); }
     .container { 
-        max-width: 500px; 
+        width: 100%;
+        max-width: 1050px; 
         margin: auto; 
         background: white; 
         padding: 0 15px 15px 15px; 
@@ -30,7 +32,7 @@
         box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
     }
     #main-menu {
-        position: sticky; top: 0; z-index: 1000; width: 100%; max-width: 500px;
+        position: sticky; top: 0; z-index: 1000; width: 100%; max-width: 1050px;
         margin: 0 auto 5px auto; height: var(--menu-h); background: #ffffff;
         border-radius: 0 0 15px 15px; display: flex; justify-content: space-between;
         align-items: center; border: 2px solid var(--brand-blue); padding: 0;
@@ -53,8 +55,18 @@
     .section-title { 
         position: sticky; top: var(--menu-h); z-index: 999; background: #eef7fc; 
         padding: 8px 10px; margin: 15px -15px 10px -15px; border-left: 4px solid var(--brand-blue); 
-        font-size: 0.85rem; color: var(--brand-blue); box-shadow: 0 2px 4px rgba(0,0,0,0.05); font-weight: 900;
+        font-size: clamp(0.72rem, 1.6vw, 0.9rem); color: var(--brand-blue); box-shadow: 0 2px 4px rgba(0,0,0,0.05); font-weight: 900;
+        display: flex; align-items: center; gap: 8px;
     }
+    .section-title > span { flex: 1 1 auto; min-width: 0; }
+    .section-action {
+        margin-left: auto; flex: 0 0 auto; border: 1px solid var(--brand-blue);
+        background: #fff; color: var(--brand-blue); border-radius: 7px;
+        min-height: 30px; padding: 5px 9px; cursor: pointer;
+        font-size: clamp(0.58rem, 1.4vw, 0.7rem); font-weight: 900;
+        line-height: 1.1; white-space: normal; max-width: 48%; touch-action: manipulation;
+    }
+    .section-action:active { background: var(--brand-blue); color: #fff; transform: scale(0.97); }
     .question-block { margin-bottom: 25px; }
     .question-text { 
         position: sticky; top: 90px; z-index: 998; background: white; padding: 10px 0; 
@@ -65,7 +77,7 @@
         width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; 
         margin-top: 5px; font-size: 15px; font-weight: 500; font-family: var(--font-main);
     }
-    .options-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .options-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(6px, 1vw, 10px); }
     .opt-label { 
         border: 1px solid #eee; padding: 12px 4px; border-radius: 8px; text-align: center; 
         font-size: 0.8rem; cursor: pointer; background: #fff; display: flex; 
@@ -138,7 +150,22 @@
     margin-top: 10px;
     background: #f0faff;
 }
-    @media (min-width: 600px) { .container, #main-menu { max-width: 750px; } }
+    @media (max-width: 380px) {
+        .section-title { padding-left: 7px; padding-right: 7px; }
+        .section-action { padding: 5px 6px; }
+        .options-row { gap: 5px; }
+        .opt-label { font-size: 0.7rem; }
+    }
+    @media (max-width: 480px) {
+        #extra-container { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    }
+    @media (min-width: 768px) {
+        .container { padding-left: 22px; padding-right: 22px; }
+        .section-title { margin-left: -22px; margin-right: -22px; padding-left: 18px; padding-right: 18px; }
+        .question-text { position: static; font-size: 1rem; }
+        .opt-label { min-height: 62px; font-size: 0.86rem; }
+        input[type="text"], input[type="date"], select, textarea { font-size: 16px; }
+    }
 </style>
 </head>
 <body>
@@ -163,14 +190,20 @@
         <p id="txt-brand-sub" class="brand-sub"></p>
         <p id="txt-brand-3" style="font-size: 0.7rem; color: #666; font-style: italic; margin-top: 5px;"></p>
     </div>
-    <div class="section-title"><span id="txt-sec-1"></span></div>
+    <div class="section-title">
+        <span id="txt-sec-1"></span>
+        <button type="button" class="section-action" onclick="resetCustomerData()" id="btn-reset-customer-txt">Nhập lại</button>
+    </div>
     <div style="padding-top: 5px;">
         <input type="text" id="cust_name" oninput="saveCache()">
         <input type="text" id="cust_phone" oninput="saveCache()">
         <input type="text" id="cust_address" oninput="saveCache()">
         <div style="display:none !important;"><input type="text" id="hp_field" tabindex="-1" autocomplete="off"></div>
     </div>
-    <div class="section-title"><span id="txt-sec-2"></span></div>
+    <div class="section-title">
+        <span id="txt-sec-2"></span>
+        <button type="button" class="section-action" onclick="clearOnlyAnswers()" id="btn-clear-questions-txt">Xóa các câu trả lời</button>
+    </div>
     <div id="questions-container"></div>
     <div class="section-title"><span id="txt-sec-3"></span></div>
     <div class="options-row" style="grid-template-columns: repeat(4, 1fr);" id="extra-container"></div>
@@ -189,12 +222,6 @@
     </div>
     <div class="section-title"><span id="txt-sec-4"></span></div>
     <textarea id="final_note" rows="2" oninput="saveCache()"></textarea>
-    <div class="btn-reset-container">
-        <button class="btn-clear-answers" onclick="clearOnlyAnswers()">
-            <i class="fa-solid fa-rotate-left"></i>
-            <span id="btn-reset-txt">Wyczyść odpowiedzi</span>
-        </button>
-    </div>
     <div class="hint-send" id="txt-hint-send"></div>
     <div class="social-row">
         <button onclick="askConfirm('tg')" class="social-circle">
@@ -236,7 +263,7 @@
         PL: { 
             msgLabels: {title: "ALO SERWIS - WYCENA", mailSub: "Zapytanie o wycenę", name: "Imię", tel: "Tel", addr: "Adres", extra: "Dodatki", app: "Spotkanie", loc: "Lokalizacja", note: "Uwagi"},
             menu: ["ALO", "OFERTA", "USŁUGI", "KONTAKT", "POLSKI"],
-            desc: "MONTAŻ i SERWIS CCTV", brand: "Wycena systemów CCTV i inny", note: "(im więcej informacji, tym lepiej)", sec1: "I. DANE KLIENTA", sec2: "II. SZCZEGÓŁY SYSTEMU", sec3: "III. INNE SYSTEMY?", sec4: "IV. UWAGI", name: "Imię i Nazwisko", phone: "Numer telefonu", addr: "Adres montażu", other: "Inne...", err: "Wypełnij Imię, Numer telefonu i Adres montażu!", errQs: "Wybierz min. 5 opcji!", hint: "Wybierz kanał przesłania zapytania:", mRetry: "Wyczyść wszystko", mOk: "Zamknij", confirmAsk: "Wysłać via", confirmUse: "Użyć", yes: "Tak", no: "Nie", appTitle: "📅 Wybierz datę spotkania (Pn-Pt):", appMsg: "Czy chcesz umówić się na wizytę w naszym sklepie?", errWeekend: "Konsultanci nie pracują w weekendy.", resetBtn: "Wyczyść odpowiedzi",
+            desc: "MONTAŻ i SERWIS CCTV", brand: "Wycena systemów CCTV i inny", note: "(im więcej informacji, tym lepiej)", sec1: "I. DANE KLIENTA", sec2: "II. SZCZEGÓŁY SYSTEMU", sec3: "III. INNE SYSTEMY?", sec4: "IV. UWAGI", name: "Imię i Nazwisko", phone: "Numer telefonu", addr: "Adres montażu", other: "Inne...", err: "Wypełnij Imię, Numer telefonu i Adres montażu!", errQs: "Wybierz min. 5 opcji!", hint: "Wybierz kanał przesłania zapytania:", mRetry: "Wyczyść wszystko", mOk: "Zamknij", confirmAsk: "Wysłać via", confirmUse: "Użyć", yes: "Tak", no: "Nie", appTitle: "📅 Wybierz datę spotkania (Pn-Pt):", appMsg: "Czy chcesz umówić się na wizytę w naszym sklepie?", errWeekend: "Konsultanci nie pracują w weekendy.", resetBtn: "Wyczyść odpowiedzi", resetCustomer: "Wpisz ponownie", clearAnswers: "Wyczyść odpowiedzi",
             sending: "Wysyłanie wyceny...", sentSuccess: "✅ WYŁANO POMYŚLNIE!\nSkontaktujemy się jak najszybciej, korzystając z podanego numeru telefonu:", viberCopy: "Wycena skopiowana! Proszę 'Wklej' (Paste) w Viber.", tgError: "Błąd bota. Otwieranie czatu trực tiếp...", waitMsg: "Zwolnij! Odczekaj {s}s.",
             extras: [ {v:"ALARM", l:"🔔 ALARM"}, {v:"DOMOFON", l:"📞 DOMO"}, {v:"SIEĆ", l:"🌐 SIEĆ"}, {v:"ELEKTRYK", l:"⚡  ELEK"} ],
             qs: [{q:"1. Typ obiektu:", a:["Dom","Biuro","Magazyn"]},{q:"2. Liczba kamer:", a:["1-4","5-10","> 10"]},{q:"3. Lokalizacj:", a:["Wewnątrz","Zewnątrz","Obie"]},{q:"4. Stan:", a:["Nowy","Istniejący","Remont"]},{q:"5. Połączenie:", a:["Kabel IP","Wi-Fi","Kable HD-CVI"]},{q:"6. Sprzęt:", a:["Z montażem","Własny","Porada"]},{q:"7. Funkcje:", a:["Noc-Kolor","Alarm","Audio"]},{q:"8. Dysk:", a:["1 Tydz","1 Mies","Cloud"]},{q:"9. Budżet:", a:["Ekonomiczny","Standard","Premium"]},{q:"10. Termin:", a:["Pilne","Miesiąc","Wycena"]}] 
@@ -244,7 +271,7 @@
         EN: { 
             msgLabels: {title: "ALO SERWIS - QUOTE", mailSub: "Quote Request", name: "Name", tel: "Tel", addr: "Addr", extra: "Extras", app: "Appointment", loc: "Location", note: "Note"},
             menu: ["HOME", "OFFER", "SERVICES", "CONTACT", "ENGLISH"],
-            desc: "INSTAL & SERVICE CCTV", brand: "CCTV & Other Systems Quote", note: "(More info = Better quote)", sec1: "I. CUSTOMER DETAILS", sec2: "II. SYSTEM DETAILS", sec3: "III. OTHER SYSTEMS?", sec4: "IV. NOTES", name: "Full Name", phone: "Phone Number", addr: "Address", other: "Other...", err: "Please fill Name, Phone and Address install!", errQs: "Answer min. 5 questions!", hint: "Please choose a channel to send your request:", mRetry: "Reset All", mOk: "Close", confirmAsk: "Send via", confirmUse: "Use", yes: "Yes", no: "No", appTitle: "📅 Choose date (Mon-Fri):", appMsg: "Would you like to book an appointment at our store?", errWeekend: "Consultants are off work on weekends.", resetBtn: "Clear answers",
+            desc: "INSTAL & SERVICE CCTV", brand: "CCTV & Other Systems Quote", note: "(More info = Better quote)", sec1: "I. CUSTOMER DETAILS", sec2: "II. SYSTEM DETAILS", sec3: "III. OTHER SYSTEMS?", sec4: "IV. NOTES", name: "Full Name", phone: "Phone Number", addr: "Address", other: "Other...", err: "Please fill Name, Phone and Address install!", errQs: "Answer min. 5 questions!", hint: "Please choose a channel to send your request:", mRetry: "Reset All", mOk: "Close", confirmAsk: "Send via", confirmUse: "Use", yes: "Yes", no: "No", appTitle: "📅 Choose date (Mon-Fri):", appMsg: "Would you like to book an appointment at our store?", errWeekend: "Consultants are off work on weekends.", resetBtn: "Clear answers", resetCustomer: "Enter again", clearAnswers: "Clear answers",
             sending: "Sending quote...", sentSuccess: "✅ SENT SUCCESSFULLY!\nWe will contact you as soon as possible, using the phone number you provided:" , viberCopy: "Quote copied! Please 'Paste' into Viber.", tgError: "Bot error. Opening direct chat...", waitMsg: "Wait {s}s before next send.",
             extras: [ {v:"ALARM", l:"🔔 ALARM"}, {v:"DOMOFON", l:"📞 ENTRY"}, {v:"SIEĆ", l:"🌐 NET"}, {v:"ELEKTRYK", l:"⚡ ELEC"} ],
             qs: [{q:"1. Building:", a:["House","Office","Warehouse"]},{q:"2. Cameras:", a:["1-4","5-10","> 10"]},{q:"3. Location:", a:["Indoor","Outdoor","Both"]},{q:"4. Status:", a:["New","Existing","Renovation"]},{q:"5. Connection:", a:["IP Cable","Wi-Fi","HD-CVI Cable"]},{q:"6. Equipment:", a:["Package","Own","Advice"]},{q:"7. Features:", a:["Night Color","Alarm","Audio"]},{q:"8. Storage:", a:["1 Week","1 Month","Cloud"]},{q:"9. Budget:", a:["Economy","Standard","Premium"]},{q:"10. Timeline:", a:["Urgent","Month","Pricing"]}] 
@@ -252,7 +279,7 @@
         VN: { 
             msgLabels: {title: "ALO SERWIS - BÁO GIÁ", mailSub: "Yêu cầu báo giá", name: "Họ tên", tel: "SĐT", addr: "Địa chỉ", extra: "Thêm", app: "Lịch hẹn", loc: "Địa điểm", note: "Ghi chú"},
             menu: ["TRANG CHỦ", "BÁO GIÁ", "DỊCH VỤ", "LIÊN HỆ", "TIẾNG VIỆT"],
-            desc: "LẮP ĐẶT & BẢO TRÌ CAMERA", brand: "Báo giá HT Camera và các hệ thống khác", note: "(Càng nhiều thông tin báo giá càng chính xác)", sec1: "I. THÔNG TIN KHÁCH HÀNG", sec2: "II. CHI TIẾT HỆ THỐNG", sec3: "III. HỆ THỐNG KHÁC?", sec4: "IV. GHI CHÚ", name: "Họ và Tên", phone: "Số điện thoại", addr: "Địa chỉ lắp đặt", other: "Khác...", err: "Vui lòng nhập Tên, SĐT và Địa chỉ lắp đặt!", errQs: "Trả lời ít nhất 5 câu hỏi!", hint: "Vui lòng chọn kênh gửi yêu cầu Báo giá:", mRetry: "Làm lại tất cả", mOk: "Đóng", confirmAsk: "Gửi qua", confirmUse: "Bạn dùng", yes: "Có", no: "Không", appTitle: "📅 Chọn ngày tư vấn (Thứ 2-6):", appMsg: "Quý khách có muốn đặt lịch Tư vấn tại cửa hàng chúng tôi không?", errWeekend: "Nhân viên tư vấn nghỉ làm việc cuối tuần!", resetBtn: "Xoá câu trả lời",
+            desc: "LẮP ĐẶT & BẢO TRÌ CAMERA", brand: "Báo giá HT Camera và các hệ thống khác", note: "(Càng nhiều thông tin báo giá càng chính xác)", sec1: "I. THÔNG TIN KHÁCH HÀNG", sec2: "II. CHI TIẾT HỆ THỐNG", sec3: "III. HỆ THỐNG KHÁC?", sec4: "IV. GHI CHÚ", name: "Họ và Tên", phone: "Số điện thoại", addr: "Địa chỉ lắp đặt", other: "Khác...", err: "Vui lòng nhập Tên, SĐT và Địa chỉ lắp đặt!", errQs: "Trả lời ít nhất 5 câu hỏi!", hint: "Vui lòng chọn kênh gửi yêu cầu Báo giá:", mRetry: "Làm lại tất cả", mOk: "Đóng", confirmAsk: "Gửi qua", confirmUse: "Bạn dùng", yes: "Có", no: "Không", appTitle: "📅 Chọn ngày tư vấn (Thứ 2-6):", appMsg: "Quý khách có muốn đặt lịch Tư vấn tại cửa hàng chúng tôi không?", errWeekend: "Nhân viên tư vấn nghỉ làm việc cuối tuần!", resetBtn: "Xoá câu trả lời", resetCustomer: "Nhập lại", clearAnswers: "Xóa các câu trả lời",
             sending: "Đang gửi báo giá...", sentSuccess: "✅ GỬI THÀNH CÔNG!\nChúng tôi sẽ liên hệ với bạn sớm nhất có thể, theo số điện thoại bạn đã cung cấp:" ,viberCopy: "Đã sao chép báo giá! Vui lòng 'Dán' vào Viber.", tgError: "Lỗi kết nối. Đang chuyển sang chat trực tiếp...", waitMsg: "Chờ {s} giây để gửi tiếp.",
             extras: [ {v:"ALARM", l:"🔔 ALARM"}, {v:"DOMOFON", l:"📞 DOMO"}, {v:"SIEĆ", l:"🌐 MẠNG"}, {v:"ELEKTRYK", l:"⚡ ĐIỆN"} ],
             qs: [{q:"1. Công trình:", a:["Nhà riêng","Văn phòng","Kho"]},{q:"2. Số lượng:", a:["1-4 mắt","5-10 mắt",">10 mắt"]},{q:"3. Vị trí:", a:["Trong nhà","Ngoài trời","Cả hai"]},{q:"4. Hạ tầng:", a:["Mới","Đã ở","Thay cũ"]},{q:"5. Kết nối:", a:["Dây IP","Wifi","Dây HD-CVI"]},{q:"6. Thiết bị:", a:["Trọn gói","Có sẵn","Cần tư vấn"]},{q:"7. Tính năng:", a:["Màu đêm","Báo động","Đàm thoại"]},{q:"8. Lưu trữ:", a:["1 Tuần","1 Tháng","Cloud"]},{q:"9. Ngân sách:", a:["Tiết kiệm","Vừa phải","Cao cấp"]},{q:"10. Tiến độ:", a:["Gấp","Bình thường","Khảo giá"]}] 
@@ -298,7 +325,7 @@
             if(data.answers && data.answers[i] !== undefined) {
                 const val = item.a[data.answers[i]];
                 const rb = document.querySelector(`input[name="q${i}"][value="${val}"]`);
-                if(rb) { rb.checked = true; rb.parentElement.classList.add('selected'); }
+                if(rb) { rb.checked = true; rb.dataset.wasChecked = 'true'; rb.parentElement.classList.add('selected'); }
             }
             if(data.manuals && data.manuals[i]) document.getElementById(`q${i}_man`).value = data.manuals[i];
         });
@@ -335,7 +362,8 @@
         document.getElementById('cust_phone').placeholder = cur.phone + " *";
         document.getElementById('cust_address').placeholder = cur.addr;
         document.getElementById('txt-app-title').innerText = cur.appTitle;
-        document.getElementById('btn-reset-txt').innerText = cur.resetBtn;
+        document.getElementById('btn-reset-customer-txt').innerText = cur.resetCustomer;
+        document.getElementById('btn-clear-questions-txt').innerText = cur.clearAnswers;
         const c = document.getElementById('questions-container');
         c.innerHTML = '';
         cur.qs.forEach((item, i) => {
@@ -348,8 +376,17 @@
         loadCache();
     }
     function handleRadioClick(el) {
-        document.querySelectorAll(`input[name="${el.name}"]`).forEach(r => r.parentElement.classList.remove('selected'));
-        el.parentElement.classList.add('selected');
+        const removeCurrentChoice = el.dataset.wasChecked === 'true';
+        document.querySelectorAll(`input[name="${el.name}"]`).forEach(r => {
+            r.checked = false;
+            r.dataset.wasChecked = 'false';
+            r.parentElement.classList.remove('selected');
+        });
+        if (!removeCurrentChoice) {
+            el.checked = true;
+            el.dataset.wasChecked = 'true';
+            el.parentElement.classList.add('selected');
+        }
         saveCache();
     }
     function handleExtraClick(el) {
@@ -362,14 +399,20 @@
         const day = new Date(input.value).getDay();
         if (day === 0 || day === 6) { alert(translations[curLang].errWeekend); input.value = ""; }
     }
+    function resetCustomerData() {
+        document.getElementById('cust_name').value = '';
+        document.getElementById('cust_phone').value = '';
+        document.getElementById('cust_address').value = '';
+        saveCache();
+        document.getElementById('cust_name').focus();
+    }
     function clearOnlyAnswers() {
-        document.querySelectorAll('#questions-container input[type="radio"]').forEach(r => { r.checked = false; r.parentElement.classList.remove('selected'); });
+        document.querySelectorAll('#questions-container input[type="radio"]').forEach(r => {
+            r.checked = false;
+            r.dataset.wasChecked = 'false';
+            r.parentElement.classList.remove('selected');
+        });
         document.querySelectorAll('.manual-input').forEach(i => i.value = '');
-        document.querySelectorAll('input[name="extra"]').forEach(c => { c.checked = false; c.parentElement.classList.remove('selected'); });
-        document.getElementById('appointment-sec').style.display = 'none';
-        document.getElementById('app_date').value = '';
-        document.getElementById('final_note').value = '';
-        appAsked = false;
         saveCache();
     }
 
