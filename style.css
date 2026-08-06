@@ -197,3 +197,22 @@ html, body {
     .line-h-bottom { width: 100%; height: 4px; background: #111; position: absolute; bottom: 16%; left: 0; overflow: hidden; }
     .line-h-bottom::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--current-theme), #fff, var(--current-theme), transparent); animation: expandCenter 4s ease-in-out infinite; transform-origin: center; }
 }
+/* Bỏ hiệu ứng bôi đen khi chạm trên điện thoại */
+html {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.nav-item,
+.nav-item *,
+.dt-link,
+.dt-link * {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.nav-item:focus,
+.nav-item:active {
+    outline: none;
+}
