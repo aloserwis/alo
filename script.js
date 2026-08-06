@@ -162,15 +162,62 @@ window.addEventListener('mouseup', handleEnd);
 // Responsive Scaling
 function rescale() {
     const isPortrait = window.innerHeight > window.innerWidth;
-    const designW = isPortrait ? 1080 : 1870;
-    const bannerH = isPortrait ? 1920 : 1080;
-    
-    const menuH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--menu-height'));
-    const gap = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--gap'));
+
+    const bannerContainer = document.getElementById('rescaleWrapper');
+    const mainMenu = document.getElementById('main-menu');
+
+    const menuStyle = getComputedStyle(mainMenu);
+    const menuH = mainMenu.offsetHeight;
+    const gap = parseFloat(menuStyle.marginBottom) || 0;
+
+    let designW;
+    let bannerH;
+
+    if (isPortrait) {
+        // Mobile giữ nguyên kích thước hiện tại
+        designW = 1080;
+        bannerH = 1870;
+    } else {
+        // Kích thước chuẩn của desktop
+        const baseDesktopW = 1920;
+        bannerH = 1080;
+
+        const totalBaseHeight = bannerH + menuH + gap;
+        const heightScale = window.innerHeight / totalBaseHeight;
+
+        // Chiều rộng cần thiết để lấp đầy màn hình
+        const fullScreenWidth = window.innerWidth / heightScale;
+
+        /*
+         * Mức độ mở rộng chiều ngang:
+         * 0.50 = mở rộng nhẹ
+         * 0.75 = mở rộng khá nhiều, khuyên dùng
+         * 1.00 = lấp đầy hoàn toàn chiều ngang
+         */
+        const stretchAmount = 0.75;
+
+        const extraWidth = Math.max(
+            0,
+            fullScreenWidth - baseDesktopW
+        );
+
+        designW = baseDesktopW + extraWidth * stretchAmount;
+    }
+
     const totalDesignH = bannerH + menuH + gap;
 
-    currentScale = Math.min(window.innerWidth / designW, window.innerHeight / totalDesignH);
+    currentScale = Math.min(
+        window.innerWidth / designW,
+        window.innerHeight / totalDesignH
+    );
+
     appContainer.style.width = designW + 'px';
+    appContainer.style.height = totalDesignH + 'px';
+
+    bannerContainer.style.width = designW + 'px';
+    bannerContainer.style.height = bannerH + 'px';
+
+    appContainer.style.transformOrigin = 'center center';
     appContainer.style.transform = `scale(${currentScale})`;
 }
 
