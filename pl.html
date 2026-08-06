@@ -348,11 +348,21 @@
             wrapper.style.transformOrigin = 'center center';
         }
         const links = document.querySelectorAll('.dt-link');
+        
         links.forEach(link => {
             link.addEventListener('click', function(e) {
+        
+                // Nếu là đường dẫn Google Maps thì mở ngay
+                if (this.href.includes('maps.app.goo.gl')) {
+                    e.stopPropagation();
+                    return;
+                }
+        
+                // Những nút còn lại: bấm lần đầu để hiện nội dung
                 if (!this.classList.contains('active')) {
                     e.preventDefault();
                     e.stopPropagation();
+        
                     links.forEach(l => l.classList.remove('active'));
                     this.classList.add('active');
                 } else {
