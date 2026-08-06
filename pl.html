@@ -351,25 +351,29 @@
         
         links.forEach(link => {
             link.addEventListener('click', function(e) {
+                const isMapLink = this.href.includes('google.com/maps');
         
-                // Nếu là đường dẫn Google Maps thì mở ngay
-                if (this.href.includes('maps.app.goo.gl')) {
-                    e.stopPropagation();
-                    return;
-                }
-        
-                // Những nút còn lại: bấm lần đầu để hiện nội dung
+                // Lần bấm thứ nhất: chỉ mở rộng và hiện thông tin
                 if (!this.classList.contains('active')) {
                     e.preventDefault();
                     e.stopPropagation();
         
                     links.forEach(l => l.classList.remove('active'));
                     this.classList.add('active');
-                } else {
-                    e.stopPropagation();
+                    return;
+                }
+        
+                // Lần bấm thứ hai
+                e.stopPropagation();
+        
+                // Nếu là nút bản đồ thì mở Google Maps chỉ đường
+                if (isMapLink) {
+                    e.preventDefault();
+                    window.location.href = this.href;
                 }
             });
         });
+        
         document.body.addEventListener('click', (e) => {
             if (!e.target.closest('.nav-item')) {
                 links.forEach(l => l.classList.remove('active'));
