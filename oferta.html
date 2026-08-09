@@ -432,7 +432,7 @@
                 <div style="font-weight: 600;">Nadrzeczna 7C / A3<br>05-552, W.Kosowska.<br>Hotline: <b>787 456 999</b></div>
             </div>
         </div>
-        <div class="footer-bottom" style="text-align: center; margin-top: 12px; font-weight: bold; font-size: 0.55rem; color: #ccc;">&copy; 2026 ALOSERWIS • v22</div>
+        <div class="footer-bottom" style="text-align: center; margin-top: 12px; font-weight: bold; font-size: 0.55rem; color: #ccc;">&copy; 2026 ALOSERWIS • v23</div>
     </div>
 </div>
 <script>
@@ -477,6 +477,7 @@
     let projectPhotos = [];
     let photoRevision = 0;
     let uploadedPhotoRevision = -1;
+    let uploadedPhotoLanguage = '';
     let uploadedPhotoLink = '';
     let photoUploadPromise = null;
     function saveCache() {
@@ -580,6 +581,7 @@
     function invalidatePhotoUpload() {
         photoRevision++;
         uploadedPhotoRevision = -1;
+        uploadedPhotoLanguage = '';
         uploadedPhotoLink = '';
         photoUploadPromise = null;
     }
@@ -839,11 +841,13 @@
     }
     async function getProjectPhotoLink() {
         if(!projectPhotos.length) return '';
-        if(uploadedPhotoLink && uploadedPhotoRevision === photoRevision) return uploadedPhotoLink;
+        if(uploadedPhotoLink && uploadedPhotoRevision === photoRevision && uploadedPhotoLanguage === curLang) return uploadedPhotoLink;
         if(photoUploadPromise) return photoUploadPromise;
         const revisionAtStart = photoRevision;
+        const languageAtStart = curLang;
         photoUploadPromise = (async () => {
             const formData = new FormData();
+            formData.append('language', languageAtStart);
             projectPhotos.forEach((photo, index) => formData.append('photos', photo.file, `photo-${index + 1}.jpg`));
             const response = await fetch(`${API_BASE}/api/upload-images`, {
                 method: 'POST',
@@ -854,8 +858,10 @@
             const result = await response.json();
             if(!result.url || !/^https:\/\//i.test(result.url)) throw new Error('Invalid gallery URL');
             if(photoRevision !== revisionAtStart) throw new Error('Photos changed during upload');
+            if(curLang !== languageAtStart) throw new Error('Language changed during upload');
             uploadedPhotoLink = result.url;
             uploadedPhotoRevision = revisionAtStart;
+            uploadedPhotoLanguage = languageAtStart;
             return uploadedPhotoLink;
         })();
         try {
