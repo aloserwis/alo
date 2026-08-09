@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ALO SERWIS OFERTA V25 - SHARED FIXED-SCALE MENU - 2026-08-09 -->
+<!-- ALO SERWIS OFERTA V26 - DARK THEME - 2026-08-09 -->
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -276,10 +276,124 @@
         .opt-label { min-height: 62px; font-size: 0.86rem; }
         input[type="text"], input[type="date"], select, textarea { font-size: 16px; }
     }
+
+    /* OFERTA DARK THEME */
+    body.offer-page {
+        --primary: #eaf7fd;
+        --bg: #000;
+        --surface: #000;
+        --surface-soft: #07141b;
+        --surface-input: #0a171e;
+        --dark-border: #173847;
+        background: #000;
+        color: var(--primary);
+        color-scheme: dark;
+    }
+    body.offer-page .container {
+        background: var(--surface);
+        border: 1px solid #102b38;
+        box-shadow: 0 8px 28px rgba(0, 0, 0, .52);
+    }
+    body.offer-page .header-brand { border-bottom-color: var(--brand-blue); }
+    body.offer-page .brand-2 { color: #f3f9fc; }
+    body.offer-page .brand-sub { color: #b9d0db; }
+    body.offer-page #txt-brand-3 { color: #829ba7 !important; }
+    body.offer-page .section-title {
+        background: #061923;
+        color: #39b8f2;
+        border-left-color: var(--brand-blue);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, .34);
+    }
+    body.offer-page .section-action {
+        background: #07131a;
+        color: #43baf2;
+        border-color: #168dc5;
+    }
+    body.offer-page .section-action:active {
+        background: var(--brand-blue);
+        color: #fff;
+    }
+    body.offer-page .question-text {
+        background: var(--surface);
+        color: #f5fbfe;
+        border-bottom-color: #17313d;
+    }
+    body.offer-page input[type="text"],
+    body.offer-page input[type="date"],
+    body.offer-page select,
+    body.offer-page textarea {
+        background: var(--surface-input);
+        color: #fff;
+        border-color: #284c5c;
+        caret-color: #43baf2;
+    }
+    body.offer-page input::placeholder,
+    body.offer-page textarea::placeholder { color: #8099a5; opacity: 1; }
+    body.offer-page select option { background: #071219; color: #fff; }
+    body.offer-page input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); }
+    body.offer-page input:-webkit-autofill,
+    body.offer-page input:-webkit-autofill:hover,
+    body.offer-page input:-webkit-autofill:focus {
+        -webkit-text-fill-color: #fff;
+        -webkit-box-shadow: 0 0 0 1000px var(--surface-input) inset;
+        transition: background-color 9999s ease-out;
+    }
+    body.offer-page .opt-label {
+        background: var(--surface-soft);
+        color: #edf8fc;
+        border-color: #183542;
+    }
+    body.offer-page .opt-label.selected {
+        background: var(--brand-blue);
+        color: #fff;
+        border-color: var(--brand-blue);
+        box-shadow: 0 0 0 1px rgba(64, 190, 246, .35);
+    }
+    body.offer-page .manual-input {
+        background: var(--surface-input);
+        color: #fff;
+        border-color: #315363 !important;
+    }
+    body.offer-page #appointment-sec {
+        background: var(--surface-soft) !important;
+        border-color: #168dc5 !important;
+    }
+    body.offer-page .photo-upload-box {
+        background: #06131a;
+        border-color: #236d90;
+    }
+    body.offer-page .photo-picker {
+        background: #091a22;
+        color: #43baf2;
+        border-color: #168dc5;
+    }
+    body.offer-page .photo-picker:active { background: var(--brand-blue); color: #fff; }
+    body.offer-page .photo-help { color: #8fa8b3; }
+    body.offer-page .photo-status { color: #43baf2; }
+    body.offer-page .photo-status.error { color: #ff7167; }
+    body.offer-page .photo-card { background: #0a171e; border-color: #234552; }
+    body.offer-page .hint-send { color: #43baf2; }
+    body.offer-page .social-row { border-bottom-color: #17313d; }
+    body.offer-page .footer-info {
+        color: #c4d5dd;
+        border-top-color: #17313d;
+    }
+    body.offer-page #modal-box {
+        background: #071219;
+        color: #f4fbfe;
+        border: 1px solid #1a4659;
+        box-shadow: 0 14px 45px rgba(0, 0, 0, .62);
+    }
+    body.offer-page .verify-box {
+        background: #071923;
+        color: #eaf7fd;
+        border-color: #168dc5;
+    }
+    body.offer-page .btn-verify { background: var(--brand-blue); color: #fff; }
 </style>
-<link rel="stylesheet" href="menu.css?v=1">
+<link rel="stylesheet" href="menu.css?v=2">
 </head>
-<body>
+<body class="offer-page">
 <div id="modal-overlay">
     <div id="modal-box"><div id="modal-text" style="white-space: pre-line; line-height: 1.5;"></div><div class="modal-btn-group" id="modal-btns"></div></div>
 </div>
@@ -380,7 +494,7 @@
                 <div style="font-weight: 600;">Nadrzeczna 7C / A3<br>05-552, W.Kosowska.<br>Hotline: <b>787 456 999</b></div>
             </div>
         </div>
-        <div class="footer-bottom" style="text-align: center; margin-top: 12px; font-weight: bold; font-size: 0.55rem; color: #ccc;">&copy; 2026 ALOSERWIS • v25</div>
+        <div class="footer-bottom" style="text-align: center; margin-top: 12px; font-weight: bold; font-size: 0.55rem; color: #ccc;">&copy; 2026 ALOSERWIS • v26</div>
     </div>
 </div>
 <script>
