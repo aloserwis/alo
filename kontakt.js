@@ -33,7 +33,6 @@ function renderContactLanguage(language) {
     contactLanguage = CONTACT_LANGS.includes(language) ? language : 'PL';
     const copy = contactCopy[contactLanguage];
     document.documentElement.lang = copy.htmlLang;
-    document.title = copy.title;
     document.querySelector('meta[name="description"]').content = copy.description;
     document.getElementById('main-menu').setAttribute('aria-label', copy.navAria);
     const langButton = document.getElementById('lang-toggle');

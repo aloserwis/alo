@@ -3,8 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Regulamin | ALO SERWIS</title>
+  <title>ALO SERWIS - Regulamin</title>
   <meta name="description" content="Regulamin świadczenia usług serwisowych ALO SERWIS.">
+  <link rel="icon" type="image/webp" href="/assets/alo-logo.webp">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="menu.css?v=2">
   <style>
     :root{
       --orange:#f58220;
@@ -25,50 +29,8 @@
       font-family:Arial,Helvetica,sans-serif;
       line-height:1.65;
     }
+    body.terms-page{--site-menu-blue:var(--orange)}
     a{color:inherit;text-decoration:none}
-    .topbar{
-      position:sticky;
-      top:0;
-      z-index:1000;
-      background:rgba(255,255,255,.96);
-      border-bottom:1px solid var(--line);
-      backdrop-filter:blur(8px);
-    }
-    .nav{
-      max-width:var(--max);
-      margin:auto;
-      min-height:72px;
-      padding:0 22px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:24px;
-    }
-    .brand{
-      font-size:24px;
-      font-weight:800;
-      letter-spacing:.3px;
-      color:var(--orange);
-      white-space:nowrap;
-    }
-    .menu{
-      display:flex;
-      align-items:center;
-      gap:27px;
-      font-size:14px;
-      font-weight:700;
-      letter-spacing:.45px;
-    }
-    .menu a:hover,.menu a.active{color:var(--orange)}
-    .lang{
-      border:1px solid #ddd;
-      border-radius:8px;
-      padding:8px 10px;
-      font-weight:700;
-      background:#fff;
-      color:var(--text);
-    }
-    .burger{display:none;border:0;background:transparent;font-size:27px;cursor:pointer}
     .hero{
       max-width:var(--max);
       margin:0 auto;
@@ -190,21 +152,6 @@
       font-size:13px;
     }
     @media (max-width:780px){
-      .nav{min-height:64px}
-      .burger{display:block}
-      .menu{
-        display:none;
-        position:absolute;
-        top:64px;left:0;right:0;
-        background:#fff;
-        border-bottom:1px solid var(--line);
-        padding:18px 22px 23px;
-        flex-direction:column;
-        align-items:flex-start;
-        gap:17px;
-      }
-      .menu.open{display:flex}
-      .lang{position:absolute;right:67px}
       .hero{padding-top:44px}
       .toc-links{grid-template-columns:1fr}
       .footer-inner{grid-template-columns:1fr}
@@ -212,25 +159,14 @@
     }
   </style>
 </head>
-<body>
-<header class="topbar">
-  <div class="nav">
-    <a class="brand" href="/">ALO</a>
-    <button class="burger" id="burger" aria-label="Menu">☰</button>
-    <nav class="menu" id="menu">
-      <a href="/">ALO</a>
-      <a href="/oferta">OFERTA</a>
-      <a href="/uslugi">USŁUGI</a>
-      <a href="/kontakt">KONTAKT</a>
-      <a class="active" href="/regulamin">REGULAMIN</a>
-    </nav>
-    <select class="lang" id="lang" aria-label="Language">
-      <option value="pl">PL</option>
-      <option value="vi">VI</option>
-      <option value="en">EN</option>
-    </select>
-  </div>
-</header>
+<body class="terms-page">
+<nav id="main-menu" aria-label="Główna nawigacja">
+  <a href="/" class="menu-item"><i class="fa-solid fa-house" aria-hidden="true"></i><span id="menu-alo">ALO</span></a>
+  <a href="/oferta" class="menu-item"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i><span id="menu-oferta">OFERTA</span></a>
+  <a href="/uslugi" class="menu-item"><i class="fa-solid fa-images" aria-hidden="true"></i><span id="menu-uslugi">USŁUGI</span></a>
+  <a href="/kontakt" class="menu-item"><i class="fa-solid fa-phone" aria-hidden="true"></i><span id="menu-kontakt">KONTAKT</span></a>
+  <button type="button" class="lang-toggle" id="lang-toggle" aria-label="Zmień język"><i class="fa-solid fa-globe" aria-hidden="true"></i><span id="menu-lang">PL</span></button>
+</nav>
 
 <div id="content"></div>
 
@@ -441,10 +377,22 @@ vi:{desc:"Dịch vụ sửa chữa thiết bị và giải pháp kỹ thuật ch
 en:{desc:"Professional device service and technical solutions.",info:"INFORMATION",rules:"Terms",serviceRules:"Service terms",privacy:"Privacy Policy",company:"COMPANY",services:"Services",contact:"Contact",rights:"All rights reserved."}
 };
 
+const navCopy = {
+  pl:{nav:"Główna nawigacja",lang:"Zmień język",items:["ALO","OFERTA","USŁUGI","KONTAKT"]},
+  vi:{nav:"Điều hướng chính",lang:"Đổi ngôn ngữ",items:["ALO","BÁO GIÁ","DỊCH VỤ","LIÊN HỆ"]},
+  en:{nav:"Main navigation",lang:"Change language",items:["HOME","OFFER","SERVICES","CONTACT"]}
+};
+
 function render(lang){
   const d=page[lang]||page.pl;
+  const n=navCopy[lang]||navCopy.pl;
   document.documentElement.lang=lang;
-  document.title = d.title + " | ALO SERWIS";
+  document.getElementById("menu-lang").textContent=lang.toUpperCase();
+  document.getElementById("main-menu").setAttribute("aria-label",n.nav);
+  document.getElementById("lang-toggle").setAttribute("aria-label",n.lang);
+  ["alo","oferta","uslugi","kontakt"].forEach((id,index)=>{
+    document.getElementById(`menu-${id}`).textContent=n.items[index];
+  });
   const toc = d.s.map(x=>`<a href="#${x[0]}">${x[1]}</a>`).join("");
   const sections = d.s.map(x=>`
     <section class="rule" id="${x[0]}">
@@ -473,17 +421,14 @@ function render(lang){
   document.querySelectorAll("[data-ft]").forEach(el=>el.textContent=f[el.dataset.ft]);
   localStorage.setItem("alo-lang",lang);
 }
-const selector=document.getElementById("lang");
-const initial=localStorage.getItem("alo-lang")||"pl";
-selector.value=page[initial]?initial:"pl";
-render(selector.value);
-selector.addEventListener("change",e=>render(e.target.value));
-document.getElementById("burger").addEventListener("click",()=>{
-  document.getElementById("menu").classList.toggle("open");
+const languages=["pl","vi","en"];
+let currentLang=localStorage.getItem("alo-lang")||"pl";
+if(!page[currentLang]) currentLang="pl";
+render(currentLang);
+document.getElementById("lang-toggle").addEventListener("click",()=>{
+  currentLang=languages[(languages.indexOf(currentLang)+1)%languages.length];
+  render(currentLang);
 });
-document.querySelectorAll("#menu a").forEach(a=>a.addEventListener("click",()=>{
-  document.getElementById("menu").classList.remove("open");
-}));
 </script>
 </body>
 </html>
