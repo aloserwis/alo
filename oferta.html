@@ -385,13 +385,16 @@
                 <div style="font-weight: 600;">Nadrzeczna 7C / A3<br>05-552, W.Kosowska.<br>Hotline: <b>787 456 999</b></div>
             </div>
         </div>
-        <div class="footer-bottom" style="text-align: center; margin-top: 12px; font-weight: bold; font-size: 0.55rem; color: #ccc;">&copy; 2026 ALOSERWIS • v28</div>
+        <div class="footer-bottom" style="text-align: center; margin-top: 12px; font-weight: bold; font-size: 0.55rem; color: #ccc;">&copy; 2026 ALOSERWIS • v29</div>
     </div>
 </div>
 <script>
     const API_BASE = "https://api.aloserwis.com";
     const TARGET_EMAIL = "alo@aloserwis.com";
-    const TARGET_PHONE = "48888686121";
+    const LOCATION_PHONES = {
+        "Bakalarska 2/B214": "48733676869",
+        "Nadrzeczna 7C/A3": "48787456999"
+    };
     const translations = {
         PL: { 
             msgLabels: {title: "ALO SERWIS - WYCENA", mailSub: "Zapytanie o wycenę", name: "Imię", tel: "Tel", addr: "Adres", extra: "Dodatki", app: "Spotkanie", loc: "Lokalizacja", note: "Uwagi", photos: "Zdjęcia obiektu"},
@@ -853,6 +856,7 @@
         if(!d) return;
 
         const cur = translations[curLang];
+        const targetPhone = LOCATION_PHONES[document.getElementById('app_loc').value] || LOCATION_PHONES["Bakalarska 2/B214"];
         let text = d.text;
         const phoneOfGuest = d.phone;
         const fullSuccessMsg = cur.sentSuccess + "\n\n" + phoneOfGuest + "\n\n";
@@ -893,13 +897,13 @@
                 break;
 
             case 'viber':
-                window.open(`viber://chat?number=%2B${TARGET_PHONE}`, '_self');
+                window.open(`viber://chat?number=%2B${targetPhone}`, '_self');
                 openModal(cur.viberCopy, 'success');
                 break;
 
             case 'wa':
-                if(projectPhotos.length) window.location.href = `https://api.whatsapp.com/send?phone=${TARGET_PHONE}&text=${enc}`;
-                else window.open(`https://api.whatsapp.com/send?phone=${TARGET_PHONE}&text=${enc}`, '_blank');
+                if(projectPhotos.length) window.location.href = `https://api.whatsapp.com/send?phone=${targetPhone}&text=${enc}`;
+                else window.open(`https://api.whatsapp.com/send?phone=${targetPhone}&text=${enc}`, '_blank');
                 break;
 
             case 'mail': {
@@ -909,7 +913,7 @@
             }
 
             case 'sms':
-                window.location.href = navigator.userAgent.match(/iPhone|iPad|iPod/i) ? `sms:+${TARGET_PHONE}&body=${enc}` : `sms:+${TARGET_PHONE}?body=${enc}`;
+                window.location.href = navigator.userAgent.match(/iPhone|iPad|iPod/i) ? `sms:+${targetPhone}&body=${enc}` : `sms:+${targetPhone}?body=${enc}`;
                 break;
         }
     }

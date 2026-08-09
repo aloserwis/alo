@@ -46,7 +46,6 @@ const serviceCopy = {
 };
 
 const API_BASE = 'https://api.aloserwis.com';
-const CONTACT_PHONE = '48888686121';
 const TELEGRAM_USER = 'aka242';
 const MESSENGER_USER = 'dienthoaibalan';
 const CONTACT_COOLDOWN_MS = 30 * 1000;
@@ -55,8 +54,8 @@ const MAX_REPAIR_PHOTOS = 6;
 const MAX_PHOTO_BYTES = 8 * 1024 * 1024;
 const MAX_PHOTO_DIMENSION = 1600;
 const SERVICE_LOCATIONS = {
-    bakalarska: { tag: 'BAKALARSKA', address: 'Bakalarska 2 / B214, Warszawa' },
-    wolka: { tag: 'WÓLKA KOSOWSKA', address: 'Nadrzeczna 7C / A3 (ASG), Wólka Kosowska' }
+    bakalarska: { tag: 'BAKALARSKA', address: 'Bakalarska 2 / B214, Warszawa', phone: '48733676869' },
+    wolka: { tag: 'WÓLKA KOSOWSKA', address: 'Nadrzeczna 7C / A3 (ASG), Wólka Kosowska', phone: '48787456999' }
 };
 
 let serviceLanguage = SERVICE_LANGS.includes(localStorage.getItem('alo_lang')) ? localStorage.getItem('alo_lang') : 'PL';
@@ -337,6 +336,7 @@ function closeLocationModal(restoreFocus = true) {
 
 async function executeContact(channel, locationKey) {
     const copy = serviceCopy[serviceLanguage];
+    const location = SERVICE_LOCATIONS[locationKey];
     const form = document.getElementById('repair-form');
     const contactStartedAt = Date.now();
     localStorage.setItem(CONTACT_COOLDOWN_KEY, String(contactStartedAt));
@@ -365,8 +365,8 @@ async function executeContact(channel, locationKey) {
     let targetUrl = '';
 
     if (channel === 'telegram') targetUrl = `https://t.me/${TELEGRAM_USER}?text=${encodedText}`;
-    if (channel === 'whatsapp') targetUrl = `https://api.whatsapp.com/send?phone=${CONTACT_PHONE}&text=${encodedText}`;
-    if (channel === 'viber') targetUrl = `viber://chat?number=%2B${CONTACT_PHONE}`;
+    if (channel === 'whatsapp') targetUrl = `https://api.whatsapp.com/send?phone=${location.phone}&text=${encodedText}`;
+    if (channel === 'viber') targetUrl = `viber://chat?number=%2B${location.phone}`;
     if (channel === 'messenger') targetUrl = `https://m.me/${MESSENGER_USER}`;
 
     if (channel === 'viber' || channel === 'messenger') {
