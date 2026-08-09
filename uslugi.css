@@ -71,13 +71,10 @@ body.services-page button, body.services-page a { -webkit-tap-highlight-color: t
 .device-strip > span { min-height: 72px; padding: 11px; display: flex; flex-direction: column; justify-content: center; gap: 6px; border: 1px solid rgba(255,255,255,.2); border-radius: 15px; background: rgba(7,20,28,.72); backdrop-filter: blur(12px); font-size: 11px; font-weight: 800; }
 .device-strip i { color: var(--service-cyan); font-size: 18px; }
 
-.intro-section { padding-top: clamp(78px, 10vw, 130px); padding-bottom: clamp(48px, 7vw, 88px); }
-.section-heading { display: grid; grid-template-columns: 90px minmax(0, 820px); gap: clamp(18px, 4vw, 58px); }
-.section-number { color: var(--service-blue); font-size: clamp(54px, 7vw, 90px); font-weight: 900; line-height: .85; opacity: .18; }
-.section-heading h2, .about-copy h2, .process-section h2, .brands-section h2, .final-cta h2, .contact-heading h2 { margin: 0; font-size: clamp(31px, 4vw, 54px); line-height: 1.05; letter-spacing: -.045em; text-wrap: balance; }
-.section-heading > div > p:last-child { max-width: 760px; margin: 20px 0 0; color: var(--service-muted); font-size: 17px; line-height: 1.75; }
+.about-copy h2, .process-section h2, .brands-section h2, .final-cta h2, .contact-heading h2 { margin: 0; font-size: clamp(31px, 4vw, 54px); line-height: 1.05; letter-spacing: -.045em; text-wrap: balance; }
 
 .service-feature { margin-bottom: 34px; padding: clamp(18px, 2.3vw, 28px); display: grid; grid-template-columns: minmax(0, .93fr) minmax(0, 1.07fr); gap: clamp(30px, 5vw, 72px); align-items: center; border: 1px solid var(--service-line); border-radius: var(--service-radius); background: #fff; box-shadow: var(--service-shadow); }
+.service-feature-first { margin-top: clamp(64px, 8vw, 104px); }
 .service-feature-reverse .service-image { order: 2; }
 .service-feature-reverse .service-copy { order: 1; }
 .service-image { position: relative; height: clamp(420px, 50vw, 620px); overflow: hidden; border-radius: 21px; background: #d9e8ef; }
@@ -184,8 +181,6 @@ body.services-page button, body.services-page a { -webkit-tap-highlight-color: t
     .repair-badge { top: 18px; right: 18px; }
     .device-strip { left: 14px; right: 14px; bottom: 14px; }
     .device-strip > span { min-height: 66px; padding: 9px; font-size: 9px; }
-    .section-heading { grid-template-columns: 1fr; gap: 18px; }
-    .section-number { font-size: 64px; }
     .service-feature { width: calc(100% - 20px); padding: 10px 10px 28px; gap: 25px; border-radius: 23px; }
     .service-image { height: 440px; border-radius: 17px; }
     .service-copy { padding-inline: 8px; }
