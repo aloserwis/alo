@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- ALO SERWIS OFERTA V21 - GALLERY LINK FOR ALL CHANNELS - 2026-08-06 -->
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -13,7 +14,7 @@
         --accent: #0088cc;
         --bg: #f4f7f9; 
         --brand-blue: #0088cc;
-        --menu-h: 55px;
+        --menu-h: 72px;
         --font-main: 'Montserrat', sans-serif;
     }
     * { 
@@ -39,11 +40,11 @@
         box-shadow: 0 4px 15px rgba(0,136,204,0.1);
     }
     .menu-item, .lang-toggle {
-        flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-        text-decoration: none; height: 100%; color: #333; cursor: pointer; border: none; background: transparent; position: relative;
+        flex: 1; display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px;
+        text-decoration: none; height: 100%; color: #333; cursor: pointer; border: none; background: transparent; position: relative; padding: 0 6px;
     }
-    .menu-item i, .lang-toggle i { color: var(--brand-blue); font-size: 18px; margin-bottom: 2px; }
-    .menu-item span, .lang-toggle span { font-size: 10px; font-weight: 900; text-transform: uppercase; text-align: center; }
+    .menu-item i, .lang-toggle i { color: var(--brand-blue); font-size: 26px; margin: 0; }
+    .menu-item span, .lang-toggle span { font-size: 16px; font-weight: 900; text-transform: uppercase; text-align: center; }
     .lang-badge {
         position: absolute; top: 8px; right: 8%; background: #e74c3c; color: white;
         font-size: 7px !important; padding: 1px 4px; border-radius: 3px; font-weight: bold;
@@ -69,7 +70,7 @@
     .section-action:active { background: var(--brand-blue); color: #fff; transform: scale(0.97); }
     .question-block { margin-bottom: 25px; }
     .question-text { 
-        position: sticky; top: 90px; z-index: 998; background: white; padding: 10px 0; 
+        position: sticky; top: calc(var(--menu-h) + 38px); z-index: 998; background: white; padding: 10px 0; 
         font-weight: 700; font-size: 0.95rem; display: block; margin-bottom: 10px; 
         color: var(--primary); border-bottom: 1px solid #f0f0f0; 
     }
@@ -108,11 +109,60 @@
         text-transform: uppercase; display: inline-flex; align-items: center; gap: 8px;
     }
     .btn-clear-answers:active { transform: scale(0.95); opacity: 0.9; }
+    .photo-upload-box {
+        border: 2px dashed #9bcfe8; border-radius: 12px; padding: 14px;
+        background: #f7fcff; transition: opacity 0.2s ease;
+    }
+    .photo-upload-box.processing { opacity: 0.65; pointer-events: none; }
+    .photo-picker-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .photo-picker {
+        min-height: 48px; border: 1px solid var(--brand-blue); border-radius: 9px;
+        background: #fff; color: var(--brand-blue); cursor: pointer; padding: 10px;
+        display: flex; align-items: center; justify-content: center; gap: 8px;
+        text-align: center; font-size: 0.78rem; font-weight: 900;
+    }
+    .photo-picker:active { background: var(--brand-blue); color: #fff; transform: scale(0.98); }
+    .photo-picker i { font-size: 18px; }
+    .photo-input { display: none; }
+    .photo-help { margin: 10px 0 0; color: #60717b; font-size: 0.66rem; line-height: 1.45; text-align: center; }
+    .photo-status { min-height: 20px; margin-top: 6px; color: var(--brand-blue); font-size: 0.68rem; font-weight: 900; text-align: center; }
+    .photo-status.error { color: #d84335; }
+    .photo-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; margin-top: 12px; }
+    .photo-card {
+        position: relative; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 10px;
+        border: 1px solid #d9e8ef; background: #eaf3f7;
+    }
+    .photo-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .photo-remove {
+        position: absolute; top: 5px; right: 5px; width: 32px; height: 32px;
+        border: 0; border-radius: 50%; background: rgba(190, 35, 35, 0.92); color: #fff;
+        display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 15px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .photo-number {
+        position: absolute; left: 5px; bottom: 5px; min-width: 25px; height: 25px;
+        padding: 0 6px; border-radius: 13px; background: rgba(0,0,0,0.68); color: #fff;
+        display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900;
+    }
     #modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10001; align-items: center; justify-content: center; padding: 20px; }
     #modal-box { background: white; width: 100%; max-width: 320px; border-radius: 15px; text-align: center; padding: 25px; }
     .m-btn { border: none; padding: 14px; border-radius: 50px; font-weight: 900; cursor: pointer; width: 100%; margin-top: 8px; font-family: var(--font-main); text-transform: uppercase; font-size: 0.8rem; }
     .footer-info { margin-top: 20px; font-size: 0.65rem; color: #333; line-height: 1.4; border-top: 1px solid #eee; padding-top: 15px; }
-    .f-label { font-weight: 900; color: var(--brand-blue); font-size: 0.50rem; writing-mode: vertical-lr; transform: rotate(180deg); border-right: 2px solid var(--brand-blue); padding-right: 4px; height: 40px; display: flex; align-items: center; }
+    .footer-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: clamp(8px, 2vw, 22px);
+        align-items: stretch;
+    }
+    .footer-location {
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: clamp(5px, 1.2vw, 10px);
+        overflow-wrap: anywhere;
+    }
+    .f-label { font-weight: 900; color: var(--brand-blue); font-size: 0.46rem; writing-mode: vertical-lr; transform: rotate(180deg); border-right: 2px solid var(--brand-blue); padding-right: 4px; height: 44px; display: flex; align-items: center; white-space: nowrap; line-height: 1; }
     .m-btn.btn-success {background: #2ecc71 !important;color: white !important;border: none;box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);}
     @keyframes telegram-attention {
         0% { transform: scale(1) rotate(0deg); }
@@ -159,6 +209,118 @@
     @media (max-width: 480px) {
         #extra-container { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
     }
+    @media (max-width: 767px) {
+        :root { --menu-h: 54px; }
+        html { font-size: 18px; }
+        body { padding: 0; background: #fff; }
+        .container {
+            padding: 0 12px 20px;
+            border-radius: 0;
+            box-shadow: none;
+        }
+        #main-menu {
+            margin-bottom: 4px;
+            border-left-width: 0;
+            border-right-width: 0;
+            border-radius: 0 0 14px 14px;
+        }
+        .menu-item, .lang-toggle {
+            flex-direction: row;
+            gap: clamp(2px, 1vw, 5px);
+            padding: 0 2px;
+        }
+        .menu-item i, .lang-toggle i {
+            font-size: 18px;
+            margin: 0;
+        }
+        .menu-item span, .lang-toggle span { font-size: clamp(8.5px, 2.7vw, 12px); }
+        #menu-lang { display: none; }
+        .lang-toggle > i { display: none; }
+        .lang-badge {
+            position: static;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 24px;
+            height: 24px;
+            padding: 0;
+            border-radius: 0;
+            background: transparent;
+            color: var(--brand-blue);
+            font-size: 18px !important;
+            line-height: 1;
+            font-weight: 900;
+        }
+        .header-brand { padding-top: 14px; padding-bottom: 12px; }
+        .brand-1 { font-size: 2.65rem; }
+        .brand-2 { font-size: 1.08rem; margin-top: 7px; }
+        .brand-sub { font-size: 0.88rem; line-height: 1.4; }
+        .section-title {
+            min-height: 48px;
+            margin: 17px -12px 12px;
+            padding: 9px 10px;
+            font-size: 0.88rem;
+        }
+        .section-action {
+            min-height: 36px;
+            padding: 7px 9px;
+            font-size: 0.72rem;
+            border-radius: 8px;
+        }
+        .question-block { margin-bottom: 30px; }
+        .question-text {
+            top: calc(var(--menu-h) + 48px);
+            padding: 13px 0;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            line-height: 1.35;
+        }
+        input[type="text"], input[type="date"], select, textarea {
+            min-height: 52px;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 18px;
+            line-height: 1.3;
+        }
+        .options-row { gap: 8px; }
+        .opt-label {
+            min-height: 72px;
+            padding: 14px 6px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            line-height: 1.25;
+        }
+        .manual-input {
+            height: 52px;
+            margin-top: 10px;
+            padding: 12px !important;
+            font-size: 0.95rem !important;
+        }
+        .photo-upload-box { padding: 12px; }
+        .photo-picker { min-height: 56px; padding: 11px 7px; font-size: 0.82rem; line-height: 1.25; }
+        .photo-picker i { font-size: 20px; }
+        .photo-help, .photo-status { font-size: 0.72rem; }
+        .photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+        .photo-remove { width: 36px; height: 36px; font-size: 17px; }
+        .hint-send {
+            margin-top: 34px;
+            margin-bottom: 18px;
+            font-size: 0.9rem;
+            line-height: 1.35;
+        }
+        .social-row { padding: 16px 2px 20px; gap: 7px; }
+        .social-circle {
+            width: clamp(53px, calc((100vw - 44px) / 5), 68px);
+            height: clamp(53px, calc((100vw - 44px) / 5), 68px);
+            border-radius: 17px;
+        }
+        #modal-box { max-width: 360px; padding: 26px 22px; font-size: 1rem; }
+        .m-btn { min-height: 50px; font-size: 0.9rem; }
+        .footer-info { font-size: 0.72rem; line-height: 1.55; }
+        .footer-grid { gap: 8px; }
+        .footer-location { font-size: clamp(10px, 2.9vw, 13px); line-height: 1.45; }
+        .f-label { flex: 0 0 auto; font-size: 0.5rem; height: 48px; white-space: nowrap; line-height: 1; }
+    }
     @media (min-width: 768px) {
         .container { padding-left: 22px; padding-right: 22px; }
         .section-title { margin-left: -22px; margin-right: -22px; padding-left: 18px; padding-right: 18px; }
@@ -192,7 +354,7 @@
     </div>
     <div class="section-title">
         <span id="txt-sec-1"></span>
-        <button type="button" class="section-action" onclick="resetCustomerData()" id="btn-reset-customer-txt">Xóa thông tin khách</button>
+        <button type="button" class="section-action" onclick="resetCustomerData()" id="btn-reset-customer-txt">Nhập lại</button>
     </div>
     <div style="padding-top: 5px;">
         <input type="text" id="cust_name" oninput="saveCache()">
@@ -220,6 +382,25 @@
             <option value="Nadrzeczna 7C/A3">Nadrzeczna 7C/A3 (Wólka Kosowska)</option>
         </select>
     </div>
+    <div class="section-title">
+        <span id="txt-sec-photo"></span>
+        <button type="button" class="section-action" onclick="clearProjectPhotos()" id="btn-clear-photos-txt"></button>
+    </div>
+    <div class="photo-upload-box" id="photo-upload-box">
+        <div class="photo-picker-row">
+            <label class="photo-picker" for="project-photo-camera">
+                <i class="fa-solid fa-camera"></i><span id="txt-photo-camera"></span>
+            </label>
+            <label class="photo-picker" for="project-photo-gallery">
+                <i class="fa-solid fa-images"></i><span id="txt-photo-gallery"></span>
+            </label>
+        </div>
+        <input class="photo-input" type="file" id="project-photo-camera" accept="image/*" capture="environment" onchange="handlePhotoFiles(this)">
+        <input class="photo-input" type="file" id="project-photo-gallery" accept="image/*" multiple onchange="handlePhotoFiles(this)">
+        <p class="photo-help" id="txt-photo-help"></p>
+        <div class="photo-status" id="photo-status" aria-live="polite"></div>
+        <div class="photo-grid" id="photo-preview-grid"></div>
+    </div>
     <div class="section-title"><span id="txt-sec-4"></span></div>
     <textarea id="final_note" rows="2" oninput="saveCache()"></textarea>
     <div class="hint-send" id="txt-hint-send"></div>
@@ -241,17 +422,17 @@
         </button>
     </div>
     <div class="footer-info">
-        <div class="footer-grid" style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-            <div style="display: flex; align-items: center; gap: 6px;">
+        <div class="footer-grid">
+            <div class="footer-location">
                 <div class="f-label">OBIEKT 1</div>
                 <div style="font-weight: 600;">Bakalarska 2 / B214<br>02-212, Warszawa<br>Hotline: <b>733 67 68 69</b></div>
             </div>
-            <div style="display: flex; align-items: center; gap: 6px;">
+            <div class="footer-location">
                 <div class="f-label">OBIEKT 2</div>
-                <div style="font-weight: 600;">Nadrzeczna 7C / A3<br>05-552, Wólka Kosowska.<br>Hotline: <b>787 456 999</b></div>
+                <div style="font-weight: 600;">Nadrzeczna 7C / A3<br>05-552, W.Kosowska.<br>Hotline: <b>787 456 999</b></div>
             </div>
         </div>
-        <div class="footer-bottom" style="text-align: center; margin-top: 12px; font-weight: bold; font-size: 0.55rem; color: #ccc;">&copy; 2026 ALOSERWIS</div>
+        <div class="footer-bottom" style="text-align: center; margin-top: 12px; font-weight: bold; font-size: 0.55rem; color: #ccc;">&copy; 2026 ALOSERWIS • v21</div>
     </div>
 </div>
 <script>
@@ -261,33 +442,44 @@
     const TARGET_PHONE = "48888686121";
     const translations = {
         PL: { 
-            msgLabels: {title: "ALO SERWIS - WYCENA", mailSub: "Zapytanie o wycenę", name: "Imię", tel: "Tel", addr: "Adres", extra: "Dodatki", app: "Spotkanie", loc: "Lokalizacja", note: "Uwagi"},
+            msgLabels: {title: "ALO SERWIS - WYCENA", mailSub: "Zapytanie o wycenę", name: "Imię", tel: "Tel", addr: "Adres", extra: "Dodatki", app: "Spotkanie", loc: "Lokalizacja", note: "Uwagi", photos: "Zdjęcia obiektu"},
             menu: ["ALO", "OFERTA", "USŁUGI", "KONTAKT", "POLSKI"],
-            desc: "MONTAŻ i SERWIS CCTV", brand: "Wycena systemów CCTV i inny", note: "(im więcej informacji, tym lepiej)", sec1: "I. DANE KLIENTA", sec2: "II. SZCZEGÓŁY SYSTEMU", sec3: "III. INNE SYSTEMY?", sec4: "IV. UWAGI", name: "Imię i Nazwisko", phone: "Numer telefonu", addr: "Adres montażu", other: "Inne...", err: "Wypełnij Imię, Numer telefonu i Adres montażu!", errQs: "Wybierz min. 5 opcji!", hint: "Wybierz kanał przesłania zapytania:", mRetry: "Wyczyść wszystko", mOk: "Zamknij", confirmAsk: "Wysłać via", confirmUse: "Użyć", yes: "Tak", no: "Nie", appTitle: "📅 Wybierz datę spotkania (Pn-Pt):", appMsg: "Czy chcesz umówić się na wizytę w naszym sklepie?", errWeekend: "Konsultanci nie pracują w weekendy.", resetBtn: "Wyczyść odpowiedzi", resetCustomer: "Wpisz ponownie", clearAnswers: "Wyczyść odpowiedzi",
+            desc: "MONTAŻ i SERWIS CCTV", brand: "Wycena systemów CCTV i inny", note: "(im więcej informacji, tym lepiej)", sec1: "I. DANE KLIENTA", sec2: "II. SZCZEGÓŁY SYSTEMU", sec3: "III. INNE SYSTEMY?", secPhoto: "IV. ZDJĘCIA OBIEKTU", sec4: "V. UWAGI", name: "Imię i Nazwisko", phone: "Numer telefonu", addr: "Adres montażu", other: "Inne...", err: "Wypełnij Imię, Numer telefonu i Adres montażu!", errQs: "Wybierz min. 5 opcji!", hint: "Wybierz kanał przesłania zapytania:", mRetry: "Wyczyść wszystko", mOk: "Zamknij", confirmAsk: "Wysłać via", confirmUse: "Użyć", yes: "Tak", no: "Nie", appTitle: "📅 Wybierz datę spotkania (Pn-Pt):", appMsg: "Czy chcesz umówić się na wizytę w naszym sklepie?", errWeekend: "Konsultanci nie pracują w weekendy.", resetBtn: "Wyczyść odpowiedzi", resetCustomer: "Wpisz ponownie", clearAnswers: "Wyczyść odpowiedzi",
+            photoCamera: "Zrób zdjęcie", photoGallery: "Wybierz zdjęcia", photoHelp: "Maks. 6 zdjęć, do 8 MB każde. Zdjęcia zostaną zmniejszone; wysłany link do galerii działa przez 30 dni.", clearPhotos: "Usuń zdjęcia", photoNone: "Nie dodano zdjęć.", photoCount: "Wybrano {n}/6 zdjęć.", photoProcessing: "Przygotowywanie zdjęć...", photoMax: "Możesz dodać maksymalnie 6 zdjęć.", photoInvalid: "Można dodać tylko pliki graficzne.", photoTooLarge: "Zdjęcie przekracza limit 8 MB.", photoUploading: "Przesyłanie zdjęć i tworzenie linku...", photoUploadError: "Nie udało się przesłać zdjęć. Spróbuj ponownie; aplikacja nie zostanie otwarta bez linku.", photoTgPartial: "Treść wysłano, ale nie udało się wysłać wszystkich zdjęć.",
             sending: "Wysyłanie wyceny...", sentSuccess: "✅ WYŁANO POMYŚLNIE!\nSkontaktujemy się jak najszybciej, korzystając z podanego numeru telefonu:", viberCopy: "Wycena skopiowana! Proszę 'Wklej' (Paste) w Viber.", tgError: "Błąd bota. Otwieranie czatu trực tiếp...", waitMsg: "Zwolnij! Odczekaj {s}s.",
-            extras: [ {v:"ALARM", l:"🔔 ALARM"}, {v:"DOMOFON", l:"📞 DOMO"}, {v:"SIEĆ", l:"🌐 SIEĆ"}, {v:"ELEKTRYK", l:"⚡  ELEK"} ],
-            qs: [{q:"1. Typ obiektu:", a:["Dom","Biuro","Magazyn"]},{q:"2. Liczba kamer:", a:["1-4","5-10","> 10"]},{q:"3. Lokalizacj:", a:["Wewnątrz","Zewnątrz","Obie"]},{q:"4. Stan:", a:["Nowy","Istniejący","Remont"]},{q:"5. Połączenie:", a:["Kabel IP","Wi-Fi","Kable HD-CVI"]},{q:"6. Sprzęt:", a:["Z montażem","Własny","Porada"]},{q:"7. Funkcje:", a:["Noc-Kolor","Alarm","Audio"]},{q:"8. Dysk:", a:["1 Tydz","1 Mies","Cloud"]},{q:"9. Budżet:", a:["Ekonomiczny","Standard","Premium"]},{q:"10. Termin:", a:["Pilne","Miesiąc","Wycena"]}] 
+            extras: [ {v:"ALARM", l:"🔔 ALARM"}, {v:"DOMOFON", l:"📞 DOMOFON"}, {v:"SIEĆ", l:"🌐 SIEĆ"}, {v:"ELEKTRYK", l:"⚡  ELEK"} ],
+            qs: [{q:"1. Typ obiektu:", a:["Dom","Sklep","Magazyn"]},{q:"2. Liczba kamer:", a:["1-4","5-10","> 10"]},{q:"3. Lokalizacj:", a:["Wewnątrz","Zewnątrz","Obie"]},{q:"4. Stan:", a:["Nowy","Istniejący","Remont"]},{q:"5. Połączenie:", a:["Kabel IP","Wi-Fi","Kable HD-CVI"]},{q:"6. Sprzęt:", a:["Z montażem","Własny","Porada"]},{q:"7. Funkcje:", a:["Noc-Kolor","Alarm","Audio"]},{q:"8. Dysk:", a:["1 Tydz","1 Mies","Cloud"]},{q:"9. Budżet:", a:["Ekonomiczny","Standard","Premium"]},{q:"10. Termin:", a:["Pilne","Miesiąc","Wycena"]}] 
         },
         EN: { 
-            msgLabels: {title: "ALO SERWIS - QUOTE", mailSub: "Quote Request", name: "Name", tel: "Tel", addr: "Addr", extra: "Extras", app: "Appointment", loc: "Location", note: "Note"},
+            msgLabels: {title: "ALO SERWIS - QUOTE", mailSub: "Quote Request", name: "Name", tel: "Tel", addr: "Addr", extra: "Extras", app: "Appointment", loc: "Location", note: "Note", photos: "Site photos"},
             menu: ["HOME", "OFFER", "SERVICES", "CONTACT", "ENGLISH"],
-            desc: "INSTAL & SERVICE CCTV", brand: "CCTV & Other Systems Quote", note: "(More info = Better quote)", sec1: "I. CUSTOMER DETAILS", sec2: "II. SYSTEM DETAILS", sec3: "III. OTHER SYSTEMS?", sec4: "IV. NOTES", name: "Full Name", phone: "Phone Number", addr: "Address", other: "Other...", err: "Please fill Name, Phone and Address install!", errQs: "Answer min. 5 questions!", hint: "Please choose a channel to send your request:", mRetry: "Reset All", mOk: "Close", confirmAsk: "Send via", confirmUse: "Use", yes: "Yes", no: "No", appTitle: "📅 Choose date (Mon-Fri):", appMsg: "Would you like to book an appointment at our store?", errWeekend: "Consultants are off work on weekends.", resetBtn: "Clear answers", resetCustomer: "Enter again", clearAnswers: "Clear answers",
+            desc: "INSTAL & SERVICE CCTV", brand: "CCTV & Other Systems Quote", note: "(More info = Better quote)", sec1: "I. CUSTOMER DETAILS", sec2: "II. SYSTEM DETAILS", sec3: "III. OTHER SYSTEMS?", secPhoto: "IV. SITE PHOTOS", sec4: "V. NOTES", name: "Full Name", phone: "Phone Number", addr: "Address", other: "Other...", err: "Please fill Name, Phone and Address install!", errQs: "Answer min. 5 questions!", hint: "Please choose a channel to send your request:", mRetry: "Reset All", mOk: "Close", confirmAsk: "Send via", confirmUse: "Use", yes: "Yes", no: "No", appTitle: "📅 Choose date (Mon-Fri):", appMsg: "Would you like to book an appointment at our store?", errWeekend: "Consultants are off work on weekends.", resetBtn: "Clear answers", resetCustomer: "Enter again", clearAnswers: "Clear answers",
+            photoCamera: "Take a photo", photoGallery: "Choose photos", photoHelp: "Maximum 6 photos, up to 8 MB each. Photos are resized; the gallery link remains available for 30 days.", clearPhotos: "Clear photos", photoNone: "No photos added.", photoCount: "Selected {n}/6 photos.", photoProcessing: "Preparing photos...", photoMax: "You can add up to 6 photos.", photoInvalid: "Only image files can be added.", photoTooLarge: "A photo exceeds the 8 MB limit.", photoUploading: "Uploading photos and creating the gallery link...", photoUploadError: "The photos could not be uploaded. Try again; the app will not open without a gallery link.", photoTgPartial: "The request was sent, but some photos could not be uploaded.",
             sending: "Sending quote...", sentSuccess: "✅ SENT SUCCESSFULLY!\nWe will contact you as soon as possible, using the phone number you provided:" , viberCopy: "Quote copied! Please 'Paste' into Viber.", tgError: "Bot error. Opening direct chat...", waitMsg: "Wait {s}s before next send.",
             extras: [ {v:"ALARM", l:"🔔 ALARM"}, {v:"DOMOFON", l:"📞 ENTRY"}, {v:"SIEĆ", l:"🌐 NET"}, {v:"ELEKTRYK", l:"⚡ ELEC"} ],
-            qs: [{q:"1. Building:", a:["House","Office","Warehouse"]},{q:"2. Cameras:", a:["1-4","5-10","> 10"]},{q:"3. Location:", a:["Indoor","Outdoor","Both"]},{q:"4. Status:", a:["New","Existing","Renovation"]},{q:"5. Connection:", a:["IP Cable","Wi-Fi","HD-CVI Cable"]},{q:"6. Equipment:", a:["Package","Own","Advice"]},{q:"7. Features:", a:["Night Color","Alarm","Audio"]},{q:"8. Storage:", a:["1 Week","1 Month","Cloud"]},{q:"9. Budget:", a:["Economy","Standard","Premium"]},{q:"10. Timeline:", a:["Urgent","Month","Pricing"]}] 
+            qs: [{q:"1. Building:", a:["House","Shop","Warehouse"]},{q:"2. Cameras:", a:["1-4","5-10","> 10"]},{q:"3. Location:", a:["Indoor","Outdoor","Both"]},{q:"4. Status:", a:["New","Existing","Renovation"]},{q:"5. Connection:", a:["IP Cable","Wi-Fi","HD-CVI Cable"]},{q:"6. Equipment:", a:["Package","Own","Advice"]},{q:"7. Features:", a:["Night Color","Alarm","Audio"]},{q:"8. Storage:", a:["1 Week","1 Month","Cloud"]},{q:"9. Budget:", a:["Economy","Standard","Premium"]},{q:"10. Timeline:", a:["Urgent","Month","Pricing"]}] 
         },
         VN: { 
-            msgLabels: {title: "ALO SERWIS - BÁO GIÁ", mailSub: "Yêu cầu báo giá", name: "Họ tên", tel: "SĐT", addr: "Địa chỉ", extra: "Thêm", app: "Lịch hẹn", loc: "Địa điểm", note: "Ghi chú"},
-            menu: ["TRANG CHỦ", "BÁO GIÁ", "DỊCH VỤ", "LIÊN HỆ", "TIẾNG VIỆT"],
-            desc: "LẮP ĐẶT & BẢO TRÌ CAMERA", brand: "Báo giá HT Camera và các hệ thống khác", note: "(Càng nhiều thông tin báo giá càng chính xác)", sec1: "I. THÔNG TIN KHÁCH HÀNG", sec2: "II. CHI TIẾT HỆ THỐNG", sec3: "III. HỆ THỐNG KHÁC?", sec4: "IV. GHI CHÚ", name: "Họ và Tên", phone: "Số điện thoại", addr: "Địa chỉ lắp đặt", other: "Khác...", err: "Vui lòng nhập Tên, SĐT và Địa chỉ lắp đặt!", errQs: "Trả lời ít nhất 5 câu hỏi!", hint: "Vui lòng chọn kênh gửi yêu cầu Báo giá:", mRetry: "Làm lại tất cả", mOk: "Đóng", confirmAsk: "Gửi qua", confirmUse: "Bạn dùng", yes: "Có", no: "Không", appTitle: "📅 Chọn ngày tư vấn (Thứ 2-6):", appMsg: "Quý khách có muốn đặt lịch Tư vấn tại cửa hàng chúng tôi không?", errWeekend: "Nhân viên tư vấn nghỉ làm việc cuối tuần!", resetBtn: "Xoá câu trả lời", resetCustomer: "Nhập lại", clearAnswers: "Xóa các câu trả lời",
+            msgLabels: {title: "ALO SERWIS - BÁO GIÁ", mailSub: "Yêu cầu báo giá", name: "Họ tên", tel: "SĐT", addr: "Địa chỉ", extra: "Thêm", app: "Lịch hẹn", loc: "Địa điểm", note: "Ghi chú", photos: "Ảnh công trình"},
+            menu: ["ALO", "BÁO GIÁ", "DỊCH VỤ", "LIÊN HỆ", "TIẾNG VIỆT"],
+            desc: "LẮP ĐẶT & BẢO TRÌ CAMERA", brand: "Báo giá HT Camera và các hệ thống khác", note: "(Càng nhiều thông tin báo giá càng chính xác)", sec1: "I. THÔNG TIN KHÁCH HÀNG", sec2: "II. CHI TIẾT HỆ THỐNG", sec3: "III. HỆ THỐNG KHÁC?", secPhoto: "IV. ẢNH CÔNG TRÌNH", sec4: "V. GHI CHÚ", name: "Họ và Tên", phone: "Số điện thoại", addr: "Địa chỉ lắp đặt", other: "Khác...", err: "Vui lòng nhập Tên, SĐT và Địa chỉ lắp đặt!", errQs: "Trả lời ít nhất 5 câu hỏi!", hint: "Vui lòng chọn kênh gửi yêu cầu Báo giá:", mRetry: "Làm lại tất cả", mOk: "Đóng", confirmAsk: "Gửi qua", confirmUse: "Bạn dùng", yes: "Có", no: "Không", appTitle: "📅 Chọn ngày tư vấn (Thứ 2-6):", appMsg: "Quý khách có muốn đặt lịch Tư vấn tại cửa hàng chúng tôi không?", errWeekend: "Nhân viên tư vấn nghỉ làm việc cuối tuần!", resetBtn: "Xoá câu trả lời", resetCustomer: "Nhập lại", clearAnswers: "Xóa các câu trả lời",
+            photoCamera: "Chụp ảnh", photoGallery: "Chọn ảnh từ máy", photoHelp: "Tối đa 6 ảnh, mỗi ảnh không quá 8 MB. Ảnh được tự giảm kích thước; đường dẫn thư viện ảnh có hiệu lực 30 ngày.", clearPhotos: "Xóa ảnh", photoNone: "Chưa thêm ảnh.", photoCount: "Đã chọn {n}/6 ảnh.", photoProcessing: "Đang chuẩn bị ảnh...", photoMax: "Chỉ được chọn tối đa 6 ảnh.", photoInvalid: "Chỉ được chọn file hình ảnh.", photoTooLarge: "Có ảnh vượt quá giới hạn 8 MB.", photoUploading: "Đang tải ảnh và tạo đường dẫn...", photoUploadError: "Không tải được ảnh. Hãy thử lại; ứng dụng sẽ không mở nếu chưa tạo được đường dẫn ảnh.", photoTgPartial: "Nội dung đã gửi nhưng có ảnh không tải lên được.",
             sending: "Đang gửi báo giá...", sentSuccess: "✅ GỬI THÀNH CÔNG!\nChúng tôi sẽ liên hệ với bạn sớm nhất có thể, theo số điện thoại bạn đã cung cấp:" ,viberCopy: "Đã sao chép báo giá! Vui lòng 'Dán' vào Viber.", tgError: "Lỗi kết nối. Đang chuyển sang chat trực tiếp...", waitMsg: "Chờ {s} giây để gửi tiếp.",
-            extras: [ {v:"ALARM", l:"🔔 ALARM"}, {v:"DOMOFON", l:"📞 DOMO"}, {v:"SIEĆ", l:"🌐 MẠNG"}, {v:"ELEKTRYK", l:"⚡ ĐIỆN"} ],
-            qs: [{q:"1. Công trình:", a:["Nhà riêng","Văn phòng","Kho"]},{q:"2. Số lượng:", a:["1-4 mắt","5-10 mắt",">10 mắt"]},{q:"3. Vị trí:", a:["Trong nhà","Ngoài trời","Cả hai"]},{q:"4. Hạ tầng:", a:["Mới","Đã ở","Thay cũ"]},{q:"5. Kết nối:", a:["Dây IP","Wifi","Dây HD-CVI"]},{q:"6. Thiết bị:", a:["Trọn gói","Có sẵn","Cần tư vấn"]},{q:"7. Tính năng:", a:["Màu đêm","Báo động","Đàm thoại"]},{q:"8. Lưu trữ:", a:["1 Tuần","1 Tháng","Cloud"]},{q:"9. Ngân sách:", a:["Tiết kiệm","Vừa phải","Cao cấp"]},{q:"10. Tiến độ:", a:["Gấp","Bình thường","Khảo giá"]}] 
+            extras: [ {v:"ALARM", l:"🔔 ALARM"}, {v:"DOMOFON", l:"📞 DOMOFON"}, {v:"SIEĆ", l:"🌐 MẠNG"}, {v:"ELEKTRYK", l:"⚡ ĐIỆN"} ],
+            qs: [{q:"1. Công trình:", a:["Nhà riêng","Cửa hàng","Kho"]},{q:"2. Số lượng:", a:["1-4 mắt","5-10 mắt",">10 mắt"]},{q:"3. Vị trí:", a:["Trong nhà","Ngoài trời","Cả hai"]},{q:"4. Hạ tầng:", a:["Mới","Đã ở","Thay cũ"]},{q:"5. Kết nối:", a:["Dây IP","Wifi","Dây HD-CVI"]},{q:"6. Thiết bị:", a:["Trọn gói","Có sẵn","Cần tư vấn"]},{q:"7. Tính năng:", a:["Màu đêm","Báo động","Đàm thoại"]},{q:"8. Lưu trữ:", a:["1 Tuần","1 Tháng","Cloud"]},{q:"9. Ngân sách:", a:["Tiết kiệm","Vừa phải","Cao cấp"]},{q:"10. Tiến độ:", a:["Gấp","Bình thường","Khảo giá"]}] 
         }
     };
     let curLang = localStorage.getItem('alo_lang') || 'PL';
     const langOrder = ['PL', 'EN', 'VN'];
     let appAsked = false;
+    const MAX_PROJECT_PHOTOS = 6;
+    const MAX_PHOTO_BYTES = 8 * 1024 * 1024;
+    const MAX_PHOTO_DIMENSION = 1600;
+    let projectPhotos = [];
+    let photoRevision = 0;
+    let uploadedPhotoRevision = -1;
+    let uploadedPhotoLink = '';
+    let photoUploadPromise = null;
     function saveCache() {
         const formData = {
             name: document.getElementById('cust_name').value,
@@ -356,6 +548,7 @@
         document.getElementById('txt-sec-1').innerText = cur.sec1;
         document.getElementById('txt-sec-2').innerText = cur.sec2;
         document.getElementById('txt-sec-3').innerText = cur.sec3;
+        document.getElementById('txt-sec-photo').innerText = cur.secPhoto;
         document.getElementById('txt-sec-4').innerText = cur.sec4;
         document.getElementById('txt-hint-send').innerText = cur.hint;
         document.getElementById('cust_name').placeholder = cur.name;
@@ -364,6 +557,10 @@
         document.getElementById('txt-app-title').innerText = cur.appTitle;
         document.getElementById('btn-reset-customer-txt').innerText = cur.resetCustomer;
         document.getElementById('btn-clear-questions-txt').innerText = cur.clearAnswers;
+        document.getElementById('btn-clear-photos-txt').innerText = cur.clearPhotos;
+        document.getElementById('txt-photo-camera').innerText = cur.photoCamera;
+        document.getElementById('txt-photo-gallery').innerText = cur.photoGallery;
+        document.getElementById('txt-photo-help').innerText = cur.photoHelp;
         const c = document.getElementById('questions-container');
         c.innerHTML = '';
         cur.qs.forEach((item, i) => {
@@ -374,6 +571,131 @@
         const ex = document.getElementById('extra-container');
         ex.innerHTML = cur.extras.map(e => `<label class="opt-label"><input type="checkbox" name="extra" value="${e.v}" onchange="handleExtraClick(this)"> ${e.l}</label>`).join('');
         loadCache();
+        renderProjectPhotos();
+    }
+    function setPhotoStatus(message, isError = false) {
+        const status = document.getElementById('photo-status');
+        status.textContent = message;
+        status.classList.toggle('error', isError);
+    }
+    function invalidatePhotoUpload() {
+        photoRevision++;
+        uploadedPhotoRevision = -1;
+        uploadedPhotoLink = '';
+        photoUploadPromise = null;
+    }
+    function renderProjectPhotos(message = '', isError = false) {
+        const grid = document.getElementById('photo-preview-grid');
+        grid.innerHTML = '';
+        projectPhotos.forEach((photo, index) => {
+            const card = document.createElement('div');
+            card.className = 'photo-card';
+            const image = document.createElement('img');
+            image.src = photo.previewUrl;
+            image.alt = `${translations[curLang].msgLabels.photos} ${index + 1}`;
+            const remove = document.createElement('button');
+            remove.type = 'button';
+            remove.className = 'photo-remove';
+            remove.setAttribute('aria-label', translations[curLang].clearPhotos);
+            remove.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+            remove.addEventListener('click', () => removeProjectPhoto(index));
+            const number = document.createElement('span');
+            number.className = 'photo-number';
+            number.textContent = String(index + 1);
+            card.append(image, remove, number);
+            grid.appendChild(card);
+        });
+        if(message) {
+            setPhotoStatus(message, isError);
+        } else {
+            const cur = translations[curLang];
+            setPhotoStatus(projectPhotos.length ? cur.photoCount.replace('{n}', projectPhotos.length) : cur.photoNone);
+        }
+    }
+    function loadPhotoImage(file) {
+        return new Promise((resolve, reject) => {
+            const sourceUrl = URL.createObjectURL(file);
+            const image = new Image();
+            image.onload = () => {
+                URL.revokeObjectURL(sourceUrl);
+                resolve(image);
+            };
+            image.onerror = () => {
+                URL.revokeObjectURL(sourceUrl);
+                reject(new Error('image_decode_failed'));
+            };
+            image.src = sourceUrl;
+        });
+    }
+    async function compressProjectPhoto(file, index) {
+        const image = await loadPhotoImage(file);
+        const largestSide = Math.max(image.naturalWidth, image.naturalHeight);
+        const scale = Math.min(1, MAX_PHOTO_DIMENSION / largestSide);
+        const width = Math.max(1, Math.round(image.naturalWidth * scale));
+        const height = Math.max(1, Math.round(image.naturalHeight * scale));
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const context = canvas.getContext('2d', { alpha: false });
+        context.fillStyle = '#ffffff';
+        context.fillRect(0, 0, width, height);
+        context.drawImage(image, 0, 0, width, height);
+        const blob = await new Promise((resolve, reject) => {
+            canvas.toBlob(result => result ? resolve(result) : reject(new Error('image_encode_failed')), 'image/jpeg', 0.82);
+        });
+        const baseName = (file.name || `photo-${index + 1}`).replace(/\.[^.]+$/, '').replace(/[^a-zA-Z0-9_-]+/g, '-').slice(0, 45) || `photo-${index + 1}`;
+        return new File([blob], `${baseName}.jpg`, { type: 'image/jpeg', lastModified: Date.now() });
+    }
+    async function handlePhotoFiles(input) {
+        const selectedFiles = Array.from(input.files || []);
+        input.value = '';
+        if(!selectedFiles.length) return;
+        const cur = translations[curLang];
+        let remaining = MAX_PROJECT_PHOTOS - projectPhotos.length;
+        if(remaining <= 0) {
+            renderProjectPhotos(cur.photoMax, true);
+            return;
+        }
+        const box = document.getElementById('photo-upload-box');
+        box.classList.add('processing');
+        setPhotoStatus(cur.photoProcessing);
+        let warning = selectedFiles.length > remaining ? cur.photoMax : '';
+        let addedPhotos = false;
+        for(const file of selectedFiles.slice(0, remaining)) {
+            if(!file.type.startsWith('image/')) {
+                warning = cur.photoInvalid;
+                continue;
+            }
+            if(file.size > MAX_PHOTO_BYTES) {
+                warning = cur.photoTooLarge;
+                continue;
+            }
+            try {
+                const compressedFile = await compressProjectPhoto(file, projectPhotos.length);
+                projectPhotos.push({ file: compressedFile, previewUrl: URL.createObjectURL(compressedFile) });
+                addedPhotos = true;
+                remaining--;
+            } catch(error) {
+                warning = cur.photoInvalid;
+            }
+        }
+        box.classList.remove('processing');
+        if(addedPhotos) invalidatePhotoUpload();
+        renderProjectPhotos(warning, Boolean(warning));
+    }
+    function removeProjectPhoto(index) {
+        const removed = projectPhotos.splice(index, 1)[0];
+        if(removed) URL.revokeObjectURL(removed.previewUrl);
+        if(removed) invalidatePhotoUpload();
+        renderProjectPhotos();
+    }
+    function clearProjectPhotos() {
+        projectPhotos.forEach(photo => URL.revokeObjectURL(photo.previewUrl));
+        projectPhotos = [];
+        invalidatePhotoUpload();
+        document.getElementById('project-photo-camera').value = '';
+        document.getElementById('project-photo-gallery').value = '';
+        renderProjectPhotos();
     }
     function handleRadioClick(el) {
         const removeCurrentChoice = el.dataset.wasChecked === 'true';
@@ -413,6 +735,15 @@
             r.parentElement.classList.remove('selected');
         });
         document.querySelectorAll('.manual-input').forEach(i => i.value = '');
+        document.querySelectorAll('input[name="extra"]').forEach(c => {
+            c.checked = false;
+            c.parentElement.classList.remove('selected');
+        });
+        document.getElementById('appointment-sec').style.display = 'none';
+        document.getElementById('app_date').value = '';
+        document.getElementById('app_time').value = '09:00';
+        document.getElementById('app_loc').value = 'Bakalarska 2/B214';
+        appAsked = false;
         saveCache();
     }
 
@@ -471,6 +802,7 @@
         if(document.getElementById('appointment-sec').style.display === 'block' && appDate) {
             text += `\n${lb.app}: ${appDate} (${document.getElementById('app_time').value})\n${lb.loc}: ${document.getElementById('app_loc').value}\n`;
         }
+        if(projectPhotos.length) text += `\n${lb.photos}: ${projectPhotos.length}\n`;
         const note = document.getElementById('final_note').value.trim(); 
         if(note) text += `\n${lb.note}: ${note}`;
         return { name, phone, text };
@@ -492,62 +824,105 @@
         }
     }
     
-    async function executeSend(t, d) {
-        if(!d) return; 
-        
-        const cur = translations[curLang]; 
-        const text = d.text;
-        const phoneOfGuest = d.phone;
-        const enc = encodeURIComponent(text);
-        const fullSuccessMsg = cur.sentSuccess + "\n\n" + phoneOfGuest + "\n\n";
-        try { 
-            await navigator.clipboard.writeText(text); 
-        } catch (e) {
-            const textArea = document.createElement("textarea");
+    async function copyQuoteText(text) {
+        try {
+            await navigator.clipboard.writeText(text);
+        } catch (error) {
+            const textArea = document.createElement('textarea');
             textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.opacity = '0';
             document.body.appendChild(textArea);
             textArea.select();
             document.execCommand('copy');
-            document.body.removeChild(textArea);
+            textArea.remove();
         }
-    
+    }
+    async function getProjectPhotoLink() {
+        if(!projectPhotos.length) return '';
+        if(uploadedPhotoLink && uploadedPhotoRevision === photoRevision) return uploadedPhotoLink;
+        if(photoUploadPromise) return photoUploadPromise;
+        const revisionAtStart = photoRevision;
+        photoUploadPromise = (async () => {
+            const formData = new FormData();
+            projectPhotos.forEach((photo, index) => formData.append('photos', photo.file, `photo-${index + 1}.jpg`));
+            const response = await fetch('/api/upload-images', {
+                method: 'POST',
+                headers: { 'X-Requested-With': 'ALO-Oferta' },
+                body: formData
+            });
+            if(!response.ok) throw new Error(`Photo upload ${response.status}`);
+            const result = await response.json();
+            if(!result.url || !/^https:\/\//i.test(result.url)) throw new Error('Invalid gallery URL');
+            if(photoRevision !== revisionAtStart) throw new Error('Photos changed during upload');
+            uploadedPhotoLink = result.url;
+            uploadedPhotoRevision = revisionAtStart;
+            return uploadedPhotoLink;
+        })();
+        try {
+            return await photoUploadPromise;
+        } finally {
+            photoUploadPromise = null;
+        }
+    }
+    async function executeSend(t, d) {
+        if(!d) return;
+
+        const cur = translations[curLang];
+        let text = d.text;
+        const phoneOfGuest = d.phone;
+        const fullSuccessMsg = cur.sentSuccess + "\n\n" + phoneOfGuest + "\n\n";
+        if(projectPhotos.length) {
+            openModal(cur.photoUploading, 'loading');
+            try {
+                const galleryLink = await getProjectPhotoLink();
+                text += `\n${cur.msgLabels.photos}: ${galleryLink}`;
+                closeModal();
+            } catch(error) {
+                localStorage.removeItem('last_send_time');
+                openModal(cur.photoUploadError);
+                return;
+            }
+        }
+
+        const enc = encodeURIComponent(text);
+        copyQuoteText(text);
         switch(t) {
-            case 'tg': 
+            case 'tg':
                 closeModal();
                 openModal(cur.sending, 'loading');
-                fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: TELEGRAM_MY_ID, text: text })
-                }).then(res => {
-                    if(res.ok) {
-                        openModal(fullSuccessMsg, 'success');
-                    } else {
-                        openModal(cur.tgError);
-                        setTimeout(() => window.open(`https://t.me/aka242`, '_blank'), 1500);
-                    }
-                }).catch(() => {
-                    window.open(`https://t.me/aka242`, '_blank');
-                });
+                try {
+                    const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ chat_id: TELEGRAM_MY_ID, text })
+                    });
+                    if(!response.ok) throw new Error(`Telegram message ${response.status}`);
+                    openModal(fullSuccessMsg, 'success');
+                } catch(error) {
+                    openModal(cur.tgError);
+                    setTimeout(() => window.open('https://t.me/aka242', '_blank'), 1500);
+                }
                 break;
-            
-            case 'viber': 
+
+            case 'viber':
                 window.open(`viber://chat?number=%2B${TARGET_PHONE}`, '_self');
                 openModal(cur.viberCopy, 'success');
                 break;
-    
-            case 'wa': 
-                window.open(`https://api.whatsapp.com/send?phone=${TARGET_PHONE}&text=${enc}`, '_blank'); 
+
+            case 'wa':
+                if(projectPhotos.length) window.location.href = `https://api.whatsapp.com/send?phone=${TARGET_PHONE}&text=${enc}`;
+                else window.open(`https://api.whatsapp.com/send?phone=${TARGET_PHONE}&text=${enc}`, '_blank');
                 break;
-    
-            case 'mail': 
+
+            case 'mail': {
                 const subject = `${cur.msgLabels.mailSub} - ${d.name}`;
-                const encSub = encodeURIComponent(subject);
-                window.location.href = `mailto:${TARGET_EMAIL}?subject=${encSub}&body=${enc}`; 
+                window.location.href = `mailto:${TARGET_EMAIL}?subject=${encodeURIComponent(subject)}&body=${enc}`;
                 break;
-    
-            case 'sms': 
-                window.location.href = (navigator.userAgent.match(/iPhone|iPad|iPod/i)) ? `sms:+${TARGET_PHONE}&body=${enc}` : `sms:+${TARGET_PHONE}?body=${enc}`; 
+            }
+
+            case 'sms':
+                window.location.href = navigator.userAgent.match(/iPhone|iPad|iPod/i) ? `sms:+${TARGET_PHONE}&body=${enc}` : `sms:+${TARGET_PHONE}?body=${enc}`;
                 break;
         }
     }
