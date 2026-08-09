@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ALO SERWIS USŁUGI V6 - 2026-08-09 -->
+<!-- ALO SERWIS USŁUGI V8 - 2026-08-09 -->
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preload" as="image" href="/assets/images/services-hero.webp" type="image/webp" fetchpriority="high">
     <link rel="stylesheet" href="menu.css?v=2">
-    <link rel="stylesheet" href="uslugi.css?v=5">
+    <link rel="stylesheet" href="uslugi.css?v=6">
 </head>
 <body class="services-page">
     <a class="skip-link" href="#main-content" data-i18n="skip">Przejdź do treści</a>
@@ -44,7 +44,10 @@
                             <input class="repair-photo-input" type="file" id="repair-photo-input" accept="image/*" multiple>
                             <div class="repair-photo-status" id="repair-photo-status" aria-live="polite"></div>
                             <div class="repair-photo-grid" id="repair-photo-grid"></div>
-                            <label class="repair-note-label" for="repair-note" data-i18n="noteLabel">UWAGI / OPIS USTERKI</label>
+                            <div class="repair-note-heading">
+                                <label class="repair-note-label" for="repair-note" data-i18n="noteLabel">UWAGI / OPIS USTERKI</label>
+                                <button type="button" class="repair-note-clear" id="repair-note-clear" data-i18n="clearNote">WYCZYŚĆ</button>
+                            </div>
                             <textarea id="repair-note" class="repair-note" rows="3" data-i18n-placeholder="notePlaceholder" placeholder="Marka, model i opis problemu..."></textarea>
                         </div>
                         <div class="messenger-actions">
@@ -53,7 +56,7 @@
                             <button type="button" class="cta-button contact-channel cta-viber" data-channel="viber"><i class="fa-brands fa-viber" aria-hidden="true"></i><span><small data-i18n="writeVia">NAPISZ PRZEZ</small><strong>VIBER</strong></span></button>
                             <button type="button" class="cta-button contact-channel cta-messenger" data-channel="messenger"><i class="fa-brands fa-facebook-messenger" aria-hidden="true"></i><span><small data-i18n="writeVia">NAPISZ PRZEZ</small><strong>MESSENGER</strong></span></button>
                         </div>
-                        <p class="anti-spam-note" id="anti-spam-status"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i><span data-i18n="antiSpamReady">Ochrona antyspamowa: jedna wiadomość co 30 sekund.</span></p>
+                        <p class="anti-spam-note" id="anti-spam-status" hidden><i class="fa-solid fa-shield-halved" aria-hidden="true"></i><span></span></p>
                     </div>
 
                     <!-- ORDER / COURIER LINK: replace href="#" with the final ordering URL. -->
@@ -147,7 +150,7 @@
         </div></div></section>
     </main>
 
-    <footer class="site-footer"><div class="section-shell footer-inner"><div><strong>ALO SERWIS</strong><span data-i18n="footerTagline">Serwis telefonów, tabletów i laptopów</span><a class="footer-rules-link" href="/regulamin" data-i18n="footerRules">Regulamin</a></div><p>© 2026 ALO SERWIS • USŁUGI v7</p></div></footer>
+    <footer class="site-footer"><div class="section-shell footer-inner"><div><strong>ALO SERWIS</strong><span data-i18n="footerTagline">Serwis telefonów, tabletów i laptopów</span><a class="footer-rules-link" href="/regulamin" data-i18n="footerRules">Regulamin</a></div><p>© 2026 ALO SERWIS • USŁUGI v8</p></div></footer>
     <div class="mobile-contact-bar" data-i18n-aria-label="quickContactAria" aria-label="Szybki kontakt">
         <button type="button" class="contact-channel" data-channel="telegram" aria-label="Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i><span>Telegram</span></button>
         <button type="button" class="contact-channel" data-channel="whatsapp" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i><span>WhatsApp</span></button>
@@ -172,6 +175,6 @@
 
     <div class="contact-toast" id="contact-toast" role="status" aria-live="polite"></div>
 
-    <script src="uslugi.js?v=7"></script>
+    <script src="uslugi.js?v=8"></script>
 </body>
 </html>
