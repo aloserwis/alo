@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Regulamin | ALO SERWIS</title>
+  <meta name="description" content="Regulamin świadczenia usług serwisowych ALO SERWIS.">
+  <style>
+    :root{
+      --orange:#f58220;
+      --orange-dark:#d96b0b;
+      --text:#1f1f1f;
+      --muted:#6b6b6b;
+      --line:#ececec;
+      --bg:#ffffff;
+      --soft:#fff8f1;
+      --max:1120px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Arial,Helvetica,sans-serif;
+      line-height:1.65;
+    }
+    a{color:inherit;text-decoration:none}
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,.96);
+      border-bottom:1px solid var(--line);
+      backdrop-filter:blur(8px);
+    }
+    .nav{
+      max-width:var(--max);
+      margin:auto;
+      min-height:72px;
+      padding:0 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+    .brand{
+      font-size:24px;
+      font-weight:800;
+      letter-spacing:.3px;
+      color:var(--orange);
+      white-space:nowrap;
+    }
+    .menu{
+      display:flex;
+      align-items:center;
+      gap:27px;
+      font-size:14px;
+      font-weight:700;
+      letter-spacing:.45px;
+    }
+    .menu a:hover,.menu a.active{color:var(--orange)}
+    .lang{
+      border:1px solid #ddd;
+      border-radius:8px;
+      padding:8px 10px;
+      font-weight:700;
+      background:#fff;
+      color:var(--text);
+    }
+    .burger{display:none;border:0;background:transparent;font-size:27px;cursor:pointer}
+    .hero{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:66px 22px 35px;
+    }
+    .eyebrow{
+      color:var(--orange);
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:1.6px;
+      text-transform:uppercase;
+      margin-bottom:10px;
+    }
+    h1{
+      margin:0;
+      color:var(--orange);
+      font-size:clamp(34px,5vw,58px);
+      line-height:1.05;
+      letter-spacing:-1.5px;
+    }
+    .lead{
+      max-width:800px;
+      margin-top:20px;
+      color:#4b4b4b;
+      font-size:17px;
+    }
+    .notice{
+      max-width:var(--max);
+      margin:0 auto 28px;
+      padding:0 22px;
+    }
+    .notice-inner{
+      background:var(--soft);
+      border-left:4px solid var(--orange);
+      padding:17px 19px;
+      border-radius:8px;
+      color:#3f3f3f;
+    }
+    main{
+      max-width:var(--max);
+      margin:auto;
+      padding:0 22px 70px;
+    }
+    .toc{
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:22px 24px;
+      margin:0 0 34px;
+      background:#fff;
+    }
+    .toc-title{
+      color:var(--orange);
+      font-weight:800;
+      margin-bottom:10px;
+    }
+    .toc-links{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:7px 24px;
+    }
+    .toc a{color:#444}
+    .toc a:hover{color:var(--orange)}
+    section.rule{
+      padding:27px 0;
+      border-bottom:1px solid var(--line);
+      scroll-margin-top:95px;
+    }
+    section.rule h2{
+      margin:0 0 12px;
+      color:var(--orange);
+      font-size:23px;
+    }
+    section.rule p{margin:8px 0}
+    section.rule ol, section.rule ul{
+      margin:10px 0 0;
+      padding-left:23px;
+    }
+    section.rule li{margin:8px 0}
+    strong{font-weight:750}
+    .contact-box{
+      margin-top:34px;
+      padding:23px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#fff;
+    }
+    .contact-box h2{color:var(--orange);margin:0 0 8px}
+    footer{
+      border-top:1px solid var(--line);
+      background:#fff;
+    }
+    .footer-inner{
+      max-width:var(--max);
+      margin:auto;
+      padding:34px 22px;
+      display:grid;
+      grid-template-columns:1.2fr 1fr 1fr;
+      gap:30px;
+      color:#444;
+      font-size:14px;
+    }
+    .footer-title{
+      color:var(--orange);
+      font-weight:800;
+      margin-bottom:9px;
+    }
+    .footer-links{
+      display:flex;
+      flex-direction:column;
+      gap:7px;
+    }
+    .footer-links a:hover{color:var(--orange)}
+    .copyright{
+      max-width:var(--max);
+      margin:auto;
+      padding:17px 22px 25px;
+      border-top:1px solid var(--line);
+      color:#777;
+      font-size:13px;
+    }
+    @media (max-width:780px){
+      .nav{min-height:64px}
+      .burger{display:block}
+      .menu{
+        display:none;
+        position:absolute;
+        top:64px;left:0;right:0;
+        background:#fff;
+        border-bottom:1px solid var(--line);
+        padding:18px 22px 23px;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:17px;
+      }
+      .menu.open{display:flex}
+      .lang{position:absolute;right:67px}
+      .hero{padding-top:44px}
+      .toc-links{grid-template-columns:1fr}
+      .footer-inner{grid-template-columns:1fr}
+      section.rule h2{font-size:21px}
+    }
+  </style>
+</head>
+<body>
+<header class="topbar">
+  <div class="nav">
+    <a class="brand" href="/">ALO</a>
+    <button class="burger" id="burger" aria-label="Menu">☰</button>
+    <nav class="menu" id="menu">
+      <a href="/">ALO</a>
+      <a href="/oferta">OFERTA</a>
+      <a href="/uslugi">USŁUGI</a>
+      <a href="/kontakt">KONTAKT</a>
+      <a class="active" href="/regulamin">REGULAMIN</a>
+    </nav>
+    <select class="lang" id="lang" aria-label="Language">
+      <option value="pl">PL</option>
+      <option value="vi">VI</option>
+      <option value="en">EN</option>
+    </select>
+  </div>
+</header>
+
+<div id="content"></div>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-title">ALO SERWIS</div>
+      <div data-ft="desc">Profesjonalny serwis urządzeń oraz rozwiązania techniczne.</div>
+    </div>
+    <div>
+      <div class="footer-title" data-ft="info">INFORMACJE</div>
+      <div class="footer-links">
+        <a href="/regulamin" data-ft="rules">Regulamin</a>
+        <a href="/regulamin-serwisu" data-ft="serviceRules">Regulamin Serwisu</a>
+        <a href="/polityka-prywatnosci" data-ft="privacy">Polityka prywatności</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-title" data-ft="company">FIRMA</div>
+      <div class="footer-links">
+        <a href="/uslugi" data-ft="services">Usługi</a>
+        <a href="/kontakt" data-ft="contact">Kontakt</a>
+        <a href="/">aloserwis.com</a>
+      </div>
+    </div>
+  </div>
+  <div class="copyright">© 2026 ALO SERWIS — aloserwis.com. <span data-ft="rights">Wszelkie prawa zastrzeżone.</span></div>
+</footer>
+
+<script>
+const page = {
+pl: {
+  eyebrow:"ALO SERWIS • INFORMACJE",
+  title:"Regulamin ALO SERWIS",
+  lead:"Zasady przyjmowania urządzeń, diagnozy, realizacji napraw, gwarancji, odbioru sprzętu oraz przetwarzania danych osobowych.",
+  notice:"Regulamin ma na celu jasno określić zasady współpracy z Klientem. Postanowienia regulaminu nie wyłączają ani nie ograniczają praw konsumenta wynikających z bezwzględnie obowiązujących przepisów prawa.",
+  toc:"Spis treści",
+  s:[
+    ["postanowienia","1. Postanowienia ogólne",[
+      "ALO SERWIS świadczy usługi serwisowe, diagnostyczne i naprawcze na terenie Polski.",
+      "Przekazanie urządzenia do serwisu oznacza akceptację niniejszego regulaminu w zakresie zgodnym z obowiązującym prawem.",
+      "Zakres naprawy, przewidywany koszt oraz termin realizacji są ustalane indywidualnie, zależnie od rodzaju urządzenia i charakteru uszkodzenia."
+    ]],
+    ["przyjecie","2. Przyjęcie urządzenia do serwisu",[
+      "Klient powinien przed przekazaniem urządzenia usunąć lub zabezpieczyć karty SIM, karty pamięci, etui, pokrowce oraz inne akcesoria, jeżeli nie są one konieczne do przeprowadzenia diagnozy lub naprawy.",
+      "Serwis nie odpowiada za akcesoria pozostawione wraz z urządzeniem, jeżeli nie zostały one odnotowane przy przyjęciu.",
+      "Klient powinien poinformować serwis o wszystkich znanych uszkodzeniach, wcześniejszych naprawach, kontakcie urządzenia z cieczą oraz innych okolicznościach mogących mieć wpływ na diagnozę."
+    ]],
+    ["diagnoza","3. Diagnoza i wycena",[
+      "Diagnoza urządzenia jest bezpłatna, jeżeli po przedstawieniu wyceny Klient zleci wykonanie naprawy.",
+      "Jeżeli naprawa jest możliwa, a Klient po wykonaniu diagnozy rezygnuje z naprawy, serwis może pobrać opłatę diagnostyczną w wysokości 100 zł, o ile Klient został o niej poinformowany przed rozpoczęciem płatnej diagnozy.",
+      "W przypadku konieczności wykonania dodatkowych prac lub ujawnienia nowych usterek serwis poinformuje Klienta przed wykonaniem prac powodujących istotne zwiększenie uzgodnionego kosztu."
+    ]],
+    ["naprawa","4. Realizacja naprawy",[
+      "Serwis realizuje naprawę w uzgodnionym terminie. Termin może ulec zmianie m.in. z powodu konieczności sprowadzenia części, dodatkowej diagnostyki lub ujawnienia wcześniej niewidocznych uszkodzeń.",
+      "O istotnej zmianie terminu lub zakresu prac Klient zostanie poinformowany.",
+      "Naprawy urządzeń po zalaniu, zawilgoceniu, upadku, silnym uszkodzeniu mechanicznym lub wcześniejszych ingerencjach serwisowych są naprawami podwyższonego ryzyka. W trakcie prac mogą ujawnić się dodatkowe uszkodzenia niemożliwe do stwierdzenia podczas wstępnej diagnozy."
+    ]],
+    ["dane","5. Dane znajdujące się w urządzeniu",[
+      "Klient powinien, o ile jest to technicznie możliwe, wykonać kopię zapasową danych przed przekazaniem urządzenia do serwisu.",
+      "Naprawa, diagnostyka, wymiana pamięci, płyty głównej, instalacja systemu lub inne czynności serwisowe mogą spowodować utratę danych.",
+      "Serwis nie gwarantuje zachowania danych, chyba że odrębnie i wyraźnie przyjęto usługę odzyskania lub zabezpieczenia danych."
+    ]],
+    ["gwarancja","6. Gwarancja na wykonaną naprawę",[
+      "Standardowa gwarancja serwisowa na wykonaną naprawę wynosi 60 dni i obejmuje element lub usługę wskazaną w dokumencie naprawy.",
+      "Dla części podlegających intensywnemu lub naturalnemu zużyciu, takich jak złącza, gniazda ładowania, przyciski lub elementy obudowy, okres gwarancji może wynosić 30 dni, jeżeli zostało to wskazane przy wydaniu urządzenia.",
+      "W przypadku urządzeń zalanych lub zawilgoconych, których dalsza stabilność techniczna nie może zostać zagwarantowana, zakres i okres gwarancji mogą być ograniczone i są każdorazowo określane przy wydaniu urządzenia.",
+      "Gwarancja serwisowa nie wyłącza ani nie ogranicza uprawnień przysługujących konsumentowi na podstawie obowiązujących przepisów prawa."
+    ]],
+    ["odbior","7. Odbiór i przechowywanie urządzenia",[
+      "Po zakończeniu naprawy lub diagnozy Klient zostanie poinformowany o możliwości odbioru urządzenia.",
+      "Jeżeli urządzenie nie zostanie odebrane w terminie 60 dni od skutecznego powiadomienia, serwis może naliczać opłatę magazynową w wysokości 5 zł za każdy rozpoczęty dzień przechowywania, jeżeli informacja o tej opłacie została przekazana Klientowi.",
+      "Długotrwałe nieodebranie urządzenia nie oznacza automatycznie utraty prawa własności przez Klienta. Dalsze postępowanie z nieodebranym sprzętem odbywa się zgodnie z obowiązującymi przepisami prawa, po podjęciu prób kontaktu z Klientem."
+    ]],
+    ["rodo","8. Dane osobowe i RODO",[
+      "Dane osobowe Klienta są przetwarzane w zakresie niezbędnym do przyjęcia, realizacji i rozliczenia zlecenia serwisowego oraz obsługi ewentualnych reklamacji.",
+      "Dane są przetwarzane zgodnie z obowiązującymi przepisami dotyczącymi ochrony danych osobowych, w szczególności Rozporządzeniem (UE) 2016/679 (RODO).",
+      "Szczegółowe informacje dotyczące administratora danych, podstaw przetwarzania, okresu przechowywania oraz praw osoby, której dane dotyczą, powinny być dostępne w Polityce Prywatności ALO SERWIS."
+    ]],
+    ["koncowe","9. Postanowienia końcowe",[
+      "W sprawach nieuregulowanych niniejszym regulaminem zastosowanie mają odpowiednie przepisy prawa polskiego, w szczególności Kodeksu cywilnego oraz przepisy dotyczące praw konsumenta.",
+      "Jeżeli którekolwiek postanowienie regulaminu okaże się nieważne lub nieskuteczne, nie wpływa to na ważność pozostałych postanowień.",
+      "Aktualna wersja regulaminu jest dostępna na stronie aloserwis.com/regulamin."
+    ]]
+  ],
+  contactTitle:"Kontakt",
+  contactText:"W przypadku pytań dotyczących zlecenia, naprawy lub niniejszego regulaminu prosimy o kontakt z ALO SERWIS."
+},
+vi: {
+  eyebrow:"ALO SERWIS • THÔNG TIN",
+  title:"Quy định dịch vụ ALO SERWIS",
+  lead:"Quy định về tiếp nhận thiết bị, kiểm tra, sửa chữa, bảo hành, nhận lại thiết bị và xử lý dữ liệu cá nhân.",
+  notice:"Quy định này nhằm xác định rõ nguyên tắc hợp tác với khách hàng. Không điều khoản nào trong quy định này loại trừ hoặc hạn chế các quyền của người tiêu dùng được pháp luật bắt buộc bảo vệ.",
+  toc:"Mục lục",
+  s:[
+    ["postanowienia","1. Quy định chung",[
+      "ALO SERWIS cung cấp dịch vụ kiểm tra, sửa chữa và bảo dưỡng thiết bị tại Ba Lan.",
+      "Việc giao thiết bị cho trung tâm đồng nghĩa với việc khách hàng chấp nhận các điều khoản này trong phạm vi phù hợp với pháp luật hiện hành.",
+      "Phạm vi sửa chữa, chi phí dự kiến và thời gian thực hiện được xác định riêng theo từng thiết bị và tình trạng hỏng hóc."
+    ]],
+    ["przyjecie","2. Tiếp nhận thiết bị",[
+      "Trước khi giao máy, khách hàng nên tháo hoặc bảo quản SIM, thẻ nhớ, ốp, bao da và phụ kiện khác nếu chúng không cần thiết cho việc kiểm tra hoặc sửa chữa.",
+      "Trung tâm không chịu trách nhiệm đối với phụ kiện để cùng thiết bị nếu chúng không được ghi nhận khi tiếp nhận.",
+      "Khách hàng cần thông báo các hư hỏng đã biết, lần sửa chữa trước, tình trạng vào nước và các yếu tố có thể ảnh hưởng đến việc chẩn đoán."
+    ]],
+    ["diagnoza","3. Kiểm tra và báo giá",[
+      "Việc kiểm tra thiết bị được miễn phí nếu khách hàng đồng ý sửa chữa sau khi nhận báo giá.",
+      "Nếu thiết bị có thể sửa nhưng khách hàng từ chối sau khi đã thực hiện kiểm tra, trung tâm có thể thu phí kiểm tra 100 zł, với điều kiện khách hàng đã được thông báo trước khi bắt đầu phần kiểm tra có tính phí.",
+      "Nếu phát sinh công việc hoặc lỗi mới làm tăng đáng kể chi phí, trung tâm sẽ thông báo cho khách hàng trước khi thực hiện."
+    ]],
+    ["naprawa","4. Thực hiện sửa chữa",[
+      "Trung tâm thực hiện sửa chữa theo thời hạn đã thỏa thuận. Thời hạn có thể thay đổi do chờ linh kiện, cần kiểm tra bổ sung hoặc phát hiện hư hỏng ẩn.",
+      "Khách hàng sẽ được thông báo khi có thay đổi đáng kể về thời gian hoặc phạm vi công việc.",
+      "Thiết bị bị vào nước, ẩm, rơi vỡ, hư hỏng cơ học nặng hoặc từng bị can thiệp sửa chữa được xem là trường hợp rủi ro cao; trong quá trình sửa có thể xuất hiện các lỗi không thể phát hiện ở bước kiểm tra ban đầu."
+    ]],
+    ["dane","5. Dữ liệu trong thiết bị",[
+      "Nếu có thể về mặt kỹ thuật, khách hàng nên sao lưu dữ liệu trước khi giao thiết bị.",
+      "Kiểm tra, sửa chữa, thay bộ nhớ, bo mạch chủ, cài lại hệ thống hoặc các thao tác kỹ thuật khác có thể gây mất dữ liệu.",
+      "Trung tâm không đảm bảo dữ liệu sẽ được giữ nguyên, trừ khi hai bên đã thống nhất riêng về dịch vụ sao lưu hoặc khôi phục dữ liệu."
+    ]],
+    ["gwarancja","6. Bảo hành sửa chữa",[
+      "Bảo hành dịch vụ tiêu chuẩn là 60 ngày và áp dụng cho linh kiện hoặc hạng mục được ghi trên phiếu sửa chữa.",
+      "Đối với linh kiện hao mòn tự nhiên hoặc sử dụng thường xuyên như cổng kết nối, cổng sạc, nút bấm hoặc chi tiết vỏ, thời hạn có thể là 30 ngày nếu được ghi rõ khi trả thiết bị.",
+      "Đối với thiết bị đã vào nước hoặc bị ẩm, do không thể đảm bảo độ ổn định lâu dài, phạm vi và thời hạn bảo hành có thể bị giới hạn và sẽ được xác định khi trả máy.",
+      "Bảo hành do trung tâm cung cấp không loại trừ hoặc hạn chế các quyền của người tiêu dùng theo pháp luật hiện hành."
+    ]],
+    ["odbior","7. Nhận lại và lưu giữ thiết bị",[
+      "Sau khi hoàn thành sửa chữa hoặc kiểm tra, khách hàng sẽ được thông báo để đến nhận thiết bị.",
+      "Nếu thiết bị không được nhận trong vòng 60 ngày kể từ khi khách hàng được thông báo hợp lệ, trung tâm có thể tính phí lưu kho 5 zł cho mỗi ngày bắt đầu, nếu khách hàng đã được thông báo về khoản phí này.",
+      "Việc không nhận thiết bị trong thời gian dài không đồng nghĩa tự động với việc khách hàng mất quyền sở hữu. Việc xử lý tiếp theo sẽ tuân theo pháp luật hiện hành sau khi trung tâm đã thực hiện các nỗ lực hợp lý để liên hệ khách hàng."
+    ]],
+    ["rodo","8. Dữ liệu cá nhân và GDPR/RODO",[
+      "Dữ liệu cá nhân được xử lý trong phạm vi cần thiết để tiếp nhận, thực hiện, thanh toán dịch vụ và giải quyết khiếu nại.",
+      "Dữ liệu được xử lý theo các quy định hiện hành về bảo vệ dữ liệu cá nhân, đặc biệt là Quy định (EU) 2016/679 (GDPR/RODO).",
+      "Thông tin chi tiết về đơn vị quản lý dữ liệu, cơ sở xử lý, thời gian lưu trữ và quyền của chủ thể dữ liệu cần được công bố trong Chính sách quyền riêng tư của ALO SERWIS."
+    ]],
+    ["koncowe","9. Điều khoản cuối",[
+      "Các vấn đề không được quy định tại đây sẽ áp dụng pháp luật Ba Lan có liên quan, đặc biệt là Bộ luật Dân sự và các quy định về quyền người tiêu dùng.",
+      "Nếu một điều khoản bị xác định là không hợp lệ hoặc không thể thi hành, các điều khoản còn lại vẫn giữ nguyên hiệu lực.",
+      "Phiên bản hiện hành của quy định được công bố tại aloserwis.com/regulamin."
+    ]]
+  ],
+  contactTitle:"Liên hệ",
+  contactText:"Nếu có câu hỏi về đơn sửa chữa hoặc nội dung quy định này, vui lòng liên hệ ALO SERWIS."
+},
+en: {
+  eyebrow:"ALO SERWIS • INFORMATION",
+  title:"ALO SERWIS Service Terms",
+  lead:"Rules governing device intake, diagnostics, repairs, warranty, collection and personal-data processing.",
+  notice:"These terms are intended to clearly define the rules of cooperation with customers. Nothing in these terms excludes or limits mandatory consumer rights granted by applicable law.",
+  toc:"Contents",
+  s:[
+    ["postanowienia","1. General provisions",[
+      "ALO SERWIS provides device diagnostics, repair and service operations in Poland.",
+      "Leaving a device with the service centre constitutes acceptance of these terms to the extent permitted by applicable law.",
+      "The repair scope, estimated cost and completion time are agreed individually depending on the device and the nature of the fault."
+    ]],
+    ["przyjecie","2. Device intake",[
+      "Before leaving a device, the customer should remove or secure SIM cards, memory cards, cases and other accessories unless they are required for diagnostics or repair.",
+      "The service centre is not responsible for accessories left with a device unless they were recorded at intake.",
+      "The customer should disclose known faults, previous repairs, liquid exposure and other circumstances relevant to diagnostics."
+    ]],
+    ["diagnoza","3. Diagnostics and quotation",[
+      "Diagnostics are free of charge when the customer proceeds with the repair after receiving the quotation.",
+      "If a repair is possible but the customer declines it after diagnostics, a diagnostic fee of PLN 100 may be charged provided that the customer was informed before the paid diagnostic work began.",
+      "If additional work or faults are discovered that would materially increase the agreed cost, the customer will be informed before such work is carried out."
+    ]],
+    ["naprawa","4. Repair process",[
+      "Repairs are performed within the agreed timeframe. The timeframe may change due to parts availability, additional diagnostics or previously hidden damage.",
+      "The customer will be informed of material changes to the timing or scope of the work.",
+      "Devices affected by liquid, moisture, impact, major mechanical damage or previous repair attempts are treated as higher-risk repairs. Additional damage that could not be detected during the initial assessment may become apparent during the work."
+    ]],
+    ["dane","5. Data stored on the device",[
+      "Where technically possible, the customer should make a backup before leaving the device.",
+      "Diagnostics, repair, memory or motherboard replacement, system installation and other service work may result in data loss.",
+      "The service centre does not guarantee preservation of data unless a separate data-backup or recovery service has expressly been accepted."
+    ]],
+    ["gwarancja","6. Repair warranty",[
+      "The standard service warranty is 60 days and covers the component or service stated on the repair document.",
+      "For components subject to intensive or natural wear, such as connectors, charging ports, buttons or housing parts, the warranty may be 30 days if stated when the device is returned.",
+      "For liquid- or moisture-damaged devices, whose long-term stability cannot be guaranteed, the warranty scope and period may be limited and will be stated when the device is returned.",
+      "The service warranty does not exclude or limit mandatory consumer rights under applicable law."
+    ]],
+    ["odbior","7. Collection and storage",[
+      "The customer will be informed when the diagnostic or repair work has been completed and the device is ready for collection.",
+      "If the device is not collected within 60 days after effective notification, a storage fee of PLN 5 for each commenced day may be charged if the customer was informed of this fee.",
+      "Long-term failure to collect a device does not automatically transfer or extinguish the customer's ownership. Further handling of uncollected equipment will follow applicable law after reasonable attempts to contact the customer."
+    ]],
+    ["rodo","8. Personal data and GDPR",[
+      "Customer personal data is processed to the extent necessary to accept, perform and settle the service order and handle potential complaints.",
+      "Personal data is processed under applicable data-protection law, in particular Regulation (EU) 2016/679 (GDPR).",
+      "Detailed information about the data controller, legal bases, retention periods and data-subject rights should be available in the ALO SERWIS Privacy Policy."
+    ]],
+    ["koncowe","9. Final provisions",[
+      "Matters not governed by these terms are subject to applicable Polish law, in particular the Civil Code and consumer-protection provisions.",
+      "If any provision is found invalid or unenforceable, the remaining provisions remain in force.",
+      "The current version of these terms is available at aloserwis.com/regulamin."
+    ]]
+  ],
+  contactTitle:"Contact",
+  contactText:"For questions concerning a service order, repair or these terms, please contact ALO SERWIS."
+}
+};
+
+const footer = {
+pl:{desc:"Profesjonalny serwis urządzeń oraz rozwiązania techniczne.",info:"INFORMACJE",rules:"Regulamin",serviceRules:"Regulamin Serwisu",privacy:"Polityka prywatności",company:"FIRMA",services:"Usługi",contact:"Kontakt",rights:"Wszelkie prawa zastrzeżone."},
+vi:{desc:"Dịch vụ sửa chữa thiết bị và giải pháp kỹ thuật chuyên nghiệp.",info:"THÔNG TIN",rules:"Quy định",serviceRules:"Quy định sửa chữa",privacy:"Chính sách quyền riêng tư",company:"CÔNG TY",services:"Dịch vụ",contact:"Liên hệ",rights:"Bảo lưu mọi quyền."},
+en:{desc:"Professional device service and technical solutions.",info:"INFORMATION",rules:"Terms",serviceRules:"Service terms",privacy:"Privacy Policy",company:"COMPANY",services:"Services",contact:"Contact",rights:"All rights reserved."}
+};
+
+function render(lang){
+  const d=page[lang]||page.pl;
+  document.documentElement.lang=lang;
+  document.title = d.title + " | ALO SERWIS";
+  const toc = d.s.map(x=>`<a href="#${x[0]}">${x[1]}</a>`).join("");
+  const sections = d.s.map(x=>`
+    <section class="rule" id="${x[0]}">
+      <h2>${x[1]}</h2>
+      <ol>${x[2].map(v=>`<li>${v}</li>`).join("")}</ol>
+    </section>`).join("");
+  document.getElementById("content").innerHTML = `
+    <div class="hero">
+      <div class="eyebrow">${d.eyebrow}</div>
+      <h1>${d.title}</h1>
+      <div class="lead">${d.lead}</div>
+    </div>
+    <div class="notice"><div class="notice-inner">${d.notice}</div></div>
+    <main>
+      <div class="toc">
+        <div class="toc-title">${d.toc}</div>
+        <div class="toc-links">${toc}</div>
+      </div>
+      ${sections}
+      <div class="contact-box">
+        <h2>${d.contactTitle}</h2>
+        <div>${d.contactText}</div>
+      </div>
+    </main>`;
+  const f=footer[lang]||footer.pl;
+  document.querySelectorAll("[data-ft]").forEach(el=>el.textContent=f[el.dataset.ft]);
+  localStorage.setItem("alo-lang",lang);
+}
+const selector=document.getElementById("lang");
+const initial=localStorage.getItem("alo-lang")||"pl";
+selector.value=page[initial]?initial:"pl";
+render(selector.value);
+selector.addEventListener("change",e=>render(e.target.value));
+document.getElementById("burger").addEventListener("click",()=>{
+  document.getElementById("menu").classList.toggle("open");
+});
+document.querySelectorAll("#menu a").forEach(a=>a.addEventListener("click",()=>{
+  document.getElementById("menu").classList.remove("open");
+}));
+</script>
+</body>
+</html>
