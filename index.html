@@ -1,31 +1,39 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>ALO SERWIS - aloserwis.com</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
     <div id="ptr-indicator"><i class="fa-solid fa-sync-alt fa-2x"></i></div>
     <canvas id="snow-canvas"></canvas>
 
     <div id="app-container">
-        <nav id="main-menu">
-            <a href="/" class="menu-item">
-                <i class="fa-solid fa-house"></i> ALO
+        <nav id="main-menu" aria-label="Główna nawigacja">
+            <a href="/" class="menu-item is-active" aria-current="page">
+                <i class="fa-solid fa-house" aria-hidden="true"></i>
+                <span id="menu-alo">ALO</span>
             </a>
-            <a href="https://aloserwis.com/oferta" class="menu-item">
-                <i class="fa-solid fa-tools"></i> OFERTA
+            <a href="/oferta" class="menu-item">
+                <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
+                <span id="menu-oferta">OFERTA</span>
             </a>
             <a href="#" class="menu-item">
-                <i class="fa-solid fa-images"></i> USŁUGI
+                <i class="fa-solid fa-images" aria-hidden="true"></i>
+                <span id="menu-uslugi">USŁUGI</span>
             </a>
             <a href="#" class="menu-item">
-                <i class="fa-solid fa-envelope"></i> KONTAKT
+                <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                <span id="menu-kontakt">KONTAKT</span>
             </a>
+            <button type="button" class="lang-toggle" id="lang-toggle" aria-label="Zmień język">
+                <i class="fa-solid fa-globe" aria-hidden="true"></i>
+                <span id="menu-lang">PL</span>
+            </button>
         </nav>
 
         <div class="banner-container" id="rescaleWrapper">
@@ -97,15 +105,15 @@
                             <img src="https://i.postimg.cc/QN00FJtR/logo.png" class="footer-logo" alt="Logo">
                         </div>
                         <div class="info-col">
-                            <div class="vertical-hl">OBIEKT 1</div>
-                            <div class="col-text">Bakalarska 2 / B214<br>02-212 Warszawa<br><span class="hl-orange">Hotline:</span> 733 67 68 69</div>
+                            <div class="vertical-hl" id="object-1-label">OBIEKT 1</div>
+                            <div class="col-text">Bakalarska 2 / B214<br>02-212 Warszawa<br><span class="hl-orange" id="hotline-1-label">Hotline:</span> 733 67 68 69</div>
                         </div>
                         <div class="info-col">
-                            <div class="vertical-hl">OBIEKT 2</div>
-                            <div class="col-text">Nadrzeczna 7C / A3 (ASG)<br>05-552 Wólka Kosowska<br><span class="hl-orange">Hotline:</span> 787 456 999</div>
+                            <div class="vertical-hl" id="object-2-label">OBIEKT 2</div>
+                            <div class="col-text">Nadrzeczna 7C / A3 (ASG)<br>05-552 Wólka Kosowska<br><span class="hl-orange" id="hotline-2-label">Hotline:</span> 787 456 999</div>
                         </div>
                         <div class="info-col">
-                            <div class="col-text"><span class="hl-orange">Website:</span> aloserwis.com<br><span class="hl-orange">Facebook:</span> fb.com/aloserwis<br><span class="hl-orange">Email:</span> alo@aloserwis.com</div>
+                            <div class="col-text"><span class="hl-orange" id="website-label">Website:</span> aloserwis.com<br><span class="hl-orange">Facebook:</span> fb.com/aloserwis<br><span class="hl-orange">Email:</span> alo@aloserwis.com</div>
                         </div>
                     </div>
                 </div>
@@ -113,6 +121,6 @@
         </div>
     </div>
 
-    <script src="script.js?v=4"></script>
+    <script src="script.js?v=5"></script>
 </body>
 </html>

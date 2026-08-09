@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ALO SERWIS OFERTA V21 - GALLERY LINK FOR ALL CHANNELS - 2026-08-06 -->
+<!-- ALO SERWIS OFERTA V24 - UNIFIED RESPONSIVE MENU - 2026-08-09 -->
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -14,7 +14,7 @@
         --accent: #0088cc;
         --bg: #f4f7f9; 
         --brand-blue: #0088cc;
-        --menu-h: 72px;
+        --menu-h: 64px;
         --font-main: 'Montserrat', sans-serif;
     }
     * { 
@@ -33,22 +33,27 @@
         box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
     }
     #main-menu {
-        position: sticky; top: 0; z-index: 1000; width: 100%; max-width: 1050px;
-        margin: 0 auto 5px auto; height: var(--menu-h); background: #ffffff;
-        border-radius: 0 0 15px 15px; display: flex; justify-content: space-between;
-        align-items: center; border: 2px solid var(--brand-blue); padding: 0;
-        box-shadow: 0 4px 15px rgba(0,136,204,0.1);
+        position: sticky; top: 6px; z-index: 1000; width: 100%; max-width: 1050px;
+        margin: 0 auto 10px; height: var(--menu-h); background: rgba(255,255,255,0.96);
+        border-radius: 16px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+        align-items: center; gap: 4px; border: 1px solid rgba(0,136,204,0.45); padding: 6px;
+        box-shadow: 0 8px 24px rgba(30,74,96,0.14);
+        backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
     }
     .menu-item, .lang-toggle {
-        flex: 1; display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px;
-        text-decoration: none; height: 100%; color: #333; cursor: pointer; border: none; background: transparent; position: relative; padding: 0 6px;
+        min-width: 0; display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 7px;
+        text-decoration: none; height: 100%; color: #25343c; cursor: pointer; border: none;
+        border-radius: 11px; background: transparent; padding: 0 5px; font-family: var(--font-main);
+        transition: color .2s, background .2s, box-shadow .2s, transform .2s;
     }
-    .menu-item i, .lang-toggle i { color: var(--brand-blue); font-size: 26px; margin: 0; }
-    .menu-item span, .lang-toggle span { font-size: 16px; font-weight: 900; text-transform: uppercase; text-align: center; }
-    .lang-badge {
-        position: absolute; top: 8px; right: 8%; background: #e74c3c; color: white;
-        font-size: 7px !important; padding: 1px 4px; border-radius: 3px; font-weight: bold;
-    }
+    .menu-item i, .lang-toggle i { color: var(--brand-blue); font-size: 18px; margin: 0; }
+    .menu-item span, .lang-toggle span { min-width: 0; font-size: clamp(10px, 1.3vw, 14px); font-weight: 900; text-transform: uppercase; text-align: center; white-space: nowrap; }
+    .menu-item:hover, .menu-item:focus-visible, .lang-toggle:hover, .lang-toggle:focus-visible { background: #eef8fc; color: var(--brand-blue); outline: none; }
+    .menu-item:active, .lang-toggle:active { transform: scale(.97); }
+    .menu-item.is-active { background: #e5f5fc; color: #006da3; box-shadow: inset 0 0 0 1px rgba(0,136,204,.35); }
+    .lang-toggle { background: var(--brand-blue); color: white; }
+    .lang-toggle i { color: white; }
+    .lang-toggle:hover, .lang-toggle:focus-visible { background: #0078b4; color: white; }
     .header-brand { text-align: center; border-bottom: 2px solid var(--brand-blue); padding-bottom: 8px; padding-top: 10px; }
     .brand-1 { font-size: 3.0rem; font-weight: 900; color: var(--brand-blue); margin: 0; letter-spacing: 1px; line-height: 1; }
     .brand-2 { font-size: 1.2rem; font-weight: 700; margin: 4px 0; color: #444; text-transform: uppercase; }
@@ -210,7 +215,7 @@
         #extra-container { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
     }
     @media (max-width: 767px) {
-        :root { --menu-h: 54px; }
+        :root { --menu-h: 58px; }
         html { font-size: 18px; }
         body { padding: 0; background: #fff; }
         .container {
@@ -219,38 +224,25 @@
             box-shadow: none;
         }
         #main-menu {
-            margin-bottom: 4px;
+            top: 0;
+            margin-bottom: 5px;
+            padding: 5px 4px;
+            gap: 2px;
             border-left-width: 0;
             border-right-width: 0;
             border-radius: 0 0 14px 14px;
         }
         .menu-item, .lang-toggle {
-            flex-direction: row;
-            gap: clamp(2px, 1vw, 5px);
-            padding: 0 2px;
+            flex-direction: column;
+            gap: 3px;
+            padding: 3px 1px;
+            border-radius: 9px;
         }
         .menu-item i, .lang-toggle i {
-            font-size: 18px;
+            font-size: 17px;
             margin: 0;
         }
-        .menu-item span, .lang-toggle span { font-size: clamp(8.5px, 2.7vw, 12px); }
-        #menu-lang { display: none; }
-        .lang-toggle > i { display: none; }
-        .lang-badge {
-            position: static;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 24px;
-            height: 24px;
-            padding: 0;
-            border-radius: 0;
-            background: transparent;
-            color: var(--brand-blue);
-            font-size: 18px !important;
-            line-height: 1;
-            font-weight: 900;
-        }
+        .menu-item span, .lang-toggle span { font-size: clamp(7.5px, 2.25vw, 10px); letter-spacing: -0.1px; }
         .header-brand { padding-top: 14px; padding-bottom: 12px; }
         .brand-1 { font-size: 2.65rem; }
         .brand-2 { font-size: 1.08rem; margin-top: 7px; }
@@ -334,15 +326,14 @@
 <div id="modal-overlay">
     <div id="modal-box"><div id="modal-text" style="white-space: pre-line; line-height: 1.5;"></div><div class="modal-btn-group" id="modal-btns"></div></div>
 </div>
-<nav id="main-menu">
-    <a href="/" class="menu-item"><i class="fa-solid fa-house"></i><span id="menu-alo">ALO</span></a>
-    <a href="https://aloserwis.com/oferta" class="menu-item"><i class="fa-solid fa-tools"></i><span id="menu-oferta">OFERTA</span></a>
-    <a href="#" class="menu-item"><i class="fa-solid fa-images"></i><span id="menu-uslugi">USŁUGI</span></a>
-    <a href="#" class="menu-item"><i class="fa-solid fa-phone"></i><span id="menu-kontakt">KONTAKT</span></a>
-    <button class="lang-toggle" onclick="cycleLang()">
-        <i class="fa-solid fa-globe"></i>
-        <span class="lang-badge" id="lang-badge-txt">PL</span>
-        <span id="menu-lang">POLSKI</span>
+<nav id="main-menu" aria-label="Główna nawigacja">
+    <a href="/" class="menu-item"><i class="fa-solid fa-house" aria-hidden="true"></i><span id="menu-alo">ALO</span></a>
+    <a href="/oferta" class="menu-item is-active" aria-current="page"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i><span id="menu-oferta">OFERTA</span></a>
+    <a href="#" class="menu-item"><i class="fa-solid fa-images" aria-hidden="true"></i><span id="menu-uslugi">USŁUGI</span></a>
+    <a href="#" class="menu-item"><i class="fa-solid fa-phone" aria-hidden="true"></i><span id="menu-kontakt">KONTAKT</span></a>
+    <button type="button" class="lang-toggle" id="lang-toggle" onclick="cycleLang()" aria-label="Zmień język">
+        <i class="fa-solid fa-globe" aria-hidden="true"></i>
+        <span id="menu-lang">PL</span>
     </button>
 </nav>
 <div class="container">
@@ -432,7 +423,7 @@
                 <div style="font-weight: 600;">Nadrzeczna 7C / A3<br>05-552, W.Kosowska.<br>Hotline: <b>787 456 999</b></div>
             </div>
         </div>
-        <div class="footer-bottom" style="text-align: center; margin-top: 12px; font-weight: bold; font-size: 0.55rem; color: #ccc;">&copy; 2026 ALOSERWIS • v23</div>
+        <div class="footer-bottom" style="text-align: center; margin-top: 12px; font-weight: bold; font-size: 0.55rem; color: #ccc;">&copy; 2026 ALOSERWIS • v24</div>
     </div>
 </div>
 <script>
@@ -442,7 +433,7 @@
     const translations = {
         PL: { 
             msgLabels: {title: "ALO SERWIS - WYCENA", mailSub: "Zapytanie o wycenę", name: "Imię", tel: "Tel", addr: "Adres", extra: "Dodatki", app: "Spotkanie", loc: "Lokalizacja", note: "Uwagi", photos: "Zdjęcia obiektu"},
-            menu: ["ALO", "OFERTA", "USŁUGI", "KONTAKT", "POLSKI"],
+            menu: ["ALO", "OFERTA", "USŁUGI", "KONTAKT", "PL"],
             desc: "MONTAŻ i SERWIS CCTV", brand: "Wycena systemów CCTV i inny", note: "(im więcej informacji, tym lepiej)", sec1: "I. DANE KLIENTA", sec2: "II. SZCZEGÓŁY SYSTEMU", sec3: "III. INNE SYSTEMY?", secPhoto: "IV. ZDJĘCIA OBIEKTU", sec4: "V. UWAGI", name: "Imię i Nazwisko", phone: "Numer telefonu", addr: "Adres montażu", other: "Inne...", err: "Wypełnij Imię, Numer telefonu i Adres montażu!", errQs: "Wybierz min. 5 opcji!", hint: "Wybierz kanał przesłania zapytania:", mRetry: "Wyczyść wszystko", mOk: "Zamknij", confirmAsk: "Wysłać via", confirmUse: "Użyć", yes: "Tak", no: "Nie", appTitle: "📅 Wybierz datę spotkania (Pn-Pt):", appMsg: "Czy chcesz umówić się na wizytę w naszym sklepie?", errWeekend: "Konsultanci nie pracują w weekendy.", resetBtn: "Wyczyść odpowiedzi", resetCustomer: "Wpisz ponownie", clearAnswers: "Wyczyść odpowiedzi",
             photoCamera: "Zrób zdjęcie", photoGallery: "Wybierz zdjęcia", photoHelp: "Maks. 6 zdjęć, do 8 MB każde. Zdjęcia zostaną zmniejszone; wysłany link do galerii działa przez 30 dni.", clearPhotos: "Usuń zdjęcia", photoNone: "Nie dodano zdjęć.", photoCount: "Wybrano {n}/6 zdjęć.", photoProcessing: "Przygotowywanie zdjęć...", photoMax: "Możesz dodać maksymalnie 6 zdjęć.", photoInvalid: "Można dodać tylko pliki graficzne.", photoTooLarge: "Zdjęcie przekracza limit 8 MB.", photoUploading: "Przesyłanie zdjęć i tworzenie linku...", photoUploadError: "Nie udało się przesłać zdjęć. Spróbuj ponownie; aplikacja nie zostanie otwarta bez linku.", photoTgPartial: "Treść wysłano, ale nie udało się wysłać wszystkich zdjęć.",
             sending: "Wysyłanie wyceny...", sentSuccess: "✅ WYŁANO POMYŚLNIE!\nSkontaktujemy się jak najszybciej, korzystając z podanego numeru telefonu:", viberCopy: "Wycena skopiowana! Proszę 'Wklej' (Paste) w Viber.", tgError: "Błąd bota. Otwieranie czatu trực tiếp...", waitMsg: "Zwolnij! Odczekaj {s}s.",
@@ -451,7 +442,7 @@
         },
         EN: { 
             msgLabels: {title: "ALO SERWIS - QUOTE", mailSub: "Quote Request", name: "Name", tel: "Tel", addr: "Addr", extra: "Extras", app: "Appointment", loc: "Location", note: "Note", photos: "Site photos"},
-            menu: ["HOME", "OFFER", "SERVICES", "CONTACT", "ENGLISH"],
+            menu: ["HOME", "OFFER", "SERVICES", "CONTACT", "EN"],
             desc: "INSTAL & SERVICE CCTV", brand: "CCTV & Other Systems Quote", note: "(More info = Better quote)", sec1: "I. CUSTOMER DETAILS", sec2: "II. SYSTEM DETAILS", sec3: "III. OTHER SYSTEMS?", secPhoto: "IV. SITE PHOTOS", sec4: "V. NOTES", name: "Full Name", phone: "Phone Number", addr: "Address", other: "Other...", err: "Please fill Name, Phone and Address install!", errQs: "Answer min. 5 questions!", hint: "Please choose a channel to send your request:", mRetry: "Reset All", mOk: "Close", confirmAsk: "Send via", confirmUse: "Use", yes: "Yes", no: "No", appTitle: "📅 Choose date (Mon-Fri):", appMsg: "Would you like to book an appointment at our store?", errWeekend: "Consultants are off work on weekends.", resetBtn: "Clear answers", resetCustomer: "Enter again", clearAnswers: "Clear answers",
             photoCamera: "Take a photo", photoGallery: "Choose photos", photoHelp: "Maximum 6 photos, up to 8 MB each. Photos are resized; the gallery link remains available for 30 days.", clearPhotos: "Clear photos", photoNone: "No photos added.", photoCount: "Selected {n}/6 photos.", photoProcessing: "Preparing photos...", photoMax: "You can add up to 6 photos.", photoInvalid: "Only image files can be added.", photoTooLarge: "A photo exceeds the 8 MB limit.", photoUploading: "Uploading photos and creating the gallery link...", photoUploadError: "The photos could not be uploaded. Try again; the app will not open without a gallery link.", photoTgPartial: "The request was sent, but some photos could not be uploaded.",
             sending: "Sending quote...", sentSuccess: "✅ SENT SUCCESSFULLY!\nWe will contact you as soon as possible, using the phone number you provided:" , viberCopy: "Quote copied! Please 'Paste' into Viber.", tgError: "Bot error. Opening direct chat...", waitMsg: "Wait {s}s before next send.",
@@ -460,7 +451,7 @@
         },
         VN: { 
             msgLabels: {title: "ALO SERWIS - BÁO GIÁ", mailSub: "Yêu cầu báo giá", name: "Họ tên", tel: "SĐT", addr: "Địa chỉ", extra: "Thêm", app: "Lịch hẹn", loc: "Địa điểm", note: "Ghi chú", photos: "Ảnh công trình"},
-            menu: ["ALO", "BÁO GIÁ", "DỊCH VỤ", "LIÊN HỆ", "TIẾNG VIỆT"],
+            menu: ["ALO", "BÁO GIÁ", "DỊCH VỤ", "LIÊN HỆ", "VN"],
             desc: "LẮP ĐẶT & BẢO TRÌ CAMERA", brand: "Báo giá HT Camera và các hệ thống khác", note: "(Càng nhiều thông tin báo giá càng chính xác)", sec1: "I. THÔNG TIN KHÁCH HÀNG", sec2: "II. CHI TIẾT HỆ THỐNG", sec3: "III. HỆ THỐNG KHÁC?", secPhoto: "IV. ẢNH CÔNG TRÌNH", sec4: "V. GHI CHÚ", name: "Họ và Tên", phone: "Số điện thoại", addr: "Địa chỉ lắp đặt", other: "Khác...", err: "Vui lòng nhập Tên, SĐT và Địa chỉ lắp đặt!", errQs: "Trả lời ít nhất 5 câu hỏi!", hint: "Vui lòng chọn kênh gửi yêu cầu Báo giá:", mRetry: "Làm lại tất cả", mOk: "Đóng", confirmAsk: "Gửi qua", confirmUse: "Bạn dùng", yes: "Có", no: "Không", appTitle: "📅 Chọn ngày tư vấn (Thứ 2-6):", appMsg: "Quý khách có muốn đặt lịch Tư vấn tại cửa hàng chúng tôi không?", errWeekend: "Nhân viên tư vấn nghỉ làm việc cuối tuần!", resetBtn: "Xoá câu trả lời", resetCustomer: "Nhập lại", clearAnswers: "Xóa các câu trả lời",
             photoCamera: "Chụp ảnh", photoGallery: "Chọn ảnh từ máy", photoHelp: "Tối đa 6 ảnh, mỗi ảnh không quá 8 MB. Ảnh được tự giảm kích thước; đường dẫn thư viện ảnh có hiệu lực 30 ngày.", clearPhotos: "Xóa ảnh", photoNone: "Chưa thêm ảnh.", photoCount: "Đã chọn {n}/6 ảnh.", photoProcessing: "Đang chuẩn bị ảnh...", photoMax: "Chỉ được chọn tối đa 6 ảnh.", photoInvalid: "Chỉ được chọn file hình ảnh.", photoTooLarge: "Có ảnh vượt quá giới hạn 8 MB.", photoUploading: "Đang tải ảnh và tạo đường dẫn...", photoUploadError: "Không tải được ảnh. Hãy thử lại; ứng dụng sẽ không mở nếu chưa tạo được đường dẫn ảnh.", photoTgPartial: "Nội dung đã gửi nhưng có ảnh không tải lên được.",
             sending: "Đang gửi báo giá...", sentSuccess: "✅ GỬI THÀNH CÔNG!\nChúng tôi sẽ liên hệ với bạn sớm nhất có thể, theo số điện thoại bạn đã cung cấp:" ,viberCopy: "Đã sao chép báo giá! Vui lòng 'Dán' vào Viber.", tgError: "Lỗi kết nối. Đang chuyển sang chat trực tiếp...", waitMsg: "Chờ {s} giây để gửi tiếp.",
@@ -470,6 +461,12 @@
     };
     let curLang = localStorage.getItem('alo_lang') || 'PL';
     const langOrder = ['PL', 'EN', 'VN'];
+    if(!langOrder.includes(curLang)) curLang = 'PL';
+    const langMeta = {
+        PL: { html: 'pl', nav: 'Główna nawigacja', button: 'Zmień język' },
+        EN: { html: 'en', nav: 'Main navigation', button: 'Change language' },
+        VN: { html: 'vi', nav: 'Điều hướng chính', button: 'Đổi ngôn ngữ' }
+    };
     let appAsked = false;
     const MAX_PROJECT_PHOTOS = 6;
     const MAX_PHOTO_BYTES = 8 * 1024 * 1024;
@@ -536,12 +533,15 @@
     }
     function setLang(l) {
         const cur = translations[l];
+        document.documentElement.lang = langMeta[l].html;
+        document.getElementById('main-menu').setAttribute('aria-label', langMeta[l].nav);
+        document.getElementById('lang-toggle').setAttribute('aria-label', langMeta[l].button);
+        document.getElementById('lang-toggle').title = langMeta[l].button;
         document.getElementById('menu-alo').innerText = cur.menu[0];
         document.getElementById('menu-oferta').innerText = cur.menu[1];
         document.getElementById('menu-uslugi').innerText = cur.menu[2];
         document.getElementById('menu-kontakt').innerText = cur.menu[3];
         document.getElementById('menu-lang').innerText = cur.menu[4];
-        document.getElementById('lang-badge-txt').innerText = l;
         document.getElementById('txt-brand-2').innerText = cur.desc;
         document.getElementById('txt-brand-sub').innerText = cur.brand;
         document.getElementById('txt-brand-3').innerText = cur.note;

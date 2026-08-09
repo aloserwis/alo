@@ -3,7 +3,6 @@ let redSubStepImg = 0;
 let redSubStepText = 0;
 let mainInterval; 
 
-const redTexts = ["KOMPUTER - PC - AIO", "LAPTOP - MACBOOK", "DRUKARKA - TONER/TUSZ", "OPROGRAMOWANIE - OS"];
 const redImages = [
     "https://i.postimg.cc/T2N68Yqm/pc2.png",
     "https://i.postimg.cc/L672P6nB/macbook.png",
@@ -25,6 +24,101 @@ const els = {
 const IMG_PHONE = "https://i.postimg.cc/2ySrQ1Q9/iphone.png";
 const IMG_CAMERA = "https://i.postimg.cc/vHmZ9NXB/dahua-ptz.png";
 const COLORS = ['#f58220', '#0088cc', '#ff3131'];
+const LANG_ORDER = ['PL', 'EN', 'VN'];
+
+const translations = {
+    PL: {
+        htmlLang: 'pl',
+        navAria: 'Główna nawigacja',
+        langAria: 'Zmień język',
+        menu: ['ALO', 'OFERTA', 'USŁUGI', 'KONTAKT', 'PL'],
+        footer: { object1: 'OBIEKT 1', object2: 'OBIEKT 2', hotline: 'Hotline:', website: 'Website:' },
+        redTexts: ['KOMPUTER - PC - AIO', 'LAPTOP - MACBOOK', 'DRUKARKA - TONER/TUSZ', 'OPROGRAMOWANIE - OS'],
+        modes: [
+            { title: 'NAPRAWA TELEFONÓW', shimmer: 'WYMIANA EKRANU', model: 'IPHONE', badge: 'ODBIÓR SZYBKI!', promo: 'SZKŁO OCHRONNE GRATIS', c1: 'WYMIANA 1 NA 1', c2: 'NAJLEPSZA JAKOŚĆ', c3: 'SZYBKI CZAS OCZEKIWANIA', image: IMG_PHONE },
+            { title: 'SPRZEDAŻ I MONTAŻ', shimmer: 'CCTV - NET - ALARM', model: 'ELEK.', badge: 'PROFESJONALNIE', promo: 'BEZPŁATNA KONSULTACJA', c1: 'SPRZĘT W 100% ORG', c2: 'DOKŁADNA KONSULTACJA', c3: 'WSPARCIE TECHNICZNE 24/7', image: IMG_CAMERA },
+            { title: 'SPRZEDAŻ & NAPRAWA', shimmer: 'IT & GSM', model: null, promo: 'BEZPŁATNA KONSULTACJA', c1: 'PROFESJONALNIE', c2: 'NAJLEPSZA CENA SERWISU W POLSCE', c3: 'ZWROT W PRZYPADKU NIEZADOWOLENIA' }
+        ]
+    },
+    EN: {
+        htmlLang: 'en',
+        navAria: 'Main navigation',
+        langAria: 'Change language',
+        menu: ['HOME', 'OFFER', 'SERVICES', 'CONTACT', 'EN'],
+        footer: { object1: 'LOCATION 1', object2: 'LOCATION 2', hotline: 'Hotline:', website: 'Website:' },
+        redTexts: ['COMPUTER - PC - AIO', 'LAPTOP - MACBOOK', 'PRINTER - TONER/INK', 'SOFTWARE - OS'],
+        modes: [
+            { title: 'PHONE REPAIR', shimmer: 'SCREEN REPLACEMENT', model: 'IPHONE', badge: 'FAST PICKUP!', promo: 'FREE SCREEN PROTECTOR', c1: '1-FOR-1 REPLACEMENT', c2: 'BEST QUALITY', c3: 'FAST TURNAROUND', image: IMG_PHONE },
+            { title: 'SALES & INSTALLATION', shimmer: 'CCTV - NET - ALARM', model: 'ELEC.', badge: 'PROFESSIONAL', promo: 'FREE CONSULTATION', c1: '100% ORIGINAL EQUIPMENT', c2: 'DETAILED CONSULTATION', c3: '24/7 TECHNICAL SUPPORT', image: IMG_CAMERA },
+            { title: 'SALES & REPAIR', shimmer: 'IT & GSM', model: null, promo: 'FREE CONSULTATION', c1: 'PROFESSIONAL SERVICE', c2: 'BEST SERVICE PRICE IN POLAND', c3: 'REFUND IF YOU ARE NOT SATISFIED' }
+        ]
+    },
+    VN: {
+        htmlLang: 'vi',
+        navAria: 'Điều hướng chính',
+        langAria: 'Đổi ngôn ngữ',
+        menu: ['ALO', 'BÁO GIÁ', 'DỊCH VỤ', 'LIÊN HỆ', 'VN'],
+        footer: { object1: 'CƠ SỞ 1', object2: 'CƠ SỞ 2', hotline: 'Điện thoại:', website: 'Website:' },
+        redTexts: ['MÁY TÍNH - PC - AIO', 'LAPTOP - MACBOOK', 'MÁY IN - MỰC IN', 'PHẦN MỀM - HỆ ĐIỀU HÀNH'],
+        modes: [
+            { title: 'SỬA CHỮA ĐIỆN THOẠI', shimmer: 'THAY MÀN HÌNH', model: 'IPHONE', badge: 'LẤY NHANH!', promo: 'TẶNG KÍNH CƯỜNG LỰC', c1: 'ĐỔI 1 ĐỔI 1', c2: 'CHẤT LƯỢNG TỐT NHẤT', c3: 'THỜI GIAN NHANH', image: IMG_PHONE },
+            { title: 'BÁN & LẮP ĐẶT', shimmer: 'CCTV - MẠNG - ALARM', model: 'ĐIỆN', badge: 'CHUYÊN NGHIỆP', promo: 'TƯ VẤN MIỄN PHÍ', c1: 'THIẾT BỊ CHÍNH HÃNG 100%', c2: 'TƯ VẤN CHI TIẾT', c3: 'HỖ TRỢ KỸ THUẬT 24/7', image: IMG_CAMERA },
+            { title: 'BÁN & SỬA CHỮA', shimmer: 'IT & GSM', model: null, promo: 'TƯ VẤN MIỄN PHÍ', c1: 'DỊCH VỤ CHUYÊN NGHIỆP', c2: 'GIÁ DỊCH VỤ TỐT NHẤT TẠI BA LAN', c3: 'HOÀN TIỀN NẾU KHÔNG HÀI LÒNG' }
+        ]
+    }
+};
+
+const storedLang = localStorage.getItem('alo_lang');
+let currentLang = LANG_ORDER.includes(storedLang) ? storedLang : 'PL';
+
+function setPair(vertical, horizontal, value) {
+    vertical.innerText = horizontal.innerText = value;
+}
+
+function renderModeContent() {
+    const cur = translations[currentLang];
+    const content = cur.modes[mode];
+    const hasModel = Boolean(content.model);
+
+    els.modelV.style.display = els.modelH.style.display = hasModel ? 'block' : 'none';
+    setPair(els.titleV, els.titleH, content.title);
+    setPair(els.shimV, els.shimH, content.shimmer);
+    if (hasModel) setPair(els.modelV, els.modelH, content.model);
+    setPair(els.badgeV, els.badgeH, mode === 2 ? cur.redTexts[redSubStepText] : content.badge);
+    setPair(els.promoV, els.promoH, content.promo);
+    els.c1V.innerText = `★ ${content.c1} ★`; els.c1H.innerText = `★ ${content.c1}`;
+    els.c2V.innerText = `★ ${content.c2} ★`; els.c2H.innerText = `★ ${content.c2}`;
+    els.c3V.innerText = `★ ${content.c3} ★`; els.c3H.innerText = `★ ${content.c3}`;
+    els.imgV.src = els.imgH.src = mode === 2 ? redImages[redSubStepImg] : content.image;
+}
+
+function setLanguage(lang) {
+    currentLang = LANG_ORDER.includes(lang) ? lang : 'PL';
+    const cur = translations[currentLang];
+    document.documentElement.lang = cur.htmlLang;
+    document.getElementById('main-menu').setAttribute('aria-label', cur.navAria);
+    document.getElementById('menu-alo').innerText = cur.menu[0];
+    document.getElementById('menu-oferta').innerText = cur.menu[1];
+    document.getElementById('menu-uslugi').innerText = cur.menu[2];
+    document.getElementById('menu-kontakt').innerText = cur.menu[3];
+    document.getElementById('menu-lang').innerText = cur.menu[4];
+    const langButton = document.getElementById('lang-toggle');
+    langButton.setAttribute('aria-label', cur.langAria);
+    langButton.title = cur.langAria;
+    document.getElementById('object-1-label').innerText = cur.footer.object1;
+    document.getElementById('object-2-label').innerText = cur.footer.object2;
+    document.getElementById('hotline-1-label').innerText = cur.footer.hotline;
+    document.getElementById('hotline-2-label').innerText = cur.footer.hotline;
+    document.getElementById('website-label').innerText = cur.footer.website;
+    localStorage.setItem('alo_lang', currentLang);
+    renderModeContent();
+    rescale();
+}
+
+function cycleLang() {
+    const next = (LANG_ORDER.indexOf(currentLang) + 1) % LANG_ORDER.length;
+    setLanguage(LANG_ORDER[next]);
+}
 
 function updateMode(targetMode = null) {
     if (targetMode !== null) mode = targetMode;
@@ -32,46 +126,15 @@ function updateMode(targetMode = null) {
     const newColor = COLORS[mode];
     document.documentElement.style.setProperty('--current-theme', newColor);
     
-    // Update menu border color
     const menu = document.getElementById('main-menu');
     if(menu) menu.style.borderColor = newColor;
 
     els.imgV.style.opacity = els.imgH.style.opacity = "0";
     setTimeout(() => {
-        if(mode === 1) { 
-            els.modelV.style.display = els.modelH.style.display = 'block';
-            els.titleV.innerText = els.titleH.innerText = ' SPRZEDAŻ I MONTAŻ ';
-            els.shimV.innerText = els.shimH.innerText = 'CCTV - NET - ALARM';
-            els.modelV.innerText = els.modelH.innerText = 'ELEK.';
-            els.badgeV.innerText = els.badgeH.innerText = 'PROFESJONALNIE';
-            els.promoV.innerText = els.promoH.innerText = 'BEZPŁATNA KONSULTACJA';
-            els.c1V.innerText = '★ SPRZĘT W 100% ORG ★'; els.c1H.innerText = '★ SPRZĘT W 100% ORG';
-            els.c2V.innerText = '★ DOKŁADNA KONSULTACJA ★'; els.c2H.innerText = '★ DOKŁADNA KONSULTACJA';
-            els.c3V.innerText = '★ WSPARCIE TECHNICZNE 24/7 ★'; els.c3H.innerText = '★ WSPARCIE TECHNICZNE 24/7';
-            els.imgV.src = els.imgH.src = IMG_CAMERA;
-        } else if (mode === 2) { 
-            els.modelV.style.display = els.modelH.style.display = 'none';
-            els.titleV.innerText = els.titleH.innerText = 'SPRZEDAŻ & NAPRAWA';
-            els.shimV.innerText = els.shimH.innerText = 'IT & GSM';
-            els.promoV.innerText = els.promoH.innerText = 'BEZPŁATNA KONSULTACJA';
-            els.c1V.innerText = '★ PROFESJONALNIE ★'; els.c1H.innerText = '★ PROFESJONALNIE';
-            els.c2V.innerText = '★ NAJLEPSZA CENA SERWIS W POLSCE ★'; els.c2H.innerText = '★ NAJLEPSZA CENA SERWIS W POLSCE';
-            els.c3V.innerText = '★ ZWROT W PRZYPADKU NIEZADOWOLENIA ★'; els.c3H.innerText = '★ ZWROT W PRZYPADKU NIEZADOWOLENIA';
+        if(mode === 2) {
             redSubStepImg = 0; redSubStepText = 0;
-            els.badgeV.innerText = els.badgeH.innerText = redTexts[0];
-            els.imgV.src = els.imgH.src = redImages[0];
-        } else { 
-            els.modelV.style.display = els.modelH.style.display = 'block';
-            els.titleV.innerText = els.titleH.innerText = 'NAPRAWA TELEFONÓW';
-            els.shimV.innerText = els.shimH.innerText = 'WYMIANA EKRANU';
-            els.modelV.innerText = els.modelH.innerText = 'IPHONE';
-            els.badgeV.innerText = els.badgeH.innerText = 'ODBIÓR SZYBKI!';
-            els.promoV.innerText = els.promoH.innerText = 'SZKŁO OCHORONNE GRATIS';
-            els.c1V.innerText = '★ WYMIANA 1 NA 1 ★'; els.c1H.innerText = '★ WYMIANA 1 NA 1';
-            els.c2V.innerText = '★ NAJLEPSZA JAKOŚĆ ★'; els.c2H.innerText = '★ NAJLEPSZA JAKOŚĆ';
-            els.c3V.innerText = '★ SZYBKI CZAS OCZEKIWANIA ★'; els.c3H.innerText = '★ SZYBKI CZAS OCZEKIWANIA';
-            els.imgV.src = els.imgH.src = IMG_PHONE;
         }
+        renderModeContent();
         els.imgV.style.opacity = els.imgH.style.opacity = "1";
     }, 400);
 }
@@ -95,6 +158,7 @@ setInterval(() => {
 
 setInterval(() => { 
     if (mode === 2) { 
+        const redTexts = translations[currentLang].redTexts;
         redSubStepText = (redSubStepText + 1) % redTexts.length; 
         els.badgeV.style.opacity = els.badgeH.style.opacity = "0"; 
         setTimeout(() => { 
@@ -279,3 +343,6 @@ window.addEventListener('load', () => {
     rescale(); 
     startAutoCycle();
 });
+
+document.getElementById('lang-toggle').addEventListener('click', cycleLang);
+setLanguage(currentLang);

@@ -8,8 +8,8 @@
     --hotline-blue: #0088cc;
     --map-red: #eb4034;
     --main-radius: 60px; 
-    --menu-height: 100px;
-    --gap: 5px;
+    --menu-height: 82px;
+    --gap: 8px;
 }
 
 html, body {
@@ -33,33 +33,67 @@ html, body {
 #main-menu {
     width: 100%;
     height: var(--menu-height);
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border-radius: calc(var(--main-radius) / 2);
+    background: rgba(10, 15, 20, 0.94);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-radius: 26px;
     margin-bottom: var(--gap);
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 5px;
     align-items: center;
     border: 2px solid var(--current-theme);
-    transition: border-color 0.4s;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.38);
+    transition: border-color 0.4s, box-shadow 0.4s;
     box-sizing: border-box;
-    padding: 0 40px;
+    padding: 7px;
+    overflow: hidden;
 }
 
-.menu-item {
+.menu-item,
+.lang-toggle {
+    min-width: 0;
+    height: 100%;
     color: white;
     text-decoration: none;
-    font-size: 28px;
+    font-family: inherit;
+    font-size: 23px;
     font-weight: 900;
     text-transform: uppercase;
-    transition: color 0.3s;
+    letter-spacing: 0.2px;
+    line-height: 1;
+    transition: color 0.25s, background 0.25s, box-shadow 0.25s, transform 0.2s;
     display: flex;
     align-items: center;
-    gap: 15px;
+    justify-content: center;
+    gap: 10px;
+    border: 0;
+    border-radius: 18px;
+    background: transparent;
+    cursor: pointer;
+    padding: 0 8px;
+    white-space: nowrap;
 }
 
-.menu-item i { color: var(--current-theme); transition: color 0.4s; font-size: 35px; }
-.menu-item:hover { color: var(--current-theme); }
+.menu-item i,
+.lang-toggle i { color: var(--current-theme); transition: color 0.4s; font-size: 25px; }
+.menu-item:hover,
+.lang-toggle:hover,
+.menu-item:focus-visible,
+.lang-toggle:focus-visible { color: var(--current-theme); background: rgba(255, 255, 255, 0.08); outline: none; }
+.menu-item:active,
+.lang-toggle:active { transform: scale(0.97); }
+.menu-item.is-active {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0 0 2px var(--current-theme);
+}
+.lang-toggle {
+    background: var(--current-theme);
+    color: #050505;
+}
+.lang-toggle i { color: #050505; }
+.lang-toggle:hover,
+.lang-toggle:focus-visible { color: #050505; background: var(--current-theme); filter: brightness(1.12); }
 
 #ptr-indicator {
     position: fixed; top: -80px; left: 50%; transform: translateX(-50%);
@@ -173,9 +207,9 @@ html, body {
     .c-blue i { color: var(--hotline-blue) !important; } 
     .c-purple i { color: var(--viber-purple) !important; } 
     .c-orange-map i { color: var(--primary-orange) !important; } 
-    #main-menu { height: 140px; padding: 0 20px; border-radius: 40px; }
-    .menu-item { font-size: 38px; }
-    .menu-item i { font-size: 45px; }
+    #main-menu { height: 132px; padding: 9px; gap: 5px; border-radius: 36px; }
+    .menu-item, .lang-toggle { flex-direction: column; gap: 5px; padding: 5px 2px; border-radius: 26px; font-size: 28px; }
+    .menu-item i, .lang-toggle i { font-size: 38px; }
 }
 
 /* LANDSCAPE MEDIA QUERY */
