@@ -257,6 +257,7 @@ async function getRepairPhotoLink() {
     photoUploadPromise = (async () => {
         const formData = new FormData();
         formData.append('language', languageAtStart);
+        formData.append('gallery_type', 'device');
         repairPhotos.forEach((photo, index) => formData.append('photos', photo.file, `repair-${index + 1}.jpg`));
         const response = await fetch(`${API_BASE}/api/upload-images`, {
             method: 'POST',
