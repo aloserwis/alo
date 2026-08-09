@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ALO SERWIS KONTAKT V3 - 2026-08-09 -->
+<!-- ALO SERWIS KONTAKT V4 - 2026-08-09 -->
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="menu.css?v=2">
-    <link rel="stylesheet" href="kontakt.css?v=3">
+    <link rel="stylesheet" href="kontakt.css?v=4">
 </head>
 <body class="contact-page">
     <a class="skip-link" href="#main-content" data-i18n="skip">Przejdź do treści</a>
@@ -82,6 +82,18 @@
                         <h3>Bakalarska</h3>
                         <p class="address"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>Bakalarska 2 / B214<br>02-212 Warszawa</span></p>
                         <a class="location-phone" href="tel:+48733676869"><i class="fa-solid fa-phone" aria-hidden="true"></i>733 67 68 69</a>
+                        <div class="opening-hours">
+                            <h4><i class="fa-regular fa-clock" aria-hidden="true"></i><span data-i18n="hoursTitle">GODZINY OTWARCIA</span></h4>
+                            <dl>
+                                <div class="hours-row hours-row-sunday"><dt data-i18n="sunday">Niedziela</dt><dd>09:30–17:30</dd></div>
+                                <div class="hours-row"><dt data-i18n="monday">Poniedziałek</dt><dd>09:00–17:30</dd></div>
+                                <div class="hours-row"><dt data-i18n="tuesday">Wtorek</dt><dd>09:00–17:30</dd></div>
+                                <div class="hours-row"><dt data-i18n="wednesday">Środa</dt><dd>09:00–17:30</dd></div>
+                                <div class="hours-row"><dt data-i18n="thursday">Czwartek</dt><dd>09:00–17:30</dd></div>
+                                <div class="hours-row"><dt data-i18n="friday">Piątek</dt><dd>09:00–17:30</dd></div>
+                                <div class="hours-row hours-row-saturday"><dt data-i18n="saturday">Sobota</dt><dd>09:30–17:30</dd></div>
+                            </dl>
+                        </div>
                         <a class="route-action" href="https://www.google.com/maps/dir/?api=1&destination=Bakalarska%202%2FB214%2C%2002-212%20Warszawa&travelmode=driving" target="_blank" rel="noopener noreferrer"><span data-i18n="route">WYZNACZ TRASĘ</span><i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></a>
                     </article>
 
@@ -91,6 +103,18 @@
                         <h3>Wólka Kosowska</h3>
                         <p class="address"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>Nadrzeczna 7C / A3 (ASG)<br>05-552 Wólka Kosowska</span></p>
                         <a class="location-phone" href="tel:+48787456999"><i class="fa-solid fa-phone" aria-hidden="true"></i>787 456 999</a>
+                        <div class="opening-hours">
+                            <h4><i class="fa-regular fa-clock" aria-hidden="true"></i><span data-i18n="hoursTitle">GODZINY OTWARCIA</span></h4>
+                            <dl>
+                                <div class="hours-row hours-row-sunday is-closed"><dt data-i18n="sunday">Niedziela</dt><dd data-i18n="closed">Zamknięte</dd></div>
+                                <div class="hours-row"><dt data-i18n="monday">Poniedziałek</dt><dd>08:00–16:30</dd></div>
+                                <div class="hours-row"><dt data-i18n="tuesday">Wtorek</dt><dd>08:00–16:30</dd></div>
+                                <div class="hours-row"><dt data-i18n="wednesday">Środa</dt><dd>08:00–16:30</dd></div>
+                                <div class="hours-row"><dt data-i18n="thursday">Czwartek</dt><dd>08:00–16:30</dd></div>
+                                <div class="hours-row"><dt data-i18n="friday">Piątek</dt><dd>08:00–16:30</dd></div>
+                                <div class="hours-row hours-row-saturday"><dt data-i18n="saturday">Sobota</dt><dd>08:00–15:00</dd></div>
+                            </dl>
+                        </div>
                         <a class="route-action" href="https://www.google.com/maps/dir/?api=1&destination=Nadrzeczna%207C%2FA3%2C%2005-552%20W%C3%B3lka%20Kosowska&travelmode=driving" target="_blank" rel="noopener noreferrer"><span data-i18n="route">WYZNACZ TRASĘ</span><i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></a>
                     </article>
                 </div>
@@ -121,13 +145,13 @@
         </section>
     </main>
 
-    <footer class="site-footer"><div class="section-shell footer-inner"><div><strong>ALO SERWIS</strong><span data-i18n="footerTagline">Technika, instalacje i serwis urządzeń</span></div><p>© 2026 ALO SERWIS • KONTAKT v3</p></div></footer>
+    <footer class="site-footer"><div class="section-shell footer-inner"><div><strong>ALO SERWIS</strong><span data-i18n="footerTagline">Technika, instalacje i serwis urządzeń</span></div><p>© 2026 ALO SERWIS • KONTAKT v4</p></div></footer>
 
     <div class="mobile-contact-bar" data-i18n-aria-label="quickContactAria" aria-label="Szybki kontakt do punktów">
         <a href="tel:+48733676869" aria-label="Bakalarska 733 67 68 69"><i class="fa-solid fa-phone" aria-hidden="true"></i><span>Bakalarska</span><strong>733 67 68 69</strong></a>
         <a href="tel:+48787456999" aria-label="Wólka Kosowska 787 456 999"><i class="fa-solid fa-phone" aria-hidden="true"></i><span>Wólka</span><strong>787 456 999</strong></a>
     </div>
 
-    <script src="kontakt.js?v=2"></script>
+    <script src="kontakt.js?v=3"></script>
 </body>
 </html>
