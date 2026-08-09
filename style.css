@@ -80,20 +80,12 @@ body {
     cursor: grab; background: #000;
 }
 
-.banner-container::before { 
-    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; 
-    background: conic-gradient(from 0deg, transparent 70%, var(--current-theme) 90%, #fff 100%); 
-    animation: rotateGlow 3s linear infinite; z-index: 1; 
-}
-
-.banner-container::after { 
-    content: ''; position: absolute; inset: 8px; background: var(--dark-bg); 
-    border-radius: calc(var(--main-radius) - 4px); z-index: 2; 
-}
+.banner-container::before,
+.banner-container::after { content: none; }
 
 .inner-content { 
-    position: absolute; inset: 12px; background: var(--dark-bg); 
-    overflow: hidden; z-index: 5; border-radius: calc(var(--main-radius) - 8px); 
+    position: absolute; inset: 0; background: var(--dark-bg); 
+    overflow: hidden; z-index: 5; border-radius: var(--main-radius); 
     pointer-events: none; 
 }
 
