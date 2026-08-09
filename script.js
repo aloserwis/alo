@@ -4,9 +4,9 @@ let redSubStepText = 0;
 let mainInterval; 
 
 const redImages = [
-    "https://i.postimg.cc/T2N68Yqm/pc2.png",
-    "https://i.postimg.cc/L672P6nB/macbook.png",
-    "https://i.postimg.cc/SKQ4FX57/pc3.png"
+    "/assets/index/pc.webp",
+    "/assets/index/macbook.webp",
+    "/assets/index/printer.webp"
 ];
 
 const els = {
@@ -21,8 +21,8 @@ const els = {
     imgV: document.getElementById('img-v'), imgH: document.getElementById('img-h')
 };
 
-const IMG_PHONE = "https://i.postimg.cc/2ySrQ1Q9/iphone.png";
-const IMG_CAMERA = "https://i.postimg.cc/vHmZ9NXB/dahua-ptz.png";
+const IMG_PHONE = "/assets/index/iphone.webp";
+const IMG_CAMERA = "/assets/index/camera.webp";
 const COLORS = ['#f58220', '#0088cc', '#ff3131'];
 const LANG_ORDER = ['PL', 'EN', 'VN'];
 
