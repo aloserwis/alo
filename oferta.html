@@ -432,12 +432,11 @@
                 <div style="font-weight: 600;">Nadrzeczna 7C / A3<br>05-552, W.Kosowska.<br>Hotline: <b>787 456 999</b></div>
             </div>
         </div>
-        <div class="footer-bottom" style="text-align: center; margin-top: 12px; font-weight: bold; font-size: 0.55rem; color: #ccc;">&copy; 2026 ALOSERWIS • v21</div>
+        <div class="footer-bottom" style="text-align: center; margin-top: 12px; font-weight: bold; font-size: 0.55rem; color: #ccc;">&copy; 2026 ALOSERWIS • v22</div>
     </div>
 </div>
 <script>
-    const TELEGRAM_BOT_TOKEN = "7945055910:AAEvHwmmZXkDOSw0E6i7L897v45WNobEUXo";
-    const TELEGRAM_MY_ID = "7330327221";
+    const API_BASE = "https://api.aloserwis.com";
     const TARGET_EMAIL = "alo@aloserwis.com";
     const TARGET_PHONE = "48888686121";
     const translations = {
@@ -846,7 +845,7 @@
         photoUploadPromise = (async () => {
             const formData = new FormData();
             projectPhotos.forEach((photo, index) => formData.append('photos', photo.file, `photo-${index + 1}.jpg`));
-            const response = await fetch('/api/upload-images', {
+            const response = await fetch(`${API_BASE}/api/upload-images`, {
                 method: 'POST',
                 headers: { 'X-Requested-With': 'ALO-Oferta' },
                 body: formData
@@ -892,10 +891,13 @@
                 closeModal();
                 openModal(cur.sending, 'loading');
                 try {
-                    const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                    const response = await fetch(`${API_BASE}/api/send-telegram`, {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ chat_id: TELEGRAM_MY_ID, text })
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Requested-With': 'ALO-Oferta'
+                        },
+                        body: JSON.stringify({ text })
                     });
                     if(!response.ok) throw new Error(`Telegram message ${response.status}`);
                     openModal(fullSuccessMsg, 'success');
