@@ -183,6 +183,8 @@ body.services-page #main-menu .lang-toggle:focus-visible { background: #df2424; 
 .footer-inner > div { display: flex; flex-direction: column; gap: 4px; }
 .footer-inner strong { color: #fff; font-size: 20px; }
 .footer-inner span, .footer-inner p { font-size: 11px; }
+.footer-rules-link { width: fit-content; margin-top: 5px; color: #fff; font-size: 12px; font-weight: 800; text-decoration: underline; text-decoration-color: var(--service-blue); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.footer-rules-link:hover, .footer-rules-link:focus-visible { color: var(--service-blue); }
 .mobile-contact-bar { position: fixed; left: 50%; bottom: 12px; z-index: 1500; width: min(560px, calc(100% - 24px)); min-height: 58px; padding: 7px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; transform: translateX(-50%); color: #fff; background: rgba(5,15,21,.94); border: 1px solid rgba(255,255,255,.14); border-radius: 17px; box-shadow: 0 14px 38px rgba(0,0,0,.3); backdrop-filter: blur(16px); }
 .mobile-contact-bar button { min-width: 0; padding: 8px 5px; display: flex; align-items: center; justify-content: center; gap: 6px; border: 0; border-radius: 11px; color: #fff; background: #168ac2; font: 800 10px 'Montserrat', Arial, sans-serif; cursor: pointer; }
 .mobile-contact-bar button:nth-child(2) { background: #18a957; }
