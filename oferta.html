@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ALO SERWIS OFERTA V28 - LOCAL GITHUB ASSETS - 2026-08-09 -->
+<!-- ALO SERWIS OFERTA V29 - 24H FORM EXPIRY - 2026-08-09 -->
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -436,13 +436,33 @@
     const MAX_PROJECT_PHOTOS = 6;
     const MAX_PHOTO_BYTES = 8 * 1024 * 1024;
     const MAX_PHOTO_DIMENSION = 1600;
+    const FORM_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
     let projectPhotos = [];
     let photoRevision = 0;
     let uploadedPhotoRevision = -1;
     let uploadedPhotoLanguage = '';
     let uploadedPhotoLink = '';
     let photoUploadPromise = null;
-    function saveCache() {
+    let formCacheExpiryTimer = null;
+    function scheduleFormCacheExpiry(updatedAt) {
+        window.clearTimeout(formCacheExpiryTimer);
+        const remaining = FORM_CACHE_TTL_MS - (Date.now() - Number(updatedAt));
+        if(remaining <= 0) {
+            localStorage.removeItem('alo_cache');
+            return;
+        }
+        formCacheExpiryTimer = window.setTimeout(() => {
+            localStorage.removeItem('alo_cache');
+            window.location.reload();
+        }, remaining);
+    }
+    function saveCache(updateTimestamp = true) {
+        let previousUpdatedAt = 0;
+        try {
+            previousUpdatedAt = Number(JSON.parse(localStorage.getItem('alo_cache'))?.updatedAt) || 0;
+        } catch(error) {
+            previousUpdatedAt = 0;
+        }
         const formData = {
             name: document.getElementById('cust_name').value,
             phone: document.getElementById('cust_phone').value,
@@ -452,6 +472,7 @@
             appTime: document.getElementById('app_time').value,
             appLoc: document.getElementById('app_loc').value,
             appVisible: document.getElementById('appointment-sec').style.display,
+            updatedAt: updateTimestamp ? Date.now() : (previousUpdatedAt || Date.now()),
             answers: {}, manuals: {}, extras: []
         };
         translations[curLang].qs.forEach((item, i) => {
@@ -461,10 +482,29 @@
         });
         document.querySelectorAll('input[name="extra"]:checked').forEach(el => formData.extras.push(el.value));
         localStorage.setItem('alo_cache', JSON.stringify(formData));
+        scheduleFormCacheExpiry(formData.updatedAt);
     }
     function loadCache() {
-        const data = JSON.parse(localStorage.getItem('alo_cache'));
+        const rawCache = localStorage.getItem('alo_cache');
+        if(!rawCache) return;
+        let data;
+        try {
+            data = JSON.parse(rawCache);
+        } catch(error) {
+            localStorage.removeItem('alo_cache');
+            return;
+        }
         if(!data) return;
+        const updatedAt = Number(data.updatedAt);
+        if(updatedAt && Date.now() - updatedAt >= FORM_CACHE_TTL_MS) {
+            localStorage.removeItem('alo_cache');
+            return;
+        }
+        if(!updatedAt) {
+            data.updatedAt = Date.now();
+            localStorage.setItem('alo_cache', JSON.stringify(data));
+        }
+        scheduleFormCacheExpiry(data.updatedAt);
         document.getElementById('cust_name').value = data.name || '';
         document.getElementById('cust_phone').value = data.phone || '';
         document.getElementById('cust_address').value = data.addr || '';
@@ -487,7 +527,7 @@
         });
     }
     function cycleLang() {
-        saveCache();
+        saveCache(false);
         let idx = langOrder.indexOf(curLang);
         idx = (idx + 1) % langOrder.length;
         curLang = langOrder[idx];
