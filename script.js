@@ -125,9 +125,6 @@ function updateMode(targetMode = null) {
     else mode = (mode + 1) % 3;
     const newColor = COLORS[mode];
     document.documentElement.style.setProperty('--current-theme', newColor);
-    
-    const menu = document.getElementById('main-menu');
-    if(menu) menu.style.borderColor = newColor;
 
     els.imgV.style.opacity = els.imgH.style.opacity = "0";
     setTimeout(() => {
@@ -226,57 +223,35 @@ window.addEventListener('mouseup', handleEnd);
 // Responsive Scaling
 function rescale() {
     const isPortrait = window.innerHeight > window.innerWidth;
-
+    const homeStage = document.getElementById('home-stage');
     const bannerContainer = document.getElementById('rescaleWrapper');
-    const mainMenu = document.getElementById('main-menu');
-
-    const menuStyle = getComputedStyle(mainMenu);
-    const menuH = mainMenu.offsetHeight;
-    const gap = parseFloat(menuStyle.marginBottom) || 0;
+    const availableW = homeStage.clientWidth;
+    const availableH = homeStage.clientHeight;
+    if (!availableW || !availableH) return;
 
     let designW;
     let bannerH;
 
     if (isPortrait) {
-        // Mobile giữ nguyên kích thước hiện tại
         designW = 1080;
         bannerH = 1870;
     } else {
-        // Kích thước chuẩn của desktop
         const baseDesktopW = 1920;
         bannerH = 1080;
-
-        const totalBaseHeight = bannerH + menuH + gap;
-        const heightScale = window.innerHeight / totalBaseHeight;
-
-        // Chiều rộng cần thiết để lấp đầy màn hình
-        const fullScreenWidth = window.innerWidth / heightScale;
-
-        /*
-         * Mức độ mở rộng chiều ngang:
-         * 0.50 = mở rộng nhẹ
-         * 0.75 = mở rộng khá nhiều, khuyên dùng
-         * 1.00 = lấp đầy hoàn toàn chiều ngang
-         */
+        const heightScale = availableH / bannerH;
+        const fullScreenWidth = availableW / heightScale;
         const stretchAmount = 0.75;
-
-        const extraWidth = Math.max(
-            0,
-            fullScreenWidth - baseDesktopW
-        );
-
+        const extraWidth = Math.max(0, fullScreenWidth - baseDesktopW);
         designW = baseDesktopW + extraWidth * stretchAmount;
     }
 
-    const totalDesignH = bannerH + menuH + gap;
-
     currentScale = Math.min(
-        window.innerWidth / designW,
-        window.innerHeight / totalDesignH
+        availableW / designW,
+        availableH / bannerH
     );
 
     appContainer.style.width = designW + 'px';
-    appContainer.style.height = totalDesignH + 'px';
+    appContainer.style.height = bannerH + 'px';
 
     bannerContainer.style.width = designW + 'px';
     bannerContainer.style.height = bannerH + 'px';
