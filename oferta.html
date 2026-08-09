@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ALO SERWIS OFERTA V26 - DARK THEME - 2026-08-09 -->
+<!-- ALO SERWIS OFERTA V27 - APPOINTMENT TOGGLE - 2026-08-09 -->
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -50,6 +50,7 @@
         line-height: 1.1; white-space: normal; max-width: 48%; touch-action: manipulation;
     }
     .section-action:active { background: var(--brand-blue); color: #fff; transform: scale(0.97); }
+    .appointment-toggle.is-open { background: var(--brand-blue); color: #fff; }
     .question-block { margin-bottom: 25px; }
     .question-text { 
         position: sticky; top: calc(var(--site-menu-height) + 38px); z-index: 998; background: white; padding: 10px 0; 
@@ -277,129 +278,10 @@
         input[type="text"], input[type="date"], select, textarea { font-size: 16px; }
     }
 
-    /* OFERTA DARK THEME */
-    body.offer-page {
-        --primary: #eaf7fd;
-        --bg: #000;
-        --surface: #000;
-        --surface-soft: #07141b;
-        --surface-input: #0a171e;
-        --dark-border: #173847;
-        background: #000;
-        color: var(--primary);
-        color-scheme: dark;
-    }
-    body.offer-page .container {
-        background: var(--surface);
-        border: 1px solid #102b38;
-        box-shadow: 0 8px 28px rgba(0, 0, 0, .52);
-    }
-    body.offer-page .header-brand { border-bottom-color: var(--brand-blue); }
-    body.offer-page .brand-2 { color: #f3f9fc; }
-    body.offer-page .brand-sub { color: #b9d0db; }
-    body.offer-page #txt-brand-3 { color: #829ba7 !important; }
-    body.offer-page .section-title {
-        background: #061923;
-        color: #39b8f2;
-        border-left-color: var(--brand-blue);
-        box-shadow: 0 3px 10px rgba(0, 0, 0, .34);
-    }
-    body.offer-page .section-action {
-        background: #07131a;
-        color: #43baf2;
-        border-color: #168dc5;
-    }
-    body.offer-page .section-action:active {
-        background: var(--brand-blue);
-        color: #fff;
-    }
-    body.offer-page .question-text {
-        background: var(--surface);
-        color: #f5fbfe;
-        border-bottom-color: #17313d;
-    }
-    body.offer-page input[type="text"],
-    body.offer-page input[type="date"],
-    body.offer-page select,
-    body.offer-page textarea {
-        background: var(--surface-input);
-        color: #fff;
-        border-color: #284c5c;
-        caret-color: #43baf2;
-    }
-    body.offer-page input::placeholder,
-    body.offer-page textarea::placeholder { color: #8099a5; opacity: 1; }
-    body.offer-page select option { background: #071219; color: #fff; }
-    body.offer-page input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); }
-    body.offer-page input:-webkit-autofill,
-    body.offer-page input:-webkit-autofill:hover,
-    body.offer-page input:-webkit-autofill:focus {
-        -webkit-text-fill-color: #fff;
-        -webkit-box-shadow: 0 0 0 1000px var(--surface-input) inset;
-        transition: background-color 9999s ease-out;
-    }
-    body.offer-page .opt-label {
-        background: var(--surface-soft);
-        color: #edf8fc;
-        border-color: #183542;
-    }
-    body.offer-page .opt-label.selected {
-        background: var(--brand-blue);
-        color: #fff;
-        border-color: var(--brand-blue);
-        box-shadow: 0 0 0 1px rgba(64, 190, 246, .35);
-    }
-    body.offer-page .manual-input {
-        background: var(--surface-input);
-        color: #fff;
-        border-color: #315363 !important;
-    }
-    body.offer-page #appointment-sec {
-        background: var(--surface-soft) !important;
-        border-color: #168dc5 !important;
-    }
-    body.offer-page .photo-upload-box {
-        background: #06131a;
-        border-color: #236d90;
-    }
-    body.offer-page .photo-picker {
-        background: #091a22;
-        color: #43baf2;
-        border-color: #168dc5;
-    }
-    body.offer-page .photo-picker:active { background: var(--brand-blue); color: #fff; }
-    body.offer-page .photo-help { color: #8fa8b3; }
-    body.offer-page .photo-status { color: #43baf2; }
-    body.offer-page .photo-status.error { color: #ff7167; }
-    body.offer-page .photo-card { background: #0a171e; border-color: #234552; }
-    body.offer-page .hint-send { color: #43baf2; }
-    body.offer-page .social-row { border-bottom-color: #17313d; }
-    body.offer-page .footer-info {
-        color: #c4d5dd;
-        border-top-color: #17313d;
-    }
-    body.offer-page #modal-box {
-        background: #071219;
-        color: #f4fbfe;
-        border: 1px solid #1a4659;
-        box-shadow: 0 14px 45px rgba(0, 0, 0, .62);
-    }
-    body.offer-page .verify-box {
-        background: #071923;
-        color: #eaf7fd;
-        border-color: #168dc5;
-    }
-    body.offer-page .btn-verify { background: var(--brand-blue); color: #fff; }
-    @media (max-width: 767px) {
-        body.offer-page .container {
-            border: 0;
-            box-shadow: none;
-        }
-    }
 </style>
 <link rel="stylesheet" href="menu.css?v=2">
 </head>
-<body class="offer-page">
+<body>
 <div id="modal-overlay">
     <div id="modal-box"><div id="modal-text" style="white-space: pre-line; line-height: 1.5;"></div><div class="modal-btn-group" id="modal-btns"></div></div>
 </div>
@@ -435,7 +317,10 @@
         <button type="button" class="section-action" onclick="clearOnlyAnswers()" id="btn-clear-questions-txt">Xóa các câu trả lời</button>
     </div>
     <div id="questions-container"></div>
-    <div class="section-title"><span id="txt-sec-3"></span></div>
+    <div class="section-title">
+        <span id="txt-sec-3"></span>
+        <button type="button" class="section-action appointment-toggle" id="btn-toggle-appointment" onclick="toggleAppointment()" aria-controls="appointment-sec" aria-expanded="false"></button>
+    </div>
     <div class="options-row" style="grid-template-columns: repeat(4, 1fr);" id="extra-container"></div>
     <div id="appointment-sec" style="display: none; border: 1px solid var(--brand-blue); border-radius: 10px; padding: 10px; margin-top: 10px; background: #fdfdfd;">
         <div style="font-size:0.75rem; font-weight:bold; color: var(--brand-blue); margin-bottom:5px" id="txt-app-title"></div>
@@ -500,7 +385,7 @@
                 <div style="font-weight: 600;">Nadrzeczna 7C / A3<br>05-552, W.Kosowska.<br>Hotline: <b>787 456 999</b></div>
             </div>
         </div>
-        <div class="footer-bottom" style="text-align: center; margin-top: 12px; font-weight: bold; font-size: 0.55rem; color: #ccc;">&copy; 2026 ALOSERWIS • v26</div>
+        <div class="footer-bottom" style="text-align: center; margin-top: 12px; font-weight: bold; font-size: 0.55rem; color: #ccc;">&copy; 2026 ALOSERWIS • v27</div>
     </div>
 </div>
 <script>
@@ -511,7 +396,7 @@
         PL: { 
             msgLabels: {title: "ALO SERWIS - WYCENA", mailSub: "Zapytanie o wycenę", name: "Imię", tel: "Tel", addr: "Adres", extra: "Dodatki", app: "Spotkanie", loc: "Lokalizacja", note: "Uwagi", photos: "Zdjęcia obiektu"},
             menu: ["ALO", "OFERTA", "USŁUGI", "KONTAKT", "PL"],
-            desc: "MONTAŻ i SERWIS CCTV", brand: "Wycena systemów CCTV i inny", note: "(im więcej informacji, tym lepiej)", sec1: "I. DANE KLIENTA", sec2: "II. SZCZEGÓŁY SYSTEMU", sec3: "III. INNE SYSTEMY?", secPhoto: "IV. ZDJĘCIA OBIEKTU", sec4: "V. UWAGI", name: "Imię i Nazwisko", phone: "Numer telefonu", addr: "Adres montażu", other: "Inne...", err: "Wypełnij Imię, Numer telefonu i Adres montażu!", errQs: "Wybierz min. 5 opcji!", hint: "Wybierz kanał przesłania zapytania:", mRetry: "Wyczyść wszystko", mOk: "Zamknij", confirmAsk: "Wysłać via", confirmUse: "Użyć", yes: "Tak", no: "Nie", appTitle: "📅 Wybierz datę spotkania (Pn-Pt):", appMsg: "Czy chcesz umówić się na wizytę w naszym sklepie?", errWeekend: "Konsultanci nie pracują w weekendy.", resetBtn: "Wyczyść odpowiedzi", resetCustomer: "Wpisz ponownie", clearAnswers: "Wyczyść odpowiedzi",
+            desc: "MONTAŻ i SERWIS CCTV", brand: "Wycena systemów CCTV i inny", note: "(im więcej informacji, tym lepiej)", sec1: "I. DANE KLIENTA", sec2: "II. SZCZEGÓŁY SYSTEMU", sec3: "III. INNE SYSTEMY I SPOTKANIE", secPhoto: "IV. ZDJĘCIA OBIEKTU", sec4: "V. UWAGI", name: "Imię i Nazwisko", phone: "Numer telefonu", addr: "Adres montażu", other: "Inne...", err: "Wypełnij Imię, Numer telefonu i Adres montażu!", errQs: "Wybierz min. 5 opcji!", hint: "Wybierz kanał przesłania zapytania:", mRetry: "Wyczyść wszystko", mOk: "Zamknij", confirmAsk: "Wysłać via", confirmUse: "Użyć", yes: "Tak", no: "Nie", appTitle: "📅 Wybierz datę spotkania (Pn-Pt):", appMsg: "Czy chcesz umówić się na wizytę w naszym sklepie?", errWeekend: "Konsultanci nie pracują w weekendy.", resetBtn: "Wyczyść odpowiedzi", resetCustomer: "Wpisz ponownie", clearAnswers: "Wyczyść odpowiedzi", showAppointment: "Pokaż termin", hideAppointment: "Ukryj termin",
             photoCamera: "Zrób zdjęcie", photoGallery: "Wybierz zdjęcia", photoHelp: "Maks. 6 zdjęć, do 8 MB każde. Zdjęcia zostaną zmniejszone; wysłany link do galerii działa przez 30 dni.", clearPhotos: "Usuń zdjęcia", photoNone: "Nie dodano zdjęć.", photoCount: "Wybrano {n}/6 zdjęć.", photoProcessing: "Przygotowywanie zdjęć...", photoMax: "Możesz dodać maksymalnie 6 zdjęć.", photoInvalid: "Można dodać tylko pliki graficzne.", photoTooLarge: "Zdjęcie przekracza limit 8 MB.", photoUploading: "Przesyłanie zdjęć i tworzenie linku...", photoUploadError: "Nie udało się przesłać zdjęć. Spróbuj ponownie; aplikacja nie zostanie otwarta bez linku.", photoTgPartial: "Treść wysłano, ale nie udało się wysłać wszystkich zdjęć.",
             sending: "Wysyłanie wyceny...", sentSuccess: "✅ WYŁANO POMYŚLNIE!\nSkontaktujemy się jak najszybciej, korzystając z podanego numeru telefonu:", viberCopy: "Wycena skopiowana! Proszę 'Wklej' (Paste) w Viber.", tgError: "Błąd bota. Otwieranie czatu trực tiếp...", waitMsg: "Zwolnij! Odczekaj {s}s.",
             extras: [ {v:"ALARM", l:"🔔 ALARM"}, {v:"DOMOFON", l:"📞 DOMOFON"}, {v:"SIEĆ", l:"🌐 SIEĆ"}, {v:"ELEKTRYK", l:"⚡  ELEK"} ],
@@ -520,7 +405,7 @@
         EN: { 
             msgLabels: {title: "ALO SERWIS - QUOTE", mailSub: "Quote Request", name: "Name", tel: "Tel", addr: "Addr", extra: "Extras", app: "Appointment", loc: "Location", note: "Note", photos: "Site photos"},
             menu: ["HOME", "OFFER", "SERVICES", "CONTACT", "EN"],
-            desc: "INSTAL & SERVICE CCTV", brand: "CCTV & Other Systems Quote", note: "(More info = Better quote)", sec1: "I. CUSTOMER DETAILS", sec2: "II. SYSTEM DETAILS", sec3: "III. OTHER SYSTEMS?", secPhoto: "IV. SITE PHOTOS", sec4: "V. NOTES", name: "Full Name", phone: "Phone Number", addr: "Address", other: "Other...", err: "Please fill Name, Phone and Address install!", errQs: "Answer min. 5 questions!", hint: "Please choose a channel to send your request:", mRetry: "Reset All", mOk: "Close", confirmAsk: "Send via", confirmUse: "Use", yes: "Yes", no: "No", appTitle: "📅 Choose date (Mon-Fri):", appMsg: "Would you like to book an appointment at our store?", errWeekend: "Consultants are off work on weekends.", resetBtn: "Clear answers", resetCustomer: "Enter again", clearAnswers: "Clear answers",
+            desc: "INSTAL & SERVICE CCTV", brand: "CCTV & Other Systems Quote", note: "(More info = Better quote)", sec1: "I. CUSTOMER DETAILS", sec2: "II. SYSTEM DETAILS", sec3: "III. OTHER SYSTEMS & APPOINTMENT", secPhoto: "IV. SITE PHOTOS", sec4: "V. NOTES", name: "Full Name", phone: "Phone Number", addr: "Address", other: "Other...", err: "Please fill Name, Phone and Address install!", errQs: "Answer min. 5 questions!", hint: "Please choose a channel to send your request:", mRetry: "Reset All", mOk: "Close", confirmAsk: "Send via", confirmUse: "Use", yes: "Yes", no: "No", appTitle: "📅 Choose date (Mon-Fri):", appMsg: "Would you like to book an appointment at our store?", errWeekend: "Consultants are off work on weekends.", resetBtn: "Clear answers", resetCustomer: "Enter again", clearAnswers: "Clear answers", showAppointment: "Show appointment", hideAppointment: "Hide appointment",
             photoCamera: "Take a photo", photoGallery: "Choose photos", photoHelp: "Maximum 6 photos, up to 8 MB each. Photos are resized; the gallery link remains available for 30 days.", clearPhotos: "Clear photos", photoNone: "No photos added.", photoCount: "Selected {n}/6 photos.", photoProcessing: "Preparing photos...", photoMax: "You can add up to 6 photos.", photoInvalid: "Only image files can be added.", photoTooLarge: "A photo exceeds the 8 MB limit.", photoUploading: "Uploading photos and creating the gallery link...", photoUploadError: "The photos could not be uploaded. Try again; the app will not open without a gallery link.", photoTgPartial: "The request was sent, but some photos could not be uploaded.",
             sending: "Sending quote...", sentSuccess: "✅ SENT SUCCESSFULLY!\nWe will contact you as soon as possible, using the phone number you provided:" , viberCopy: "Quote copied! Please 'Paste' into Viber.", tgError: "Bot error. Opening direct chat...", waitMsg: "Wait {s}s before next send.",
             extras: [ {v:"ALARM", l:"🔔 ALARM"}, {v:"DOMOFON", l:"📞 ENTRY"}, {v:"SIEĆ", l:"🌐 NET"}, {v:"ELEKTRYK", l:"⚡ ELEC"} ],
@@ -529,7 +414,7 @@
         VN: { 
             msgLabels: {title: "ALO SERWIS - BÁO GIÁ", mailSub: "Yêu cầu báo giá", name: "Họ tên", tel: "SĐT", addr: "Địa chỉ", extra: "Thêm", app: "Lịch hẹn", loc: "Địa điểm", note: "Ghi chú", photos: "Ảnh công trình"},
             menu: ["ALO", "BÁO GIÁ", "DỊCH VỤ", "LIÊN HỆ", "VN"],
-            desc: "LẮP ĐẶT & BẢO TRÌ CAMERA", brand: "Báo giá HT Camera và các hệ thống khác", note: "(Càng nhiều thông tin báo giá càng chính xác)", sec1: "I. THÔNG TIN KHÁCH HÀNG", sec2: "II. CHI TIẾT HỆ THỐNG", sec3: "III. HỆ THỐNG KHÁC?", secPhoto: "IV. ẢNH CÔNG TRÌNH", sec4: "V. GHI CHÚ", name: "Họ và Tên", phone: "Số điện thoại", addr: "Địa chỉ lắp đặt", other: "Khác...", err: "Vui lòng nhập Tên, SĐT và Địa chỉ lắp đặt!", errQs: "Trả lời ít nhất 5 câu hỏi!", hint: "Vui lòng chọn kênh gửi yêu cầu Báo giá:", mRetry: "Làm lại tất cả", mOk: "Đóng", confirmAsk: "Gửi qua", confirmUse: "Bạn dùng", yes: "Có", no: "Không", appTitle: "📅 Chọn ngày tư vấn (Thứ 2-6):", appMsg: "Quý khách có muốn đặt lịch Tư vấn tại cửa hàng chúng tôi không?", errWeekend: "Nhân viên tư vấn nghỉ làm việc cuối tuần!", resetBtn: "Xoá câu trả lời", resetCustomer: "Nhập lại", clearAnswers: "Xóa các câu trả lời",
+            desc: "LẮP ĐẶT & BẢO TRÌ CAMERA", brand: "Báo giá HT Camera và các hệ thống khác", note: "(Càng nhiều thông tin báo giá càng chính xác)", sec1: "I. THÔNG TIN KHÁCH HÀNG", sec2: "II. CHI TIẾT HỆ THỐNG", sec3: "III. HỆ THỐNG KHÁC và LỊCH HẸN", secPhoto: "IV. ẢNH CÔNG TRÌNH", sec4: "V. GHI CHÚ", name: "Họ và Tên", phone: "Số điện thoại", addr: "Địa chỉ lắp đặt", other: "Khác...", err: "Vui lòng nhập Tên, SĐT và Địa chỉ lắp đặt!", errQs: "Trả lời ít nhất 5 câu hỏi!", hint: "Vui lòng chọn kênh gửi yêu cầu Báo giá:", mRetry: "Làm lại tất cả", mOk: "Đóng", confirmAsk: "Gửi qua", confirmUse: "Bạn dùng", yes: "Có", no: "Không", appTitle: "📅 Chọn ngày tư vấn (Thứ 2-6):", appMsg: "Quý khách có muốn đặt lịch Tư vấn tại cửa hàng chúng tôi không?", errWeekend: "Nhân viên tư vấn nghỉ làm việc cuối tuần!", resetBtn: "Xoá câu trả lời", resetCustomer: "Nhập lại", clearAnswers: "Xóa các câu trả lời", showAppointment: "Hiển thị lịch hẹn", hideAppointment: "Ẩn lịch",
             photoCamera: "Chụp ảnh", photoGallery: "Chọn ảnh từ máy", photoHelp: "Tối đa 6 ảnh, mỗi ảnh không quá 8 MB. Ảnh được tự giảm kích thước; đường dẫn thư viện ảnh có hiệu lực 30 ngày.", clearPhotos: "Xóa ảnh", photoNone: "Chưa thêm ảnh.", photoCount: "Đã chọn {n}/6 ảnh.", photoProcessing: "Đang chuẩn bị ảnh...", photoMax: "Chỉ được chọn tối đa 6 ảnh.", photoInvalid: "Chỉ được chọn file hình ảnh.", photoTooLarge: "Có ảnh vượt quá giới hạn 8 MB.", photoUploading: "Đang tải ảnh và tạo đường dẫn...", photoUploadError: "Không tải được ảnh. Hãy thử lại; ứng dụng sẽ không mở nếu chưa tạo được đường dẫn ảnh.", photoTgPartial: "Nội dung đã gửi nhưng có ảnh không tải lên được.",
             sending: "Đang gửi báo giá...", sentSuccess: "✅ GỬI THÀNH CÔNG!\nChúng tôi sẽ liên hệ với bạn sớm nhất có thể, theo số điện thoại bạn đã cung cấp:" ,viberCopy: "Đã sao chép báo giá! Vui lòng 'Dán' vào Viber.", tgError: "Lỗi kết nối. Đang chuyển sang chat trực tiếp...", waitMsg: "Chờ {s} giây để gửi tiếp.",
             extras: [ {v:"ALARM", l:"🔔 ALARM"}, {v:"DOMOFON", l:"📞 DOMOFON"}, {v:"SIEĆ", l:"🌐 MẠNG"}, {v:"ELEKTRYK", l:"⚡ ĐIỆN"} ],
@@ -544,7 +429,6 @@
         EN: { html: 'en', nav: 'Main navigation', button: 'Change language' },
         VN: { html: 'vi', nav: 'Điều hướng chính', button: 'Đổi ngôn ngữ' }
     };
-    let appAsked = false;
     const MAX_PROJECT_PHOTOS = 6;
     const MAX_PHOTO_BYTES = 8 * 1024 * 1024;
     const MAX_PHOTO_DIMENSION = 1600;
@@ -563,7 +447,6 @@
             appDate: document.getElementById('app_date').value,
             appTime: document.getElementById('app_time').value,
             appLoc: document.getElementById('app_loc').value,
-            appAsked: appAsked,
             appVisible: document.getElementById('appointment-sec').style.display,
             answers: {}, manuals: {}, extras: []
         };
@@ -585,7 +468,6 @@
         document.getElementById('app_date').value = data.appDate || '';
         document.getElementById('app_time').value = data.appTime || '09:00';
         document.getElementById('app_loc').value = data.appLoc || 'Bakalarska 2/B214';
-        appAsked = data.appAsked || false;
         document.getElementById('appointment-sec').style.display = data.appVisible || 'none';
         translations[curLang].qs.forEach((item, i) => {
             if(data.answers && data.answers[i] !== undefined) {
@@ -648,6 +530,7 @@
         const ex = document.getElementById('extra-container');
         ex.innerHTML = cur.extras.map(e => `<label class="opt-label"><input type="checkbox" name="extra" value="${e.v}" onchange="handleExtraClick(this)"> ${e.l}</label>`).join('');
         loadCache();
+        updateAppointmentToggle();
         renderProjectPhotos();
     }
     function setPhotoStatus(message, isError = false) {
@@ -791,7 +674,6 @@
     }
     function handleExtraClick(el) {
         el.parentElement.classList.toggle('selected', el.checked);
-        if (el.checked && !appAsked) { openModal(translations[curLang].appMsg, 'askApp'); appAsked = true; }
         saveCache();
     }
     function validateDate(input) {
@@ -821,7 +703,31 @@
         document.getElementById('app_date').value = '';
         document.getElementById('app_time').value = '09:00';
         document.getElementById('app_loc').value = 'Bakalarska 2/B214';
-        appAsked = false;
+        updateAppointmentToggle();
+        saveCache();
+    }
+
+    function updateAppointmentToggle() {
+        const section = document.getElementById('appointment-sec');
+        const button = document.getElementById('btn-toggle-appointment');
+        const isVisible = section.style.display === 'block';
+        button.innerText = isVisible ? translations[curLang].hideAppointment : translations[curLang].showAppointment;
+        button.setAttribute('aria-expanded', String(isVisible));
+        button.classList.toggle('is-open', isVisible);
+    }
+
+    function toggleAppointment() {
+        const section = document.getElementById('appointment-sec');
+        const isVisible = section.style.display === 'block';
+        if (isVisible) {
+            section.style.display = 'none';
+            document.getElementById('app_date').value = '';
+            document.getElementById('app_time').value = '09:00';
+            document.getElementById('app_loc').value = 'Bakalarska 2/B214';
+        } else {
+            section.style.display = 'block';
+        }
+        updateAppointmentToggle();
         saveCache();
     }
 
@@ -831,10 +737,7 @@
         const cur = translations[curLang];
         textEl.innerText = msg;
 
-        if (mode === 'askApp') {
-            btnGroup.innerHTML = `<button class="m-btn btn-confirm" style="background:#0088cc; color:white;" onclick="showAppSec()">${cur.yes}</button><button class="m-btn btn-close" onclick="closeModal()">${cur.no}</button>`;
-        } 
-        else if (mode === 'success') {
+        if (mode === 'success') {
             btnGroup.innerHTML = `<button class="m-btn btn-success" onclick="closeModal()">${cur.mOk}</button>`;
         }
         else if (mode === 'loading') {
@@ -847,7 +750,6 @@
     }
 
     function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; }
-    function showAppSec() { document.getElementById('appointment-sec').style.display = 'block'; saveCache(); closeModal(); }
 
     function buildContent() {
         if(document.getElementById('hp_field').value !== "") {
