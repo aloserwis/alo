@@ -4,6 +4,10 @@
     --site-page-gutter: clamp(4px, 1.2vw, 16px);
 }
 
+html {
+    scrollbar-gutter: stable;
+}
+
 #main-menu {
     position: sticky;
     top: 6px;
