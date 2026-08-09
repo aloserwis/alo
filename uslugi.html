@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!-- ALO SERWIS USŁUGI V1 - 2026-08-09 -->
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Profesjonalny serwis telefonów, tabletów i laptopów w Warszawie. Darmowa wycena, dokładna diagnoza i szybka naprawa.">
+    <meta name="theme-color" content="#07141c">
+    <title>Serwis telefonów, tabletów i laptopów | ALO SERWIS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preload" as="image" href="/assets/images/services-hero.webp" type="image/webp" fetchpriority="high">
+    <link rel="stylesheet" href="menu.css?v=2">
+    <link rel="stylesheet" href="uslugi.css?v=1">
+</head>
+<body class="services-page">
+    <a class="skip-link" href="#main-content" data-i18n="skip">Przejdź do treści</a>
+
+    <nav id="main-menu" aria-label="Główna nawigacja">
+        <a href="/" class="menu-item"><i class="fa-solid fa-house" aria-hidden="true"></i><span id="menu-alo">ALO</span></a>
+        <a href="/oferta" class="menu-item"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i><span id="menu-oferta">OFERTA</span></a>
+        <a href="/uslugi" class="menu-item is-active" aria-current="page"><i class="fa-solid fa-images" aria-hidden="true"></i><span id="menu-uslugi">USŁUGI</span></a>
+        <a href="#kontakt" class="menu-item"><i class="fa-solid fa-phone" aria-hidden="true"></i><span id="menu-kontakt">KONTAKT</span></a>
+        <button type="button" class="lang-toggle" id="lang-toggle" aria-label="Zmień język"><i class="fa-solid fa-globe" aria-hidden="true"></i><span id="menu-lang">PL</span></button>
+    </nav>
+
+    <main id="main-content">
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-glow hero-glow-one" aria-hidden="true"></div>
+            <div class="hero-glow hero-glow-two" aria-hidden="true"></div>
+            <div class="hero-content">
+                <div class="hero-copy">
+                    <div class="eyebrow"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span data-i18n="heroEyebrow">PROFESJONALNY SERWIS W WARSZAWIE</span></div>
+                    <h1 id="hero-title" data-i18n="heroTitle">Telefon, tablet lub laptop? Przywrócimy go do życia.</h1>
+                    <p class="hero-lead" data-i18n="heroLead">Dokładna diagnoza, wysokiej jakości części i możliwie najszybsza realizacja — bez ukrytych kosztów.</p>
+
+                    <div class="quote-panel" id="wycena" aria-labelledby="quote-title">
+                        <div class="quote-panel-heading"><span class="quote-kicker" data-i18n="quoteKicker">CTA 01</span><h2 id="quote-title" data-i18n="quoteTitle">DARMOWA WYCENA NAPRAWY</h2></div>
+                        <div class="messenger-actions">
+                            <!-- TELEGRAM LINK: replace href below if the Telegram account changes. -->
+                            <a class="cta-button cta-telegram" id="telegram-link" href="https://t.me/aka242" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-brands fa-telegram" aria-hidden="true"></i><span><small data-i18n="writeVia">NAPISZ PRZEZ</small><strong>TELEGRAM</strong></span><i class="fa-solid fa-arrow-up-right-from-square cta-arrow" aria-hidden="true"></i>
+                            </a>
+                            <!-- WHATSAPP LINK: replace phone/message in uslugi.js if the account changes. -->
+                            <a class="cta-button cta-whatsapp js-whatsapp-link" href="https://api.whatsapp.com/send?phone=48888686121" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-brands fa-whatsapp" aria-hidden="true"></i><span><small data-i18n="writeVia">NAPISZ PRZEZ</small><strong>WHATSAPP</strong></span><i class="fa-solid fa-arrow-up-right-from-square cta-arrow" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- ORDER / COURIER LINK: replace href="#" with the final ordering URL. -->
+                    <a class="order-cta" href="#"><span class="order-icon"><i class="fa-solid fa-box" aria-hidden="true"></i></span><span><small data-i18n="orderKicker">CTA 02</small><strong data-i18n="orderTitle">ZAMÓW PRZESYŁKĘ DO SERWISU</strong></span><i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></a>
+
+                    <div class="trust-row" aria-label="Najważniejsze korzyści">
+                        <span><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span data-i18n="trustOne">Bezpłatna wycena</span></span>
+                        <span><i class="fa-solid fa-stopwatch" aria-hidden="true"></i><span data-i18n="trustTwo">Szybka realizacja</span></span>
+                        <span><i class="fa-solid fa-shield-halved" aria-hidden="true"></i><span data-i18n="trustThree">Gwarancja serwisowa</span></span>
+                    </div>
+                </div>
+
+                <div class="hero-visual" aria-hidden="true">
+                    <img src="/assets/images/services-hero.webp" alt="" width="1600" height="1067" decoding="async" fetchpriority="high">
+                    <div class="hero-visual-overlay"></div>
+                    <div class="repair-badge"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i><span><small data-i18n="badgeSmall">SERWIS</small><strong data-i18n="badgeStrong">GSM & IT</strong></span></div>
+                    <div class="device-strip">
+                        <span><i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i><span data-i18n="devicePhone">Telefon</span></span>
+                        <span><i class="fa-solid fa-tablet-screen-button" aria-hidden="true"></i><span data-i18n="deviceTablet">Tablet</span></span>
+                        <span><i class="fa-solid fa-laptop" aria-hidden="true"></i><span data-i18n="deviceLaptop">Laptop</span></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-shell intro-section reveal" aria-labelledby="services-title">
+            <div class="section-heading"><span class="section-number">01</span><div><p class="section-kicker" data-i18n="servicesKicker">SERWIS URZĄDZEŃ</p><h2 id="services-title" data-i18n="servicesTitle">Naprawiamy to, czego używasz każdego dnia</h2><p data-i18n="servicesLead">Od rozbitej szybki po zaawansowaną naprawę płyty głównej — najpierw diagnozujemy, później przedstawiamy jasną wycenę.</p></div></div>
+        </section>
+
+        <section class="service-feature section-shell reveal" aria-labelledby="tablet-title">
+            <div class="service-image"><img src="/assets/images/tablet-repair.webp" alt="Naprawa urządzenia na stanowisku serwisowym" width="1400" height="933" loading="lazy" decoding="async"><span class="image-label"><i class="fa-solid fa-tablet-screen-button" aria-hidden="true"></i><span data-i18n="tabletLabel">SERWIS TABLETÓW</span></span></div>
+            <div class="service-copy">
+                <span class="service-index">01 / TABLET</span><h2 id="tablet-title" data-i18n="tabletTitle">Kompleksowa naprawa tabletów</h2><p data-i18n="tabletLead">Przywracamy sprawność ekranów, elektroniki i oprogramowania — niezależnie od marki urządzenia.</p>
+                <ul class="service-list">
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i><span data-i18n="tabletOne">Wymiana i naprawa wyświetlacza, szybki oraz digitizera</span></li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i><span data-i18n="tabletTwo">Naprawa panelu dotykowego i problemów z obrazem</span></li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i><span data-i18n="tabletThree">Naprawa płyty głównej i wymiana gniazda ładowania</span></li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i><span data-i18n="tabletFour">Naprawa po upadku lub zalaniu</span></li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i><span data-i18n="tabletFive">Naprawa aparatu, dźwięku, mikrofonu i głośników</span></li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i><span data-i18n="tabletSix">Oprogramowanie, czyszczenie i wymiana baterii</span></li>
+                </ul>
+                <a class="text-link" href="#wycena"><span data-i18n="askQuote">Zapytaj o darmową wycenę</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            </div>
+        </section>
+
+        <section class="service-feature service-feature-reverse section-shell reveal" aria-labelledby="phone-title">
+            <div class="service-image"><img src="/assets/images/phone-repair.webp" alt="Precyzyjna naprawa telefonu pod mikroskopem" width="933" height="1400" loading="lazy" decoding="async"><span class="image-label"><i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i><span data-i18n="phoneLabel">SERWIS TELEFONÓW</span></span></div>
+            <div class="service-copy">
+                <span class="service-index">02 / SMARTPHONE</span><h2 id="phone-title" data-i18n="phoneTitle">Profesjonalna naprawa telefonów</h2><p data-i18n="phoneLead">Szybkie naprawy mechaniczne, elektroniczne i programowe wykonywane na profesjonalnym stanowisku serwisowym.</p>
+                <ul class="service-list">
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i><span data-i18n="phoneOne">Wymiana szybki lub kompletnego modułu wyświetlacza</span></li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i><span data-i18n="phoneTwo">Naprawa płyty głównej oraz gniazda ładowania</span></li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i><span data-i18n="phoneThree">Naprawa zasięgu GSM, Wi-Fi i Bluetooth</span></li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i><span data-i18n="phoneFour">Usuwanie Simlocka i naprawa oprogramowania</span></li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i><span data-i18n="phoneFive">Naprawa aparatu, mikrofonu i elementów audio</span></li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i><span data-i18n="phoneSix">Czyszczenie, naprawa po zalaniu i wymiana baterii</span></li>
+                </ul>
+                <a class="text-link" href="#wycena"><span data-i18n="askQuote">Zapytaj o darmową wycenę</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            </div>
+        </section>
+
+        <section class="laptop-card section-shell reveal" aria-labelledby="laptop-title">
+            <div class="laptop-content">
+                <div class="laptop-copy"><span class="service-index">03 / LAPTOP</span><h2 id="laptop-title" data-i18n="laptopTitle">Serwis laptopów i komputerów</h2><p data-i18n="laptopLead">Diagnozujemy usterki sprzętowe i systemowe, czyścimy układ chłodzenia oraz przywracamy wydajność urządzenia.</p><div class="mini-services"><span><i class="fa-solid fa-microchip" aria-hidden="true"></i><span data-i18n="laptopOne">Płyty główne</span></span><span><i class="fa-solid fa-temperature-half" aria-hidden="true"></i><span data-i18n="laptopTwo">Chłodzenie</span></span><span><i class="fa-solid fa-hard-drive" aria-hidden="true"></i><span data-i18n="laptopThree">Dyski i dane</span></span><span><i class="fa-brands fa-windows" aria-hidden="true"></i><span data-i18n="laptopFour">System i software</span></span></div></div>
+                <img src="/assets/images/laptop-repair.webp" alt="Naprawa płyty głównej laptopa" width="1400" height="933" loading="lazy" decoding="async">
+            </div>
+        </section>
+
+        <section class="brands-section reveal" aria-labelledby="brands-title">
+            <div class="section-shell"><p class="section-kicker" data-i18n="brandsKicker">WSZYSTKIE POPULARNE MARKI</p><h2 id="brands-title" data-i18n="brandsTitle">Naprawiamy urządzenia wielu producentów</h2></div>
+            <div class="brand-marquee" role="region" aria-label="Obsługiwane marki"><div class="brand-track"><div class="brand-set"><span>Apple</span><span>SAMSUNG</span><span>Xiaomi</span><span>HUAWEI</span><span>Lenovo</span><span>ASUS</span><span>ACER</span><span>DELL</span><span>HP</span><span>Motorola</span><span>SONY</span><span>LG</span></div><div class="brand-set" aria-hidden="true"><span>Apple</span><span>SAMSUNG</span><span>Xiaomi</span><span>HUAWEI</span><span>Lenovo</span><span>ASUS</span><span>ACER</span><span>DELL</span><span>HP</span><span>Motorola</span><span>SONY</span><span>LG</span></div></div></div>
+        </section>
+
+        <section class="about-section section-shell reveal" aria-labelledby="about-title">
+            <div class="about-copy"><p class="section-kicker" data-i18n="aboutKicker">O ALO SERWIS</p><h2 id="about-title" data-i18n="aboutTitle">Doświadczenie, precyzja i uczciwe zasady</h2><p data-i18n="aboutTextOne">Od lat pomagamy klientom odzyskać sprawne telefony, tablety i laptopy. Każde urządzenie traktujemy indywidualnie — od prostej wymiany szybki po zaawansowaną naprawę elektroniki.</p><p data-i18n="aboutTextTwo">Zaczynamy od bezpłatnej wyceny i dokładnej diagnozy. Przed naprawą jasno przedstawiamy zakres prac i koszt. Korzystamy ze sprawdzonych części, dbamy o możliwie krótki termin realizacji i zapewniamy wsparcie po odbiorze urządzenia.</p></div>
+            <div class="promise-grid">
+                <article><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><h3 data-i18n="promiseOneTitle">Dokładna diagnoza</h3><p data-i18n="promiseOneText">Sprawdzamy przyczynę usterki, nie tylko jej objawy.</p></article>
+                <article><i class="fa-solid fa-tag" aria-hidden="true"></i><h3 data-i18n="promiseTwoTitle">Uczciwa cena</h3><p data-i18n="promiseTwoText">Najpierw wycena, potem decyzja — bez niespodzianek.</p></article>
+                <article><i class="fa-solid fa-award" aria-hidden="true"></i><h3 data-i18n="promiseThreeTitle">Jakość i gwarancja</h3><p data-i18n="promiseThreeText">Sprawdzone części i odpowiedzialność za wykonaną usługę.</p></article>
+            </div>
+        </section>
+
+        <section class="process-section reveal" aria-labelledby="process-title"><div class="section-shell"><p class="section-kicker" data-i18n="processKicker">PROSTY PROCES</p><h2 id="process-title" data-i18n="processTitle">Od zgłoszenia do sprawnego urządzenia</h2><div class="process-grid">
+            <article><span>01</span><i class="fa-regular fa-message" aria-hidden="true"></i><h3 data-i18n="processOneTitle">Kontakt</h3><p data-i18n="processOneText">Napisz do nas i opisz problem.</p></article>
+            <article><span>02</span><i class="fa-solid fa-stethoscope" aria-hidden="true"></i><h3 data-i18n="processTwoTitle">Diagnoza</h3><p data-i18n="processTwoText">Sprawdzimy urządzenie i podamy koszt.</p></article>
+            <article><span>03</span><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i><h3 data-i18n="processThreeTitle">Naprawa</h3><p data-i18n="processThreeText">Po akceptacji wykonamy usługę.</p></article>
+            <article><span>04</span><i class="fa-solid fa-circle-check" aria-hidden="true"></i><h3 data-i18n="processFourTitle">Odbiór</h3><p data-i18n="processFourText">Testujemy sprzęt i przekazujemy go z gwarancją.</p></article>
+        </div></div></section>
+
+        <section class="final-cta section-shell reveal" aria-labelledby="final-cta-title"><div><p class="section-kicker" data-i18n="finalKicker">NIE WIESZ, CO SIĘ ZEPSUŁO?</p><h2 id="final-cta-title" data-i18n="finalTitle">Opisz problem — wycenimy naprawę bezpłatnie</h2><p data-i18n="finalLead">Podaj markę, model i objawy. Odpowiemy możliwie szybko.</p></div><div class="final-actions"><a class="cta-button cta-telegram" href="https://t.me/aka242" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-telegram" aria-hidden="true"></i><strong>Telegram</strong></a><a class="cta-button cta-whatsapp js-whatsapp-link" href="https://api.whatsapp.com/send?phone=48888686121" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i><strong>WhatsApp</strong></a></div></section>
+
+        <section class="contact-section" id="kontakt" aria-labelledby="contact-title"><div class="section-shell"><div class="contact-heading"><p class="section-kicker" data-i18n="contactKicker">ALO SERWIS WARSZAWA</p><h2 id="contact-title" data-i18n="contactTitle">Wybierz najbliższy punkt</h2></div><div class="location-grid">
+            <article><span class="location-tag" data-i18n="locationOne">PUNKT 1</span><h3>Bakalarska</h3><p>Bakalarska 2 / B214<br>02-212 Warszawa</p><div class="location-actions"><a href="tel:733676869"><i class="fa-solid fa-phone" aria-hidden="true"></i>733 67 68 69</a><a href="https://www.google.com/maps/dir/?api=1&destination=Bakalarska%202%2FB214%2C%2002-212%20Warszawa&travelmode=driving" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-route" aria-hidden="true"></i><span data-i18n="route">Trasa</span></a></div></article>
+            <article><span class="location-tag" data-i18n="locationTwo">PUNKT 2</span><h3>Wólka Kosowska</h3><p>Nadrzeczna 7C / A3 (ASG)<br>05-552 Wólka Kosowska</p><div class="location-actions"><a href="tel:787456999"><i class="fa-solid fa-phone" aria-hidden="true"></i>787 456 999</a><a href="https://www.google.com/maps/dir/?api=1&destination=Nadrzeczna%207C%2FA3%2C%2005-552%20W%C3%B3lka%20Kosowska&travelmode=driving" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-route" aria-hidden="true"></i><span data-i18n="route">Trasa</span></a></div></article>
+        </div></div></section>
+    </main>
+
+    <footer class="site-footer"><div class="section-shell footer-inner"><div><strong>ALO SERWIS</strong><span data-i18n="footerTagline">Serwis telefonów, tabletów i laptopów</span></div><p>© 2026 ALO SERWIS • USŁUGI v1</p></div></footer>
+    <div class="mobile-contact-bar" aria-label="Szybki kontakt"><a href="https://t.me/aka242" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-telegram" aria-hidden="true"></i>Telegram</a><a class="js-whatsapp-link" href="https://api.whatsapp.com/send?phone=48888686121" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i>WhatsApp</a></div>
+
+    <script src="uslugi.js?v=1"></script>
+</body>
+</html>
