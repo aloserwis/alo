@@ -223,3 +223,6 @@ body.offer-page #main-menu .lang-toggle i {
         letter-spacing: -.1px;
     }
 }
+
+#main-menu .menu-item[href="/alosignage.html"] { color: #b91c1c; }
+#main-menu .menu-item[href="/alosignage.html"]:hover, #main-menu .menu-item[href="/alosignage.html"]:focus-visible { background: rgba(220, 38, 38, .1); }
