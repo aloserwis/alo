@@ -226,3 +226,13 @@ body.offer-page #main-menu .lang-toggle i {
 
 #main-menu .menu-item[href="/alosignage.html"] { color: #b91c1c; }
 #main-menu .menu-item[href="/alosignage.html"]:hover, #main-menu .menu-item[href="/alosignage.html"]:focus-visible { background: rgba(220, 38, 38, .1); }
+
+/* Unified ALO dark-red navigation */
+:root{--site-menu-blue:#dc2626}
+#main-menu{background:rgba(16,23,25,.96)!important;border-color:rgba(220,38,38,.48)!important;box-shadow:0 12px 32px rgba(0,0,0,.32)!important}
+#main-menu .menu-item,#main-menu .lang-toggle{color:#f6f7f4!important}
+#main-menu .menu-item i{color:inherit!important}
+#main-menu .menu-item:hover,#main-menu .menu-item:focus-visible,#main-menu .menu-item.is-active{color:#fff!important;background:#b91c1c!important;box-shadow:inset 0 0 0 1px rgba(248,113,113,.55)!important}
+#main-menu .lang-toggle,#main-menu .lang-toggle:hover,#main-menu .lang-toggle:focus-visible{color:#fff!important;background:#b91c1c!important}
+#main-menu .menu-item[href="/alosignage.html"]{color:#ff6666!important}
+#main-menu .menu-item[href="/alosignage.html"]:hover,#main-menu .menu-item[href="/alosignage.html"]:focus-visible{color:#fff!important;background:#b91c1c!important}
