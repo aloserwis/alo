@@ -278,3 +278,15 @@ body.services-page #main-menu .lang-toggle:focus-visible { background: #df2424; 
     *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
     .reveal { opacity: 1; transform: none; }
 }
+
+/* Match ALO's shared dark-red visual system */
+:root{--service-ink:#101719;--service-paper:#101719;--service-muted:#b7c2bd;--service-line:rgba(255,255,255,.12);--service-radius:16px;--service-shadow:0 22px 60px rgba(0,0,0,.24);--site-menu-blue:#dc2626}
+body.services-page{color:#f6f7f4;background:#101719}
+body.services-page #main-menu .menu-item:hover,body.services-page #main-menu .menu-item:focus-visible,body.services-page #main-menu .menu-item.is-active{color:#fff;background:#b91c1c;box-shadow:inset 0 0 0 1px rgba(248,113,113,.55)}
+body.services-page #main-menu .lang-toggle,body.services-page #main-menu .lang-toggle:hover,body.services-page #main-menu .lang-toggle:focus-visible{color:#fff;background:#b91c1c}
+.service-feature,.brands-section,.promise-grid article,.contact-section,.location-grid article,.order-cta{color:#f6f7f4!important;background:#1c292b!important;border-color:var(--service-line)!important}
+.service-image{background:#202d30!important}
+.brand-set span{color:#f6f7f4!important;background:#202d30!important}
+.order-cta{color:#f6f7f4!important}
+.mobile-contact-bar{border-color:var(--service-line)}
+@media(max-width:767px){.service-feature{width:calc(100% - 20px)}.section-shell{width:calc(100% - 28px)}}
