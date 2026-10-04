@@ -24,7 +24,7 @@
 .lang-select{font-family:inherit;border:0;background:transparent;border-radius:6px;font-size:12px;font-weight:600;min-height:44px;padding:0 4px;color:#252527}
 .mega-menu{top:100%;left:0;right:0;min-width:0;margin:0;padding:28px max(24px,calc((100vw - 720px)/2)) 36px;background:#fafafc;border:0;border-bottom:1px solid #dedee2;border-radius:0;box-shadow:0 22px 32px #00000012;max-height:calc(100dvh - 60px);overflow-y:auto}
 .mega-menu.open{display:grid;gap:2px}
-.mega-menu a{display:block;width:fit-content;max-width:100%;padding:8px 0;border-radius:0;font-size:24px;font-weight:600;line-height:1.2;letter-spacing:-.025em;overflow-wrap:anywhere}
+.mega-menu a{display:block;width:fit-content;max-width:100%;padding:8px 0;border-radius:0;font-size:20px;font-weight:600;line-height:1.2;letter-spacing:-.025em;overflow-wrap:anywhere}
 .mega-menu a:hover,.mega-menu a:focus-visible,.mega-menu a[aria-current=page]{background:transparent;color:var(--red)}
 .site-header a:focus-visible,.site-header button:focus-visible,.site-header select:focus-visible{outline:2px solid var(--red);outline-offset:4px}
 .mobile-toggle{font-family:inherit;color:#252527;border:0;background:transparent;font-size:24px}
@@ -41,6 +41,6 @@
   .nav-trigger,.nav-contact{display:flex;justify-content:space-between;width:100%;height:auto;min-height:56px;padding:10px 0;text-align:left;font-size:28px;font-weight:600;line-height:1.15;letter-spacing:-.025em;border:0;white-space:normal;overflow-wrap:anywhere}
   .nav-trigger .chevron{font-size:22px;flex:0 0 auto}
   .mega-menu{position:static;max-height:none;min-width:0;margin:2px 0 18px;padding:8px 0 8px 20px;border:0;border-left:2px solid var(--red);border-radius:0;box-shadow:none;overflow:visible;background:transparent}
-  .mega-menu a{width:100%;font-size:24px;line-height:1.25;padding:10px 0}
+  .mega-menu a{width:100%;font-size:20px;min-height:44px;display:flex;align-items:center;line-height:1.25;padding:10px 0}
 }
 @media(max-width:360px){.site-header .brand-name{font-size:14px}.nav-mobile-row{gap:4px}.header-row{gap:4px}.nav-trigger,.nav-contact{font-size:28px}}
