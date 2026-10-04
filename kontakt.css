@@ -151,3 +151,19 @@ body.contact-page #main-menu .lang-toggle i { color: #fff; }
     html { scroll-behavior: auto; }
     *, *::before, *::after { transition-duration: .01ms !important; }
 }
+
+/* Match ALO's shared dark-red visual system */
+:root{--contact-orange:#dc2626;--contact-orange-light:#ff6262;--contact-ink:#101719;--contact-panel:#1c292b;--contact-panel-light:#202d30;--contact-white:#f6f7f4;--contact-muted:#b7c2bd;--contact-line:rgba(255,255,255,.12);--contact-radius:16px;--site-menu-blue:#dc2626}
+body.contact-page{color:#f6f7f4;background:#101719}
+body.contact-page #main-menu{background:rgba(16,23,25,.96);border-color:rgba(220,38,38,.48);box-shadow:0 12px 32px rgba(0,0,0,.32)}
+body.contact-page #main-menu .menu-item,body.contact-page #main-menu .menu-item i{color:#f6f7f4}
+body.contact-page #main-menu .menu-item:hover,body.contact-page #main-menu .menu-item:focus-visible,body.contact-page #main-menu .menu-item.is-active{color:#fff;background:#b91c1c;box-shadow:inset 0 0 0 1px rgba(248,113,113,.55)}
+body.contact-page #main-menu .lang-toggle,body.contact-page #main-menu .lang-toggle:hover,body.contact-page #main-menu .lang-toggle:focus-visible{color:#fff;background:#b91c1c}
+.contact-hero,.locations-section,.service-links{color:#f6f7f4;background:#101719!important}
+.contact-hero::after{opacity:.5}
+.primary-contact-card,.location-card,.hero-trust>span,.hours-row,.details-grid a,.service-link-grid>a{color:#f6f7f4!important;background:#1c292b!important;border-color:var(--contact-line)!important}
+.hero-lead,.section-heading>p:last-child,.primary-contact-card>p,.address,.hours-row,.hours-row dd,.details-grid small,.service-link-grid small{color:#b7c2bd!important}
+.primary-contact-card h2,.location-card h3,.section-heading h2,.contact-details h2,.service-links h2,.details-grid strong,.service-link-grid strong{color:#ff6262!important}
+.location-number{color:rgba(220,38,38,.16)}
+.site-footer,body.contact-page .mobile-contact-bar{color:#b7c2bd;background:#0b1112;border-color:var(--contact-line)}
+@media(max-width:767px){.section-shell{width:calc(100% - 28px)}.location-card{padding:27px 23px}}
