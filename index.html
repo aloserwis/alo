@@ -1,134 +1,89 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>ALO SERWIS - ALO</title>
-    <link rel="icon" type="image/webp" href="/assets/alo-logo.webp">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="preload" as="image" href="/assets/index/iphone.webp" type="image/webp" fetchpriority="high">
-    <link rel="stylesheet" href="style.css?v=6">
-    <link rel="stylesheet" href="menu.css?v=2">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101719">
+<meta name="description" content="ALO SERWIS — naprawa telefonów, tabletów i laptopów, monitoring CCTV, sieci oraz ekrany reklamowe AloSignage w Warszawie i Wólce Kosowskiej.">
+<title>ALO SERWIS — naprawa, monitoring i AloSignage</title>
+<link rel="icon" type="image/webp" href="/assets/alo-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#101719;--bg2:#151e20;--panel:#1c292b;--panel2:#202d30;--red:#dc2626;--red2:#b91c1c;--white:#f6f7f4;--muted:#b7c2bd;--line:rgba(255,255,255,.12);--max:1160px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:92px}body{margin:0;background:var(--bg);color:var(--white);font-family:Montserrat,system-ui,sans-serif;line-height:1.6}a{color:inherit;text-decoration:none}button,select{font:inherit}.wrap{width:min(var(--max),calc(100% - 48px));margin-inline:auto}
+.header{position:sticky;top:0;z-index:20;background:rgba(16,23,25,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.nav{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:.04em;white-space:nowrap}.brand-mark{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:var(--red);color:#fff;font-size:17px}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:.15em;text-transform:uppercase;margin-top:-3px}.links{display:flex;align-items:center;gap:23px;color:#dce3de;font-size:13px}.links a:hover,.links a:focus-visible{color:#ff6262}.actions{display:flex;align-items:center;gap:12px}.login{font-size:13px;font-weight:700;white-space:nowrap}.btn{min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:11px 17px;border:1px solid transparent;border-radius:9px;background:var(--red);color:white;font-weight:800;font-size:13px;transition:background .2s,transform .2s}.btn:hover{background:#ef4444;transform:translateY(-1px)}.btn-outline{background:transparent;border-color:var(--line)}.btn-outline:hover{background:var(--panel2)}.lang{color:var(--white);background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:8px 9px;min-height:40px}.menu-toggle{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:9px;color:var(--white);background:var(--panel);font-size:20px}
+.hero{position:relative;overflow:hidden;padding:82px 0 76px;background:radial-gradient(ellipse at 78% 30%,rgba(220,38,38,.16),transparent 38%),linear-gradient(180deg,#121a1c,var(--bg))}.hero-grid{display:grid;grid-template-columns:1.06fr .94fr;gap:54px;align-items:center}.eyebrow,.section-label{color:#ff5555;font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:900}.eyebrow:before{content:"";display:inline-block;width:23px;height:1px;background:currentColor;vertical-align:middle;margin-right:9px}.hero h1{max-width:680px;font-size:clamp(42px,5.2vw,68px);line-height:1.03;letter-spacing:-.055em;margin:20px 0}.hero h1 span{color:#ff4b4b}.lead{max-width:620px;color:#c5cfca;font-size:17px;line-height:1.75}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0 19px}.note{font-size:12px;color:var(--muted)}
+.visual{position:relative;min-height:380px;display:grid;place-items:center}.visual-glow{position:absolute;width:75%;height:74%;border-radius:50%;background:rgba(220,38,38,.18);filter:blur(65px)}.screen{position:relative;width:min(100%,470px);padding:12px;border:1px solid #53605d;border-radius:17px;background:#263235;box-shadow:0 34px 85px #05090988;transform:rotate(1deg)}.screen-inner{min-height:285px;position:relative;overflow:hidden;border-radius:10px;padding:22px;background:linear-gradient(145deg,#eeeade,#faf8ef);color:#18201c}.screen-top{display:flex;justify-content:space-between;color:#56605a;font-size:10px;font-weight:900;letter-spacing:.12em}.screen-kicker{margin-top:28px;color:var(--red2);font-weight:900;font-size:11px;letter-spacing:.15em}.screen-title{max-width:260px;font-size:34px;line-height:1.02;font-weight:900;letter-spacing:-.04em;margin:8px 0}.screen-copy{max-width:260px;color:#56605a;font-size:12px}.screen-price{position:absolute;right:20px;bottom:28px;color:var(--red);font-size:50px;font-weight:900;letter-spacing:-.06em}.screen-foot{display:flex;justify-content:space-between;color:#adb8b2;font-size:11px;padding:10px 2px 0}.tag{position:absolute;right:0;bottom:4px;border:1px solid var(--line);border-radius:10px;background:#182326;padding:13px 15px;box-shadow:0 10px 26px #0004;font-size:11px}.tag b{display:block;color:#ff6262;font-size:13px}
+.section{padding:78px 0}.section.alt{background:var(--bg2)}.section-head{max-width:720px;margin-bottom:34px}.section h2{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-.04em;margin:10px 0}.section-intro{max-width:700px;color:var(--muted)}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.card{display:flex;flex-direction:column;min-height:230px;padding:24px;border:1px solid var(--line);border-radius:13px;background:linear-gradient(145deg,var(--panel2),var(--panel));transition:transform .2s,border-color .2s}.card:hover{transform:translateY(-3px);border-color:rgba(220,38,38,.6)}.card-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:11px;color:#ff6565;background:rgba(220,38,38,.14);font-size:20px}.card h3{font-size:18px;margin:17px 0 7px}.card p{color:var(--muted);font-size:13px;margin:0 0 17px}.card a{margin-top:auto;color:#ff6464;font-size:13px;font-weight:800}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.step{border-top:1px solid var(--line);padding:20px 16px 12px 0}.step-num{color:#ff5d5d;font-size:11px;font-weight:900;letter-spacing:.13em}.step h3{font-size:16px;margin:10px 0 5px}.step p{color:var(--muted);font-size:13px;margin:0}
+.locations{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.location{border:1px solid var(--line);border-radius:13px;background:linear-gradient(145deg,#202d30,#192326);padding:24px}.location h3{margin:0 0 7px;font-size:20px}.location p{margin:0 0 16px;color:#c1cbc6;font-size:13px}.location-links{display:flex;gap:10px;flex-wrap:wrap}.location-links a{color:#ff6464;font-weight:800;font-size:13px}
+.cta{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:30px;border:1px solid rgba(220,38,38,.35);border-radius:15px;background:linear-gradient(115deg,#2b171b,#1b2426)}.cta h2{margin:4px 0;font-size:clamp(25px,3vw,34px)}.cta p{margin:5px 0 0;color:var(--muted);font-size:13px}.footer{border-top:1px solid var(--line);padding:23px 0;color:#9eaaa4;font-size:11px}.footer-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.footer strong{color:var(--white)}
+@media(max-width:1000px){.nav{gap:14px}.links{gap:14px;font-size:12px}.actions{gap:9px}.actions .btn{padding:10px 12px}.hero-grid{gap:28px}.screen-title{font-size:30px}}
+@media(max-width:760px){html{scroll-padding-top:74px}.wrap{width:min(var(--max),calc(100% - 32px))}.nav{min-height:66px;flex-wrap:wrap;gap:8px;padding:9px 0}.menu-toggle{display:block;order:3}.actions{margin-left:auto}.actions .contact-cta{display:none}.links{display:none;order:4;width:100%;padding:8px 0 12px;flex-direction:column;align-items:stretch;gap:0}.links.open{display:flex}.links a{padding:12px 8px;border-top:1px solid var(--line)}.hero{padding:55px 0}.hero-grid{grid-template-columns:1fr;gap:12px}.visual{min-height:320px}.screen{width:min(100%,500px)}.screen-inner{min-height:250px}.tag{right:2px;bottom:-1px}.section{padding:60px 0}.cards{grid-template-columns:1fr}.card{min-height:0}.steps{grid-template-columns:1fr 1fr;gap:8px 14px}.step{min-height:130px}.cta{align-items:flex-start;flex-direction:column}.cta .btn{width:100%}}
+@media(max-width:460px){.wrap{width:calc(100% - 28px)}.brand{font-size:13px;gap:8px}.brand-mark{width:34px;height:34px}.brand small{font-size:8px}.actions{gap:8px}.login{font-size:11px}.lang{font-size:11px;min-height:38px;padding:6px}.hero{padding:44px 0}.hero h1{font-size:43px}.lead{font-size:15px}.hero-actions{display:grid}.hero-actions .btn{width:100%}.visual{min-height:280px}.screen{padding:8px}.screen-inner{min-height:218px;padding:16px}.screen-title{font-size:28px;max-width:205px}.screen-copy{font-size:11px;max-width:200px}.screen-price{right:14px;bottom:24px;font-size:40px}.screen-kicker{margin-top:18px}.tag{position:relative;right:auto;bottom:auto;margin-top:12px}.visual{display:flex;flex-direction:column}.steps{grid-template-columns:1fr}.step{min-height:0;padding:15px 0}.locations{grid-template-columns:1fr}.location{padding:20px}.footer-row{align-items:flex-start;flex-direction:column}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+</style>
 </head>
-<body class="home-page">
-    <div id="ptr-indicator"><i class="fa-solid fa-sync-alt fa-2x"></i></div>
-    <canvas id="snow-canvas"></canvas>
-
-    <nav id="main-menu" aria-label="Główna nawigacja">
-        <a href="/" class="menu-item is-active" aria-current="page">
-            <i class="fa-solid fa-house" aria-hidden="true"></i>
-            <span id="menu-alo">ALO</span>
-        </a>
-        <a href="/oferta" class="menu-item">
-            <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
-            <span id="menu-oferta">OFERTA</span>
-        </a>
-        <a href="/uslugi" class="menu-item">
-            <i class="fa-solid fa-images" aria-hidden="true"></i>
-            <span id="menu-uslugi">USŁUGI</span>
-        </a>
-        <a href="/kontakt" class="menu-item">
-            <i class="fa-solid fa-phone" aria-hidden="true"></i>
-            <span id="menu-kontakt">KONTAKT</span>
-        </a>
-<a href="/alosignage.html" class="menu-item" aria-label="AloSignage">
-    <i class="fa-solid fa-display" aria-hidden="true"></i><span id="menu-signage">ALOsig</span>
-</a>
-        <button type="button" class="lang-toggle" id="lang-toggle" aria-label="Zmień język">
-            <i class="fa-solid fa-globe" aria-hidden="true"></i>
-            <span id="menu-lang">PL</span>
-        </button>
-    </nav>
-
-    <main id="home-stage">
-        <div id="app-container">
-            <div class="banner-container" id="rescaleWrapper">
-                <div class="inner-content">
-                <div id="banner-v" class="layout-v">
-                    <div class="header-v">ALO SERWIS</div>
-                    <div class="title-v" id="title-text-v">NAPRAWA TELEFONÓW</div>
-                    <div class="line-v"></div>
-                    <div class="shimmer-v shimmer-text" id="shimmer-text-v">WYMIANA EKRANU</div>
-                    <div class="row-v" id="row-wrapper-v">
-                        <div class="shimmer-v shimmer-text" id="model-text-v">IPHONE</div>
-                        <span class="lay-ngay-badge lay-ngay-v" id="badge-text-v">SZYBKI ODBIÓR!</span>
-                    </div>
-                    <div class="visual-v">
-                        <div class="glow-spinner"></div>
-                        <div class="img-wrapper">
-                            <img id="img-v" src="/assets/index/iphone.webp" class="phone-v phone-img" alt="Naprawa telefonu" width="600" height="600" decoding="async" fetchpriority="high">
-                        </div>
-                    </div>
-                    <div class="promo-v">
-                        <span class="gift-icon">🎁</span>
-                        <span id="promo-text-v">SZKŁO OCHORONNE GRATIS</span>
-                    </div>
-                    <div class="commit-v">
-                        <div class="sub-v" id="c1-v">★ WYMIANA 1 NA 1 ★</div>
-                        <div class="sub-v" id="c2-v">★ NAJLEPSZA JAKOŚĆ ★</div>
-                        <div class="sub-v" id="c3-v">★ SZYBKI CZAS OCZEKIWANI ★</div>
-                    </div>
-                    <div class="nav-v nav-left">
-                        <a href="tel:733676869" class="nav-item dt-link c-orange"><i class="fa-solid fa-phone"></i><span class="nav-label">BAKALARSKA: 733 67 68 69</span></a>
-                        <a href="https://m.me/dienthoaibalan" target="_blank" class="nav-item dt-link c-orange"><i class="fa-brands fa-facebook-messenger"></i><span class="nav-label">MESSENGER: ALO SERWIS</span></a>
-                        <a href="https://www.google.com/maps/dir/?api=1&destination=Bakalarska%202%2FB214%2C%2002-212%20Warszawa&travelmode=driving" class="nav-item dt-link c-orange-map"><i class="fa-solid fa-location-dot"></i><span class="nav-label">BAKALARSKA 2/B214</span></a>
-                    </div>
-                    <div class="nav-v nav-right">
-                        <a href="tel:787456999" class="nav-item dt-link c-blue"><i class="fa-solid fa-phone"></i><span class="nav-label">WÓLKA: 787 456 999</span></a>
-                        <a href="viber://chat?number=48787456999" class="nav-item dt-link c-purple"><i class="fa-brands fa-viber"></i><span class="nav-label">VIBER: 787 456 999</span></a>
-                        <a href="https://www.google.com/maps/dir/?api=1&destination=Nadrzeczna%207C%2FA3%2C%2005-552%20W%C3%B3lka%20Kosowska&travelmode=driving" class="nav-item dt-link c-blue"><i class="fa-solid fa-location-dot"></i><span class="nav-label">WÓLKA: ASG - A3</span></a>
-                    </div>
-                </div>
-
-                <div id="banner-h" class="layout-h">
-                    <div class="header-h">ALO SERWIS</div>
-                    <div class="title-h" id="title-text-h">NAPRAWA TELEFONÓW</div>
-                    <div class="line-h-top"></div>
-                    <div class="shimmer-h shimmer-text" id="shimmer-text-h">WYMIANA EKRANU</div>
-                    <div class="row-h" id="row-wrapper-h">
-                        <div class="shimmer-h shimmer-text" id="model-text-h">IPHONE</div>
-                        <span class="lay-ngay-badge lay-ngay-h" id="badge-text-h">SZYBKI ODBIÓR!</span>
-                    </div>
-                    <div class="promo-h">
-                        <span class="gift-icon">🎁</span>
-                        <span id="promo-text-h">SZKŁO OCHORONNE GRATIS</span>
-                    </div>
-                    <div class="commitments-h">
-                        <p class="sub-h" id="c1-h">★ WYMIANA 1 NA 1 </p>
-                        <p class="sub-h" id="c2-h">★ NAJLEPSZA JAKOŚĆ </p>
-                        <p class="sub-h" id="c3-h">★ SZYBKI CZAS OCZEKIWANI </p>
-                    </div>
-                    <div class="visual-h">
-                        <div class="glow-spinner"></div>
-                        <div class="img-wrapper">
-                            <img id="img-h" src="/assets/index/iphone.webp" class="phone-h phone-img" alt="Naprawa telefonu" width="600" height="600" decoding="async" fetchpriority="high">
-                        </div>
-                    </div>
-                    <div class="line-h-bottom"></div>
-                    <div class="footer-h">
-                        <div class="logo-col">
-                            <div class="logo-glow-ring"></div>
-                            <img src="/assets/alo-logo.webp" class="footer-logo" alt="ALO Serwis" width="256" height="256" loading="lazy" decoding="async">
-                        </div>
-                        <div class="info-col">
-                            <div class="vertical-hl" id="object-1-label">OBIEKT 1</div>
-                            <div class="col-text">Bakalarska 2 / B214<br>02-212 Warszawa<br><span class="hl-orange" id="hotline-1-label">Hotline:</span> 733 67 68 69</div>
-                        </div>
-                        <div class="info-col">
-                            <div class="vertical-hl" id="object-2-label">OBIEKT 2</div>
-                            <div class="col-text">Nadrzeczna 7C / A3 (ASG)<br>05-552 Wólka Kosowska<br><span class="hl-orange" id="hotline-2-label">Hotline:</span> 787 456 999</div>
-                        </div>
-                        <div class="info-col">
-                            <div class="col-text"><span class="hl-orange" id="website-label">Website:</span> aloserwis.com<br><span class="hl-orange">Facebook:</span> fb.com/aloserwis<br><span class="hl-orange">Email:</span> alo@aloserwis.com</div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script src="script.js?v=6"></script>
+<body>
+<header class="header">
+ <div class="wrap nav">
+  <a class="brand" href="/" aria-label="ALO SERWIS — strona główna"><span class="brand-mark">A</span><span>ALO SERWIS<small>NAPRAWA · INSTALACJE · DIGITAL SIGNAGE</small></span></a>
+  <nav class="links" id="site-links" aria-label="Menu główne">
+   <a href="/uslugi" data-pl="USŁUGI" data-vi="DỊCH VỤ" data-en="SERVICES">USŁUGI</a>
+   <a href="/oferta" data-pl="OFERTA" data-vi="BÁO GIÁ" data-en="OFFER">OFERTA</a>
+   <a href="/alosignage.html" data-pl="ALOsig" data-vi="ALOsig" data-en="ALOsig">ALOsig</a>
+   <a href="/kontakt" data-pl="KONTAKT" data-vi="LIÊN HỆ" data-en="CONTACT">KONTAKT</a>
+  </nav>
+  <div class="actions"><a class="login" href="https://sig.aloserwis.com/app#/login" data-pl="Logowanie" data-vi="Đăng nhập" data-en="Sign in">Logowanie</a><a class="btn contact-cta" href="/kontakt" data-pl="Skontaktuj się" data-vi="Liên hệ" data-en="Contact us">Skontaktuj się</a><select class="lang" id="lang" aria-label="Język"><option value="pl">🇵🇱 PL</option><option value="vi">🇻🇳 VN</option><option value="en">🇬🇧 EN</option></select><button class="menu-toggle" type="button" aria-controls="site-links" aria-expanded="false" aria-label="Otwórz menu">☰</button></div>
+ </div>
+</header>
+<main>
+<section class="hero">
+ <div class="wrap hero-grid">
+  <div>
+   <div class="eyebrow" data-pl="ALO SERWIS · WARSZAWA I WÓLKA KOSOWSKA" data-vi="ALO SERWIS · WARSZAWA VÀ WÓLKA KOSOWSKA" data-en="ALO SERWIS · WARSAW AND WÓLKA KOSOWSKA">ALO SERWIS · WARSZAWA I WÓLKA KOSOWSKA</div>
+   <h1 data-pl="Serwis i rozwiązania, które <span>działają.</span>" data-vi="Dịch vụ và giải pháp <span>hiệu quả.</span>" data-en="Service and solutions that <span>work.</span>">Serwis i rozwiązania, które <span>działają.</span></h1>
+   <p class="lead" data-pl="Naprawiamy telefony, tablety i laptopy. Montujemy monitoring, sieci i alarmy. Pomagamy firmom uruchomić nowoczesne ekrany reklamowe." data-vi="Sửa điện thoại, máy tính bảng và laptop. Lắp camera, mạng và báo động. Hỗ trợ doanh nghiệp triển khai màn hình quảng cáo hiện đại." data-en="We repair phones, tablets and laptops. We install CCTV, networks and alarms. We help businesses launch modern advertising screens.">Naprawiamy telefony, tablety i laptopy. Montujemy monitoring, sieci i alarmy. Pomagamy firmom uruchomić nowoczesne ekrany reklamowe.</p>
+   <div class="hero-actions"><a class="btn" href="/kontakt" data-pl="Zapytaj o usługę" data-vi="Hỏi về dịch vụ" data-en="Ask about a service">Zapytaj o usługę</a><a class="btn btn-outline" href="#uslugi" data-pl="Poznaj nasze usługi" data-vi="Xem dịch vụ" data-en="Explore services">Poznaj nasze usługi</a></div>
+   <div class="note" data-pl="Dwa punkty obsługi · Warszawa i Wólka Kosowska" data-vi="Hai điểm phục vụ · Warszawa và Wólka Kosowska" data-en="Two service locations · Warsaw and Wólka Kosowska">Dwa punkty obsługi · Warszawa i Wólka Kosowska</div>
+  </div>
+  <div class="visual" aria-label="Przykładowa oferta ALO">
+   <div class="visual-glow"></div>
+   <div class="screen"><div class="screen-inner"><div class="screen-top"><span>ALO SERWIS</span><span>● ONLINE</span></div><div class="screen-kicker" data-pl="NAPRAWA · MONITORING · EKRANY" data-vi="SỬA CHỮA · CAMERA · MÀN HÌNH" data-en="REPAIR · CCTV · SCREENS">NAPRAWA · MONITORING · EKRANY</div><div class="screen-title" data-pl="Technologia dla Twojej firmy." data-vi="Công nghệ cho doanh nghiệp của bạn." data-en="Technology for your business.">Technologia dla Twojej firmy.</div><div class="screen-copy" data-pl="Dobieramy rozwiązanie, montujemy i pomagamy po uruchomieniu." data-vi="Tư vấn giải pháp, lắp đặt và hỗ trợ sau khi bàn giao." data-en="We recommend, install and support your solution.">Dobieramy rozwiązanie, montujemy i pomagamy po uruchomieniu.</div><div class="screen-price">ALO<small data-pl="SERWIS I INSTALACJE" data-vi="SỬA CHỮA VÀ LẮP ĐẶT" data-en="SERVICE AND INSTALLATION">SERWIS I INSTALACJE</small></div></div><div class="screen-foot"><span>Warszawa · Wólka Kosowska</span><span>ALO</span></div></div>
+   <div class="tag"><b data-pl="Bezpłatna konsultacja" data-vi="Tư vấn miễn phí" data-en="Free consultation">Bezpłatna konsultacja</b><span data-pl="Dobierzemy rozwiązanie do Twoich potrzeb" data-vi="Tư vấn giải pháp phù hợp" data-en="A solution tailored to your needs">Dobierzemy rozwiązanie do Twoich potrzeb</span></div>
+  </div>
+ </div>
+</section>
+<section class="section" id="uslugi"><div class="wrap"><div class="section-head"><div class="section-label" data-pl="Nasze usługi" data-vi="Dịch vụ của chúng tôi" data-en="Our services">Nasze usługi</div><h2 data-pl="Wybierz, czego potrzebujesz." data-vi="Chọn dịch vụ bạn cần." data-en="Choose what you need.">Wybierz, czego potrzebujesz.</h2><p class="section-intro" data-pl="Od naprawy urządzenia po kompletną instalację w firmie — zaczynamy od rozmowy i jasnej wyceny." data-vi="Từ sửa thiết bị đến lắp đặt trọn gói cho doanh nghiệp — bắt đầu bằng tư vấn và báo giá rõ ràng." data-en="From device repair to a complete business installation — start with a conversation and a clear quote.">Od naprawy urządzenia po kompletną instalację w firmie — zaczynamy od rozmowy i jasnej wyceny.</p></div>
+ <div class="cards">
+  <article class="card"><div class="card-icon">▣</div><h3 data-pl="Serwis telefonów i komputerów" data-vi="Sửa điện thoại và máy tính" data-en="Phone and computer repair">Serwis telefonów i komputerów</h3><p data-pl="Naprawa smartfonów, tabletów i laptopów. Bezpłatna wycena i kontakt z serwisem." data-vi="Sửa smartphone, tablet và laptop. Báo giá miễn phí, liên hệ trực tiếp." data-en="Repair for phones, tablets and laptops. Free quote and direct service contact.">Naprawa smartfonów, tabletów i laptopów. Bezpłatna wycena i kontakt z serwisem.</p><a href="/uslugi" data-pl="Zobacz serwis →" data-vi="Xem dịch vụ sửa chữa →" data-en="Explore repairs →">Zobacz serwis →</a></article>
+  <article class="card"><div class="card-icon">◉</div><h3 data-pl="Monitoring, sieci i alarmy" data-vi="Camera, mạng và báo động" data-en="CCTV, networks and alarms">Monitoring, sieci i alarmy</h3><p data-pl="Dobór, sprzedaż i montaż systemów CCTV, sieci internetowych i alarmów." data-vi="Tư vấn, cung cấp và lắp đặt camera, mạng internet và báo động." data-en="Planning, supply and installation of CCTV, internet networks and alarm systems.">Dobór, sprzedaż i montaż systemów CCTV, sieci internetowych i alarmów.</p><a href="/oferta" data-pl="Zapytaj o instalację →" data-vi="Hỏi về lắp đặt →" data-en="Ask about installation →">Zapytaj o instalację →</a></article>
+  <article class="card"><div class="card-icon">▤</div><h3>AloSignage</h3><p data-pl="Ekrany reklamowe i zdalne zarządzanie menu, promocjami oraz informacjami." data-vi="Màn hình quảng cáo và quản lý menu, khuyến mãi từ xa." data-en="Advertising screens and remote management for menus, promotions and information.">Ekrany reklamowe i zdalne zarządzanie menu, promocjami oraz informacjami.</p><a href="/alosignage.html" data-pl="Poznaj AloSignage →" data-vi="Khám phá AloSignage →" data-en="Discover AloSignage →">Poznaj AloSignage →</a></article>
+ </div>
+</div></section>
+<section class="section alt"><div class="wrap"><div class="section-head"><div class="section-label" data-pl="Jak pracujemy" data-vi="Quy trình" data-en="How we work">Jak pracujemy</div><h2 data-pl="Prosto: kontakt, plan, realizacja." data-vi="Đơn giản: tư vấn, kế hoạch, thực hiện." data-en="Simple: contact, plan, delivery.">Prosto: kontakt, plan, realizacja.</h2></div><div class="steps">
+ <article class="step"><span class="step-num">01 / KONTAKT</span><h3 data-pl="Opowiedz o potrzebie" data-vi="Cho chúng tôi biết nhu cầu" data-en="Tell us what you need">Opowiedz o potrzebie</h3><p data-pl="Napisz lub zadzwoń — zapytamy o szczegóły." data-vi="Nhắn tin hoặc gọi điện để trao đổi chi tiết." data-en="Message or call us to discuss the details.">Napisz lub zadzwoń — zapytamy o szczegóły.</p></article>
+ <article class="step"><span class="step-num">02 / WYCENA</span><h3 data-pl="Dobieramy rozwiązanie" data-vi="Tư vấn giải pháp" data-en="We recommend a solution">Dobieramy rozwiązanie</h3><p data-pl="Przedstawimy zakres, cenę i możliwy termin." data-vi="Gửi phạm vi công việc, chi phí và thời gian dự kiến." data-en="We explain the scope, price and expected timing.">Przedstawimy zakres, cenę i możliwy termin.</p></article>
+ <article class="step"><span class="step-num">03 / REALIZACJA</span><h3 data-pl="Wykonujemy usługę" data-vi="Thực hiện dịch vụ" data-en="We deliver the service">Wykonujemy usługę</h3><p data-pl="Działamy po Twojej akceptacji wyceny." data-vi="Chỉ thực hiện sau khi bạn xác nhận báo giá." data-en="We start after you approve the quote.">Działamy po Twojej akceptacji wyceny.</p></article>
+ <article class="step"><span class="step-num">04 / WSPARCIE</span><h3 data-pl="Pomagamy po realizacji" data-vi="Hỗ trợ sau khi hoàn thành" data-en="We support after delivery">Pomagamy po realizacji</h3><p data-pl="Możesz wrócić do nas po pomoc i dalszą obsługę." data-vi="Bạn có thể liên hệ để được hỗ trợ tiếp." data-en="Come back to us for further help and support.">Możesz wrócić do nas po pomoc i dalszą obsługę.</p></article>
+</div></div></section>
+<section class="section" id="lokacje"><div class="wrap"><div class="section-head"><div class="section-label" data-pl="Znajdź nas" data-vi="Địa điểm" data-en="Find us">Znajdź nas</div><h2 data-pl="Dwa punkty, jeden kontakt." data-vi="Hai địa điểm, một liên hệ." data-en="Two locations, one team.">Dwa punkty, jeden kontakt.</h2><p class="section-intro" data-pl="Wybierz punkt, który jest dla Ciebie wygodniejszy." data-vi="Chọn địa điểm thuận tiện với bạn." data-en="Choose the location that works best for you.">Wybierz punkt, który jest dla Ciebie wygodniejszy.</p></div><div class="locations">
+ <article class="location"><h3>Bakalarska</h3><p>Bakalarska 2 / B214<br>02-212 Warszawa</p><div class="location-links"><a href="tel:+48733676869">733 67 68 69</a><a href="https://www.google.com/maps/dir/?api=1&destination=Bakalarska%202%2FB214%2C%2002-212%20Warszawa">Mapa →</a></div></article>
+ <article class="location"><h3>Wólka Kosowska</h3><p>Nadrzeczna 7C / A3 (ASG)<br>05-552 Wólka Kosowska</p><div class="location-links"><a href="tel:+48787456999">787 456 999</a><a href="https://www.google.com/maps/dir/?api=1&destination=Nadrzeczna%207C%2FA3%2C%2005-552%20W%C3%B3lka%20Kosowska">Mapa →</a></div></article>
+</div></div></section>
+<section class="section alt"><div class="wrap"><div class="cta"><div><div class="section-label" data-pl="Porozmawiajmy" data-vi="Liên hệ" data-en="Let's talk">Porozmawiajmy</div><h2 data-pl="Opowiedz nam, czego potrzebujesz." data-vi="Hãy cho chúng tôi biết nhu cầu của bạn." data-en="Tell us what you need.">Opowiedz nam, czego potrzebujesz.</h2><p data-pl="Szybko skierujemy Cię do odpowiedniego serwisu lub specjalisty." data-vi="Chúng tôi sẽ kết nối bạn với đúng bộ phận." data-en="We will connect you with the right service or specialist.">Szybko skierujemy Cię do odpowiedniego serwisu lub specjalisty.</p></div><a class="btn" href="/kontakt" data-pl="Przejdź do kontaktu" data-vi="Mở trang liên hệ" data-en="Contact ALO">Przejdź do kontaktu</a></div></div></section>
+</main>
+<footer class="footer"><div class="wrap footer-row"><strong>ALO SERWIS</strong><span data-pl="Naprawa · Instalacje · Digital Signage" data-vi="Sửa chữa · Lắp đặt · Digital Signage" data-en="Repair · Installation · Digital Signage">Naprawa · Instalacje · Digital Signage</span><span>© <span id="year"></span> ALO SERWIS</span><a href="/regulamin">Regulamin</a></div></footer>
+<script>
+const lang=document.getElementById('lang'),menu=document.querySelector('.menu-toggle'),links=document.getElementById('site-links');
+function setLanguage(value){if(!['pl','vi','en'].includes(value))value='pl';document.documentElement.lang=value;document.querySelectorAll('[data-pl]').forEach(el=>{const text=el.getAttribute('data-'+value);if(text!==null)el.innerHTML=text});lang.value=value;try{localStorage.setItem('alo-home-language',value)}catch{}}
+let saved='pl';try{saved=localStorage.getItem('alo-home-language')||'pl'}catch{}setLanguage(saved);
+lang.addEventListener('change',()=>setLanguage(lang.value));
+menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')==='true';menu.setAttribute('aria-expanded',String(!open));menu.setAttribute('aria-label',open?'Otwórz menu':'Zamknij menu');links.classList.toggle('open',!open)});
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Otwórz menu');links.classList.remove('open')}));
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
 </body>
 </html>
