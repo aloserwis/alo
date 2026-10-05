@@ -66,3 +66,9 @@
 .service-card-body h3{margin-top:0}
 .service-card-body .text-link{display:inline-block;margin-top:8px}
 @media(max-width:520px){.gsm-photo-cards,.gsm-extra-cards{grid-template-columns:1fr}.service-card-body{padding:20px}}
+
+/* Wide supplied photos keep before/after labels and the full composition. */
+.service-card-photo.service-card-photo--wide{aspect-ratio:auto;object-fit:contain}
+.repair-photo-cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+.page-hero img.repair-hero-image{height:auto;max-height:none;aspect-ratio:auto;object-fit:contain}
+@media(max-width:780px){.repair-photo-cards{grid-template-columns:1fr}}
