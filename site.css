@@ -72,3 +72,13 @@
 .repair-photo-cards{grid-template-columns:repeat(3,minmax(0,1fr))}
 .page-hero img.repair-hero-image{height:auto;max-height:none;aspect-ratio:auto;object-fit:contain}
 @media(max-width:780px){.repair-photo-cards{grid-template-columns:1fr}}
+
+/* Installation photos retain the complete original frame on every screen. */
+.page-hero img.cctv-hero-photo{display:block;width:100%;height:auto;max-height:none;object-fit:contain}
+.page-hero img.cctv-hero-photo--portrait{width:auto;max-width:100%;max-height:520px;margin-inline:auto}
+.section-media-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
+.section-media-grid img{display:block;width:100%;height:auto;border-radius:20px}
+.cctv-photo-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:start}
+.cctv-photo-gallery figure{margin:0;overflow:hidden;border-radius:18px;background:#f5f5f7}
+.cctv-photo-gallery img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:contain}
+@media(max-width:780px){.section-media-grid,.cctv-photo-gallery{grid-template-columns:1fr}.section-media-grid{gap:24px}.cctv-photo-gallery{max-width:520px;margin-inline:auto}.page-hero img.cctv-hero-photo--portrait{max-height:420px}}

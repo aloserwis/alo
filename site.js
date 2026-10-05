@@ -35,6 +35,14 @@
     body:pageData.services.sections[0].body,
     cards:pageData.services.sections[0].cards.filter(c=>repairPhotoPaths[c[0]]).map(c=>[...c,repairPhotoPaths[c[0]]])
   });
+  pageData.cameras.image='/assets/photos/cctv-warehouse-installation.webp';
+  pageData.internet.image='/assets/photos/cctv-network-rack.webp';
+  pageData.cameras.sections[0].media='/assets/photos/cctv-technician.webp';
+  pageData.cameras.sections[1].gallery=[
+    ['/assets/photos/cctv-warehouse-camera.webp','Monitoring CCTV i kamery'],
+    ['/assets/photos/cctv-camera-mounting.webp','Od oględzin do uruchomienia'],
+    ['/assets/photos/cctv-network-rack.webp','Rejestrator NVR/DVR i pamięć dopasowane do potrzeb']
+  ];
   const dictionary={
     pl:{gsm:'Serwis GSM',cctv:'Systemy CCTV',contact:'Kontakt',signage:'AloSignage',contactBtn:'Kontakt',home:'Strona główna',language:'Język',services:'Usługi',footer:'Naprawa · Instalacje · Digital Signage',messenger:'Messenger',call:'Zadzwoń'},
     vi:{gsm:'Serwis GSM',cctv:'Systemy CCTV',contact:'Liên hệ',signage:'AloSignage',contactBtn:'Liên hệ',home:'Trang chủ',language:'Ngôn ngữ',services:'Usługi',footer:'Naprawa · Lắp đặt · Digital Signage',messenger:'Messenger',call:'Gọi điện'},
@@ -85,7 +93,11 @@
       return `<div class="cards ${gridClass}">${s.cards.map(cardHtml).join('')}</div>`;
     }
     if(s.steps)return `<div class="steps">${s.steps.map(x=>`<article class="step"><span class="step-num">${esc(x[0])}</span><h3>${esc(x[1])}</h3><p>${esc(x[2])}</p></article>`).join('')}</div>`;
-    if(s.bullets)return `<ul class="list-check">${s.bullets.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`;
+    if(s.bullets){
+      const list=`<ul class="list-check">${s.bullets.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`;
+      return s.media?`<div class="section-media-grid">${list}<img src="${s.media}" alt="${esc(tr(s.title))}" loading="lazy" decoding="async"></div>`:list;
+    }
+    if(s.gallery)return `<div class="cctv-photo-gallery">${s.gallery.map(([src,alt])=>`<figure><img src="${src}" alt="${esc(tr(alt))}" loading="lazy" decoding="async"></figure>`).join('')}</div>`;
     if(s.contacts)return `<div class="contact-grid">${s.contacts.map(x=>`<article class="location-card"><span class="kicker">${esc(x[0])}</span><h3>${esc(x[1])}</h3><p>${x[2]}</p><a class="phone-number" href="tel:${x[3]}">${esc(x[4])}</a><div class="contact-actions"><a href="tel:${x[3]}">Zadzwoń</a><a href="${x[5]}" target="_blank" rel="noopener noreferrer">Mapa</a></div></article>`).join('')}</div>`;
     return '';
   };
@@ -96,7 +108,7 @@
     if(!data)return `<main id="main" class="page-wrap"><section class="section"><div class="wrap"><h1>Nie znaleziono strony</h1><a class="btn" href="/">Strona główna</a></div></section></main>`;
     if(currentPage==='shop')return `<main id="main" class="page-wrap"><section class="section"><div class="wrap"><h1>Sklep</h1><p class="lead">Aktualizacja w toku…</p></div></section></main>`;
     let sections=data.sections.map((s,i)=>pageSection({...s,soft:i%2===1,kicker:data.kicker})).join('');
-    const visual=currentPage==='services'?`<figure class="gsm-model-visual"><div class="gsm-model-stage"><img class="gsm-model-fallback" src="${data.image}" alt="${esc(data.title)} — ALO SERWIS"><model-viewer id="gsm-phone-model" src="/assets/models/iphone-17-pro.glb" alt="iPhone 17 Pro 3D" loading="eager" camera-controls touch-action="pan-y" disable-zoom auto-rotate rotation-per-second="12deg" interaction-prompt="none" camera-orbit="25deg 78deg auto" field-of-view="26deg" shadow-intensity="0.8" shadow-softness="1" environment-image="neutral" exposure="1"></model-viewer></div><figcaption>3D · <a href="https://sketchfab.com/Ranguel" target="_blank" rel="noopener noreferrer">Ranguel</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a></figcaption></figure>`:`<img ${currentPage==='repair'?'class="repair-hero-image"':''} src="${data.image}" alt="${esc(data.title)} — ALO SERWIS" loading="lazy">`;
+    const visual=currentPage==='services'?`<figure class="gsm-model-visual"><div class="gsm-model-stage"><img class="gsm-model-fallback" src="${data.image}" alt="${esc(data.title)} — ALO SERWIS"><model-viewer id="gsm-phone-model" src="/assets/models/iphone-17-pro.glb" alt="iPhone 17 Pro 3D" loading="eager" camera-controls touch-action="pan-y" disable-zoom auto-rotate rotation-per-second="12deg" interaction-prompt="none" camera-orbit="25deg 78deg auto" field-of-view="26deg" shadow-intensity="0.8" shadow-softness="1" environment-image="neutral" exposure="1"></model-viewer></div><figcaption>3D · <a href="https://sketchfab.com/Ranguel" target="_blank" rel="noopener noreferrer">Ranguel</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a></figcaption></figure>`:`<img ${currentPage==='repair'?'class="repair-hero-image"':currentPage==='cameras'?'class="cctv-hero-photo"':currentPage==='internet'?'class="cctv-hero-photo cctv-hero-photo--portrait"':''} src="${data.image}" alt="${esc(data.title)} — ALO SERWIS" loading="lazy">`;
     const hero=`<section class="page-hero"><div class="wrap page-hero-grid"><div><div class="breadcrumbs"><a href="/">Strona główna</a> / ${esc(data.group)} / ${esc(data.title)}</div><div class="eyebrow">${esc(data.kicker)}</div><h1>${esc(data.title)}</h1><p>${esc(data.lead)}</p><div class="button-row">${contactButton('Skontaktuj się')}</div></div>${visual}</div></section>`;
     return `<main id="main" class="page-wrap">${hero}${sections}<section class="section"><div class="wrap"><div class="cta-panel"><div><div class="kicker">ALO SERWIS · WARSZAWA · WÓLKA KOSOWSKA</div><h2>Zapytaj o rozwiązanie dla siebie.</h2><p>Wszystkie zapytania i kanały kontaktu znajdziesz na jednej stronie.</p></div>${contactButton('Otwórz stronę kontaktową')}</div></div></section></main>`;
   };
