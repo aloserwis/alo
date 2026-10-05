@@ -56,3 +56,13 @@
 .gsm-model-visual figcaption a:hover{color:var(--red);text-decoration:underline}
 @media(max-width:780px){.gsm-model-stage,.gsm-model-stage model-viewer{min-height:330px}.gsm-model-stage{max-width:520px;width:100%;margin-inline:auto}.gsm-model-visual figcaption{text-align:center}}
 @media(max-width:520px){.gsm-model-stage,.gsm-model-stage model-viewer{min-height:300px}}
+
+/* GSM service photographs retain their original 4:3 composition. */
+.gsm-photo-cards,.gsm-extra-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+.gsm-extra-cards{margin-top:24px}
+.service-card.service-card--photo{padding:0;overflow:hidden}
+.service-card-photo{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+.service-card-body{padding:26px}
+.service-card-body h3{margin-top:0}
+.service-card-body .text-link{display:inline-block;margin-top:8px}
+@media(max-width:520px){.gsm-photo-cards,.gsm-extra-cards{grid-template-columns:1fr}.service-card-body{padding:20px}}
