@@ -93,14 +93,20 @@
   });
   const phoneModel=document.getElementById('gsm-phone-model');
   if(phoneModel){
-    const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
-    const syncMotion=()=>phoneModel.toggleAttribute('auto-rotate',!reducedMotion.matches);
-    syncMotion();reducedMotion.addEventListener('change',syncMotion);
-    phoneModel.addEventListener('load',()=>phoneModel.parentElement.classList.add('model-ready'));
-    phoneModel.addEventListener('error',()=>{phoneModel.hidden=true});
-    const viewerScript=document.createElement('script');viewerScript.type='module';
-    viewerScript.src='https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js';
-    viewerScript.onerror=()=>{phoneModel.hidden=true};document.head.appendChild(viewerScript);
+    const canvas=document.createElement('canvas');
+    let supportsWebGL=false;
+    try{supportsWebGL=!!(window.WebGLRenderingContext&&(canvas.getContext('webgl2')||canvas.getContext('webgl')))}catch{}
+    if(!supportsWebGL)phoneModel.hidden=true;
+    else{
+      const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+      const syncMotion=()=>phoneModel.toggleAttribute('auto-rotate',!reducedMotion.matches);
+      syncMotion();reducedMotion.addEventListener('change',syncMotion);
+      phoneModel.addEventListener('load',()=>phoneModel.parentElement.classList.add('model-ready'));
+      phoneModel.addEventListener('error',()=>{phoneModel.hidden=true});
+      const viewerScript=document.createElement('script');viewerScript.type='module';
+      viewerScript.src='https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js';
+      viewerScript.onerror=()=>{phoneModel.hidden=true};document.head.appendChild(viewerScript);
+    }
   }
   if(activeGroup)headerFor(activeGroup);
   const nav=document.getElementById('primary-nav'),mobile=document.querySelector('.mobile-toggle');
