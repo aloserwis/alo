@@ -84,8 +84,8 @@
 @media(max-width:780px){.section-media-grid,.cctv-photo-gallery{grid-template-columns:1fr}.section-media-grid{gap:24px}.cctv-photo-gallery{max-width:520px;margin-inline:auto}.page-hero img.cctv-hero-photo--portrait{max-height:420px}}
 
 /* Photo entrance preserves visibility when JavaScript is unavailable. */
-@keyframes alo-photo-reveal{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
-.photo-reveal{animation:alo-photo-reveal 650ms cubic-bezier(.2,.65,.3,1) var(--photo-delay,0ms) backwards}
+@keyframes alo-photo-reveal{from{opacity:0;transform:translateY(10px) scale(.995)}to{opacity:1;transform:translateY(0) scale(1)}}
+.photo-reveal{animation:alo-photo-reveal 1100ms cubic-bezier(.22,.61,.36,1) var(--photo-delay,0ms) backwards}
 .photo-interactive{transition:transform 350ms ease}
 @media(hover:hover) and (pointer:fine){.photo-interactive:hover{transform:scale(1.025)}}
 @media(prefers-reduced-motion:reduce){.photo-reveal{animation:none}.photo-interactive{transition:none}.photo-interactive:hover{transform:none}}
