@@ -147,6 +147,35 @@
       viewerScript.onerror=()=>{phoneModel.hidden=true};document.head.appendChild(viewerScript);
     }
   }
+
+  // Reveal each photograph once when it enters the viewport.
+  const photoMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const photoTargets=[...app.querySelectorAll('main img:not(.gsm-model-fallback), main .gsm-model-visual')];
+  photoTargets.forEach(photo=>photo.classList.add('photo-interactive'));
+  if(!photoMotion.matches&&'IntersectionObserver' in window){
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(!entry.isIntersecting)return;
+        const photo=entry.target;
+        observer.unobserve(photo);
+        const reveal=()=>{
+          if(photoMotion.matches)return;
+          photo.style.setProperty('--photo-delay', ((photoTargets.indexOf(photo)%3)*80)+'ms');
+          photo.classList.add('photo-reveal');
+          photo.addEventListener('animationend',()=>photo.classList.remove('photo-reveal'),{once:true});
+        };
+        if(photo.tagName==='IMG'&&!photo.complete)photo.addEventListener('load',reveal,{once:true});
+        else reveal();
+      });
+    },{threshold:0.08});
+    photoTargets.forEach(photo=>observer.observe(photo));
+    photoMotion.addEventListener('change',()=>{
+      if(photoMotion.matches){
+        observer.disconnect();
+        photoTargets.forEach(photo=>photo.classList.remove('photo-reveal'));
+      }
+    });
+  }
   if(activeGroup)headerFor(activeGroup);
   const nav=document.getElementById('primary-nav'),mobile=document.querySelector('.mobile-toggle');
   document.querySelectorAll('.nav-trigger').forEach(btn=>btn.addEventListener('click',()=>{const isOpen=btn.getAttribute('aria-expanded')==='true';document.querySelectorAll('.nav-trigger').forEach(other=>{other.setAttribute('aria-expanded','false');document.getElementById(`menu-${other.dataset.group}`)?.classList.remove('open')});if(!isOpen){btn.setAttribute('aria-expanded','true');document.getElementById(`menu-${btn.dataset.group}`)?.classList.add('open')}}));
