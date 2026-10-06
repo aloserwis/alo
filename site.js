@@ -148,32 +148,45 @@
     }
   }
 
-  // Reveal each photograph once when it enters the viewport.
-  const photoMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
-  const photoTargets=[...app.querySelectorAll('main img:not(.gsm-model-fallback), main .gsm-model-visual')];
-  photoTargets.forEach(photo=>photo.classList.add('photo-interactive'));
-  if(!photoMotion.matches&&'IntersectionObserver' in window){
+  // Reveal text and media once, in small groups as they enter the viewport.
+  const revealMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+  app.querySelectorAll('main img:not(.gsm-model-fallback), main .gsm-model-visual').forEach(photo=>photo.classList.add('photo-interactive'));
+  const revealCandidates=[...app.querySelectorAll('main h1, main h2, main h3, main p, main .eyebrow, main .kicker, main .button-row, main .hero-note, main .visual-card, main article, main .list-check li, main img:not(.gsm-model-fallback), main .gsm-model-visual')];
+  const candidateSet=new Set(revealCandidates);
+  const revealTargets=revealCandidates.filter(element=>{
+    for(let parent=element.parentElement;parent&&parent.tagName!=='MAIN';parent=parent.parentElement){
+      if(candidateSet.has(parent))return false;
+    }
+    return true;
+  });
+  if(!revealMotion.matches&&'IntersectionObserver' in window){
+    const reveal=element=>element.classList.remove('reveal-pending');
     const observer=new IntersectionObserver(entries=>{
-      entries.forEach(entry=>{
-        if(!entry.isIntersecting)return;
-        const photo=entry.target;
-        observer.unobserve(photo);
-        const reveal=()=>{
-          if(photoMotion.matches)return;
-          photo.style.setProperty('--photo-delay', ((photoTargets.indexOf(photo)%3)*80)+'ms');
-          photo.classList.add('photo-reveal');
-          photo.addEventListener('animationend',()=>photo.classList.remove('photo-reveal'),{once:true});
-        };
-        if(photo.tagName==='IMG'&&!photo.complete)photo.addEventListener('load',reveal,{once:true});
-        else reveal();
+      const visible=entries.filter(entry=>entry.isIntersecting);
+      visible.forEach((entry,index)=>{
+        const element=entry.target;
+        observer.unobserve(element);
+        element.style.setProperty('--reveal-delay',Math.min(index,3)*90+'ms');
+        if(element.tagName==='IMG'&&!element.complete){
+          element.addEventListener('load',()=>reveal(element),{once:true});
+          element.addEventListener('error',()=>reveal(element),{once:true});
+        }else reveal(element);
       });
-    },{threshold:0.08});
-    photoTargets.forEach(photo=>observer.observe(photo));
-    photoMotion.addEventListener('change',()=>{
-      if(photoMotion.matches){
+    },{threshold:0.08,rootMargin:'0px 0px -24px 0px'});
+    revealTargets.forEach(element=>{
+      element.classList.add('content-reveal','reveal-pending');
+      observer.observe(element);
+    });
+    revealMotion.addEventListener('change',()=>{
+      if(revealMotion.matches){
         observer.disconnect();
-        photoTargets.forEach(photo=>photo.classList.remove('photo-reveal'));
+        revealTargets.forEach(reveal);
       }
+    });
+    app.addEventListener('focusin',event=>{
+      revealTargets.forEach(element=>{
+        if(element.contains(event.target)){observer.unobserve(element);reveal(element);}
+      });
     });
   }
   if(activeGroup)headerFor(activeGroup);

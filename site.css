@@ -83,9 +83,10 @@
 .cctv-photo-gallery img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:contain}
 @media(max-width:780px){.section-media-grid,.cctv-photo-gallery{grid-template-columns:1fr}.section-media-grid{gap:24px}.cctv-photo-gallery{max-width:520px;margin-inline:auto}.page-hero img.cctv-hero-photo--portrait{max-height:420px}}
 
-/* Photo entrance preserves visibility when JavaScript is unavailable. */
-@keyframes alo-photo-reveal{from{opacity:0;transform:translateY(10px) scale(.995)}to{opacity:1;transform:translateY(0) scale(1)}}
-.photo-reveal{animation:alo-photo-reveal 1100ms cubic-bezier(.22,.61,.36,1) var(--photo-delay,0ms) backwards}
-.photo-interactive{transition:transform 350ms ease}
-@media(hover:hover) and (pointer:fine){.photo-interactive:hover{transform:scale(1.025)}}
-@media(prefers-reduced-motion:reduce){.photo-reveal{animation:none}.photo-interactive{transition:none}.photo-interactive:hover{transform:none}}
+/* Progressive enhancement: text and images remain visible without JavaScript. */
+.content-reveal{opacity:1;transform:translateY(0);transition:opacity 1100ms cubic-bezier(.22,.61,.36,1) var(--reveal-delay,0ms),transform 1100ms cubic-bezier(.22,.61,.36,1) var(--reveal-delay,0ms)}
+.content-reveal.reveal-pending{opacity:0;transform:translateY(16px)}
+.photo-interactive{transition:transform 450ms ease}
+.photo-interactive.content-reveal{transition:opacity 1100ms cubic-bezier(.22,.61,.36,1) var(--reveal-delay,0ms),transform 1100ms cubic-bezier(.22,.61,.36,1) var(--reveal-delay,0ms)}
+@media(hover:hover) and (pointer:fine){.photo-interactive:not(.reveal-pending):hover{transform:scale(1.025)}}
+@media(prefers-reduced-motion:reduce){.content-reveal,.content-reveal.reveal-pending{opacity:1;transform:none;transition:none}.photo-interactive{transition:none}.photo-interactive:hover{transform:none}}
