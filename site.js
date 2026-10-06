@@ -102,7 +102,40 @@
     return '';
   };
   const pageSection=(s)=>`<section class="section ${s.soft?'soft':''}"><div class="wrap"><div class="section-head"><div class="kicker">${esc(s.kicker||'ALO SERWIS')}</div><h2>${esc(s.title)}</h2><p class="section-intro">${esc(s.body||'')}</p></div>${sectionHtml(s)}${s.cta?`<div class="button-row">${s.href?`<a class="btn" href="${s.href}" ${s.external?'target="_blank" rel="noopener noreferrer"':''}>${esc(s.cta)} →</a>`:contactButton(s.cta,contactHref)}</div>`:''}</div></section>`;
-  const home=`<main id="main" class="page-wrap"><section class="hero"><div class="wrap hero-grid"><div><div class="eyebrow">ALO SERWIS · WARSZAWA I WÓLKA KOSOWSKA</div><h1>Serwis i rozwiązania, które <span>działają.</span></h1><p class="lead">Naprawiamy telefony, tablety i laptopy. Montujemy monitoring, sieci i alarmy. Pomagamy firmom uruchomić nowoczesne ekrany reklamowe.</p><div class="button-row"><a class="btn" href="${contactHref}">Zapytaj o usługę →</a><a class="btn secondary" href="/gsm.html?page=services">Poznaj usługi GSM</a></div><div class="hero-note">Dwa punkty obsługi · Warszawa i Wólka Kosowska</div></div><div class="hero-visual"><img src="/assets/images/services-hero.webp" alt="Usługi ALO SERWIS — naprawa urządzeń i instalacje" loading="eager"><div class="visual-card"><b>Technologia dla domu i firmy</b>Doradzamy, montujemy i wspieramy po uruchomieniu.</div></div></div></section><section class="section"><div class="wrap"><div class="section-head"><div class="kicker">Nasze dziedziny</div><h2>Wybierz, czego potrzebujesz.</h2><p class="section-intro">Od naprawy telefonu po system monitoringu i ekrany reklamowe — skontaktuj się z właściwym zespołem.</p></div><div class="cards"><article class="service-card"><span class="icon-tile">▣</span><h3>Serwis GSM</h3><p>Usługi, ceny, naprawa urządzeń i sprawdzanie statusu zlecenia.</p><a class="text-link" href="/gsm.html?page=services">Poznaj usługi GSM →</a></article><article class="service-card"><span class="icon-tile">◉</span><h3>Systemy CCTV</h3><p>Kamery, alarmy, sieci, kontrola dostępu i rozwiązania dla domu.</p><a class="text-link" href="/cctv.html?page=cameras">Poznaj usługi CCTV →</a></article><article class="service-card"><span class="icon-tile">▤</span><h3>AloSignage</h3><p>Ekrany reklamowe i zdalne zarządzanie treścią przez CMS.</p><a class="text-link" href="/alosignage.html?page=screens">Poznaj AloSignage →</a></article></div></div></section><section class="section soft"><div class="wrap"><div class="section-head"><div class="kicker">Jak pracujemy</div><h2>Jasny plan od pierwszej rozmowy.</h2></div><div class="steps"><article class="step"><span class="step-num">01 / KONTAKT</span><h3>Opowiedz o potrzebie</h3><p>Skierujemy zapytanie do właściwej usługi.</p></article><article class="step"><span class="step-num">02 / WYCENA</span><h3>Dobieramy rozwiązanie</h3><p>Ustalamy zakres i koszt przed rozpoczęciem.</p></article><article class="step"><span class="step-num">03 / REALIZACJA</span><h3>Wykonujemy usługę</h3><p>Pracujemy po uzgodnieniu szczegółów.</p></article><article class="step"><span class="step-num">04 / WSPARCIE</span><h3>Pomagamy po realizacji</h3><p>Możesz wrócić do nas po dalszą pomoc.</p></article></div></div></section><section class="section"><div class="wrap"><div class="cta-panel"><div><div class="kicker">ALO SERWIS</div><h2>Potrzebujesz pomocy lub wyceny?</h2><p>Wybierz temat i skontaktuj się z nami przez jeden punkt kontaktu.</p></div>${contactButton('Przejdź do kontaktu')}</div></div></section></main>`;
+  // Replace this list with selected category cover images when they are ready.
+  const homeSlideCandidates=[
+    [pageData.cameras.image,pageData.cameras.title],
+    ...Object.entries(gsmServicePhotos).map(([title,src])=>[src,title]),
+    [pageData.repair.image,pageData.repair.title],
+    ...Object.entries(repairPhotoPaths).map(([title,src])=>[src,title]),
+    [pageData.cameras.sections[0].media,pageData.cameras.sections[0].title],
+    ...pageData.cameras.sections[1].gallery,
+    ...Object.values(pageData).filter(page=>page.image).map(page=>[page.image,page.title])
+  ];
+  const homeSlides=homeSlideCandidates.filter(([src],index,all)=>all.findIndex(([other])=>other===src)===index);
+  const carouselLabels={
+    pl:['Poprzednie zdjęcie','Następne zdjęcie','Wstrzymaj pokaz','Wznów pokaz','Galeria usług'],
+    vi:['Ảnh trước','Ảnh tiếp theo','Tạm dừng chuyển ảnh','Tiếp tục chuyển ảnh','Hình ảnh dịch vụ'],
+    en:['Previous image','Next image','Pause slideshow','Resume slideshow','Service gallery'],
+    zh:['上一张图片','下一张图片','暂停轮播','继续轮播','服务图片'],
+    tr:['Önceki fotoğraf','Sonraki fotoğraf','Slayt gösterisini duraklat','Slayt gösterisini sürdür','Hizmet galerisi'],
+    uk:['Попереднє фото','Наступне фото','Призупинити показ','Продовжити показ','Галерея послуг']
+  }[selectedLang];
+  const homeCarousel=`<div class="hero-visual home-carousel" role="region" aria-label="${esc(carouselLabels[4])}">
+    <div class="home-slider" tabindex="0" aria-label="${esc(carouselLabels[4])}">
+      ${homeSlides.map(([src,title],index)=>`<figure class="home-slide" role="group" aria-label="${index+1} / ${homeSlides.length}">
+        <img src="${src}" alt="${esc(tr(title))}" loading="${index===0?'eager':'lazy'}" decoding="async" width="1536" height="1152">
+      </figure>`).join('')}
+    </div>
+    <div class="home-slider-controls">
+      <button type="button" class="slider-prev" aria-label="${esc(carouselLabels[0])}">‹</button>
+      <span class="slider-count">1 / ${homeSlides.length}</span>
+      <button type="button" class="slider-next" aria-label="${esc(carouselLabels[1])}">›</button>
+      <button type="button" class="slider-pause" aria-label="${esc(carouselLabels[2])}" aria-pressed="false">Ⅱ</button>
+    </div>
+    <div class="home-slider-caption"><b>Technologia dla domu i firmy</b><span>Doradzamy, montujemy i wspieramy po uruchomieniu.</span></div>
+  </div>`;
+  const home=`<main id="main" class="page-wrap"><section class="hero"><div class="wrap hero-grid"><div><div class="eyebrow">ALO SERWIS · WARSZAWA I WÓLKA KOSOWSKA</div><h1>Serwis i rozwiązania, które <span>działają.</span></h1><p class="lead">Naprawiamy telefony, tablety i laptopy. Montujemy monitoring, sieci i alarmy. Pomagamy firmom uruchomić nowoczesne ekrany reklamowe.</p><div class="button-row"><a class="btn" href="${contactHref}">Zapytaj o usługę →</a><a class="btn secondary" href="/gsm.html?page=services">Poznaj usługi GSM</a></div><div class="hero-note">Dwa punkty obsługi · Warszawa i Wólka Kosowska</div></div>${homeCarousel}</div></section><section class="section"><div class="wrap"><div class="section-head"><div class="kicker">Nasze dziedziny</div><h2>Wybierz, czego potrzebujesz.</h2><p class="section-intro">Od naprawy telefonu po system monitoringu i ekrany reklamowe — skontaktuj się z właściwym zespołem.</p></div><div class="cards"><article class="service-card"><span class="icon-tile">▣</span><h3>Serwis GSM</h3><p>Usługi, ceny, naprawa urządzeń i sprawdzanie statusu zlecenia.</p><a class="text-link" href="/gsm.html?page=services">Poznaj usługi GSM →</a></article><article class="service-card"><span class="icon-tile">◉</span><h3>Systemy CCTV</h3><p>Kamery, alarmy, sieci, kontrola dostępu i rozwiązania dla domu.</p><a class="text-link" href="/cctv.html?page=cameras">Poznaj usługi CCTV →</a></article><article class="service-card"><span class="icon-tile">▤</span><h3>AloSignage</h3><p>Ekrany reklamowe i zdalne zarządzanie treścią przez CMS.</p><a class="text-link" href="/alosignage.html?page=screens">Poznaj AloSignage →</a></article></div></div></section><section class="section soft"><div class="wrap"><div class="section-head"><div class="kicker">Jak pracujemy</div><h2>Jasny plan od pierwszej rozmowy.</h2></div><div class="steps"><article class="step"><span class="step-num">01 / KONTAKT</span><h3>Opowiedz o potrzebie</h3><p>Skierujemy zapytanie do właściwej usługi.</p></article><article class="step"><span class="step-num">02 / WYCENA</span><h3>Dobieramy rozwiązanie</h3><p>Ustalamy zakres i koszt przed rozpoczęciem.</p></article><article class="step"><span class="step-num">03 / REALIZACJA</span><h3>Wykonujemy usługę</h3><p>Pracujemy po uzgodnieniu szczegółów.</p></article><article class="step"><span class="step-num">04 / WSPARCIE</span><h3>Pomagamy po realizacji</h3><p>Możesz wrócić do nas po dalszą pomoc.</p></article></div></div></section><section class="section"><div class="wrap"><div class="cta-panel"><div><div class="kicker">ALO SERWIS</div><h2>Potrzebujesz pomocy lub wyceny?</h2><p>Wybierz temat i skontaktuj się z nami przez jeden punkt kontaktu.</p></div>${contactButton('Przejdź do kontaktu')}</div></div></section></main>`;
 
   const generic=(data)=>{
     if(!data)return `<main id="main" class="page-wrap"><section class="section"><div class="wrap"><h1>Nie znaleziono strony</h1><a class="btn" href="/">Strona główna</a></div></section></main>`;
@@ -150,8 +183,8 @@
 
   // Reveal text and media once, in small groups as they enter the viewport.
   const revealMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
-  app.querySelectorAll('main img:not(.gsm-model-fallback), main .gsm-model-visual').forEach(photo=>photo.classList.add('photo-interactive'));
-  const revealCandidates=[...app.querySelectorAll('main h1, main h2, main h3, main p, main .eyebrow, main .kicker, main .button-row, main .hero-note, main .visual-card, main article, main .list-check li, main img:not(.gsm-model-fallback), main .gsm-model-visual')];
+  app.querySelectorAll('main img:not(.gsm-model-fallback):not(.home-slide img), main .gsm-model-visual').forEach(photo=>photo.classList.add('photo-interactive'));
+  const revealCandidates=[...app.querySelectorAll('main h1, main h2, main h3, main p, main .eyebrow, main .kicker, main .button-row, main .hero-note, main .visual-card, main article, main .list-check li, main img:not(.gsm-model-fallback):not(.home-slide img), main .gsm-model-visual')];
   const candidateSet=new Set(revealCandidates);
   const revealTargets=revealCandidates.filter(element=>{
     for(let parent=element.parentElement;parent&&parent.tagName!=='MAIN';parent=parent.parentElement){
@@ -188,6 +221,62 @@
         if(element.contains(event.target)){observer.unobserve(element);reveal(element);}
       });
     });
+  }
+
+  const homeSlider=app.querySelector('.home-slider');
+  if(homeSlider){
+    const carousel=homeSlider.closest('.home-carousel');
+    const pauseButton=carousel.querySelector('.slider-pause');
+    const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
+    let index=0,paused=motion.matches,hovered=false,focused=false,inView=true,timer=null,scrollFrame=null;
+    const count=carousel.querySelector('.slider-count');
+    const currentIndex=()=>Math.round(homeSlider.scrollLeft/homeSlider.clientWidth);
+    const stop=()=>{clearTimeout(timer);timer=null;};
+    const go=next=>{
+      const wrapped=(next+homeSlides.length)%homeSlides.length;
+      const isWrap=Math.abs(wrapped-index)>1;
+      index=wrapped;
+      homeSlider.scrollTo({left:index*homeSlider.clientWidth,behavior:motion.matches||isWrap?'instant':'smooth'});
+    };
+    const schedule=()=>{
+      stop();
+      if(!paused&&!hovered&&!focused&&inView&&!document.hidden)
+        timer=setTimeout(()=>{go(index+1);schedule();},5000);
+    };
+    const syncPause=()=>{
+      pauseButton.setAttribute('aria-pressed',String(paused));
+      pauseButton.setAttribute('aria-label',paused?carouselLabels[3]:carouselLabels[2]);
+      pauseButton.textContent=paused?'▶':'Ⅱ';
+      schedule();
+    };
+    carousel.querySelector('.slider-prev').addEventListener('click',()=>{go(index-1);schedule();});
+    carousel.querySelector('.slider-next').addEventListener('click',()=>{go(index+1);schedule();});
+    pauseButton.addEventListener('click',()=>{paused=!paused;syncPause();});
+    homeSlider.addEventListener('keydown',event=>{
+      if(event.key==='ArrowLeft'||event.key==='ArrowRight'){
+        event.preventDefault();go(index+(event.key==='ArrowRight'?1:-1));schedule();
+      }
+    });
+    homeSlider.addEventListener('scroll',()=>{
+      if(scrollFrame!==null)return;
+      scrollFrame=requestAnimationFrame(()=>{
+        scrollFrame=null;index=currentIndex();count.textContent=(index+1)+' / '+homeSlides.length;
+      });
+    },{passive:true});
+    homeSlider.addEventListener('pointerdown',stop,{passive:true});
+    homeSlider.addEventListener('pointerup',schedule,{passive:true});
+    homeSlider.addEventListener('pointercancel',schedule,{passive:true});
+    carousel.addEventListener('mouseenter',()=>{hovered=true;stop();});
+    carousel.addEventListener('mouseleave',()=>{hovered=false;schedule();});
+    carousel.addEventListener('focusin',()=>{focused=true;stop();});
+    carousel.addEventListener('focusout',event=>{if(!carousel.contains(event.relatedTarget)){focused=false;schedule();}});
+    document.addEventListener('visibilitychange',schedule);
+    window.addEventListener('resize',()=>{homeSlider.scrollTo({left:index*homeSlider.clientWidth,behavior:'instant'});});
+    motion.addEventListener('change',()=>{if(motion.matches)paused=true;syncPause();});
+    if('IntersectionObserver' in window)new IntersectionObserver(entries=>{
+      inView=entries[0].isIntersecting;schedule();
+    },{threshold:0.15}).observe(carousel);
+    syncPause();
   }
   if(activeGroup)headerFor(activeGroup);
   const nav=document.getElementById('primary-nav'),mobile=document.querySelector('.mobile-toggle');
